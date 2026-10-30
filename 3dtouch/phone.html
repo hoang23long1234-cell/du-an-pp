@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1210">
+  <link rel="stylesheet" href="mobile-optimization.css?v=mobile-4">
+  <link rel="stylesheet" href="../font/fonts.css">
+  <link rel="stylesheet" href="../tệp hệ thống/glass-theme.css?v=visionos-v95">
+  <title>SlideVault Touch Remote</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #080d14;
+      color: #f8fafc;
+      --glass: rgba(15, 23, 42, 0.72);
+      --glass-edge: rgba(255, 255, 255, 0.14);
+      --mint: #10b981;
+      --cyan: #38bdf8;
+      --amber: #f59e0b;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      min-width: 280px;
+      min-height: 100svh;
+      margin: 0;
+      padding: max(12px, env(safe-area-inset-top)) 14px max(18px, calc(env(safe-area-inset-bottom) + 8px));
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: 
+        radial-gradient(circle 350px at 10% 0%, rgba(16, 185, 129, 0.18), transparent 70%),
+        radial-gradient(circle 350px at 90% 100%, rgba(56, 189, 248, 0.15), transparent 70%),
+        #070b12;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      background: var(--glass);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-edge);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+    .brand {
+      color: #38bdf8;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    #connection-status {
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: right;
+    }
+    #connection-status[data-connected="true"] {
+      color: #10b981;
+      text-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+    }
+    .connect-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+    }
+    input, button, select {
+      min-height: 46px;
+      border: 1px solid var(--glass-edge);
+      border-radius: 12px;
+      color: inherit;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(14px);
+      font: inherit;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    input {
+      width: 100%;
+      padding: 0 14px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: .24em;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.45);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+    }
+    button {
+      padding: 0 18px;
+      color: #041424;
+      border-color: transparent;
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+    button:active {
+      transform: scale(0.97);
+    }
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+    #touch-surface {
+      position: relative;
+      flex: 1;
+      min-height: 220px;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--glass-edge);
+      border-radius: 20px;
+      background: 
+        radial-gradient(circle at center, rgba(56, 189, 248, 0.08) 0%, transparent 65%),
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), 
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px), 
+        rgba(8, 14, 26, 0.7);
+      background-size: 100% 100%, 28px 28px, 28px 28px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    #touch-surface::after {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      border: 1px dashed rgba(56, 189, 248, 0.2);
+      border-radius: 14px;
+      pointer-events: none;
+    }
+    #touch-surface[data-connected="true"] {
+      border-color: rgba(16, 185, 129, 0.45);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(16, 185, 129, 0.15);
+    }
+    .surface-label {
+      z-index: 1;
+      max-width: 250px;
+      color: #94a3b8;
+      font-size: 12px;
+      line-height: 1.7;
+      text-align: center;
+      pointer-events: none;
+      font-weight: 500;
+    }
+    .pad-crosshair {
+      position: absolute;
+      z-index: 2;
+      width: 26px;
+      height: 26px;
+      border: 2px solid #38bdf8;
+      border-radius: 50%;
+      background: rgba(56, 189, 248, 0.3);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.7);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .12s ease;
+    }
+    #touch-surface[data-connected="true"] .pad-crosshair[data-visible="true"] {
+      opacity: 1;
+    }
+    .tracking-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(130px, 1.3fr);
+      align-items: center;
+      gap: 6px 12px;
+      padding: 10px 14px;
+      border: 1px solid var(--glass-edge);
+      border-radius: 16px;
+      color: #f1f5f9;
+      background: var(--glass);
+      box-shadow: inset 0 1px rgba(255,255,255,.08), 0 8px 24px rgba(0,0,0,0.3);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+    }
+    .tracking-row label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+    .tracking-row select {
+      min-height: 42px;
+      width: 100%;
+      padding: 0 10px;
+      border-color: rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      background: rgba(8, 14, 26, 0.85);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    #tracking-status {
+      grid-column: 1 / -1;
+      min-height: 13px;
+      color: #94a3b8;
+      font-size: 10.5px;
+      overflow-wrap: anywhere;
+    }
+    .remote-actions {
+      position: sticky;
+      z-index: 5;
+      bottom: max(8px, env(safe-area-inset-bottom));
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 6px;
+      margin: 0;
+      padding: 8px;
+      border: 1px solid var(--glass-edge);
+      border-radius: 20px;
+      background: rgba(15, 23, 42, 0.85);
+      box-shadow: inset 0 1px rgba(255,255,255,.15), 0 14px 35px rgba(0,0,0,0.6);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+    }
+    .remote-actions button {
+      min-height: 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 4px 6px;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      font-size: 10px;
+      font-weight: 700;
+      box-shadow: none;
+    }
+    .remote-actions button:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+    .remote-actions button:active:not(:disabled) {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(.96);
+    }
+    .remote-actions #click-current {
+      color: #041424;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
+      font-weight: 800;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .help-panel {
+      padding: 11px 14px;
+      border: 1px solid var(--glass-edge);
+      border-radius: 16px;
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+    }
+    .help-panel summary {
+      min-height: 24px;
+      color: #f1f5f9;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .help-panel p {
+      margin: 8px 0 0;
+      color: #94a3b8;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+    .type-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+    }
+    .type-row input {
+      min-height: 44px;
+      font-size: 13px;
+      letter-spacing: normal;
+      text-align: left;
+    }
+    .type-row button {
+      min-height: 44px;
+    }
+    .type-row[hidden] { display: none; }
+    .mode-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-height: 32px;
+      color: #94a3b8;
+      font-size: 10.5px;
+    }
+    #toggle-typing {
+      min-height: 34px;
+      padding: 0 12px;
+      color: #f8fafc;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      font-size: 10.5px;
+      box-shadow: none;
+    }
+    .camera-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border: 1px solid var(--glass-edge);
+      border-radius: 16px;
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+    }
+    .camera-copy {
+      min-width: 0;
+      color: #94a3b8;
+      font-size: 10.5px;
+      line-height: 1.5;
+    }
+    .camera-copy strong {
+      display: block;
+      margin-bottom: 2px;
+      color: #f8fafc;
+      font-size: 11px;
+    }
+    #start-webcam {
+      min-height: 40px;
+      padding: 0 14px;
+      white-space: nowrap;
+    }
+    #camera-status {
+      grid-column: 1 / -1;
+      min-height: 13px;
+      color: #94a3b8;
+      font-size: 10.5px;
+      overflow-wrap: anywhere;
+    }
+    .camera-preview-wrap {
+      position: relative;
+      display: grid;
+      width: 100%;
+      max-height: 180px;
+      grid-column: 1 / -1;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #030712;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .camera-preview-wrap[hidden] { display: none; }
+    #camera-preview {
+      display: block;
+      width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+    }
+    #tracking-box {
+      position: absolute;
+      display: none;
+      border: 2px solid #38bdf8;
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.6), 0 0 20px rgba(56, 189, 248, 0.6);
+      pointer-events: none;
+    }
+    #tracking-box[data-active="true"] { display: block; }
+    #tracking-box[data-stale="true"] { border-style: dashed; opacity: .7; }
+    #tracking-label {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      max-width: 180px;
+      padding: 2px 7px;
+      overflow: hidden;
+      color: #041424;
+      background: #38bdf8;
+      border-radius: 5px;
+      font-size: 9px;
+      font-weight: 800;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .camera-panel summary {
+      grid-column: 1 / -1;
+      min-height: 24px;
+      color: #f1f5f9;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    footer {
+      color: #64748b;
+      font-size: 10.5px;
+      line-height: 1.5;
+      text-align: center;
+    }
+    @media (max-height: 640px) and (orientation: portrait) { body { gap: 7px; padding-top: max(8px, env(safe-area-inset-top)); padding-bottom: max(14px, calc(env(safe-area-inset-bottom) + 6px)); } #touch-surface { min-height: 130px; } .camera-copy { display: none; } }
+    @media (orientation: landscape) { body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, .55fr); grid-template-rows: auto auto auto minmax(100px, 1fr) auto auto auto auto; gap: 8px 12px; } header { grid-column: 1 / -1; } .connect-row { grid-column: 2; grid-row: 2; align-self: start; } .tracking-row { grid-column: 2; grid-row: 3; } #touch-surface { grid-column: 1; grid-row: 2 / 9; } .mode-row { grid-column: 2; grid-row: 4; align-self: end; } .type-row { grid-column: 2; grid-row: 5; } .help-panel { grid-column: 2; grid-row: 6; } .camera-panel { grid-column: 2; grid-row: 7; align-self: start; } .remote-actions { grid-column: 2; grid-row: 8; } footer { display: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js" defer></script>
+  <script src="phone-controller.js?v=target-lock-3" defer></script>
+  <!-- Universal Glass & Typography Design System -->
+  <link rel="stylesheet" href="../tệp hệ thống/glass-theme.css?v=visionos-v95">
+  <script src="../tệp hệ thống/glass-theme.js?v=visionos-v95"></script>
+  <!-- SlideVault Pro Enterprise Anti-Crash & Hack Guardian -->
+  <script src="../tệp hệ thống/anti-crash-client.js"></script>
+  <!-- Official Supabase JS Client v2 SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    (async function verifyAuthGate() {
+      const SUPABASE_URL = "https://jseyqlmwoyxsediwmmxl.supabase.co";
+      const SUPABASE_ANON_KEY = "sb_publishable_AjrkbEqWYNWQRz84EJu0wQ_k0mtSkZW";
+      let user = null;
+      try {
+        if (window.supabase) {
+          const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
+          });
+          const { data: { session } } = await client.auth.getSession();
+          if (session?.user) user = session.user;
+          else {
+            const { data: { user: authUser } } = await client.auth.getUser();
+            if (authUser) user = authUser;
+          }
+        }
+      } catch (e) {}
+
+      if (!user) {
+        try {
+          const local = JSON.parse(localStorage.getItem('slidevault_current_user') || 'null');
+          if (local && (local.email || local.name)) user = local;
+        } catch (e) {}
+      }
+
+      if (!user) {
+        user = {
+          name: 'Khách Trình Chiếu',
+          email: 'remote@slidevault.lan',
+          isGuest: true
+        };
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <a href="../trangchudong.html" class="brand" style="text-decoration: none; color: inherit;">SLIDEVAULT TOUCH</a>
+    <a href="../trangchudong.html" style="color: var(--mint); text-decoration: none; font-size: 11px; margin-left: auto; margin-right: 12px; font-weight: 600;">🏠 Trang chủ</a>
+    <span id="connection-status" role="status">Chưa kết nối</span>
+  </header>
+  <div class="connect-row">
+    <input id="room-pin" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="4" placeholder="MÃ PIN" aria-label="Mã kết nối 4 số">
+    <button id="connect-room" type="button">Kết nối</button>
+  </div>
+  <section class="tracking-row" aria-label="AI theo dõi mục tiêu">
+    <label for="target-mode">AI bám theo</label>
+    <select id="target-mode" aria-label="Chọn mục tiêu AI bám theo">
+      <option value="hand">Bàn tay · điều khiển</option>
+      <option value="person">Người · khóa mục tiêu</option>
+      <option value="object">Vật thể · khóa mục tiêu</option>
+      <option value="any">Tự động · vật thể bất kỳ</option>
+    </select>
+    <span id="tracking-status" role="status">Chọn bám tay để điều khiển; có thể đổi mục tiêu khi webcam bật.</span>
+  </section>
+  <main id="touch-surface" aria-label="Vùng điều khiển bằng cảm ứng" data-connected="false">
+    <span class="surface-label">Trackpad web<br>Vuốt để rê · chạm để bấm · vuốt nhanh để cuộn</span>
+    <span class="pad-crosshair" id="pad-crosshair" data-visible="false" aria-hidden="true"></span>
+  </main>
+  <div class="mode-row">
+    <span>Điều khiển web · không cần 3D Touch phần cứng</span>
+    <button id="toggle-typing" type="button" aria-expanded="false" disabled>Nhập văn bản</button>
+  </div>
+  <form id="type-form" class="type-row" hidden>
+    <input id="remote-text" type="text" maxlength="500" autocomplete="off" placeholder="Nhập vào ô đang chọn trên web" aria-label="Văn bản để nhập vào trang web">
+    <button type="submit">Gửi</button>
+  </form>
+  <details class="help-panel">
+    <summary>Hướng dẫn 3D Touch nhanh</summary>
+    <p>Đặt điện thoại cố định, đưa trọn tay vào khung và đủ sáng. Ở chế độ bám tay: chĩa ngón trỏ để rê, chụm ngón cái với ngón trỏ để bấm, mở lòng bàn tay rồi vuốt để cuộn/chuyển nội dung. Ở chế độ Người/Vật thể, AI khóa mục tiêu gần tâm bằng chuyển động và vùng màu; người đi ngang không làm đổi mục tiêu ngay. Đây là theo dõi hình ảnh, không nhận dạng danh tính.</p>
+  </details>
+  <details class="camera-panel">
+    <summary>Webcam điện thoại · P2P</summary>
+    <div class="camera-copy"><strong>AI xử lý trên thiết bị ghép đôi</strong>Video truyền P2P, không lưu server. Bám Người/Vật thể sẽ tốn pin hơn và tải model lần đầu.</div>
+    <button id="start-webcam" type="button" disabled>Bật webcam</button>
+    <div class="camera-preview-wrap" id="camera-preview-wrap" hidden>
+      <video id="camera-preview" playsinline muted autoplay aria-label="Xem trước webcam điện thoại"></video>
+      <span id="tracking-box" aria-hidden="true"><span id="tracking-label"></span></span>
+    </div>
+    <span id="camera-status" role="status">Kết nối với máy tính trước.</span>
+  </details>
+  <nav class="remote-actions" aria-label="Thanh điều khiển nhanh">
+    <button id="scroll-up" type="button" aria-label="Cuộn lên" disabled>↑<span>Cuộn lên</span></button>
+    <button id="click-current" type="button" aria-label="Bấm tại vị trí con trỏ" disabled>●<span>Bấm</span></button>
+    <button id="scroll-down" type="button" aria-label="Cuộn xuống" disabled>↓<span>Cuộn xuống</span></button>
+  </nav>
+  <footer>Camera chỉ bật khi bạn cho phép. Webcam P2P cần HTTPS và thiết bị cùng mạng hoặc có TURN.</footer>
+</body>
+</html>

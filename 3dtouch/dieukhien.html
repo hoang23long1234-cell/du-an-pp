@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="stylesheet" href="mobile-optimization.css?v=mobile-4">
+  <link rel="stylesheet" href="../tệp hệ thống/glass-theme.css?v=visionos-v95">
+  <meta name="theme-color" content="#0a100e">
+  <title>SlideVault Motion | Điều khiển bằng tay</title>
+  <link rel="stylesheet" href="../font/fonts.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@4.22.0/dist/tf-backend-wasm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/hand-pose-detection@2.0.1/dist/hand-pose-detection.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090e0c;
+      --panel: #111916;
+      --panel-raised: #17211c;
+      --line: #28362f;
+      --text: #f1f4ec;
+      --muted: #a0ada4;
+      --quiet: #9aa79f;
+      --mint: #b7f36b;
+      --cyan: #76d6d1;
+      --amber: #f3bd72;
+      --danger: #f08479;
+      --radius: 10px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 8% 0%, rgba(90, 139, 92, .16), transparent 38rem),
+        radial-gradient(ellipse at 98% 72%, rgba(51, 116, 111, .12), transparent 34rem),
+        var(--bg);
+      font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+    button { color: inherit; }
+
+    .shell { width: min(1260px, calc(100% - 40px)); margin: 0 auto; }
+
+    .topbar {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(185, 210, 191, .12);
+    }
+
+    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--text); }
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(183, 243, 107, .5);
+      color: var(--mint);
+      font: 700 11px 'Montserrat', sans-serif;
+      transform: rotate(-8deg);
+    }
+    .brand-name { font: 700 13px 'Montserrat', sans-serif; letter-spacing: .06em; }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .privacy-state, .link-back { color: var(--muted); font-size: 12px; }
+    .privacy-state { display: inline-flex; align-items: center; gap: 8px; }
+    .privacy-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 12px rgba(183, 243, 107, .7); }
+    .link-back { text-decoration: none; padding: 8px 0 8px 12px; border-left: 1px solid var(--line); }
+    .link-back:hover { color: var(--text); }
+
+    .intro { padding: 30px 0 20px; animation: rise-in .55s cubic-bezier(.2,.8,.2,1) both; }
+    .eyebrow { color: var(--mint); font: 600 11px 'Montserrat', sans-serif; letter-spacing: .18em; text-transform: uppercase; }
+    h1 { margin: 8px 0 6px; font: 600 30px 'Montserrat', sans-serif; }
+    .intro p { margin: 0; max-width: 760px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+
+    .workspace { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 14px; align-items: start; padding-bottom: 32px; }
+    .stage, .side-panel { background: rgba(17, 25, 22, .9); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .stage-head, .panel-head { min-height: 48px; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; border-bottom: 1px solid var(--line); }
+    .section-label { font: 600 11px 'Montserrat', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .live-state { display: inline-flex; align-items: center; gap: 7px; color: var(--quiet); font-size: 11px; }
+    .live-state[data-live="true"] { color: var(--mint); }
+    .live-state span { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+    .camera-view {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      min-height: 260px;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(133, 181, 150, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(133, 181, 150, .045) 1px, transparent 1px),
+        #070b09;
+      background-size: 32px 32px;
+    }
+    .camera-view video, .camera-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+    .camera-view video { opacity: 0; transition: opacity .25s ease; }
+    .camera-view[data-active="true"] video { opacity: .68; }
+    .camera-view canvas { z-index: 1; pointer-events: none; }
+    .camera-hud { position: absolute; z-index: 2; inset: 14px; display: flex; justify-content: space-between; align-items: flex-start; pointer-events: none; }
+    .hud-tag { display: inline-flex; align-items: center; gap: 7px; padding: 6px 9px; color: #dbe7db; background: rgba(5, 10, 8, .75); border: 1px solid rgba(184, 218, 189, .16); border-radius: 5px; font: 500 11px 'Montserrat', sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+    .hud-tag strong { color: var(--mint); font-weight: 600; }
+    .hand-cursor {
+      position: absolute;
+      z-index: 3;
+      width: 26px;
+      height: 26px;
+      display: none;
+      border: 1px solid white;
+      border-radius: 50%;
+      background: rgba(183, 243, 107, .26);
+      box-shadow: 0 0 0 5px rgba(183, 243, 107, .12), 0 0 22px rgba(183, 243, 107, .7);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .hand-cursor[data-pinch="true"] { background: rgba(243, 189, 114, .75); transform: translate(-50%, -50%) scale(.78); }
+    .camera-empty { position: absolute; z-index: 4; inset: 0; display: grid; place-items: center; text-align: center; padding: 24px; background: rgba(7, 11, 9, .42); transition: opacity .25s ease; }
+    .camera-view[data-active="true"] .camera-empty { opacity: 0; pointer-events: none; }
+    .empty-content { max-width: 340px; }
+    .camera-glyph { width: 44px; height: 44px; display: grid; place-items: center; margin: 0 auto 12px; color: var(--mint); border: 1px solid rgba(183, 243, 107, .34); border-radius: 50%; background: rgba(183, 243, 107, .06); font-size: 19px; }
+    .empty-content h2 { margin: 0 0 6px; font: 600 15px 'Montserrat', sans-serif; }
+    .empty-content p { margin: 0 auto 15px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+
+    .camera-controls { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line); }
+    .button { min-height: 36px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 13px; border: 1px solid transparent; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 600; transition: transform .16s ease, background .2s ease, border-color .2s ease; }
+    .button:hover:not(:disabled) { transform: translateY(-1px); }
+    .button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+    .button:disabled { opacity: .46; cursor: not-allowed; }
+    .button-primary { color: #0d1609; background: var(--mint); }
+    .button-primary:hover:not(:disabled) { background: #c9fb8e; }
+    .button-subtle { color: var(--text); background: var(--panel-raised); border-color: var(--line); }
+    .control-hint { margin-left: auto; color: var(--quiet); font-size: 11px; text-align: right; }
+
+    .analysis-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border-top: 1px solid var(--line); }
+    .readout { min-height: 68px; padding: 12px 14px; background: #0d1411; }
+    .readout-label { display: block; margin-bottom: 7px; color: var(--quiet); font: 500 11px 'Montserrat', sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+    .readout-value { color: var(--text); font: 600 13px 'Montserrat', sans-serif; }
+    .readout-value[data-accent="true"] { color: var(--mint); }
+
+    .side-panel { display: flex; flex-direction: column; }
+    .radar-wrap { position: relative; min-height: 270px; background: radial-gradient(ellipse at center, rgba(70, 112, 84, .13), transparent 68%); }
+    #radar-canvas { width: 100%; height: 270px; display: block; }
+    .radar-fallback { width: 100%; height: 270px; display: block; }
+    .radar-label { position: absolute; left: 14px; bottom: 12px; color: var(--quiet); font: 500 11px 'Montserrat', sans-serif; letter-spacing: .1em; }
+    .radar-status { position: absolute; right: 14px; top: 12px; color: var(--muted); font: 500 11px 'Montserrat', sans-serif; text-transform: uppercase; }
+    .settings { padding: 15px; border-top: 1px solid var(--line); }
+    .setting-title { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 9px; font-size: 11px; }
+    .setting-title span:last-child { color: var(--mint); font-variant-numeric: tabular-nums; }
+    input[type="range"] { width: 100%; height: 3px; accent-color: var(--mint); cursor: pointer; }
+    .setting-caption { margin-top: 8px; color: var(--quiet); font-size: 11px; line-height: 1.55; }
+
+    .gesture-guide { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+    .gesture-item { min-height: 57px; display: flex; align-items: center; gap: 10px; padding: 10px 14px; }
+    .gesture-item:nth-child(odd) { border-right: 1px solid var(--line); }
+    .gesture-item:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .gesture-icon { width: 28px; height: 28px; display: grid; place-items: center; flex: 0 0 auto; color: var(--cyan); background: rgba(118, 214, 209, .08); border: 1px solid rgba(118, 214, 209, .18); border-radius: 6px; font-size: 12px; }
+    .gesture-copy strong { display: block; margin-bottom: 3px; font-size: 11px; font-weight: 600; }
+    .gesture-copy small { display: block; color: var(--quiet); font-size: 11px; }
+
+    .event-line { display: flex; align-items: center; gap: 9px; min-height: 42px; padding: 0 14px; color: var(--muted); border-top: 1px solid var(--line); font-size: 11px; }
+    .event-line::before { content: ''; width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: var(--amber); }
+    .event-line[data-kind="good"]::before { background: var(--mint); }
+    .event-line[data-kind="error"]::before { background: var(--danger); }
+
+    .privacy-note { display: flex; align-items: flex-start; gap: 9px; padding: 12px 14px; color: var(--quiet); border-top: 1px solid var(--line); font-size: 11px; line-height: 1.55; }
+    .privacy-note b { color: var(--muted); font-weight: 600; }
+
+    @keyframes rise-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 860px) {
+      .workspace { grid-template-columns: minmax(0, 1fr) 300px; }
+      .camera-view { min-height: 220px; }
+    }
+    @media (max-width: 700px) {
+      .shell { width: min(100% - 24px, 560px); }
+      .topbar { min-height: 58px; }
+      .privacy-state { display: none; }
+      .intro { padding-top: 23px; }
+      h1 { font-size: 25px; }
+      .workspace { grid-template-columns: 1fr; gap: 12px; }
+      .stage, .side-panel, .camera-view { min-width: 0; }
+      .camera-view { min-height: 180px; }
+      .side-panel { display: grid; grid-template-columns: 1fr; }
+      .radar-wrap { min-height: 240px; }
+      #radar-canvas { height: 240px; }
+      .control-hint { max-width: 120px; }
+      .button { min-height: 44px; }
+      .camera-controls { flex-wrap: wrap; }
+      .control-hint { flex: 1 1 100%; max-width: none; margin-left: 0; text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+  <!-- Universal Glass & Typography Design System -->
+  <link rel="stylesheet" href="../tệp hệ thống/glass-theme.css?v=visionos-v95">
+  <script src="../tệp hệ thống/glass-theme.js?v=visionos-v95"></script>
+  <!-- SlideVault Pro Enterprise Anti-Crash & Hack Guardian -->
+  <script src="../tệp hệ thống/anti-crash-client.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="../trangchudong.html" aria-label="3D Touch, về trang chủ">
+        <span class="brand-mark">SV</span>
+        <span class="brand-name">3D TOUCH · AI</span>
+      </a>
+      <div class="topbar-right">
+        <span class="privacy-state"><span class="privacy-dot"></span>AI chạy trên thiết bị</span>
+        <a class="link-back" href="../phone.html" style="color:var(--mint); font-weight: 600;">📱 Remote Điện Thoại</a>
+        <a class="link-back" href="../trangchudong.html">Về SlideVault</a>
+      </div>
+    </header>
+
+    <section class="intro">
+      <span class="eyebrow">Motion Lab / 01</span>
+      <h1>Điều khiển bằng tay</h1>
+      <p>Camera bám đầu ngón trỏ để rê con trỏ trên trang. Vuốt dọc để cuộn, vuốt ngang để chuyển dải nội dung, chụm ngón để bấm. Lần đầu sử dụng? Mở <a href="tutorial.html" style="color:#b7f36b;">trung tâm hướng dẫn</a> để xem bàn tay 3D minh họa từng động tác, hoặc thử <a href="share.html" style="color:#76d6d1;">AirShare</a> để chia sẻ file bằng cử chỉ.</p>
+    </section>
+
+    <main class="workspace">
+      <section class="stage" aria-label="Phân tích chuyển động tay">
+        <div class="stage-head" style="display:flex; justify-content:space-between; align-items:center; padding:8px 14px; gap:8px;">
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button type="button" id="tab-touchpad" class="button button-primary" style="min-height:30px; font-size:11px; padding:0 11px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M14 4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6"/><path d="M18 11V6a2 2 0 0 0-4 0v4"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg> Bàn Di Cảm Ứng (100% Hoạt Động)
+            </button>
+            <button type="button" id="tab-camera" class="button button-subtle" style="min-height:30px; font-size:11px; padding:0 11px;">
+              📹 Camera AI
+            </button>
+            <button type="button" id="tab-phone" class="button button-subtle" style="min-height:30px; font-size:11px; padding:0 11px;">
+              📱 Ghép Đôi Điện Thoại (QR & PIN)
+            </button>
+          </div>
+          <span class="live-state" id="camera-state" data-live="true"><span></span><b id="camera-state-text">Cảm ứng sẵn sàng</b></span>
+        </div>
+
+        <!-- VIEW 1: VIRTUAL TOUCHPAD (DEFAULT, ZERO-PERMISSION, 100% WORKS) -->
+        <div class="touchpad-view" id="touchpad-view" style="position:relative; aspect-ratio:16/10; min-height:260px; background:#070B09; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:12px; touch-action:none; user-select:none;">
+          <div id="lab-touch-surface" style="width:100%; height:100%; border:2px dashed rgba(183, 243, 107, 0.45); border-radius:12px; position:relative; overflow:hidden; background:radial-gradient(ellipse at center, rgba(183, 243, 107, 0.08) 0%, rgba(13, 20, 17, 0.95) 100%); cursor:crosshair; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(183, 243, 107, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(183, 243, 107, 0.06) 1px, transparent 1px); background-size:24px 24px; pointer-events:none;"></div>
+            <div id="lab-thumb-dot" style="position:absolute; width:26px; height:26px; border-radius:50%; background:radial-gradient(circle, #B7F36B 30%, rgba(118, 214, 209, 0.6) 80%); border:2px solid #FFF; box-shadow:0 0 16px #B7F36B; transform:translate(-50%, -50%); left:50%; top:50%; pointer-events:none; transition:transform 0.06s ease;"></div>
+            <div id="lab-force-ring" style="position:absolute; width:70px; height:70px; border-radius:50%; border:2px solid #F3BD72; box-shadow:0 0 24px #F3BD72; transform:translate(-50%, -50%) scale(1); left:50%; top:50%; display:none; pointer-events:none;"></div>
+            <div style="z-index:2; text-align:center; pointer-events:none; padding:12px;">
+              <div style="margin-bottom:6px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M14 4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6"/><path d="M18 11V6a2 2 0 0 0-4 0v4"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></div>
+              <div style="font-weight:700; color:#F1F4EC; font-size:14px; margin-bottom:4px; letter-spacing:0.04em;">BÀN DI CẢM ỨNG 3D TOUCH TOÀN THIẾT BỊ</div>
+              <div style="font-size:11.5px; color:#A0ADA4; max-width:440px; margin:0 auto; line-height:1.5;">
+                Rê ngón tay hoặc chuột để điều khiển con trỏ · Bấm nhanh để Click · Nhấn giữ 0.5s để kích hoạt lực 3D Touch · Vuốt ngang để chuyển Slide
+              </div>
+            </div>
+            <!-- In-pad Force Progress -->
+            <div style="position:absolute; top:0; left:0; right:0; height:4px; background:rgba(255,255,255,0.08);">
+              <div id="lab-force-bar" style="width:0%; height:100%; background:linear-gradient(90deg, #B7F36B, #76D6D1, #F3BD72); transition:width 0.04s ease;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="touchpad-controls" id="touchpad-controls" style="display:flex; flex-wrap:wrap; gap:8px; padding:12px 14px; border-top:1px solid var(--line); background:#0B132B;">
+          <button type="button" class="button button-subtle" id="lab-btn-prev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>Lùi Slide</button>
+          <button type="button" class="button button-primary" id="lab-btn-click"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M14 4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v6"/><path d="M18 11V6a2 2 0 0 0-4 0v4"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>Nhấp (Click)</button>
+          <button type="button" class="button button-subtle" id="lab-btn-force" style="border-color:#F3BD72; color:#F3BD72;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>3D Lực (Pop)</button>
+          <button type="button" class="button button-subtle" id="lab-btn-next">Tiến Slide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-left:4px;"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg></button>
+          <button type="button" class="button button-subtle" id="lab-btn-scroll-up"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="18 15 12 9 6 15"/></svg>Cuộn Lên</button>
+          <button type="button" class="button button-subtle" id="lab-btn-scroll-down"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="6 9 12 15 18 9"/></svg>Cuộn Xuống</button>
+        </div>
+
+        <!-- VIEW 3: PHONE PAIRING VIEW (QR CODE & PIN) -->
+        <div class="phone-view" id="phone-view" style="display:none; position:relative; min-height:280px; background:#070B09; flex-direction:column; justify-content:center; align-items:center; padding:20px; text-align:center;">
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(183,243,107,0.3); border-radius:18px; padding:20px; max-width:480px; width:100%; display:flex; flex-direction:column; align-items:center; gap:12px;">
+            <div style="font-weight:700; color:#b7f36b; font-size:13px; letter-spacing:0.08em; text-transform:uppercase;">
+              📱 KẾT NỐI ĐIỆN THOẠI LÀM REMOTE 3D TOUCH
+            </div>
+            <div style="font-size:12px; color:#a0ada4; line-height:1.5;">
+              Quét mã QR bằng Camera điện thoại hoặc truy cập địa chỉ bên dưới để điều khiển Motion Lab & trình chiếu từ xa:
+            </div>
+            <div style="background:#fff; padding:10px; border-radius:12px; box-shadow:0 0 25px rgba(183,243,107,0.25);">
+              <img id="lab-phone-qr" src="/api/qr?text=http://localhost:3000/phone.html" alt="QR Code" style="width:160px; height:160px; display:block;" />
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; width:100%; background:rgba(255,255,255,0.06); padding:8px 16px; border-radius:10px; border:1px solid rgba(255,255,255,0.1);">
+              <span style="font-size:11px; color:#a0ada4;">MÃ PIN KẾT NỐI:</span>
+              <span id="lab-phone-pin" style="font-size:22px; font-weight:800; color:#b7f36b; letter-spacing:0.2em;">----</span>
+            </div>
+            <a id="lab-phone-url" href="#" target="_blank" style="color:#76d6d1; font-size:11px; text-decoration:none; word-break:break-all;">
+              Đang tải địa chỉ kết nối...
+            </a>
+            <div id="lan-sync-pill" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:999px; font-size:11px; font-weight:700; background:rgba(118,214,209,0.15); border:1px solid rgba(118,214,209,0.4); color:#76d6d1;">
+              <span id="lan-sync-text"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> LAN SYNC: SẴN SÀNG ĐIỀU KHIỂN</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 2: CAMERA VIEW (OPTIONAL) -->
+        <div class="camera-view" id="camera-view" data-active="false" style="display:none;">
+          <video id="camera-video" playsinline muted></video>
+          <canvas id="landmark-canvas" aria-hidden="true"></canvas>
+          <div class="camera-hud">
+            <span class="hud-tag">TRACK <strong id="track-tag">OFF</strong></span>
+            <span class="hud-tag">AI <strong id="ai-backend-tag">LOCAL</strong></span>
+          </div>
+          <div class="hand-cursor" id="preview-cursor"></div>
+          <div class="camera-empty" id="camera-empty">
+            <div class="empty-content">
+              <svg class="camera-glyph" viewBox="0 0 72 72" role="img" aria-label="Minh họa theo dõi bàn tay">
+                <path d="M25 57c-2-2-3-5-3-8V29c0-3 5-3 5 0v10-22c0-4 6-4 6 0v20-24c0-4 6-4 6 0v24-19c0-4 6-4 6 0v22l4-7c2-3 7 0 5 4l-7 16c-2 5-6 8-12 8h-4c-4 0-9-1-12-4Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 24h7M53 17l5-5M58 29h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <h2>Sẵn sàng phân tích</h2>
+              <p>Chỉ bật camera khi bạn cho phép. Video được xử lý trong trình duyệt và không gửi lên máy chủ.</p>
+              <button class="button button-primary" id="start-camera" type="button">Bật camera</button>
+            </div>
+          </div>
+        </div>
+        <div class="camera-controls" id="camera-controls" style="display:none;">
+          <button class="button button-primary" id="start-camera-bottom" type="button">Bật camera</button>
+          <button class="button button-subtle" id="stop-camera" type="button" disabled>Dừng camera</button>
+          <span class="control-hint">Cần HTTPS hoặc localhost để cấp quyền camera</span>
+        </div>
+        <div class="analysis-strip" aria-live="polite">
+          <div class="readout"><span class="readout-label">Bàn tay / Chế độ</span><span class="readout-value" id="hand-readout" data-accent="true">Cảm ứng ảo</span></div>
+          <div class="readout"><span class="readout-label">Cử chỉ gần nhất</span><span class="readout-value" id="gesture-readout">Sẵn sàng điều khiển</span></div>
+          <div class="readout"><span class="readout-label">Tốc độ xử lý</span><span class="readout-value" id="fps-readout">60 FPS</span></div>
+        </div>
+        <div class="event-line" id="event-line" role="status">Bàn di cảm ứng đang hoạt động. Rê tay hoặc bấm các nút để tương tác.</div>
+      </section>
+
+      <aside class="side-panel" aria-label="Radar và cài đặt điều khiển">
+        <div class="panel-head">
+          <span class="section-label">Theo dõi không gian 3D</span>
+          <span class="live-state" id="radar-state"><span></span><b>Đang khởi tạo</b></span>
+        </div>
+        <div class="radar-wrap">
+          <canvas id="radar-canvas" aria-label="Radar 3D bám vị trí bàn tay"></canvas>
+          <span class="radar-status" id="radar-target">NO TARGET</span>
+          <span class="radar-label">HAND POSITION / LIVE</span>
+        </div>
+        <div class="settings">
+          <label class="setting-title" for="sensitivity"><span>Độ nhạy vuốt</span><span id="sensitivity-value">22%</span></label>
+          <input id="sensitivity" type="range" min="14" max="36" value="22" aria-label="Độ nhạy vuốt">
+          <p class="setting-caption">Giảm ngưỡng nếu camera khó bắt tay; tăng ngưỡng để tránh kích hoạt nhầm.</p>
+        </div>
+        <div class="gesture-guide" aria-label="Các cử chỉ hỗ trợ">
+          <div class="gesture-item"><span class="gesture-icon">✌️</span><span class="gesture-copy"><strong>Cuộn 2 ngón</strong><small>Trackpad mượt mà</small></span></div>
+          <div class="gesture-item"><span class="gesture-icon">👍</span><span class="gesture-copy"><strong>Ngón cái</strong><small>Toàn màn hình</small></span></div>
+          <div class="gesture-item"><span class="gesture-icon">⌖</span><span class="gesture-copy"><strong>Ngón trỏ</strong><small>Rê con trỏ</small></span></div>
+          <div class="gesture-item"><span class="gesture-icon">●</span><span class="gesture-copy"><strong>Chụm ngón</strong><small>Bấm mục tiêu</small></span></div>
+          <div class="gesture-item"><span class="gesture-icon">↔</span><span class="gesture-copy"><strong>Vuốt ngang</strong><small>Chuyển slide</small></span></div>
+          <div class="gesture-item"><span class="gesture-icon">↕</span><span class="gesture-copy"><strong>Vuốt dọc</strong><small>Cuộn trang nhanh</small></span></div>
+        </div>
+        <div class="privacy-note"><span aria-hidden="true">◈</span><span><b>Riêng tư:</b> AI chạy trong trình duyệt. Camera máy tính không rời thiết bị; webcam điện thoại chỉ truyền P2P tới máy tính đã ghép đôi, không lưu trên server. Mạng WAN có thể cần cấu hình TURN.</span></div>
+      </aside>
+    </main>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+    import { AI3dTargetTracker, AI3dTouch, DeviceTierManager, Finger, FingerCurl, FingerDirection } from './AI3d.js?v=fingerpose-tier-v6';
+
+    const byId = (id) => document.getElementById(id);
+    const video = byId('camera-video');
+    const view = byId('camera-view');
+    const canvas = byId('landmark-canvas');
+    const context = canvas.getContext('2d');
+    const inferenceCanvas = document.createElement('canvas');
+    const inferenceContext = inferenceCanvas.getContext('2d', { willReadFrequently: true });
+    const targetCanvas = document.createElement('canvas');
+    const targetContext = targetCanvas.getContext('2d', { willReadFrequently: true });
+    const cursor = byId('preview-cursor');
+    const handReadout = byId('hand-readout');
+    const gestureReadout = byId('gesture-readout');
+    const fpsReadout = byId('fps-readout');
+    const eventLine = byId('event-line');
+    const startButtons = [byId('start-camera'), byId('start-camera-bottom')];
+    const stopButton = byId('stop-camera');
+    const sensitivity = byId('sensitivity');
+    const ai3dTouch = new AI3dTouch();
+    const targetTracker = new AI3dTargetTracker();
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const compactScreen = window.matchMedia('(max-width: 700px)').matches;
+    let stream = null;
+    let phoneStream = null;
+    let streamIsExternal = false;
+    let handDetector = null;
+    let objectDetector = null;
+    let objectDetectorPromise = null;
+    let targetMode = 'hand';
+    let targetModeVersion = 0;
+    let trackedTarget = null;
+    let lastTargetDetection = 0;
+    let targetDetectorRetryAt = 0;
+    let animationFrame = 0;
+    let inferenceBusy = false;
+    let lastInference = 0;
+    let targetInferenceBusy = false;
+    let inferenceStartedAt = 0;
+    let lastInferenceWarningAt = 0;
+    let lastFrameTime = 0;
+    let frameCount = 0;
+    let fpsStart = performance.now();
+    let swipeStart = null;
+    let lastActionAt = 0;
+    let wasPinching = false;
+    let noHandSince = 0;
+    let lastHandHintAt = 0;
+    let targetPoint = { x: 0, y: 0, active: false };
+    const handConnections = [
+      [0, 1], [1, 2], [2, 3], [3, 4], [0, 5], [5, 6], [6, 7], [7, 8],
+      [5, 9], [9, 10], [10, 11], [11, 12], [9, 13], [13, 14], [14, 15],
+      [15, 16], [13, 17], [0, 17], [17, 18], [18, 19], [19, 20],
+    ];
+
+    function setStatus(label, live) {
+      byId('camera-state-text').textContent = label;
+      byId('camera-state').dataset.live = String(live);
+      byId('track-tag').textContent = live ? 'LIVE' : 'OFF';
+      view.dataset.active = String(live);
+    }
+
+    function announce(message, kind = '') {
+      eventLine.textContent = message;
+      eventLine.dataset.kind = kind;
+    }
+
+    let lastLanSend = 0;
+    let lanActiveScreens = 0;
+
+    function sendToLanBridge(payload) {
+      const now = performance.now();
+      if (payload.type === 'pointer') {
+        if (now - lastLanSend < 22) return; // 45fps smooth throttle
+        lastLanSend = now;
+      }
+      try {
+        fetch('/api/3dtouch/dispatch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: payload.type === 'click' || payload.type === 'swipe'
+        }).then(r => r.json()).then(res => {
+          if (res && res.activeScreens !== undefined) {
+            updateLanSyncPill(res.activeScreens);
+          }
+        }).catch(() => {});
+      } catch(e) {}
+    }
+
+    function updateLanSyncPill(screens) {
+      lanActiveScreens = screens;
+      const pill = document.getElementById('lan-sync-pill');
+      const text = document.getElementById('lan-sync-text');
+      if (!pill || !text) return;
+      if (screens > 0) {
+        pill.style.background = 'rgba(183, 243, 107, 0.22)';
+        pill.style.borderColor = 'rgba(183, 243, 107, 0.6)';
+        pill.style.color = '#b7f36b';
+        text.textContent = '🟢 ĐÃ KẾT NỐI ' + screens + ' MÀN HÌNH PC';
+      } else {
+        pill.style.background = 'rgba(118, 214, 209, 0.15)';
+        pill.style.borderColor = 'rgba(118, 214, 209, 0.4)';
+        pill.style.color = '#76d6d1';
+        text.textContent = 'LAN SYNC: SẴN SÀNG ĐIỀU KHIỂN';
+      }
+    }
+
+    // Ping check LAN bridge periodically
+    setInterval(() => {
+      fetch('/api/3dtouch/status')
+        .then(r => r.json())
+        .then(d => { if (d && d.activeScreens !== undefined) updateLanSyncPill(d.activeScreens); })
+        .catch(() => {});
+    }, 3500);
+
+    function sendToPage(payload) {
+      if (window.parent !== window) {
+        const targetOrigin = window.location.origin === 'null' ? '*' : window.location.origin;
+        window.parent.postMessage({ source: 'slidevault-hand-control', ...payload }, targetOrigin);
+      }
+      sendToLanBridge(payload);
+    }
+
+    function sendTrackingStatus(status, target = trackedTarget) {
+      sendToPage({
+        type: 'tracking',
+        status,
+        bbox: target?.bbox ?? null,
+        label: target?.class === 'person' ? 'Người' : target?.class ?? '',
+        stale: target?.stale ?? false,
+      });
+    }
+
+    function releaseObjectDetector() {
+      if (!objectDetector) return;
+      const detector = objectDetector;
+      objectDetector = null;
+      objectDetectorPromise = null;
+      detector.dispose();
+    }
+
+    async function loadObjectDetector() {
+      if (objectDetector) return objectDetector;
+      if (!objectDetectorPromise) {
+        objectDetectorPromise = new Promise((resolve, reject) => {
+          if (window.cocoSsd) {
+            resolve(window.cocoSsd);
+            return;
+          }
+          const script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js';
+          script.async = true;
+          script.onload = () => window.cocoSsd
+            ? resolve(window.cocoSsd)
+            : reject(new Error('COCO-SSD không khởi tạo được.'));
+          script.onerror = () => reject(new Error('Không tải được model theo dõi vật thể.'));
+          document.head.appendChild(script);
+        }).then((cocoSsd) => cocoSsd.load({ base: 'lite_mobilenet_v2' }));
+      }
+      try {
+        objectDetector = await objectDetectorPromise;
+        return objectDetector;
+      } catch (error) {
+        objectDetectorPromise = null;
+        throw error;
+      }
+    }
+
+    function drawTrackedTarget() {
+      if (!trackedTarget) return;
+      const width = video.videoWidth || 640;
+      const height = video.videoHeight || 480;
+      const [x, y, boxWidth, boxHeight] = trackedTarget.bbox;
+      const color = trackedTarget.class === 'person' ? '#f3bd72' : '#76d6d1';
+      const label = trackedTarget.class === 'person'
+        ? 'NGƯỜI'
+        : trackedTarget.class.toLocaleUpperCase('vi-VN');
+      context.save();
+      context.strokeStyle = color;
+      context.fillStyle = color;
+      context.globalAlpha = trackedTarget.stale ? 0.55 : 1;
+      context.lineWidth = Math.max(2, width / 320);
+      context.setLineDash(trackedTarget.stale ? [Math.max(5, width / 80), Math.max(3, width / 140)] : []);
+      context.strokeRect(x * width, y * height, boxWidth * width, boxHeight * height);
+      context.setLineDash([]);
+      context.font = `600 ${Math.max(13, width / 32)}px "Be Vietnam Pro", sans-serif`;
+      context.fillText(`${label} ${Math.round(trackedTarget.score * 100)}%`, x * width + 5, Math.max(18, y * height - 7));
+      context.restore();
+    }
+
+    async function detectTrackedTarget(detector, now) {
+      if (targetMode === 'hand' || targetInferenceBusy || !video.videoWidth || !video.videoHeight) return;
+      const currentMode = targetMode;
+      const modeVersion = targetModeVersion;
+      lastTargetDetection = now;
+      targetInferenceBusy = true;
+      try {
+        const scale = Math.min(1, 320 / video.videoWidth);
+        targetCanvas.width = Math.max(1, Math.round(video.videoWidth * scale));
+        targetCanvas.height = Math.max(1, Math.round(video.videoHeight * scale));
+        targetContext.drawImage(video, 0, 0, targetCanvas.width, targetCanvas.height);
+        const pixels = targetContext.getImageData(0, 0, targetCanvas.width, targetCanvas.height).data;
+        const detections = await detector.detect(targetCanvas, 8);
+        if (modeVersion !== targetModeVersion) return;
+        trackedTarget = targetTracker.update(detections.map(({ bbox, class: label, score }) => {
+          const appearance = new Array(12).fill(0);
+          for (let row = 0; row < 5; row += 1) {
+            for (let column = 0; column < 5; column += 1) {
+              const pixelX = Math.min(targetCanvas.width - 1, Math.max(0, Math.floor(bbox[0] + bbox[2] * (0.15 + column * 0.175))));
+              const pixelY = Math.min(targetCanvas.height - 1, Math.max(0, Math.floor(bbox[1] + bbox[3] * (0.1 + row * 0.2))));
+              const offset = (pixelY * targetCanvas.width + pixelX) * 4;
+              for (let channel = 0; channel < 3; channel += 1) {
+                appearance[channel * 4 + (pixels[offset + channel] >> 6)] += 1;
+              }
+            }
+          }
+          for (let index = 0; index < appearance.length; index += 1) appearance[index] /= 25;
+          return {
+            bbox: [
+              bbox[0] / targetCanvas.width,
+              bbox[1] / targetCanvas.height,
+              bbox[2] / targetCanvas.width,
+              bbox[3] / targetCanvas.height,
+            ],
+            class: label,
+            score,
+            appearance,
+          };
+        }), currentMode, now);
+      } catch (error) {
+        if (modeVersion === targetModeVersion) {
+          targetDetectorRetryAt = performance.now() + 5000;
+          releaseObjectDetector();
+          announce(`Lỗi model theo dõi: ${error.message}`, 'error');
+          sendTrackingStatus(`Lỗi model theo dõi: ${error.message}`, null);
+        }
+      } finally {
+        targetInferenceBusy = false;
+      }
+
+      if (trackedTarget) {
+        const [x, y, boxWidth, boxHeight] = trackedTarget.bbox;
+        targetPoint = {
+          x: (x + boxWidth / 2 - .5) * 11,
+          y: (.5 - (y + boxHeight / 2)) * 7,
+          active: true,
+        };
+        byId('radar-target').textContent = `LOCK ${trackedTarget.class.toUpperCase()}`;
+        const label = trackedTarget.class === 'person' ? 'người' : trackedTarget.class;
+        const state = trackedTarget.stale
+          ? 'Mất dấu ngắn hạn — đang giữ khóa mục tiêu…'
+          : `Đang bám ${label} · ${Math.round(trackedTarget.score * 100)}%`;
+        handReadout.textContent = `AI: ${label}`;
+        handReadout.dataset.accent = String(!trackedTarget.stale);
+        sendTrackingStatus(state, trackedTarget);
+      } else {
+        targetPoint.active = false;
+        byId('radar-target').textContent = 'ĐANG TÌM';
+        handReadout.textContent = 'Đang tìm mục tiêu';
+        handReadout.dataset.accent = 'false';
+        sendTrackingStatus('Chưa thấy mục tiêu phù hợp; đưa mục tiêu vào giữa khung hình.', null);
+      }
+    }
+
+    function drawLandmarks(landmarks) {
+      const width = video.videoWidth || 640;
+      const height = video.videoHeight || 480;
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+      }
+      context.clearRect(0, 0, width, height);
+      context.lineWidth = Math.max(2, width / 320);
+      context.strokeStyle = 'rgba(183, 243, 107, .9)';
+      context.fillStyle = '#f1f4ec';
+
+      for (const [start, end] of handConnections) {
+        const a = landmarks[start];
+        const b = landmarks[end];
+        context.beginPath();
+        context.moveTo(a.x * width, a.y * height);
+        context.lineTo(b.x * width, b.y * height);
+        context.stroke();
+      }
+
+      landmarks.forEach((point, index) => {
+        context.beginPath();
+        context.arc(point.x * width, point.y * height, index === 8 ? 7 : 3, 0, Math.PI * 2);
+        context.fillStyle = index === 8 ? '#b7f36b' : '#f1f4ec';
+        context.fill();
+      });
+    }
+
+    let lastScrollY = null;
+    let lastThumbUpAt = 0;
+    let thumbUpFired = false;
+
+    function handleGesture(landmarks, now) {
+      const wrist = landmarks[0];
+      const palm = landmarks[9];
+      const indexTip = landmarks[8];
+      const thumbTip = landmarks[4];
+      const screenX = 1 - indexTip.x;
+      const screenY = indexTip.y;
+      cursor.style.display = 'block';
+      cursor.style.left = `${screenX * 100}%`;
+      cursor.style.top = `${screenY * 100}%`;
+      targetPoint = { x: (screenX - .5) * 11, y: (.5 - screenY) * 7, active: true };
+      byId('radar-target').textContent = 'HAND LOCKED';
+      handReadout.textContent = 'Đang bám';
+      handReadout.dataset.accent = 'true';
+      sendToPage({ type: 'pointer', x: screenX, y: screenY });
+
+      const d = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+      const handSpan = Math.max(1e-4, d(palm, wrist));
+      const pinching = Math.hypot(thumbTip.x - indexTip.x, thumbTip.y - indexTip.y) < .045;
+      cursor.dataset.pinch = String(pinching);
+
+      // Phân tích toán học Fingerpose qua AI3dTouch Core
+      const analysis = ai3dTouch.analyzeGestures(landmarks);
+      const isTwoFingers = analysis ? analysis.isTwoFingers : false;
+      const isThumbUp = analysis ? analysis.isThumbsUp : false;
+      const isPinchNow = analysis ? analysis.isPinch : pinching;
+
+      // CỬ CHỈ 1: CUỘN 2 NGÓN TAY (Two-Finger Scroll)
+      if (isTwoFingers) {
+        if (lastScrollY != null) {
+          const deltaY = (screenY - lastScrollY) * 650;
+          if (Math.abs(deltaY) > 2) {
+            sendToPage({ type: 'scroll', deltaY });
+            gestureReadout.textContent = '✌️ Cuộn 2 ngón';
+          }
+        }
+        lastScrollY = screenY;
+      } else {
+        lastScrollY = null;
+      }
+
+      // CỬ CHỈ 2: THUMBS UP (Ngón cái giơ lên -> Toàn màn hình)
+      if (isThumbUp) {
+        if (!lastThumbUpAt) lastThumbUpAt = now;
+        if (now - lastThumbUpAt > 350 && !thumbUpFired) {
+          thumbUpFired = true;
+          sendToPage({ type: 'fullscreen' });
+          gestureReadout.textContent = '👍 Toàn màn hình';
+          announce('Đã kích hoạt Toàn Màn Hình bằng cử chỉ Thumbs Up!', 'good');
+        }
+      } else {
+        lastThumbUpAt = 0;
+        thumbUpFired = false;
+      }
+
+      // CỬ CHỈ 3: PINCH CLICK (Chụm ngón tay)
+      if (isPinchNow && !wasPinching && !isTwoFingers && now - lastActionAt > 420) {
+        sendToPage({ type: 'click', x: screenX, y: screenY });
+        gestureReadout.textContent = '🤏 Chụm / bấm';
+        announce('Đã gửi thao tác bấm tới vị trí con trỏ.', 'good');
+        lastActionAt = now;
+      }
+      wasPinching = isPinchNow;
+
+      // CỬ CHỈ 4: SWIPE (Xòe cả 4 ngón tay vuốt ngang / dọc)
+      const extended = [8, 12, 16, 20].map((tip, index) => {
+        const mcp = landmarks[[5, 9, 13, 17][index]];
+        return d(landmarks[tip], wrist) > d(mcp, wrist) * 1.15;
+      });
+      const openFingers = extended.filter(Boolean).length >= 3;
+
+      if (!openFingers || isTwoFingers) {
+        swipeStart = null;
+        return;
+      }
+
+      if (!swipeStart || now - swipeStart.time > 700) {
+        swipeStart = { x: palm.x, y: palm.y, time: now };
+        return;
+      }
+
+      const elapsed = now - swipeStart.time;
+      const deltaX = swipeStart.x - palm.x;
+      const deltaY = palm.y - swipeStart.y;
+      const threshold = Number(sensitivity.value) / 100;
+      if (elapsed < 80 || now - lastActionAt < 650) return;
+
+      let direction = '';
+      if (Math.abs(deltaX) >= threshold && Math.abs(deltaX) > Math.abs(deltaY) * 1.15) {
+        direction = deltaX > 0 ? 'left' : 'right';
+      } else if (Math.abs(deltaY) >= threshold && Math.abs(deltaY) > Math.abs(deltaX) * 1.15) {
+        direction = deltaY < 0 ? 'up' : 'down';
+      }
+
+      if (direction) {
+        sendToPage({ type: 'swipe', direction });
+        gestureReadout.textContent = `🖐️ Vuốt ${direction === 'left' ? 'trái' : direction === 'right' ? 'phải' : direction === 'up' ? 'lên' : 'xuống'}`;
+        announce(direction === 'up' || direction === 'down' ? 'Đã gửi lệnh cuộn trang.' : 'Đã gửi lệnh chuyển dải nội dung.', 'good');
+        lastActionAt = now;
+        swipeStart = null;
+      }
+    }
+
+    function onResults(predictions) {
+      const now = performance.now();
+      const profile = DeviceTierManager.get().getProfile();
+      frameCount += 1;
+      if (now - fpsStart >= 1000) {
+        fpsReadout.textContent = `${Math.round(frameCount * 1000 / (now - fpsStart))} FPS · ${profile.label}`;
+        fpsStart = now;
+        frameCount = 0;
+      }
+      if (!predictions.length || predictions[0].keypoints.length < 21) {
+        if (!noHandSince) noHandSince = now;
+        if (now - noHandSince > 2500 && now - lastHandHintAt > 6000) {
+          announce('Chưa bắt được tay. Đưa trọn bàn tay vào giữa khung hình, lòng bàn tay hướng về camera và tăng ánh sáng.', '');
+          lastHandHintAt = now;
+        }
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        ai3dTouch.reset();
+        drawTrackedTarget();
+        cursor.style.display = 'none';
+        cursor.dataset.pinch = 'false';
+        if (targetMode === 'hand') {
+          handReadout.textContent = 'Chưa thấy';
+          handReadout.dataset.accent = 'false';
+          byId('radar-target').textContent = 'NO TARGET';
+          targetPoint.active = false;
+        } else if (trackedTarget) {
+          const [x, y, width, height] = trackedTarget.bbox;
+          targetPoint = { x: (x + width / 2 - .5) * 11, y: (.5 - (y + height / 2)) * 7, active: true };
+        }
+        swipeStart = null;
+        wasPinching = false;
+        sendToPage({ type: 'lost' });
+        return;
+      }
+
+      noHandSince = 0;
+      const landmarks = ai3dTouch.smoothLandmarks(predictions[0].keypoints.map((point) => ({
+        x: point.x / (inferenceCanvas.width || 640),
+        y: point.y / (inferenceCanvas.height || 480),
+        z: (point.z || 0) / (inferenceCanvas.width || 640),
+      })), now);
+      drawLandmarks(landmarks);
+      handleGesture(landmarks, now);
+      if (targetMode !== 'hand') {
+        if (trackedTarget && !trackedTarget.stale) {
+          const [x, y, width, height] = trackedTarget.bbox;
+          targetPoint = { x: (x + width / 2 - .5) * 11, y: (.5 - (y + height / 2)) * 7, active: true };
+        }
+        drawTrackedTarget();
+      }
+    }
+
+    async function processFrames() {
+      if (!stream) return;
+      const now = performance.now();
+      if (targetMode !== 'hand' && !objectDetector && !objectDetectorPromise && now >= targetDetectorRetryAt) {
+        lastTargetDetection = now;
+        const modeVersion = targetModeVersion;
+        loadObjectDetector().then(() => {
+          if (!stream || targetMode === 'hand') {
+            releaseObjectDetector();
+            return;
+          }
+          if (modeVersion === targetModeVersion) {
+            announce('Model vật thể sẵn sàng; đang khóa mục tiêu trong khung hình.', 'good');
+          }
+        }).catch((error) => {
+          if (stream && modeVersion === targetModeVersion) {
+            targetDetectorRetryAt = performance.now() + 5000;
+            announce(`Không tải được model theo dõi: ${error.message}`, 'error');
+            sendTrackingStatus(`Không tải được model theo dõi: ${error.message}`, null);
+          }
+        });
+      }
+      if (!inferenceBusy && video.readyState >= 2 && now - lastInference >= 16) {
+        inferenceBusy = true;
+        lastInference = now;
+        inferenceStartedAt = now;
+        const inferFrame = async () => {
+          try {
+            const width = video.videoWidth;
+            const height = video.videoHeight;
+            if (!width || !height) throw new Error('Camera frame has no dimensions');
+            const scale = Math.min(1, 640 / width);
+            const inferenceWidth = Math.max(1, Math.round(width * scale));
+            const inferenceHeight = Math.max(1, Math.round(height * scale));
+            if (inferenceCanvas.width !== inferenceWidth || inferenceCanvas.height !== inferenceHeight) {
+              inferenceCanvas.width = inferenceWidth;
+              inferenceCanvas.height = inferenceHeight;
+            }
+            inferenceContext.drawImage(video, 0, 0, inferenceWidth, inferenceHeight);
+            onResults(await handDetector.estimateHands(inferenceCanvas, { flipHorizontal: false }));
+          } catch (error) {
+            announce(`Lỗi phân tích hình ảnh: ${error.message}`, 'error');
+            sendTrackingStatus(`Lỗi model theo dõi: ${error.message}`);
+          } finally {
+            inferenceBusy = false;
+          }
+        };
+        inferFrame();
+      }
+      if (targetMode !== 'hand' && objectDetector && !inferenceBusy && !targetInferenceBusy
+        && now - lastTargetDetection >= 350) {
+        void detectTrackedTarget(objectDetector, now);
+      }
+      if (inferenceBusy && now - inferenceStartedAt > 4000 && now - lastInferenceWarningAt > 5000) {
+        announce('AI đang mất nhiều thời gian xử lý. Hãy dừng rồi bật camera lại.', 'error');
+        lastInferenceWarningAt = now;
+      }
+      animationFrame = requestAnimationFrame(processFrames);
+    }
+
+    async function startCamera() {
+      if (!phoneStream && !navigator.mediaDevices?.getUserMedia) {
+        announce('Trình duyệt cần HTTPS hoặc localhost để mở camera.', 'error');
+        setStatus('Cần localhost', false);
+        return;
+      }
+      if (!window.tf || !window.handPoseDetection) {
+        announce('Không tải được TensorFlow.js. Hãy kiểm tra kết nối internet rồi thử lại.', 'error');
+        setStatus('AI chưa tải', false);
+        return;
+      }
+
+      startButtons.forEach((button) => { button.disabled = true; });
+      announce('Đang xin quyền camera và tải model nhận diện...', '');
+      setStatus('Đang khởi động', false);
+      try {
+        const profile = DeviceTierManager.get().getProfile();
+        streamIsExternal = Boolean(phoneStream);
+        stream = phoneStream || await navigator.mediaDevices.getUserMedia({
+          audio: false,
+          video: {
+            facingMode: 'user',
+            width: { ideal: profile.idealWidth, min: 320 },
+            height: { ideal: profile.idealHeight, min: 240 },
+            frameRate: { ideal: profile.targetFps, min: 20 }
+          },
+        });
+        video.srcObject = stream;
+        await video.play();
+        announce(`Đang khởi tạo AI trên thiết bị (${profile.label})...`, '');
+        let backend = 'wasm';
+        try {
+          window.tf.wasm.setWasmPaths('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@4.22.0/dist/');
+          const selected = await window.tf.setBackend('wasm');
+          if (!selected) throw new Error('WASM backend unavailable');
+        } catch {
+          backend = 'cpu';
+          await window.tf.setBackend('cpu');
+        }
+        await window.tf.ready();
+        byId('ai-backend-tag').textContent = backend.toUpperCase();
+        handDetector = await window.handPoseDetection.createDetector(
+          window.handPoseDetection.SupportedModels.MediaPipeHands,
+          { runtime: 'tfjs', modelType: 'lite', maxHands: 1 },
+        );
+        setStatus(streamIsExternal ? 'Webcam điện thoại' : 'Đang theo dõi', true);
+        sendToPage({ type: 'status', active: true });
+        stopButton.disabled = false;
+        announce(targetMode === 'hand'
+          ? `AI ${backend.toUpperCase()} sẵn sàng. Đưa trọn bàn tay vào khung hình.`
+          : `AI ${backend.toUpperCase()} sẵn sàng. Model bám mục tiêu sẽ tải khi cần.`, 'good');
+        sendTrackingStatus(targetMode === 'hand'
+          ? 'AI sẵn sàng: bám bàn tay để điều khiển.'
+          : 'AI sẵn sàng: đang khởi tạo khóa mục tiêu.');
+        processFrames();
+      } catch (error) {
+        if (!streamIsExternal) stream?.getTracks().forEach((track) => track.stop());
+        stream = null;
+        streamIsExternal = false;
+        sendToPage({ type: 'status', active: false });
+        setStatus('Camera chưa bật', false);
+        announce(error.name === 'NotAllowedError' ? 'Bạn chưa cấp quyền camera. Hãy cho phép camera rồi thử lại.' : `Không thể bật camera: ${error.message}`, 'error');
+        startButtons.forEach((button) => { button.disabled = false; });
+      }
+    }
+
+    async function stopCamera() {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = 0;
+      const currentStream = stream;
+      targetModeVersion += 1;
+      releaseObjectDetector();
+      if (!streamIsExternal) currentStream?.getTracks().forEach((track) => track.stop());
+      stream = null;
+      streamIsExternal = false;
+      if (!phoneStream || video.srcObject !== phoneStream) video.srcObject = null;
+      if (handDetector) await handDetector.dispose();
+      handDetector = null;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      cursor.style.display = 'none';
+      cursor.dataset.pinch = 'false';
+      targetPoint.active = false;
+      swipeStart = null;
+      wasPinching = false;
+      handReadout.textContent = 'Chưa thấy';
+      handReadout.dataset.accent = 'false';
+      gestureReadout.textContent = 'Chờ thao tác';
+      fpsReadout.textContent = '-- FPS';
+      ai3dTouch.reset();
+      targetTracker.reset();
+      trackedTarget = null;
+      lastTargetDetection = 0;
+      targetDetectorRetryAt = 0;
+      byId('radar-target').textContent = 'NO TARGET';
+      setStatus('Đang tắt', false);
+      stopButton.disabled = true;
+      startButtons.forEach((button) => { button.disabled = false; });
+      sendToPage({ type: 'lost' });
+      sendToPage({ type: 'status', active: false });
+      announce('Camera đã tắt. Hình ảnh không được lưu.', '');
+    }
+
+    startButtons.forEach((button) => button.addEventListener('click', startCamera));
+    stopButton.addEventListener('click', stopCamera);
+    sensitivity.addEventListener('input', () => { byId('sensitivity-value').textContent = `${sensitivity.value}%`; });
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent || event.origin !== window.location.origin) return;
+      if (event.data?.type === 'SV_PHONE_TARGET_MODE'
+        && ['hand', 'person', 'object', 'any'].includes(event.data.mode)) {
+        targetMode = event.data.mode;
+        targetModeVersion += 1;
+        targetTracker.reset();
+        trackedTarget = null;
+        lastTargetDetection = 0;
+        targetDetectorRetryAt = 0;
+        targetPoint.active = false;
+        if (targetMode === 'hand') {
+          releaseObjectDetector();
+          byId('radar-target').textContent = 'NO TARGET';
+          sendTrackingStatus('Đang ưu tiên bám tay để điều khiển cử chỉ.', null);
+        } else {
+          sendTrackingStatus('Đang tải model bám mục tiêu; lần đầu có thể mất vài giây.');
+        }
+      } else if (event.data?.type === 'SV_HAND_STOP') {
+        stopCamera();
+      } else if (event.data?.type === 'SV_PHONE_CAMERA_READY') {
+        const incomingStream = video.srcObject;
+        phoneStream = incomingStream && typeof incomingStream.getTracks === 'function' ? incomingStream : null;
+        if (!phoneStream) {
+          announce('Không thể nhận webcam điện thoại trong trình duyệt này.', 'error');
+          return;
+        }
+        void (async () => {
+          if (stream && stream !== phoneStream) await stopCamera();
+          video.srcObject = phoneStream;
+          announce('Webcam điện thoại đã kết nối. Đang khởi động AI nhận diện.', 'good');
+          await startCamera();
+        })();
+      } else if (event.data?.type === 'SV_PHONE_CAMERA_STOP') {
+        phoneStream = null;
+        if (streamIsExternal) void stopCamera();
+        video.srcObject = null;
+      }
+    });
+    window.addEventListener('beforeunload', () => {
+      if (!streamIsExternal) stream?.getTracks().forEach((track) => track.stop());
+      handDetector?.dispose();
+    });
+
+    const radarCanvas = byId('radar-canvas');
+    let radarRenderer = null;
+    let radarResizeObserver = null;
+    let radarAnimationFrame = 0;
+    let fallbackAnimationFrame = 0;
+    try {
+      radarRenderer = new THREE.WebGLRenderer({ canvas: radarCanvas, alpha: true, antialias: !compactScreen, powerPreference: 'low-power' });
+      radarRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compactScreen ? 1.5 : 2));
+      const scene = new THREE.Scene();
+      const radarCamera = new THREE.PerspectiveCamera(38, 1, .1, 100);
+      radarCamera.position.set(0, 7.5, 17);
+      radarCamera.lookAt(0, 0, 0);
+      scene.add(new THREE.HemisphereLight(0xc6f4c1, 0x18241e, 2.1));
+      const grid = new THREE.GridHelper(18, 18, 0x76d6d1, 0x263b33);
+      grid.position.y = -2.3;
+      scene.add(grid);
+
+      const rings = [];
+      [2.2, 3.7, 5.2].forEach((radius, index) => {
+        const ring = new THREE.Mesh(
+          new THREE.TorusGeometry(radius, .012, 6, 96),
+          new THREE.MeshBasicMaterial({ color: 0xb7f36b, transparent: true, opacity: .5, side: THREE.DoubleSide }),
+        );
+        ring.rotation.x = Math.PI / 2;
+        ring.position.y = -1.8 + index * .012;
+        scene.add(ring);
+        rings.push(ring);
+      });
+
+      const marker = new THREE.Mesh(
+        new THREE.SphereGeometry(.23, 24, 16),
+        new THREE.MeshStandardMaterial({ color: 0x536159, emissive: 0x456b23, emissiveIntensity: 1.3, roughness: .24, metalness: .15 }),
+      );
+      scene.add(marker);
+      const halo = new THREE.Mesh(
+        new THREE.TorusGeometry(.46, .018, 8, 48),
+        new THREE.MeshBasicMaterial({ color: 0x76d6d1, transparent: true, opacity: .68 }),
+      );
+      scene.add(halo);
+
+      function resizeRadar() {
+        const rect = radarCanvas.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        radarRenderer.setSize(rect.width, rect.height, false);
+        radarCamera.aspect = rect.width / rect.height;
+        radarCamera.updateProjectionMatrix();
+      }
+      radarResizeObserver = new ResizeObserver(resizeRadar);
+      radarResizeObserver.observe(radarCanvas.parentElement);
+      resizeRadar();
+
+      function animateRadar() {
+        radarAnimationFrame = requestAnimationFrame(animateRadar);
+        if (document.hidden) return;
+        const now = performance.now() * .001;
+        if (!prefersReducedMotion) {
+          rings.forEach((ring, index) => { ring.rotation.z = now * (.035 + index * .012); });
+        }
+        if (targetPoint.active) {
+          const easing = prefersReducedMotion ? 1 : .16;
+          marker.position.x += (targetPoint.x - marker.position.x) * easing;
+          marker.position.y += (targetPoint.y - marker.position.y) * easing;
+          marker.material.color.setHex(0xb7f36b);
+        } else {
+          marker.material.color.setHex(0x536159);
+        }
+        halo.position.copy(marker.position);
+        if (!prefersReducedMotion) {
+          halo.rotation.x = now * .35;
+          halo.rotation.y = now * .22;
+        }
+        radarRenderer.render(scene, radarCamera);
+      }
+      animateRadar();
+      byId('radar-state').innerHTML = '<span></span><b>3D sẵn sàng</b>';
+    } catch (error) {
+      console.warn('WebGL không khả dụng; dùng radar 2D dự phòng.', error);
+      radarRenderer?.dispose();
+      radarResizeObserver?.disconnect();
+      radarCanvas.style.display = 'none';
+      const fallback = document.createElement('canvas');
+      fallback.className = 'radar-fallback';
+      fallback.setAttribute('aria-label', 'Radar theo dõi tay dạng dự phòng');
+      radarCanvas.parentElement.insertBefore(fallback, byId('radar-target'));
+      const fallbackContext = fallback.getContext('2d');
+      let smoothedX = 0;
+      let smoothedY = 0;
+
+      function drawFallbackRadar() {
+        fallbackAnimationFrame = requestAnimationFrame(drawFallbackRadar);
+        if (document.hidden) return;
+        const rect = fallback.getBoundingClientRect();
+        const ratio = Math.min(window.devicePixelRatio || 1, compactScreen ? 1.5 : 2);
+        const width = Math.max(1, Math.round(rect.width * ratio));
+        const height = Math.max(1, Math.round(rect.height * ratio));
+        if (fallback.width !== width || fallback.height !== height) {
+          fallback.width = width;
+          fallback.height = height;
+        }
+        fallbackContext.setTransform(ratio, 0, 0, ratio, 0, 0);
+        fallbackContext.clearRect(0, 0, rect.width, rect.height);
+        const centerX = rect.width / 2;
+        const centerY = rect.height * .48;
+        const now = prefersReducedMotion ? 0 : performance.now() * .001;
+        fallbackContext.strokeStyle = 'rgba(118, 214, 209, .16)';
+        fallbackContext.lineWidth = 1;
+        for (let line = -6; line <= 6; line += 1) {
+          fallbackContext.beginPath();
+          fallbackContext.moveTo(centerX + line * 15, centerY - 75);
+          fallbackContext.lineTo(centerX + line * 34, centerY + 72);
+          fallbackContext.stroke();
+        }
+        [28, 52, 76].forEach((radius, index) => {
+          fallbackContext.beginPath();
+          fallbackContext.ellipse(centerX, centerY + 8, radius, radius * .38, 0, 0, Math.PI * 2);
+          fallbackContext.strokeStyle = `rgba(183, 243, 107, ${.2 + index * .09})`;
+          fallbackContext.stroke();
+        });
+        fallbackContext.beginPath();
+        fallbackContext.ellipse(centerX, centerY + 8, 76, 29, 0, now % (Math.PI * 2), now % (Math.PI * 2) + .8);
+        fallbackContext.strokeStyle = 'rgba(243, 189, 114, .8)';
+        fallbackContext.lineWidth = 2;
+        fallbackContext.stroke();
+        if (targetPoint.active) {
+          smoothedX += (centerX + targetPoint.x * 11 - smoothedX) * .18;
+          smoothedY += (centerY - targetPoint.y * 8 - smoothedY) * .18;
+        } else {
+          smoothedX += (centerX - smoothedX) * .06;
+          smoothedY += (centerY - smoothedY) * .06;
+        }
+        fallbackContext.beginPath();
+        fallbackContext.arc(smoothedX || centerX, smoothedY || centerY, 5, 0, Math.PI * 2);
+        fallbackContext.fillStyle = targetPoint.active ? '#b7f36b' : '#66736a';
+        fallbackContext.shadowColor = targetPoint.active ? '#b7f36b' : 'transparent';
+        fallbackContext.shadowBlur = targetPoint.active ? 18 : 0;
+        fallbackContext.fill();
+        fallbackContext.shadowBlur = 0;
+      }
+
+      drawFallbackRadar();
+      byId('radar-state').innerHTML = '<span></span><b>Radar dự phòng</b>';
+    }
+    window.addEventListener('pagehide', () => {
+      cancelAnimationFrame(radarAnimationFrame);
+      cancelAnimationFrame(fallbackAnimationFrame);
+      radarResizeObserver?.disconnect();
+      radarRenderer?.dispose();
+    }, { once: true });
+    
+    // Khởi tạo Bàn Di Cảm Ứng Mô Phỏng (Virtual Touchpad Controller)
+    function initTouchpadSim() {
+      const tabTouchpad = byId('tab-touchpad');
+      const tabCamera = byId('tab-camera');
+      const tabPhone = byId('tab-phone');
+      const touchpadView = byId('touchpad-view');
+      const touchpadControls = byId('touchpad-controls');
+      const cameraView = byId('camera-view');
+      const cameraControls = byId('camera-controls');
+      const phoneView = byId('phone-view');
+      const surface = byId('lab-touch-surface');
+      const thumb = byId('lab-thumb-dot');
+      const ring = byId('lab-force-ring');
+      const forceBar = byId('lab-force-bar');
+
+      function switchMode(mode) {
+        if (mode === 'touchpad') {
+          touchpadView.style.display = 'flex';
+          touchpadControls.style.display = 'flex';
+          cameraView.style.display = 'none';
+          cameraControls.style.display = 'none';
+          if (phoneView) phoneView.style.display = 'none';
+          tabTouchpad.className = 'button button-primary';
+          tabCamera.className = 'button button-subtle';
+          if (tabPhone) tabPhone.className = 'button button-subtle';
+          setStatus('Cảm ứng sẵn sàng', true);
+          announce('Đang ở chế độ Bàn Di Cảm Ứng 3D Touch (100% Hoạt động).', 'good');
+          handReadout.textContent = 'Cảm ứng ảo';
+          handReadout.dataset.accent = 'true';
+        } else if (mode === 'camera') {
+          touchpadView.style.display = 'none';
+          touchpadControls.style.display = 'none';
+          cameraView.style.display = 'block';
+          cameraControls.style.display = 'flex';
+          if (phoneView) phoneView.style.display = 'none';
+          tabTouchpad.className = 'button button-subtle';
+          tabCamera.className = 'button button-primary';
+          if (tabPhone) tabPhone.className = 'button button-subtle';
+          setStatus(stream ? 'Đang theo dõi' : 'Đang tắt', Boolean(stream));
+          announce('Chế độ Camera AI. Nhấn "Bật camera" để nhận diện bàn tay.', '');
+          handReadout.textContent = stream ? 'Đang bám' : 'Chưa thấy';
+          handReadout.dataset.accent = String(Boolean(stream));
+        } else if (mode === 'phone') {
+          touchpadView.style.display = 'none';
+          touchpadControls.style.display = 'none';
+          cameraView.style.display = 'none';
+          cameraControls.style.display = 'none';
+          if (phoneView) phoneView.style.display = 'flex';
+          tabTouchpad.className = 'button button-subtle';
+          tabCamera.className = 'button button-subtle';
+          if (tabPhone) tabPhone.className = 'button button-primary';
+          setStatus('Ghép đôi điện thoại sẵn sàng', true);
+          announce('Chế độ Ghép Đôi Điện Thoại: Quét mã QR hoặc nhập mã PIN trên điện thoại.', 'good');
+          handReadout.textContent = 'Ghép đôi PIN';
+          handReadout.dataset.accent = 'true';
+          loadPhoneRoomInfo();
+        }
+      }
+
+      function loadPhoneRoomInfo() {
+        fetch('/api/3dtouch/room')
+          .then(r => r.json())
+          .then(data => {
+            if (data && data.pin) {
+              const pinEl = document.getElementById('lab-phone-pin');
+              if (pinEl) pinEl.textContent = data.pin;
+              const qrImg = document.getElementById('lab-phone-qr');
+              if (qrImg) qrImg.src = data.qrUrl || `/api/qr?text=${encodeURIComponent(data.phoneUrl)}`;
+              const link = document.getElementById('lab-phone-url');
+              if (link) {
+                link.href = data.phoneUrl;
+                link.textContent = 'Mở trên máy này: ' + data.phoneUrl;
+              }
+            }
+          })
+          .catch(() => {});
+      }
+
+      tabTouchpad?.addEventListener('click', () => switchMode('touchpad'));
+      tabCamera?.addEventListener('click', () => switchMode('camera'));
+      tabPhone?.addEventListener('click', () => switchMode('phone'));
+
+      let isTouching = false;
+      let startX = 0, startY = 0;
+      let lastX = 0, lastY = 0;
+      let currentNormX = 0.5, currentNormY = 0.5;
+      let touchStartTime = 0;
+      let forceTimer = null;
+      let forceAnim = null;
+
+      const onSurfaceDown = (e) => {
+        isTouching = true;
+        touchStartTime = performance.now();
+        const rect = surface.getBoundingClientRect();
+        const clientX = e.clientX || e.touches?.[0]?.clientX || 0;
+        const clientY = e.clientY || e.touches?.[0]?.clientY || 0;
+        startX = clientX;
+        startY = clientY;
+        lastX = clientX;
+        lastY = clientY;
+
+        const posX = Math.max(12, Math.min(rect.width - 12, clientX - rect.left));
+        const posY = Math.max(12, Math.min(rect.height - 12, clientY - rect.top));
+        currentNormX = posX / rect.width;
+        currentNormY = posY / rect.height;
+
+        if (thumb) {
+          thumb.style.left = posX + 'px';
+          thumb.style.top = posY + 'px';
+        }
+
+        targetPoint = { x: (currentNormX - 0.5) * 11, y: (0.5 - currentNormY) * 7, active: true };
+        byId('radar-target').textContent = 'TOUCH LOCKED';
+        sendToPage({ type: 'pointer', x: currentNormX, y: currentNormY });
+
+        // Tích lũy lực nếu giữ ngón tay
+        forceTimer = setTimeout(() => {
+          if (!isTouching) return;
+          let f = 0;
+          const fStart = performance.now();
+          if (ring) {
+            ring.style.left = posX + 'px';
+            ring.style.top = posY + 'px';
+            ring.style.display = 'block';
+          }
+          thumb?.classList.add('pressing');
+
+          function step() {
+            if (!isTouching) return;
+            const elapsed = performance.now() - fStart;
+            f = Math.min(1, elapsed / 550);
+            if (forceBar) forceBar.style.width = Math.round(f * 100) + '%';
+            if (ring) ring.style.transform = `translate(-50%, -50%) scale(${Math.max(0.4, 1 - f * 0.6)})`;
+
+            if (f >= 0.4 && f < 0.8) {
+              gestureReadout.textContent = '3D Touch PEEK';
+              announce('Lực 3D Touch: Peek kích hoạt.', 'good');
+            } else if (f >= 0.82) {
+              gestureReadout.textContent = '3D Touch POP!';
+              announce('Lực 3D Touch: POP nổ sóng xung kích!', 'good');
+              sendToPage({ type: 'click', x: currentNormX, y: currentNormY });
+              return;
+            }
+            if (f < 1 && isTouching) forceAnim = requestAnimationFrame(step);
+          }
+          forceAnim = requestAnimationFrame(step);
+        }, 280);
+
+        e.preventDefault();
+      };
+
+      const onSurfaceMove = (e) => {
+        if (!isTouching) return;
+        const rect = surface.getBoundingClientRect();
+        const clientX = e.clientX || e.touches?.[0]?.clientX || 0;
+        const clientY = e.clientY || e.touches?.[0]?.clientY || 0;
+
+        const posX = Math.max(12, Math.min(rect.width - 12, clientX - rect.left));
+        const posY = Math.max(12, Math.min(rect.height - 12, clientY - rect.top));
+        currentNormX = posX / rect.width;
+        currentNormY = posY / rect.height;
+
+        if (thumb) {
+          thumb.style.left = posX + 'px';
+          thumb.style.top = posY + 'px';
+        }
+
+        if (Math.hypot(clientX - startX, clientY - startY) > 15 && forceTimer) {
+          clearTimeout(forceTimer);
+          forceTimer = null;
+        }
+
+        targetPoint = { x: (currentNormX - 0.5) * 11, y: (0.5 - currentNormY) * 7, active: true };
+        byId('radar-target').textContent = 'TOUCH LOCKED';
+        sendToPage({ type: 'pointer', x: currentNormX, y: currentNormY });
+      };
+
+      const onSurfaceUp = (e) => {
+        if (!isTouching) return;
+        isTouching = false;
+        if (forceTimer) clearTimeout(forceTimer);
+        if (forceAnim) cancelAnimationFrame(forceAnim);
+        if (ring) ring.style.display = 'none';
+        if (forceBar) forceBar.style.width = '0%';
+        thumb?.classList.remove('pressing');
+
+        const elapsed = performance.now() - touchStartTime;
+        const clientX = e.clientX || e.changedTouches?.[0]?.clientX || lastX;
+        const deltaX = clientX - startX;
+
+        // Quick click
+        if (elapsed < 260 && Math.abs(deltaX) < 14) {
+          sendToPage({ type: 'click', x: currentNormX, y: currentNormY });
+          gestureReadout.textContent = 'Chạm / Bấm';
+          announce('Đã gửi thao tác bấm tới vị trí con trỏ.', 'good');
+        }
+        // Swipe horizontal
+        else if (elapsed < 320 && Math.abs(deltaX) > 40) {
+          const dir = deltaX < 0 ? 'left' : 'right';
+          sendToPage({ type: 'swipe', direction: dir });
+          gestureReadout.textContent = dir === 'left' ? 'Vuốt Tiếp (Next)' : 'Vuốt Trước (Prev)';
+          announce('Đã gửi lệnh chuyển Slide qua cử chỉ vuốt.', 'good');
+        }
+      };
+
+      surface?.addEventListener('mousedown', onSurfaceDown);
+      surface?.addEventListener('touchstart', onSurfaceDown, { passive: false });
+      window.addEventListener('mousemove', onSurfaceMove);
+      window.addEventListener('touchmove', onSurfaceMove, { passive: true });
+      window.addEventListener('mouseup', onSurfaceUp);
+      window.addEventListener('touchend', onSurfaceUp);
+
+      // Buttons
+      byId('lab-btn-prev')?.addEventListener('click', () => {
+        sendToPage({ type: 'swipe', direction: 'right' });
+        gestureReadout.textContent = 'Slide Trước (Lùi)';
+        announce('Đã chuyển lùi slide trước đó.', 'good');
+      });
+      byId('lab-btn-next')?.addEventListener('click', () => {
+        sendToPage({ type: 'swipe', direction: 'left' });
+        gestureReadout.textContent = 'Slide Tiếp (Tiến)';
+        announce('Đã chuyển sang slide tiếp theo.', 'good');
+      });
+      byId('lab-btn-click')?.addEventListener('click', () => {
+        sendToPage({ type: 'click', x: currentNormX, y: currentNormY });
+        gestureReadout.textContent = 'Bấm con trỏ';
+        announce('Đã gửi thao tác nhấp con trỏ.', 'good');
+      });
+      byId('lab-btn-force')?.addEventListener('click', () => {
+        sendToPage({ type: 'click', x: currentNormX, y: currentNormY });
+        gestureReadout.textContent = '3D Force POP!';
+        announce('Đã kích hoạt lực 3D Touch Pop.', 'good');
+      });
+      byId('lab-btn-scroll-up')?.addEventListener('click', () => {
+        sendToPage({ type: 'swipe', direction: 'up' });
+        gestureReadout.textContent = 'Cuộn Lên';
+      });
+      byId('lab-btn-scroll-down')?.addEventListener('click', () => {
+        sendToPage({ type: 'swipe', direction: 'down' });
+        gestureReadout.textContent = 'Cuộn Xuống';
+      });
+    }
+
+    initTouchpadSim();
+
+    byId('radar-state').dataset.live = 'true';
+  </script>
+</body>
+</html>

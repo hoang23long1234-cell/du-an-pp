@@ -1,0 +1,5 @@
+# Bảo vệ file .env thật kĩ
+.env
+*.key
+*.pem
+*.cert

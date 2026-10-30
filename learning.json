@@ -1,0 +1,586 @@
+{
+  "2026-10-26": [
+    {
+      "lesson": "Nguyên lý Kim tự tháp Minto (Minto Pyramid Principle): Trình bày ý tưởng theo mô hình đỉnh chóp (SCQA - Situation/Bối cảnh, Complication/Biến cố, Question/Câu hỏi, Answer/Câu trả lời). Thông điệp cốt lõi và kết luận đắt giá nhất luôn được đặt lên hàng đầu của mỗi slide trước khi phân rã logic thành các luận cứ hỗ trợ tầng dưới.",
+      "source": "Executive-Presentation-Architecture",
+      "category": "minto-pyramid",
+      "created_at": "2026-10-26T00:00:00.000Z"
+    },
+    {
+      "lesson": "Nguyên tắc MECE (Mutually Exclusive, Collectively Exhaustive): Các luận điểm và phân mục trên slide phải hoàn toàn tách biệt, không trùng lặp và cùng nhau bao quát toàn diện, không bỏ sót bất kỳ khía cạnh trọng yếu nào của bài toán.",
+      "source": "McKinsey-Strategy-Standard",
+      "category": "mece-framework",
+      "created_at": "2026-10-26T00:00:10.000Z"
+    },
+    {
+      "lesson": "Mô hình McKinsey 7S trong chiến lược và quản trị: Đánh giá đồng bộ 7 yếu tố bao gồm các thành tố cứng (Chiến lược - Strategy, Cấu trúc - Structure, Hệ thống - Systems) và các thành tố mềm (Giá trị chia sẻ - Shared Values, Kỹ năng - Skills, Phong cách lãnh đạo - Style, Nhân sự - Staff) nhằm tối ưu hóa hiệu quả thực thi.",
+      "source": "Strategic-Management-Framework",
+      "category": "mckinsey-7s",
+      "created_at": "2026-10-26T00:00:20.000Z"
+    },
+    {
+      "lesson": "Cấu trúc lập luận Toulmin (Toulmin Argument Model): Mỗi luận điểm thuyết trình chuyên sâu phải có đủ 6 thành tố logic chặt chẽ: Luận đề (Claim), Bằng chứng thực nghiệm (Data/Grounds), Cơ sở bảo đảm (Warrant), Hậu thuẫn bảo chứng (Backing), Mức độ khẳng định (Qualifier), và Dự phòng phản biện (Rebuttal).",
+      "source": "Critical-Thinking-Standard",
+      "category": "toulmin-argument",
+      "created_at": "2026-10-26T00:00:30.000Z"
+    },
+    {
+      "lesson": "Mô hình dạy học 5E chuẩn Sư phạm hiện đại 2026: Tuân thủ quy trình 5 bước phát triển năng lực người học: Gắn kết (Engage) -> Khám phá (Explore) -> Giải thích (Explain) -> Củng cố & Mở rộng (Elaborate) -> Đánh giá (Evaluate). Đặt học sinh làm trung tâm của quá trình kiến tạo tri thức.",
+      "source": "Instructional-Design-2026",
+      "category": "5e-instructional-model",
+      "created_at": "2026-10-26T00:00:40.000Z"
+    },
+    {
+      "lesson": "Thang đo nhận thức Bloom (Bloom's Taxonomy 6 bậc): Phân hóa câu hỏi và hoạt động theo 6 cấp độ tư duy: Nhớ (Remember) -> Hiểu (Understand) -> Vận dụng (Apply) -> Phân tích (Analyze) -> Đánh giá (Evaluate) -> Sáng tạo (Create).",
+      "source": "Pedagogical-Standards-2026",
+      "category": "blooms-taxonomy",
+      "created_at": "2026-10-26T00:00:50.000Z"
+    },
+    {
+      "lesson": "Chuẩn hóa Chương trình GDPT 2018/2026 cho 3 bộ SGK Mới: Kết Nối Tri Thức Với Cuộc Sống (gắn tri thức với giải quyết bài toán thực tiễn), Cánh Diều (mang cuộc sống vào bài học - đưa bài học vào cuộc sống), và Chân Trời Sáng Tạo (khơi phóng tư duy độc lập và nghiên cứu khoa học).",
+      "source": "Vietnam-National-Curriculum-2026",
+      "category": "vietnamese-curriculum-2026",
+      "created_at": "2026-10-26T00:01:00.000Z"
+    },
+    {
+      "lesson": "Bố cục đa tầng trực quan (Dynamic Multi-Layout): Áp dụng linh hoạt 7 archetype bố cục: cards (thẻ thông tin phân nhánh), split (phân tách 2 vế đối sánh/luận cứ), metrics (chỉ số đo lường KPI/ROI nổi bật), timeline (lộ trình thực thi đa giai đoạn), matrix (ma trận 2x2 SWOT/chiến lược), comparison (so sánh đối lập trực diện), và standard (chuẩn bài giảng tinh gọn).",
+      "source": "SlideCraft-Layout-Engine",
+      "category": "presentation-architecture",
+      "created_at": "2026-10-26T00:01:10.000Z"
+    },
+    {
+      "lesson": "Chỉ số định lượng & Mật độ thông tin cao: Mỗi slide chuyên đề phải kèm số liệu kiểm định thực tế, tỷ lệ tăng trưởng % hoặc KPIs cụ thể (ví dụ: +45% hiệu suất, 99.4% độ chuẩn xác, 30-32 ATP) cùng lời thuyết minh (speaker notes) lôi cuốn, truyền lửa.",
+      "source": "Quantitative-Impact-Directive",
+      "category": "slide-density-kpis",
+      "created_at": "2026-10-26T00:01:20.000Z"
+    },
+    {
+      "lesson": "Quy tắc tối giản 6x6 & Thuyết trình thang máy 60s: Tối đa 6 dòng, mỗi dòng 6 từ đắt giá cho slide cô đọng; cấu trúc elevator pitch trong 60 giây gồm: Mở đầu gây chú ý (Hook) -> Nỗi đau thị trường (Pain Point) -> Giải pháp đột phá (Solution) -> Chỉ số lực đẩy (Traction/KPI) -> Lời kêu gọi hành động (Call To Action).",
+      "source": "Executive-Pitch-Rule",
+      "category": "minimalist-6x6-and-pitch",
+      "created_at": "2026-10-26T00:01:30.000Z"
+    }
+  ],
+  "2026-10-25": [
+    {
+      "lesson": "Tập trung vào tính thực tiễn cao, minh họa bằng các dự án thành công tại Việt Nam.",
+      "source": "user-verification-test",
+      "category": "practical-relevance",
+      "created_at": "2026-10-25T11:47:57.542Z"
+    },
+    {
+      "lesson": "Nguyên tắc giọng văn tự nhiên: Loại bỏ hoàn toàn văn mẫu AI rập khuôn như 'Trong kỷ nguyên số hóa 4.0', 'Như chúng ta đã biết', 'Tóm lại là'. Viết như một diễn giả chuyên nghiệp hoặc chuyên gia cố vấn thân thiện, sắc bén.",
+      "source": "SlideCraft-Core-Directive",
+      "category": "natural-voice",
+      "created_at": "2026-10-25T11:45:00.000Z"
+    },
+    {
+      "lesson": "Bố cục trực quan chuẩn McKinsey & High-Ed: Mỗi slide chỉ 1 thông điệp cốt lõi. Áp dụng linh hoạt 8 layout: Hero, 3 Pillars, BigStat KPI, Timeline/Lộ trình, So sánh tương phản, Case Study, Biểu đồ dữ liệu, Tổng kết & CTA.",
+      "source": "PowerPoint-Master-Skill",
+      "category": "presentation-architecture",
+      "created_at": "2026-10-25T11:45:10.000Z"
+    },
+    {
+      "lesson": "Minh chứng số liệu & Thực tiễn: Luôn kèm số liệu định lượng, tỷ lệ tăng trưởng % hoặc bằng chứng thực nghiệm rõ ràng để tăng tính thuyết phục.",
+      "source": "SlideCraft-Core-Directive",
+      "category": "quantitative-evidence",
+      "created_at": "2026-10-25T11:45:20.000Z"
+    },
+    {
+      "lesson": "Tích hợp đa phương tiện & Video: Gợi ý và nhúng hình ảnh trực quan hoặc video clip ngắn (/media/video.mp4) tại các slide trọng điểm để thu hút sự chú ý.",
+      "source": "User-Custom-Training",
+      "category": "multimedia-integration",
+      "created_at": "2026-10-25T11:45:30.000Z"
+    },
+    {
+      "lesson": "Kịch bản thuyết trình (Speaker Notes): Luôn sinh lời thoại thực tế, giàu cảm xúc, hướng dẫn người thuyết trình cách mở đầu lôi cuốn (Hook) và tương tác với thính giả.",
+      "source": "User-Custom-Training",
+      "category": "speaker-notes",
+      "created_at": "2026-10-25T11:45:40.000Z"
+    }
+  ],
+  "2026-10-28": [
+    {
+      "lesson": "Bắt buộc liên hệ thực tiễn doanh nghiệp Việt Nam #1793216997239",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T19:49:57.252Z"
+    },
+    {
+      "lesson": "<span  >Quy chuẩn phòng thủ an toàn 1793216996217</span>",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T19:49:56.290Z"
+    },
+    {
+      "lesson": "Bắt buộc liên hệ thực tiễn doanh nghiệp Việt Nam #1793216993491",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T19:49:53.564Z"
+    },
+    {
+      "lesson": "<span  >Quy chuẩn phòng thủ an toàn 1793216990211</span>",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T19:49:50.316Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793216982689",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T19:49:42.716Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793216970877",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T19:49:30.887Z"
+    },
+    {
+      "lesson": "Bắt buộc liên hệ thực tiễn doanh nghiệp Việt Nam #1793215987760",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T19:33:07.766Z"
+    },
+    {
+      "lesson": "<span  >Quy chuẩn phòng thủ an toàn 1793215978744</span>",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T19:32:58.892Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793215973744",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T19:32:53.755Z"
+    },
+    {
+      "lesson": "Bắt buộc liên hệ thực tiễn doanh nghiệp Việt Nam #1793214632174",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T19:10:32.181Z"
+    },
+    {
+      "lesson": "<span  >Quy chuẩn phòng thủ an toàn 1793214631992</span>",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T19:10:32.021Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793214629056",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T19:10:29.063Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793214299230",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T19:04:59.248Z"
+    },
+    {
+      "lesson": "Bắt buộc liên hệ thực tiễn doanh nghiệp Việt Nam #1793214283443",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T19:04:43.451Z"
+    },
+    {
+      "lesson": "<span  >Quy chuẩn phòng thủ an toàn 1793214283172</span>",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T19:04:43.226Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793213175985",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T18:46:16.012Z"
+    },
+    {
+      "lesson": "Bắt buộc liên hệ thực tiễn doanh nghiệp Việt Nam #1793213173904",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T18:46:13.915Z"
+    },
+    {
+      "lesson": "<span  >Quy chuẩn phòng thủ an toàn 1793213173742</span>",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T18:46:13.786Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793212362697",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T18:32:42.706Z"
+    },
+    {
+      "lesson": "Bắt buộc liên hệ thực tiễn doanh nghiệp Việt Nam #1793212360781",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T18:32:40.790Z"
+    },
+    {
+      "lesson": "<span  >Quy chuẩn phòng thủ an toàn 1793212360548</span>",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T18:32:40.601Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793211942820",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T18:25:42.838Z"
+    },
+    {
+      "lesson": "Bắt buộc liên hệ thực tiễn doanh nghiệp Việt Nam #1793211940709",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T18:25:40.781Z"
+    },
+    {
+      "lesson": "Bắt buộc liên hệ thực tiễn doanh nghiệp Việt Nam #1793211940707",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T18:25:40.713Z"
+    },
+    {
+      "lesson": "<span  >Quy chuẩn phòng thủ an toàn 1793211940522</span>",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T18:25:40.595Z"
+    },
+    {
+      "lesson": "<span  >Quy chuẩn phòng thủ an toàn 1793211940427</span>",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T18:25:40.494Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793211929498",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T18:25:29.525Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793209641490",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T17:47:21.497Z"
+    },
+    {
+      "lesson": "Bắt buộc liên hệ thực tiễn doanh nghiệp Việt Nam #1793209623248",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T17:47:03.276Z"
+    },
+    {
+      "lesson": "<span  >Quy chuẩn phòng thủ an toàn 1793209622409</span>",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T17:47:02.468Z"
+    },
+    {
+      "lesson": "Bắt buộc liên hệ thực tiễn doanh nghiệp Việt Nam #1793209614704",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T17:46:54.968Z"
+    },
+    {
+      "lesson": "<span  >Quy chuẩn phòng thủ an toàn 1793209614174</span>",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T17:46:54.417Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793209595808",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T17:46:36.126Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793208363432",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T17:26:03.476Z"
+    },
+    {
+      "lesson": "Bắt buộc liên hệ thực tiễn doanh nghiệp Việt Nam #1793208345551",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T17:25:46.461Z"
+    },
+    {
+      "lesson": "<span  >Quy chuẩn phòng thủ an toàn 1793208344763</span>",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-28T17:25:44.788Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793207587154",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T17:13:07.162Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793206553755",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T16:55:53.773Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793206294178",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-28T16:51:34.750Z"
+    },
+    {
+      "lesson": "Chuẩn SGK Chân Trời Sáng Tạo: bài học mở đầu bằng câu hỏi gợi mở thực tiễn đời sống",
+      "source": "user-taught",
+      "category": "pedagogical-standard",
+      "created_at": "2026-10-28T16:45:33.082Z"
+    }
+  ],
+  "2026-10-29": [
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T05:02:28.103Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T04:56:38.262854+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T04:56:38.144Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T04:52:01.516620+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T04:52:01.376Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T04:42:51.763970+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T04:42:51.576Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T04:36:25.046558+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T04:36:24.925Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T04:33:28.071989+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T04:33:27.956Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T03:24:57.829633+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T03:24:57.741Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T02:38:56.559622+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T02:38:56.425Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T02:36:50.377483+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T02:36:50.261Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793241364335",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T02:36:04.368Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T02:35:03.551544+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T02:35:02.465Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T02:12:55.800030+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T02:12:55.718Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793239948841",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T02:12:28.869Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T02:08:20.963543+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T02:08:19.883Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793239692639",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T02:08:12.652Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T02:07:31.468417+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T02:07:31.388Z"
+    },
+    {
+      "lesson": "Tối ưu hóa kích thước chữ cho màn hình di động",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T02:06:52.238256+00:00"
+    },
+    {
+      "lesson": "Luôn sử dụng sơ đồ tư duy phân nhánh cho các bài học",
+      "source": "user-taught",
+      "category": "general-knowledge",
+      "created_at": "2026-10-29T02:06:52.106Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793238832323",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T01:53:52.341Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793238211578",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T01:43:31.595Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793237403743",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T01:30:03.756Z"
+    },
+    {
+      "lesson": "Quy tắc thử nghiệm chuẩn hóa 2026 #1793235078811",
+      "source": "user-taught",
+      "category": "stem-science",
+      "created_at": "2026-10-29T00:51:18.823Z"
+    },
+    {
+      "lesson": "Alibaba Qwen 2.5 0.5B làm mô hình nơ-ron mặc định cho thiết bị di động và văn phòng - Phản hồi siêu tốc, chuẩn ngữ pháp tiếng Việt 100%, không lag giật.",
+      "source": "system-training",
+      "category": "ai-architecture",
+      "created_at": "2026-10-28T19:44:20.838Z"
+    },
+    {
+      "lesson": "DeepSeek-R1 Distill 1.5B làm mô hình suy luận sâu - Tự động tư duy logic từng bước qua Chain-of-Thought (<think>), trả lời trực diện không vòng vo.",
+      "source": "system-training",
+      "category": "reasoning-cot",
+      "created_at": "2026-10-28T19:44:20.845Z"
+    },
+    {
+      "lesson": "Google Gemma 4 E2B làm mô hình flagship WebGPU - Chạy nơ-ron cục bộ 2 tỷ tham số từ Google DeepMind cho PC đồ họa cao.",
+      "source": "system-training",
+      "category": "flagship-gpu",
+      "created_at": "2026-10-28T19:44:20.845Z"
+    },
+    {
+      "lesson": "Cầu nối Cloud API Bridge (Google Gemini 2.0 Flash / Groq) 0đ - Khai phóng trí tuệ nhân tạo cấp độ thế giới không giới hạn cho mọi nhu cầu phức tạp.",
+      "source": "system-training",
+      "category": "cloud-bridge",
+      "created_at": "2026-10-28T19:44:20.845Z"
+    },
+    {
+      "lesson": "Cổng phần cứng cục bộ thật (Ollama / LM Studio) - Tự động quét và kết nối mô hình local chạy trên GPU rời RTX qua port 11434 và 1234.",
+      "source": "system-training",
+      "category": "hardware-bridge",
+      "created_at": "2026-10-28T19:44:20.845Z"
+    },
+    {
+      "lesson": "Quy chuẩn phản hồi: Người hỏi gì trả lời nấy, giải toán chính xác, phân tích sự kiện lịch sử rõ ràng, code block hoàn chỉnh, tự động làm PowerPoint 16:9 khi được yêu cầu.",
+      "source": "system-training",
+      "category": "conversational-direct",
+      "created_at": "2026-10-28T19:44:20.845Z"
+    }
+  ]
+}

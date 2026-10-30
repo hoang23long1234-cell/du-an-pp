@@ -1,0 +1,139 @@
+=== 404.html (2 matches) ===
+  Line 108: <span id="healthLabel" class="text-[11px] text-slate-400">Đang kiểm tra kết nối...</span>
+  Line 147: label.textContent = 'Đang kiểm tra kết nối...';
+=== AI.html (41 matches) ===
+  Line 784: "Thưa các em học sinh, điều gì giữ cho hàng tỷ tế bào của chúng ta vận động không ngừng nghỉ mỗi giây? Đó chính là đồng tiền năng lượng ATP.
+  Line 928: <textarea id="chatInputArea" data-ai-prompt-input="true" rows="2" onkeydown="handleChatKeydown(event)" placeholder="Nhắn tin trò chuyện hoặc
+  Line 1114: <p id="presentPromptHook" class="italic text-slate-300">...</p>
+  Line 1118: <p id="presentPromptCore" class="text-slate-300">...</p>
+  Line 1218: <span id="airShareProgressLabel">Đang truyền file sang thiết bị nhận...</span>
+  Line 1265: <i data-lucide="hand" class="w-3 h-3"></i> Đang theo dõi tay...
+  Line 1307: <input type="text" id="cmdPaletteInput" placeholder="Tìm slide, lệnh AI, đổi màu, xuất PPTX... (gõ để lọc)" class="w-full bg-transparent tex
+  Line 1352: hook: 'Thưa các em học sinh, điều gì giữ cho hàng tỷ tế bào của chúng ta vận động không ngừng nghỉ mỗi giây? Đó chính là đồng tiền năng lượn
+  Line 1364: hook: 'Đường phân là con đường sinh hóa cổ xưa nhất của sự sống, diễn ra ngay cả trước khi Trái Đất có oxy trong khí quyển...',
+  Line 1376: hook: 'Nếu ti thể là nhà máy điện, thì chất nền matrix chính là lò đốt nơi các liên kết carbon bị bẻ gãy triệt để...',
+  Line 1388: hook: 'Hãy tưởng tượng màng trong ti thể như một đập thủy điện vĩ đại, dòng proton H+ chính là dòng thác nước làm quay tuabin ATP Synthase..
+  Line 1400: hook: 'Vì sao sau những buổi chạy nước rút, bắp chân chúng ta lại căng tức và đau mỏi? Đáp án nằm ở quá trình lên men lactic khẩn cấp...',
+  Line 1504: const maxVal = Math.max(...slide.chart_data.map(d => Number(d.value) || 1));
+  Line 1726: if (elHook) elHook.textContent = `"${slide.hook || 'Xin chào các em học sinh, hôm nay chúng ta cùng tìm hiểu một chủ đề trọng tâm...'}"`;
+  Line 1746: if (promptHook) promptHook.textContent = `"${slide.hook || '...'}"`;
+  Line 1747: if (promptCore) promptCore.textContent = slide.corePoint || '...';
+  Line 1855: hook: 'Chúng ta hãy cùng kiểm chứng kiến thức vừa học qua một trường hợp thực tế thú vị sau...',
+  Line 2056: if (textarea) textarea.placeholder = "Nhắn tin trò chuyện, hỏi đáp kiến thức (chọn chế độ 'Soạn PowerPoint' khi muốn tạo slide)...";
+  Line 2061: if (textarea) textarea.placeholder = 'Nhập chủ đề để AI tự động thiết kế bộ slide PowerPoint 16:9 ngay lập tức...';
+  Line 2165: `Mình luôn sẵn sàng trò chuyện, giải đáp thắc mắc hoặc viết nội dung giáo án cho bạn. Khi nào bạn thực sự muốn làm bài thuyết trình, chỉ cần
+  Line 2271: <p>✓ 1. Nghiên cứu tài liệu & cấu trúc chuẩn ${standard}...</p>
+  Line 2272: <p>✓ 2. Khởi tạo ${count} slide 16:9 Cinema chuẩn xác...</p>
+  Line 2273: <p>✓ 3. Tối ưu kịch bản diễn thuyết Speaker Notes...</p>
+  Line 2317: hook: p.hook || p.speaker_note || 'Xin chào các em học sinh, chúng ta cùng bắt đầu...',
+  Line 2342: const cleanT = promptText.length > 40 ? promptText.substring(0, 38) + '...' : promptText;
+  Line 2370: const cleanTitle = topic.length > 55 ? topic.substring(0, 52) + '...' : topic;
+  Line 2382: hook: 'Thưa quý vị và các em, hôm nay chúng ta sẽ giải mã một chuyên đề mang tính bước ngoặt và ứng dụng sâu rộng...',
+  Line 2397: hook: `Điểm mấu chốt ở giai đoạn này nằm ở sự tương tác trực tiếp giữa các thành tố cấu thành...`,
+  Line 2478: const lastUser = [...chatMessages].reverse().find(m => m.sender === 'user');
+  Line 2663: <p class="italic text-slate-300">"${slide.hook || 'Điều gì giữ cho trái tim chúng ta đập 100.000 nhịp mỗi ngày? Đó chính là dòng tiền ATP...
+  Line 2761: showToast('📥 Đang đóng gói bản trình chiếu 16:9 Cinema...', 'info');
+  Line 3155: if (pHook) pHook.textContent = `"${slide.hook || '...'}"`;
+  Line 3156: if (pCore) pCore.textContent = slide.corePoint || '...';
+  Line 3227: showToast('📸 Đang kết nối Camera cho 3D Touch...', 'info');
+  Line 3266: if (badge) badge.innerHTML = isLaserActive ? '🤏 Laser Pointer BẬT' : '🖐️ Chờ cử chỉ...';
+  Line 3273: showToast('📡 Cử chỉ Air-Drop phát hiện! Đang bắn slide...', 'success');
+  Line 3276: if (badge) badge.innerHTML = '✊ Đang nắm giữ slide...';
+  Line 3402: showToast(`📡 Đang truyền bài thuyết trình tới "${deviceName}"...`, 'info');
+  Line 3740: const all = [...slideEntries, ...COMMAND_REGISTRY];
+  Line 3838: hook: `Bài trình bày phân tích sâu về: ${c.title}...`,
+  Line 3868: hook: `Kính thưa quý vị, sau đây là bức tranh số liệu trực quan về: ${chart.title}...`,
+=== dangki.html (8 matches) ===
+  Line 1066: ...details
+  Line 1247: btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> <span>Đang vào ' + provider + '...</span>';
+  Line 1248: showToast(`Đang chuyển hướng thẳng vào cổng ${provider}...`, 'info', 2000);
+  Line 1268: oauthDirectBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> <span>Đang chuyển hướng Supabase OAuth...</span>';
+  Line 1281: showToast('Đang kết nối cổng OAuth bảo mật dự phòng...', 'info');
+  Line 1296: oauthConfirmText.textContent = 'Đang bảo mật tạo tài khoản...';
+  Line 1467: submitBtnText.textContent = 'Đang khởi tạo tài khoản an toàn...';
+  Line 1470: showToast('🎉 Đăng ký tài khoản thành công! Đang chuyển hướng vào hệ thống...', 'success', 2500);
+=== dangnhap.html (8 matches) ===
+  Line 427: <span class="font-mono text-emerald-400 font-bold text-[10.5px] bg-emerald-950/60 px-2 py-0.5 rounded-lg border border-emerald-500/30">sb_pu
+  Line 569: <span class="font-mono text-emerald-400 font-semibold text-[10px]">sb_publ...k0mtSkZW</span>
+  Line 746: ...details
+  Line 833: btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> <span>Đang vào ' + provider + '...</span>';
+  Line 834: showToast(`Đang chuyển hướng cổng ${provider}...`, 'info', 2000);
+  Line 854: oauthConfirmText.textContent = 'Đang xác thực bảo mật...';
+  Line 895: submitBtnText.textContent = 'Đang xác thực thông tin...';
+  Line 992: showToast(`🎉 Đăng nhập thành công! Đang chuyển hướng vào tài khoản...`, 'success', 2500);
+=== index.html (5 matches) ===
+  Line 226: <input id="templateSearchInput" type="text" placeholder="Tìm mẫu theo chủ đề, ngành nghề..." class="w-full pl-10 pr-9 py-1.5 text-xs rounded
+  Line 307: <input type="text" id="heroPromptInput" placeholder="Nhập chủ đề slide (VD: Kế hoạch gọi vốn Series A Fintech)..." class="w-full bg-transpar
+  Line 526: <input type="text" id="catalogSearchField" oninput="runCatalogSearch()" placeholder="Tìm kiếm mẫu slide..." class="w-full pl-9 pr-3 py-2 tex
+  Line 625: <input type="text" id="cmdPaletteInput" placeholder="Tìm kiếm trang, tạo slide AI, bật camera 3D... (Ctrl+K)" class="w-full bg-transparent t
+  Line 1341: showToast(`⏳ Đang tạo file PowerPoint cho "${p.title}"...`, 'info');
+=== khoiphuctaikhoan.html (2 matches) ===
+  Line 1050: submitBtnText.textContent = 'Đang đồng bộ mật khẩu mới...';
+  Line 1053: showToast('🎉 Đổi mật khẩu thành công! Đang chuyển về trang Đăng nhập...', 'success', 3000);
+=== phoimau.html (1 matches) ===
+  Line 229: <input type="text" placeholder="Tìm bảng màu, theme..." class="w-full pl-10 pr-4 py-1.5 text-xs rounded-full bg-surface-pill border border-b
+=== phone.html (9 matches) ===
+  Line 323: <p class="text-xs text-slate-400">Đang khởi tạo liên kết bảo mật & xác thực Supabase OAuth...</p>
+  Line 342: <h1 id="userFullName" class="text-xs sm:text-sm font-bold text-white truncate">Đang đồng bộ...</h1>
+  Line 446: <span id="camAiStatusText">Đang quét cử chỉ tay...</span>
+  Line 560: <input id="remoteTextInput" type="text" placeholder="Gửi câu lệnh AI hoặc ghi chú diễn giả..." class="w-full h-10 pl-10 pr-3 text-xs bg-blac
+  Line 784: authLoadingOverlay.querySelector('h3').textContent = 'Đang đăng xuất...';
+  Line 837: ...extra
+  Line 1050: showToast('📷 Đang kích hoạt Camera AI 3D Touch...', 'info', 1500);
+  Line 1078: if (camAiStatusText) camAiStatusText.textContent = 'Camera AI đang quét...';
+  Line 1322: btnConnectPin.innerHTML = '<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Ghép...</span>';
+=== security.html (17 matches) ===
+  Line 708: <div id="publicIpValue" class="text-xl font-bold text-cyan-400 font-mono tabular-nums">Đang kiểm tra...</div>
+  Line 714: <div id="localIpValue" class="text-xl font-bold text-emerald-400 font-mono tabular-nums">Đang kiểm tra...</div>
+  Line 862: <div id="cdnStatusText" class="text-sm text-slate-300">Đang đồng bộ trạng thái CDN/hosting...</div>
+  Line 928: <div class="text-xs font-mono text-cyan-400" id="scanProgressText">Đang phân tích cấu trúc PPTX... 0%</div>
+  Line 1039: <input type="password" id="pwdInput" oninput="checkPasswordStrength()" placeholder="Nhập mật khẩu thử nghiệm của bạn..." class="w-full bg-sl
+  Line 1171: <textarea rows="4" required placeholder="Mô tả chi tiết lỗ hổng và cách tái diễn lỗi..." class="w-full bg-slate-900 border border-slate-700 
+  Line 1345: window.SlideVaultShield.showPill('warning', 'Đang thử nghiệm Lá Chắn Client: Tự phục hồi...', 4000);
+  Line 1539: if(terminal) terminal.innerHTML = '<div class="text-slate-500">// Logs cleared by user. Listening for incoming firewall events...</div>';
+  Line 1604: ? `${fileName} • ${fileSize} • SHA-256: ${hash.slice(0, 12)}... • Clean Signature`
+  Line 1605: : `${fileName} • ${fileSize} • SHA-256: ${hash.slice(0, 12)}... • Suspicious Behaviors Detected`;
+  Line 1633: 'Đang kiểm tra định dạng file...',
+  Line 1634: 'Đang phân tích metadata...',
+  Line 1635: 'Đang kiểm tra chữ ký số...',
+  Line 1636: 'Đang dò tìm macro / payload nguy hiểm...',
+  Line 1637: 'Đang xác minh độ tin cậy...'
+  Line 1642: const text = totalSteps[Math.min(totalSteps.length - 1, Math.floor(progress / 20) - 1)] || 'Đang hoàn tất...';
+  Line 1896: if (btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-emerald-400"></i> <span>Đang kiểm tra...</span>';
+=== service-admin.html (3 matches) ===
+  Line 666: <input type="text" id="revenueSearchInput" placeholder="Tìm khách hàng / dịch vụ..." style="padding: 6px 12px 6px 30px !important; font-size
+  Line 714: <div id="accountList" class="muted" style="max-height: 280px; overflow-y: auto;">Đang tải...</div>
+  Line 1085: showToast('Đang tải xuống báo cáo doanh thu CSV...');
+=== setting.html (7 matches) ===
+  Line 271: <input id="settingSearchInput" type="text" oninput="filterSettingsSearch(this.value)" placeholder="Tìm kiếm cài đặt nhanh (AI, Kính mờ, Tài 
+  Line 489: <input id="settingInputApiKey" type="password" placeholder="Nhập khóa API Gemini hoặc Groq của bạn..." class="w-full pl-3.5 pr-11 py-2.5 tex
+  Line 803: <input id="settingInputName" type="text" value="Khách" placeholder="Nhập tên hiển thị..." class="w-full p-2.5 rounded-xl bg-surface-pill bor
+  Line 807: <input id="settingInputEmail" type="email" value="Chưa đăng nhập" placeholder="Email của bạn..." class="w-full p-2.5 rounded-xl bg-surface-p
+  Line 1008: if (lbl) lbl.textContent = 'Đang kiểm tra...';
+  Line 1055: message: 'Gói dữ liệu 18 bài thuyết trình đang được nén và tải xuống...',
+  Line 1321: window.SlideVaultShield.showPill('success', 'Đã đăng xuất thành công! Đang chuyển hướng...', 2500);
+=== thuvienmau.html (1 matches) ===
+  Line 229: <input id="templateSearchInput" type="text" placeholder="Tìm mẫu theo chủ đề, ngành nghề..." class="w-full pl-10 pr-9 py-1.5 text-xs rounded
+=== trangchudong.html (5 matches) ===
+  Line 226: <input id="templateSearchInput" type="text" placeholder="Tìm mẫu theo chủ đề, ngành nghề..." class="w-full pl-10 pr-9 py-1.5 text-xs rounded
+  Line 307: <input type="text" id="heroPromptInput" placeholder="Nhập chủ đề slide (VD: Kế hoạch gọi vốn Series A Fintech)..." class="w-full bg-transpar
+  Line 526: <input type="text" id="catalogSearchField" oninput="runCatalogSearch()" placeholder="Tìm kiếm mẫu slide..." class="w-full pl-9 pr-3 py-2 tex
+  Line 625: <input type="text" id="cmdPaletteInput" placeholder="Tìm kiếm trang, tạo slide AI, bật camera 3D... (Ctrl+K)" class="w-full bg-transparent t
+  Line 1341: showToast(`⏳ Đang tạo file PowerPoint cho "${p.title}"...`, 'info');
+=== trinhchieuchiase.html (1 matches) ===
+  Line 218: <input type="text" placeholder="Tìm buổi trình chiếu..." class="w-full pl-10 pr-4 py-1.5 text-xs rounded-full bg-surface-pill border border-
+=== vanban.html (4 matches) ===
+  Line 229: <input type="text" placeholder="Tìm kiếm tài liệu..." class="w-full pl-10 pr-4 py-1.5 text-xs rounded-full bg-surface-pill border border-bor
+  Line 425: <textarea id="rawTextInput" rows="11" placeholder="Dán văn bản bài báo, tài liệu word, đề cương hoặc nội dung bài thuyết trình của bạn vào đ
+  Line 672: btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>AI Đang Phân Rã Dàn Ý (${selectedSlideCount} Slide)...</sp
+  Line 750: message: `Chuyển ${slidesData.length} slide sang Studio để kết xuất bài thuyết trình...`,
+=== vault.html (4 matches) ===
+  Line 343: <input id="vaultSearchInput" type="text" placeholder="Tìm kiếm slide, dự án..." class="w-full pl-10 pr-9 py-1.5 text-xs rounded-full bg-surf
+  Line 1117: return [...DEFAULT_PROJECTS];
+  Line 1437: title: 'Đang chuẩn bị thư viện PptxGenJS...',
+  Line 1447: title: '📥 Đang đóng gói PowerPoint...',
+=== vebieudonhanh.html (4 matches) ===
+  Line 218: <input type="text" placeholder="Tìm mẫu biểu đồ..." class="w-full pl-10 pr-4 py-1.5 text-xs rounded-full bg-surface-pill border border-borde
+  Line 795: const maxVal = Math.max(...data.map(d => d.val), 1);
+  Line 1038: message: 'Dữ liệu biểu đồ đã chuẩn bị xong. Đang mở Studio AI...',
+  Line 1082: const maxVal = Math.max(...data.map(d => d.val), 1);

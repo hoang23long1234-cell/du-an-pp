@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="stylesheet" href="3dtouch/mobile-optimization.css?v=mobile-4">
+  <title>Vault Của Tôi | SlideVault - Quản Lý Slide Đẳng Cấp</title>
+  
+  <!-- Local Fonts -->
+  <link rel="stylesheet" href="font/fonts.css">
+  
+  <!-- Tailwind CSS & shadcn/ui Design System -->
+  <link rel="stylesheet" href="tệp hệ thống/tailwind-shadcn/shadcn.css">
+  <link rel="stylesheet" href="tệp hệ thống/glass-theme.css?v=visionos-v98">
+  <script src="tệp hệ thống/glass-theme.js?v=visionos-v98"></script>
+  <!-- Official Supabase JS Client v2 SDK (Local First & CDN Fallback) -->
+  <script src="tệp hệ thống/supabase.min.js"></script>
+  <script>
+    if (typeof window.supabase === "undefined") {
+      const s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js";
+      document.head.appendChild(s);
+    }
+  </script>
+  <script src="tệp hệ thống/auth-state.js"></script>
+
+  <script src="fix.html/pptxgen.bundle.js" defer></script>
+  <script src="tệp hệ thống/tailwind-shadcn/tailwind.min.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/tailwind.config.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/lucide.min.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/shadcn.js" defer></script>
+  <script src="3dtouch/touch-control.js?v=spatial-ultra-v70" defer></script>
+  <script>
+    try {
+      if (window.matchMedia('(max-width: 1024px)').matches) {
+        localStorage.removeItem('slidevault_sidebar_collapsed');
+      }
+    } catch(e) {}
+    window.__sv_sidebar_clean = true;
+  </script>
+  <script src="fix.html/security_shield.js"></script>
+
+  <style id="lab-optimization-styles">
+    /* Hardware Acceleration & High Refresh Rate (120Hz+) */
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .offcanvas, #appSidebar, .modal, .glass-panel {
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+    /* Touch optimization */
+    button, a, input, select, textarea {
+      touch-action: manipulation;
+    }
+
+    /* Darkline & Liquid Glass Overrides for Vault */
+    .deck-card {
+      background: rgba(10, 16, 28, var(--sv-glass-opacity, 0.44));
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, var(--sv-glass-border-opacity, 0.12));
+      box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.65),
+                  inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.25),
+                  inset 0 0 20px 0 rgba(255, 255, 255, 0.02);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .deck-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(16, 185, 129, 0.5);
+      box-shadow: 0 26px 56px -10px rgba(0, 0, 0, 0.8),
+                  0 0 25px rgba(16, 185, 129, 0.2),
+                  inset 0 1px 2px rgba(255, 255, 255, 0.35);
+    }
+
+    /* Light Mode High Contrast & Crystal Pearl Surfaces */
+    html.light .deck-card,
+    html[data-theme="light"] .deck-card {
+      background: rgba(255, 255, 255, 0.70) !important;
+      backdrop-filter: blur(28px) saturate(190%) !important;
+      -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.90) !important;
+      box-shadow: 0 18px 42px -10px rgba(15, 23, 42, 0.07),
+                  inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+                  0 0 0 1px rgba(15, 23, 42, 0.05) !important;
+    }
+    html.light .deck-card:hover,
+    html[data-theme="light"] .deck-card:hover {
+      box-shadow: 0 22px 50px -8px rgba(16, 185, 129, 0.18),
+                  inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+                  0 0 0 1px rgba(16, 185, 129, 0.3) !important;
+    }
+    html.light .deck-card h4,
+    html[data-theme="light"] .deck-card h4,
+    html.light .saas-main-card h1,
+    html[data-theme="light"] .saas-main-card h1,
+    html.light .saas-main-card h2,
+    html[data-theme="light"] .saas-main-card h2,
+    html.light .saas-main-card h3,
+    html[data-theme="light"] .saas-main-card h3 {
+      color: #0f172a !important;
+    }
+    html.light .deck-card p,
+    html[data-theme="light"] .deck-card p {
+      color: #334155 !important;
+    }
+    html.light .bg-surface-pill,
+    html[data-theme="light"] .bg-surface-pill {
+      background-color: rgba(255, 255, 255, 0.75) !important;
+      border-color: rgba(15, 23, 42, 0.10) !important;
+      color: #0f172a !important;
+    }
+  
+    /* Project Detail Modal & Flowchart Styles */
+    .project-modal-backdrop {
+      background: rgba(4, 8, 18, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-modal-card {
+      background: rgba(12, 18, 32, 0.95);
+      backdrop-filter: blur(32px) saturate(190%);
+      -webkit-backdrop-filter: blur(32px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85),
+                  inset 0 1px 2px 0 rgba(255, 255, 255, 0.3);
+    }
+    html.light .project-modal-card,
+    html[data-theme="light"] .project-modal-card {
+      background: rgba(255, 255, 255, 0.95) !important;
+      border: 1px solid rgba(15, 23, 42, 0.12) !important;
+      box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.15),
+                  inset 0 1px 2px 0 rgba(255, 255, 255, 1) !important;
+    }
+    .flowchart-step-card {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s ease;
+    }
+    .flowchart-step-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px rgba(16, 185, 129, 0.2);
+    }
+    html.light .flowchart-step-card,
+    html[data-theme="light"] .flowchart-step-card {
+      background: rgba(255, 255, 255, 0.85) !important;
+      border: 1px solid rgba(15, 23, 42, 0.12) !important;
+    }
+    .slide-thumb-preview {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
+    }
+    .slide-thumb-preview:hover {
+      border-color: rgba(16, 185, 129, 0.5);
+      transform: scale(1.02);
+    }
+    html.light .slide-thumb-preview,
+    html[data-theme="light"] .slide-thumb-preview {
+      background: linear-gradient(135deg, rgba(241, 245, 249, 0.9), rgba(226, 232, 240, 0.95)) !important;
+      border: 1px solid rgba(15, 23, 42, 0.12) !important;
+    }
+  
+  </style>
+  
+  <!-- Universal Glass & Typography Design System -->
+  
+  <!-- SlideVault Pro Enterprise Anti-Crash & Hack Guardian -->
+  <script src="tệp hệ thống/anti-crash-client.js"></script>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen selection:bg-emerald-500/30 selection:text-emerald-300">
+
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div data-sidebar-backdrop class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity"></div>
+
+  <!-- ================= FLOATING SAAS SHELL ================= -->
+  <div class="saas-layout-wrapper">
+
+  <!-- Floating Collapsible Sidebar -->
+    <aside class="saas-sidebar" data-sidebar id="saasAppSidebar">
+      <!-- Brand Logo & Collapse Toggle -->
+      <div class="sidebar-brand-header flex items-center justify-between pb-4 border-b border-border/60">
+        <a href="trangchudong.html" class="flex items-center gap-3 group no-underline border-0 outline-none shadow-none">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 to-indigo-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+          </div>
+          <div class="sidebar-text">
+            <div class="flex items-center gap-1.5">
+              <span class="font-display font-bold text-lg tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text">SlideVault</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">PRO</span>
+            </div>
+            <p class="text-[11px] text-muted-foreground font-medium">AI Presentation Studio</p>
+          </div>
+        </a>
+        <div class="flex items-center gap-1 shrink-0">
+          <button type="button" data-sidebar-close class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-all cursor-pointer" title="Đóng thanh bên" aria-label="Đóng thanh bên">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+          <button type="button" data-sidebar-collapse-btn class="sidebar-collapse-btn hidden lg:flex p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-all ml-1 shrink-0 cursor-pointer" title="Thu gọn / Mở rộng (Ctrl+B)" aria-label="Thu gọn thanh bên" onclick="if (window.SlideVaultUI) { event.preventDefault(); event.stopPropagation(); window.SlideVaultUI.toggleCollapse(); }">
+            <svg class="w-4 h-4 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tree with Inertial Elastic Scrolling -->
+      <nav class="flex-1 py-4 space-y-5 overflow-y-auto sidebar-nav-scroll" style="scrollbar-width: none;">
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Không Gian</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="trangchudong.html" class="nav-pill-item " data-tooltip="Trang chủ">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span class="sidebar-text">Trang chủ</span>
+              </a>
+            </li>
+            <li>
+              <a href="vault.html" class="nav-pill-item active" data-tooltip="Vault của tôi">
+                <svg class="nav-icon w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></svg>
+                <span class="sidebar-text">Vault của tôi</span>
+              </a>
+            </li>
+            <li>
+              <a href="thuvienmau.html" class="nav-pill-item " data-tooltip="Thư viện mẫu">
+                <svg class="nav-icon w-4 h-4 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                <span class="sidebar-text">Thư viện mẫu</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[10px] font-semibold px-1.5 py-0.5 rounded-md bg-muted text-muted-foreground">50+</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Công Cụ AI</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="AI.html" class="nav-pill-item " data-tooltip="AI Studio Trực Tiếp">
+                <svg class="nav-icon w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                <span class="sidebar-text">AI Studio Trực Tiếp</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300">HOT</span>
+              </a>
+            </li>
+            <li>
+              <a href="vanban.html" class="nav-pill-item " data-tooltip="Văn bản → Slide">
+                <svg class="nav-icon w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <span class="sidebar-text">Văn bản → Slide</span>
+              </a>
+            </li>
+            <li>
+              <a href="phoimau.html" class="nav-pill-item " data-tooltip="Phối màu 1-Click">
+                <svg class="nav-icon w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg>
+                <span class="sidebar-text">Phối màu 1-Click</span>
+              </a>
+            </li>
+            <li>
+              <a href="vebieudonhanh.html" class="nav-pill-item " data-tooltip="Vẽ biểu đồ nhanh">
+                <svg class="nav-icon w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                <span class="sidebar-text">Vẽ biểu đồ nhanh</span>
+              </a>
+            </li>
+            <li>
+              <a href="trinhchieuchiase.html" class="nav-pill-item " data-tooltip="Trình chiếu & Chia sẻ">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                <span class="sidebar-text">Trình chiếu & Chia sẻ</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Cài Đặt & Hệ Thống</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="setting.html" class="nav-pill-item " data-tooltip="Cài đặt">
+                <svg class="nav-icon w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="sidebar-text">Cài đặt</span>
+              </a>
+            </li>
+            <li>
+              <a href="security.html" class="nav-pill-item " data-tooltip="Bảo mật">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span class="sidebar-text">Bảo mật</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </nav>
+
+      <!-- Sidebar Footer User Profile -->
+      <div class="pt-4 border-t border-border/60">
+        <div class="sidebar-footer-profile flex items-center justify-between p-2 rounded-2xl bg-surface-pill/50 border border-border/40">
+          <a href="dangnhap.html" class="flex items-center gap-2.5 min-w-0 flex-1 text-decoration-none group hover:opacity-90 transition-opacity" title="Bấm để đăng nhập hoặc xem tài khoản">
+            <div id="sidebarUserAvatar" class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-indigo-500 flex items-center justify-center text-xs font-bold text-white shadow-sm flex-shrink-0 group-hover:ring-2 group-hover:ring-emerald-400/50 transition-all">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sidebar-text truncate">
+              <div id="sidebarUserName" class="text-xs font-semibold truncate leading-tight group-hover:text-emerald-400 transition-colors">Khách</div>
+              <div id="sidebarUserEmail" class="text-[10px] text-muted-foreground truncate">Bấm để đăng nhập</div>
+            </div>
+          </a>
+          <div class="flex items-center gap-1 shrink-0">
+            <button data-theme-toggle class="p-1.5 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện Sáng / Tối">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+            <a href="dangnhap.html" id="sidebarAuthActionBtn" class="p-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors cursor-pointer text-decoration-none flex items-center justify-center" title="Đăng nhập tài khoản">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <div class="saas-main-stage flex-1 flex flex-col min-w-0">
+    
+    <!-- FLOATING TOPBAR (Reference: Image 2) -->
+    <!-- FLOATING LUXURY APPLE TOPBAR -->
+      <header class="saas-topbar sticky top-2 z-30 flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-2 rounded-2xl sm:rounded-full bg-card/80 backdrop-blur-2xl border border-border/60 shadow-lg transition-all">
+        <!-- Left: Brand Breadcrumb -->
+        <div class="flex items-center gap-2.5 min-w-0">
+          <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 -ml-1 rounded-xl bg-surface-pill border border-border/60 text-foreground hover:bg-muted transition-colors cursor-pointer flex items-center justify-center shrink-0" aria-label="Mở menu danh mục" title="Mở menu">
+            <svg class="w-4 h-4 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          </button>
+          <a href="trangchudong.html" class="flex items-center gap-2 text-decoration-none group shrink-0">
+            <div class="w-7 h-7 rounded-xl bg-gradient-to-br from-emerald-400 to-indigo-600 flex items-center justify-center shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-white"></i>
+            </div>
+            <span class="font-display font-bold text-sm tracking-tight text-foreground inline-flex items-center">SlideVault</span>
+            <span class="text-xs text-muted-foreground/40 hidden sm:inline">/</span>
+            <span class="text-xs font-semibold text-emerald-400 hidden sm:inline">Kho lưu trữ</span>
+          </a>
+        </div>
+
+        <!-- Center: Minimalist Search Bar -->
+        <div class="relative hidden sm:block flex-1 max-w-xs md:max-w-md mx-2">
+        <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/70 pointer-events-none"></i>
+        <input id="vaultSearchInput" type="text" placeholder="Tìm kiếm slide, dự án..." aria-label="Tìm kiếm slide, dự án trong Vault" class="w-full pl-10 pr-9 py-1.5 text-xs rounded-full bg-surface-pill border border-border/60 text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-emerald-500/60 focus:ring-1 focus:ring-emerald-500/40 transition-all">
+        <button type="button" data-command-trigger class="hidden" aria-label="Kích hoạt bảng lệnh" aria-hidden="true"></button>
+        <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] font-mono text-muted-foreground/60 bg-card/60 px-1 py-0.2 rounded border border-border/40 pointer-events-none hidden md:inline">⌘K</span>
+      </div>
+
+        <!-- Right: Actions, Language, Theme & Primary CTA -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <!-- 3D Touch Master Toggle -->
+          <button type="button" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt 3D Touch" title="SlideVault 3D Touch: Chuột Laser, Remote điện thoại, AirShare & Cảm ứng lực" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-surface-pill border border-emerald-500/30 hover:border-emerald-500 text-xs text-foreground transition-all active:scale-95 group shadow-sm cursor-pointer">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 group-[.active]:animate-ping"></span>
+            <i data-lucide="hand" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span class="font-semibold text-[11px] text-foreground group-hover:text-emerald-400 hidden sm:inline">3D Touch</span>
+          </button>
+
+          <!-- Language Selector -->
+          <div class="lang-dropdown-container relative hidden sm:block">
+            <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class="control-pill text-xs flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-surface-pill border border-border/60 text-foreground hover:bg-muted transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span class="font-semibold text-xs">VI</span>
+              <i data-lucide="chevron-down" class="w-3 h-3 text-muted-foreground"></i>
+            </button>
+            <div class="lang-dropdown-menu">
+              <div class="lang-dropdown-item font-semibold text-emerald-400 border border-emerald-500/40 bg-emerald-500/10 rounded-lg p-1.5 mb-1">
+                <span>Tiếng Việt</span>
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+              </div>
+              <div class="lang-dropdown-item text-muted-foreground hover:text-foreground p-1.5 cursor-pointer">
+                <span>English</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Theme Toggle Button -->
+          <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:text-foreground transition-all active:scale-95" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+
+          <!-- Topbar Auth Slot -->
+          <div id="topbarAuthSlot"><a href="dangnhap.html" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-pill border border-border/60 text-xs font-semibold text-foreground hover:bg-muted transition-all active:scale-95 shadow-sm text-decoration-none shrink-0" title="Đăng nhập tài khoản"><i data-lucide="user" class="w-3.5 h-3.5 text-emerald-400"></i><span class="hidden sm:inline">Đăng nhập</span></a></div>
+
+          <!-- Primary CTA: Tạo Slide AI -->
+          <a href="AI.html" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs shadow-md shadow-emerald-500/25 transition-all transform active:scale-95 text-decoration-none shrink-0">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Tạo Slide AI</span>
+          </a>
+        </div>
+      </header>
+
+    <!-- MAIN STAGE CONTENT (Reference: Soft rounded 32px floating card) -->
+    <main class="saas-main-card page-enter-smooth position-relative" style="z-index: 10;">
+      
+      <!-- HERO BANNER WITH LUXURY ASYMMETRIC SPLIT CINEMA STAGE -->
+      <section class="rounded-3xl border border-border/80 bg-gradient-to-br from-card/95 via-card/80 to-emerald-950/25 backdrop-blur-3xl p-6 lg:p-10 shadow-[0_24px_60px_rgba(0,0,0,0.45)] relative overflow-hidden mb-6">
+        <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-gradient-to-br from-emerald-500/15 via-indigo-500/10 to-transparent blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none"></div>
+        
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Left Column (7 cols): VisionOS Executive Typography & Value Prop -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 text-xs font-semibold shadow-sm backdrop-blur-md">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span> SLIDEVAULT CLOUD VAULT 2026 • Bảo Mật AES-256 GCM</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight text-foreground leading-[1.12]" style="text-wrap: balance;">
+              <span>Kho Dự Án Slide Cá Nhân</span><br>
+              <span class="sv-apple-shimmer-title drop-shadow-[0_4px_24px_rgba(16,185,129,0.35)]">Đồng Bộ & Quản Trị Đẳng Cấp</span>
+            </h1>
+
+            <!-- Typewriter Dynamic Subtitle -->
+            <p class="text-xs sm:text-sm lg:text-base text-muted-foreground flex items-center flex-wrap gap-1.5 font-medium">
+              <span>Đồng bộ thời gian thực: </span>
+              <span class="text-emerald-400 font-bold" data-typewriter data-typewriter-words='["18 dự án slide chuẩn McKinsey & Silicon Valley độc quyền", "Tự động sao lưu định dạng PowerPoint (.pptx) nguyên bản 100%", "Chia sẻ liên kết trực tuyến bảo vệ mật khẩu & quyền hạn 2FA", "Xuất file mượt mà với 0% lỗi font và định dạng trên mọi máy tính"]'></span>
+            </p>
+
+            <p class="text-xs sm:text-sm text-muted-foreground/85 leading-relaxed max-w-2xl">
+              Nơi lưu trữ tập trung toàn bộ tài nguyên bài thuyết trình của bạn. Tích hợp AI kiểm định chất lượng slide, tự động tạo thumbnail 16:9 sắc nét và hỗ trợ trình chiếu trực tiếp không cần cài đặt phần mềm.
+            </p>
+
+            <!-- Action CTAs: Tạo Slide Với AI & Tải lên PPTX -->
+            <div class="pt-2 flex flex-wrap items-center gap-3">
+              <a href="AI.html" class="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white text-xs font-bold shadow-lg shadow-emerald-500/25 transition-all transform active:scale-95 text-decoration-none cursor-pointer">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <span>+ Tạo Slide Với AI</span>
+              </a>
+
+              <button type="button" onclick="document.getElementById('uploadPptxInput').click()" class="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-surface-pill hover:bg-muted border border-border/70 text-xs font-semibold text-foreground transition-all active:scale-95 cursor-pointer shadow-sm">
+                <i data-lucide="upload" class="w-4 h-4 text-cyan-400"></i>
+                <span>Tải lên PPTX</span>
+              </button>
+              <input type="file" id="uploadPptxInput" accept=".pptx,.json" class="hidden" aria-label="Tải lên tệp PowerPoint hoặc JSON" onchange="handlePptxUpload(event)">
+
+              <button type="button" onclick="exportEntireVaultBackup()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-slate-300 hover:text-white transition-all active:scale-95 cursor-pointer">
+                <i data-lucide="archive" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Sao Lưu Zip</span>
+              </button>
+            </div>
+
+            <!-- Value Chips -->
+            <div class="pt-1 flex flex-wrap items-center gap-2.5 text-[11px] text-muted-foreground/80">
+              <span class="inline-flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> Mã Hóa AES-256</span>
+              <span class="text-border">•</span>
+              <span class="inline-flex items-center gap-1"><i data-lucide="cloud" class="w-3.5 h-3.5 text-cyan-400"></i> Cloud Auto-Sync</span>
+              <span class="text-border">•</span>
+              <span class="inline-flex items-center gap-1"><i data-lucide="file-check" class="w-3.5 h-3.5 text-amber-400"></i> 100% Native PPTX</span>
+            </div>
+          </div>
+
+          <!-- Right Column (5 cols): Vault Storage Meter & Health Monitor Capsule -->
+          <div class="lg:col-span-5">
+            <div class="rounded-3xl border border-white/15 bg-slate-950/80 backdrop-blur-2xl p-5 shadow-2xl relative overflow-hidden group hover:border-emerald-500/40 transition-all duration-300">
+              <!-- Specular Top Lighting -->
+              <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></div>
+              
+              <!-- macOS Window Header -->
+              <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10 text-xs text-slate-400">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500/90 shadow-sm shadow-rose-500/50"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500/90 shadow-sm shadow-amber-500/50"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/90 shadow-sm shadow-emerald-500/50"></span>
+                  <span class="font-mono text-[11px] text-slate-300 font-semibold pl-2">Vault_Storage_Quota.aes</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono text-[10px] font-bold border border-emerald-500/30">ENCRYPTED</span>
+              </div>
+
+              <!-- Storage Meter Progress Bar -->
+              <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 space-y-2 mb-3">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-semibold text-slate-300 flex items-center gap-1.5">
+                    <i data-lucide="hard-drive" class="w-3.5 h-3.5 text-cyan-400"></i> Dung lượng đám mây
+                  </span>
+                  <span class="font-mono font-bold text-emerald-400">2.4 GB / 10 GB (24%)</span>
+                </div>
+                <div class="h-2 rounded-full bg-slate-900 border border-white/10 overflow-hidden relative">
+                  <div class="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 rounded-full" style="width: 24%;"></div>
+                </div>
+              </div>
+
+              <!-- Quick Metric Stats -->
+              <div class="grid grid-cols-3 gap-2 text-center mb-3">
+                <div class="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+                  <div class="text-[10px] text-slate-400">Tổng Slide</div>
+                  <div class="text-base font-bold text-white mt-0.5" id="vaultTotalDecksBadge">18</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+                  <div class="text-[10px] text-slate-400">Đã Lưu Cloud</div>
+                  <div class="text-base font-bold text-emerald-400 mt-0.5">100%</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+                  <div class="text-[10px] text-slate-400">Bảo Vệ 2FA</div>
+                  <div class="text-base font-bold text-cyan-400 mt-0.5">Active</div>
+                </div>
+              </div>
+
+              <!-- Bottom Action -->
+              <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Đồng bộ tức thì: <b>0.12s</b></span>
+                <a href="#pipelineFlowchartContainer" class="text-emerald-400 hover:text-emerald-300 font-semibold text-[11px] flex items-center gap-1 text-decoration-none">
+                  Xem quy trình dự án <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SƠ ĐỒ QUY TRÌNH & KIẾN TRÚC DỰ ÁN (PROJECT LIFECYCLE PIPELINE) -->
+      <section id="pipelineFlowchartContainer" class="mb-5 rounded-3xl p-5 bg-card/75 backdrop-blur-2xl border border-border/60 shadow-xl transition-all">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-border/40">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center text-white shadow-md shadow-emerald-500/20">
+              <i data-lucide="git-merge" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h2 class="text-sm sm:text-base font-display font-bold text-foreground flex items-center gap-2">
+                <span>Sơ Đồ Kiến Trúc Quy Trình Dự Án (Slide Pipeline Architecture)</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Auto 16:9 Cinema</span>
+              </h2>
+              <p class="text-[11px] text-muted-foreground mt-0.5">Mô hình xử lý khép kín từ dữ liệu thô, AI tạo cấu trúc đến xuất bản PowerPoint nguyên bản.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button type="button" onclick="togglePipelineDetails()" class="px-3 py-1.5 rounded-xl bg-surface-pill hover:bg-muted text-foreground text-xs font-semibold border border-border/50 flex items-center gap-1.5 transition-all">
+              <i data-lucide="info" class="w-3.5 h-3.5 text-cyan-400"></i>
+              <span id="pipelineDetailsToggleText">Xem Thông Số Kỹ Thuật</span>
+            </button>
+            <button type="button" onclick="document.getElementById('pipelineFlowchartBody').classList.toggle('hidden')" class="p-1.5 rounded-xl bg-surface-pill hover:bg-muted text-muted-foreground hover:text-foreground transition-all" title="Thu gọn / Mở rộng" aria-label="Thu gọn hoặc mở rộng sơ đồ">
+              <i data-lucide="chevrons-up-down" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <div id="pipelineFlowchartBody">
+          <!-- 5 Interactive Pipeline Steps Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mt-4 relative">
+            <!-- Step 1 -->
+            <div class="flowchart-step-card p-3.5 rounded-2xl cursor-pointer" onclick="showPipelineStepInfo(1)">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">01. INGESTION</span>
+                <i data-lucide="file-input" class="w-4 h-4 text-emerald-400"></i>
+              </div>
+              <div class="text-xs font-bold text-foreground">Tiếp Nhận & Phân Tích</div>
+              <div class="text-[11px] text-muted-foreground mt-1">Prompt tự nhiên, dàn ý Markdown, trích xuất tài liệu thô.</div>
+              <div class="mt-3 pt-2 border-t border-border/30 flex items-center justify-between text-[10px] text-emerald-400 font-medium">
+                <span>Độ trễ: ~0.15s</span>
+                <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Sẵn sàng</span>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flowchart-step-card p-3.5 rounded-2xl cursor-pointer" onclick="showPipelineStepInfo(2)">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-400">02. AI SEMANTIC</span>
+                <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i>
+              </div>
+              <div class="text-xs font-bold text-foreground">Phân Bổ Cấu Trúc Luận Điểm</div>
+              <div class="text-[11px] text-muted-foreground mt-1">Trích xuất 3-5 ý chính, chọn theme màu tương phản, bố cục slide.</div>
+              <div class="mt-3 pt-2 border-t border-border/30 flex items-center justify-between text-[10px] text-cyan-400 font-medium">
+                <span>Chuẩn: McKinsey</span>
+                <span>100% Logic</span>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flowchart-step-card p-3.5 rounded-2xl cursor-pointer" onclick="showPipelineStepInfo(3)">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-400">03. 16:9 CANVAS</span>
+                <i data-lucide="layout-template" class="w-4 h-4 text-purple-400"></i>
+              </div>
+              <div class="text-xs font-bold text-foreground">Dựng Bố Cục Cinema 16:9</div>
+              <div class="text-[11px] text-muted-foreground mt-1">Tỷ lệ vàng, Liquid Glass cards, biểu đồ KPI SVG sắc nét.</div>
+              <div class="mt-3 pt-2 border-t border-border/30 flex items-center justify-between text-[10px] text-purple-400 font-medium">
+                <span>Tương phản: AAA</span>
+                <span>120Hz Smooth</span>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="flowchart-step-card p-3.5 rounded-2xl cursor-pointer" onclick="showPipelineStepInfo(4)">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-400">04. ATOMIC VAULT</span>
+                <i data-lucide="shield-check" class="w-4 h-4 text-amber-400"></i>
+              </div>
+              <div class="text-xs font-bold text-foreground">Lưu Trữ Nguyên Tử & Bảo Mật</div>
+              <div class="text-[11px] text-muted-foreground mt-1">Mã hóa AES-256, tự động đồng bộ Local/Cloud, chống ghi đè lỗi.</div>
+              <div class="mt-3 pt-2 border-t border-border/30 flex items-center justify-between text-[10px] text-amber-400 font-medium">
+                <span>Mã hóa: AES-256</span>
+                <span>Bảo vệ 24/7</span>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="flowchart-step-card p-3.5 rounded-2xl cursor-pointer" onclick="showPipelineStepInfo(5)">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">05. NATIVE EXPORT</span>
+                <i data-lucide="download" class="w-4 h-4 text-emerald-400"></i>
+              </div>
+              <div class="text-xs font-bold text-foreground">Xuất PPTX & Trình Chiếu</div>
+              <div class="text-[11px] text-muted-foreground mt-1">Xuất PowerPoint .pptx thật 100% offline, AirShare cử chỉ không dây.</div>
+              <div class="mt-3 pt-2 border-t border-border/30 flex items-center justify-between text-[10px] text-emerald-400 font-medium">
+                <span>0% Lỗi Font</span>
+                <span>Office 365 Ready</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technical Specs Inspector Drawer (Collapsible) -->
+          <div id="pipelineSpecsDrawer" class="hidden mt-4 p-4 rounded-2xl bg-surface-pill/70 border border-border/50 text-xs text-foreground transition-all">
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-border/40">
+              <span class="font-bold flex items-center gap-1.5 text-emerald-400">
+                <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
+                <span id="pipelineStepTitle">Chi Tiết Thông Số Kỹ Thuật Bước 01</span>
+              </span>
+              <span class="text-[10px] font-mono text-muted-foreground" id="pipelineStepLatency">Latency: 120ms • Engine: v4.8</span>
+            </div>
+            <p id="pipelineStepDesc" class="text-xs text-muted-foreground leading-relaxed">
+              Hệ thống nhận diện ngôn ngữ tự nhiên, tiến hành phân đoạn cú pháp và cấu trúc hóa dữ liệu đầu vào thành mảng JSON đối tượng slide nguyên tử.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FILTER TABS & QUICK STATUS -->
+      <section class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-4">
+        <!-- Filter Tabs -->
+        <div class="flex items-center gap-1.5 p-1 rounded-2xl bg-surface-pill border border-border/60 overflow-x-auto scrollbar-none">
+          <button class="vault-filter-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500 text-white shadow-sm transition-all" data-filter="all">
+            Tất cả (18)
+          </button>
+          <button class="vault-filter-tab px-3.5 py-1.5 rounded-xl text-xs font-medium text-muted-foreground hover:text-foreground transition-all" data-filter="recent">
+            Gần đây (6)
+          </button>
+          <button class="vault-filter-tab px-3.5 py-1.5 rounded-xl text-xs font-medium text-muted-foreground hover:text-foreground transition-all" data-filter="favorite">
+            Yêu thích ⭐ (4)
+          </button>
+          <button class="vault-filter-tab px-3.5 py-1.5 rounded-xl text-xs font-medium text-muted-foreground hover:text-foreground transition-all" data-filter="shared">
+            Đã chia sẻ (5)
+          </button>
+        </div>
+
+        <div class="text-xs text-muted-foreground flex items-center gap-1.5">
+          <i data-lucide="layers" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Hiển thị <b>18 bài trình chiếu</b></span>
+        </div>
+      </section>
+
+      <!-- PRESENTATION CARDS GRID -->
+      <section id="vaultGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+        
+        <!-- Deck 1 -->
+        <div class="deck-card group rounded-3xl border border-border/60 hover:border-emerald-500/50 bg-card/85 backdrop-blur-xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between" data-category="recent favorite" data-title="Báo cáo Chiến lược Tăng trưởng AI 2026 - Q3">
+          <div>
+            <!-- Thumbnail Visual -->
+            <div class="relative h-44 rounded-2xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border border-white/10 p-4 overflow-hidden flex flex-col justify-between group-hover:scale-[1.01] transition-transform">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">McKinsey Format</span>
+                <button class="p-1 rounded-lg bg-black/40 hover:bg-black/70 text-amber-400" title="Yêu thích" aria-label="Bỏ yêu thích bài thuyết trình">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                </button>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase font-bold tracking-widest text-emerald-400 mb-1">SlideVault Executive</div>
+                <h3 class="text-sm font-bold text-white line-clamp-2 leading-snug">Chiến lược Tăng trưởng AI & Chuyển đổi số Doanh nghiệp 2026</h3>
+              </div>
+              <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-white/10 pt-2">
+                <span>16 Slides • 16:9</span>
+                <span class="text-emerald-400 font-medium">Sẵn sàng xuất PPTX</span>
+              </div>
+            </div>
+
+            <!-- Card Info -->
+            <div class="mt-4">
+              <h4 class="font-display font-bold text-sm text-foreground line-clamp-1 group-hover:text-emerald-400 transition-colors">
+                Báo cáo Chiến lược Tăng trưởng AI 2026 - Q3
+              </h4>
+              <p class="text-xs text-muted-foreground mt-1 line-clamp-2">
+                Phân tích thị trường LLM, lộ trình đầu tư hạ tầng GPU và mô hình kinh doanh AI Agent tự động.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-border/50 flex items-center justify-between text-xs">
+            <span class="text-muted-foreground text-[11px]">Sửa 2 giờ trước</span>
+            <div class="flex items-center gap-1.5">
+              <a href="trinhchieuchiase.html?deck=ai-strategy" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Trình chiếu">
+                <i data-lucide="play" class="w-3.5 h-3.5 text-emerald-400"></i>
+              </a>
+              <a href="AI.html?deck=ai-strategy" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Chỉnh sửa trong Studio AI">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              </a>
+              <button onclick="downloadPptxDemo('Báo cáo Chiến lược Tăng trưởng AI 2026')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Tải file .pptx" aria-label="Tải file .pptx Báo cáo Chiến lược Tăng trưởng AI 2026">
+                <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-400"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deck 2 -->
+        <div class="deck-card group rounded-3xl border border-border/60 hover:border-emerald-500/50 bg-card/85 backdrop-blur-xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between" data-category="recent favorite" data-title="Pitch Deck Gọi Vốn Series A - EduTech Global">
+          <div>
+            <div class="relative h-44 rounded-2xl bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 border border-white/10 p-4 overflow-hidden flex flex-col justify-between group-hover:scale-[1.01] transition-transform">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">Silicon Valley Deck</span>
+                <button class="p-1 rounded-lg bg-black/40 hover:bg-black/70 text-amber-400" title="Yêu thích" aria-label="Bỏ yêu thích bài thuyết trình">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                </button>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase font-bold tracking-widest text-cyan-400 mb-1">Pitch Deck Series A</div>
+                <h3 class="text-sm font-bold text-white line-clamp-2 leading-snug">EduTech Global: Nền Tảng Học Trực Tuyến Tương Tác 3D</h3>
+              </div>
+              <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-white/10 pt-2">
+                <span>12 Slides • 16:9</span>
+                <span class="text-cyan-400 font-medium">Mục tiêu $3.5M</span>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <h4 class="font-display font-bold text-sm text-foreground line-clamp-1 group-hover:text-emerald-400 transition-colors">
+                Pitch Deck Gọi Vốn Series A - EduTech Global
+              </h4>
+              <p class="text-xs text-muted-foreground mt-1 line-clamp-2">
+                Slide thuyết phục nhà đầu tư: Problem, Solution, Traction, TAM/SAM/SOM, Đội ngũ và Dự phóng tài chính 3 năm.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-border/50 flex items-center justify-between text-xs">
+            <span class="text-muted-foreground text-[11px]">Sửa hôm qua</span>
+            <div class="flex items-center gap-1.5">
+              <a href="trinhchieuchiase.html?deck=edutech-pitch" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Trình chiếu">
+                <i data-lucide="play" class="w-3.5 h-3.5 text-emerald-400"></i>
+              </a>
+              <a href="AI.html?deck=edutech-pitch" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Chỉnh sửa">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              </a>
+              <button onclick="downloadPptxDemo('Pitch Deck Gọi Vốn Series A')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Tải file .pptx" aria-label="Tải file .pptx Pitch Deck Gọi Vốn Series A">
+                <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-400"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deck 3 -->
+        <div class="deck-card group rounded-3xl border border-border/60 hover:border-emerald-500/50 bg-card/85 backdrop-blur-xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between" data-category="recent shared" data-title="Giáo án STEM: Trí Tuệ Nhân Tạo & Tương Lai Robot">
+          <div>
+            <div class="relative h-44 rounded-2xl bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 border border-white/10 p-4 overflow-hidden flex flex-col justify-between group-hover:scale-[1.01] transition-transform">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40">Giáo Dục & Sư Phạm</span>
+                <button class="p-1 rounded-lg bg-black/40 hover:bg-black/70 text-slate-400 hover:text-amber-400" title="Yêu thích" aria-label="Đánh dấu yêu thích bài thuyết trình">
+                  <i data-lucide="star" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase font-bold tracking-widest text-purple-400 mb-1">STEM Education</div>
+                <h3 class="text-sm font-bold text-white line-clamp-2 leading-snug">Chuyên Đề AI Trong Giáo Dục & Thực Hành Robot Tự Hành</h3>
+              </div>
+              <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-white/10 pt-2">
+                <span>20 Slides • 16:9</span>
+                <span class="text-purple-400 font-medium">Kèm Quiz Tương Tác</span>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <h4 class="font-display font-bold text-sm text-foreground line-clamp-1 group-hover:text-emerald-400 transition-colors">
+                Giáo án STEM: Trí Tuệ Nhân Tạo & Tương Lai Robot
+              </h4>
+              <p class="text-xs text-muted-foreground mt-1 line-clamp-2">
+                Bài giảng trực quan sinh động dành cho học sinh THPT và sinh viên đại học, tích hợp sơ đồ tư duy tương tác.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-border/50 flex items-center justify-between text-xs">
+            <span class="text-muted-foreground text-[11px]">Sửa 3 ngày trước</span>
+            <div class="flex items-center gap-1.5">
+              <a href="trinhchieuchiase.html?deck=stem-ai" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Trình chiếu">
+                <i data-lucide="play" class="w-3.5 h-3.5 text-emerald-400"></i>
+              </a>
+              <a href="AI.html?deck=stem-ai" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Chỉnh sửa">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              </a>
+              <button onclick="downloadPptxDemo('Giáo án STEM')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Tải file .pptx" aria-label="Tải file .pptx Giáo án STEM">
+                <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-400"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deck 4 -->
+        <div class="deck-card group rounded-3xl border border-border/60 hover:border-emerald-500/50 bg-card/85 backdrop-blur-xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between" data-category="shared" data-title="Báo cáo Doanh thu & Phân tích Tài chính Hợp nhất">
+          <div>
+            <div class="relative h-44 rounded-2xl bg-gradient-to-br from-slate-900 via-amber-950 to-slate-900 border border-white/10 p-4 overflow-hidden flex flex-col justify-between group-hover:scale-[1.01] transition-transform">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">Báo Cáo Tài Chính</span>
+                <button class="p-1 rounded-lg bg-black/40 hover:bg-black/70 text-slate-400 hover:text-amber-400" title="Yêu thích" aria-label="Đánh dấu yêu thích bài thuyết trình">
+                  <i data-lucide="star" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase font-bold tracking-widest text-amber-400 mb-1">Financial Report</div>
+                <h3 class="text-sm font-bold text-white line-clamp-2 leading-snug">Phân Tích Chỉ Số Tài Chính & Tăng Trưởng Doanh Thu Hợp Nhất</h3>
+              </div>
+              <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-white/10 pt-2">
+                <span>15 Slides • Biểu đồ KPI</span>
+                <span class="text-amber-400 font-medium">+34% YOY</span>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <h4 class="font-display font-bold text-sm text-foreground line-clamp-1 group-hover:text-emerald-400 transition-colors">
+                Báo cáo Doanh thu & Phân tích Tài chính Hợp nhất
+              </h4>
+              <p class="text-xs text-muted-foreground mt-1 line-clamp-2">
+                Bảng cân đối kế toán, biểu đồ waterfall doanh thu, phân bổ chi phí hoạt động và chỉ số EBITDA.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-border/50 flex items-center justify-between text-xs">
+            <span class="text-muted-foreground text-[11px]">Sửa 1 tuần trước</span>
+            <div class="flex items-center gap-1.5">
+              <a href="trinhchieuchiase.html?deck=finance" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Trình chiếu">
+                <i data-lucide="play" class="w-3.5 h-3.5 text-emerald-400"></i>
+              </a>
+              <a href="AI.html?deck=finance" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Chỉnh sửa">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              </a>
+              <button onclick="downloadPptxDemo('Báo cáo Tài chính')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Tải file .pptx" aria-label="Tải file .pptx Báo cáo Tài chính">
+                <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-400"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deck 5 -->
+        <div class="deck-card group rounded-3xl border border-border/60 hover:border-emerald-500/50 bg-card/85 backdrop-blur-xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between" data-category="favorite" data-title="Kế hoạch Ra mắt Sản phẩm Công nghệ Mới - Go-to-Market">
+          <div>
+            <div class="relative h-44 rounded-2xl bg-gradient-to-br from-slate-900 via-rose-950 to-slate-900 border border-white/10 p-4 overflow-hidden flex flex-col justify-between group-hover:scale-[1.01] transition-transform">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40">Marketing & GTM</span>
+                <button class="p-1 rounded-lg bg-black/40 hover:bg-black/70 text-amber-400" title="Yêu thích" aria-label="Bỏ yêu thích bài thuyết trình">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                </button>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase font-bold tracking-widest text-rose-400 mb-1">Product Launch 2026</div>
+                <h3 class="text-sm font-bold text-white line-clamp-2 leading-snug">Chiến Lược Go-to-Market: Ra Mắt Ứng Dụng Thông Minh</h3>
+              </div>
+              <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-white/10 pt-2">
+                <span>14 Slides • Phễu chuyển đổi</span>
+                <span class="text-rose-400 font-medium">Apple Style</span>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <h4 class="font-display font-bold text-sm text-foreground line-clamp-1 group-hover:text-emerald-400 transition-colors">
+                Kế hoạch Ra mắt Sản phẩm Công nghệ Mới - Go-to-Market
+              </h4>
+              <p class="text-xs text-muted-foreground mt-1 line-clamp-2">
+                Lộ trình 3 giai đoạn: Teaser, Launch Day và Growth Retargeting, tích hợp persona khách hàng mục tiêu.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-border/50 flex items-center justify-between text-xs">
+            <span class="text-muted-foreground text-[11px]">Sửa 2 tuần trước</span>
+            <div class="flex items-center gap-1.5">
+              <a href="trinhchieuchiase.html?deck=gtm" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Trình chiếu">
+                <i data-lucide="play" class="w-3.5 h-3.5 text-emerald-400"></i>
+              </a>
+              <a href="AI.html?deck=gtm" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Chỉnh sửa">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              </a>
+              <button onclick="downloadPptxDemo('Kế hoạch Go-to-Market')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Tải file .pptx" aria-label="Tải file .pptx Kế hoạch Go-to-Market">
+                <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-400"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deck 6 -->
+        <div class="deck-card group rounded-3xl border border-border/60 hover:border-emerald-500/50 bg-card/85 backdrop-blur-xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between" data-category="shared" data-title="Hồ sơ Năng lực Doanh nghiệp (Company Profile)">
+          <div>
+            <div class="relative h-44 rounded-2xl bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 border border-white/10 p-4 overflow-hidden flex flex-col justify-between group-hover:scale-[1.01] transition-transform">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40">Company Profile</span>
+                <button class="p-1 rounded-lg bg-black/40 hover:bg-black/70 text-slate-400 hover:text-amber-400" title="Yêu thích" aria-label="Đánh dấu yêu thích bài thuyết trình">
+                  <i data-lucide="star" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase font-bold tracking-widest text-blue-400 mb-1">Corporate Profile</div>
+                <h3 class="text-sm font-bold text-white line-clamp-2 leading-snug">Hồ Sơ Năng Lực & Tầm Nhìn Chiến Lược Toàn Cầu</h3>
+              </div>
+              <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-white/10 pt-2">
+                <span>18 Slides • Song ngữ</span>
+                <span class="text-blue-400 font-medium">Chuẩn ISO</span>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <h4 class="font-display font-bold text-sm text-foreground line-clamp-1 group-hover:text-emerald-400 transition-colors">
+                Hồ sơ Năng lực Doanh nghiệp (Company Profile)
+              </h4>
+              <p class="text-xs text-muted-foreground mt-1 line-clamp-2">
+                Giới thiệu lịch sử hình thành, đội ngũ lãnh đạo, các dự án tiêu biểu và chứng nhận đối tác chiến lược.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-border/50 flex items-center justify-between text-xs">
+            <span class="text-muted-foreground text-[11px]">Sửa 1 tháng trước</span>
+            <div class="flex items-center gap-1.5">
+              <a href="trinhchieuchiase.html?deck=company-profile" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Trình chiếu">
+                <i data-lucide="play" class="w-3.5 h-3.5 text-emerald-400"></i>
+              </a>
+              <a href="AI.html?deck=company-profile" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Chỉnh sửa">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              </a>
+              <button onclick="downloadPptxDemo('Hồ sơ Năng lực Doanh nghiệp')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Tải file .pptx" aria-label="Tải file .pptx Hồ sơ Năng lực Doanh nghiệp">
+                <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-400"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- LOW PRIORITY: STORAGE QUOTA & SYSTEM HEALTH OVERVIEW (NỘI DUNG PHỤ MANG XUỐNG DƯỚI) -->
+      <section class="mt-8 pt-6 border-t border-border/50">
+        <div class="p-5 rounded-3xl bg-surface-pill/50 border border-border/60 backdrop-blur-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <i data-lucide="hard-drive" class="w-4 h-4 text-emerald-400"></i>
+              <span class="text-xs font-bold uppercase tracking-wider text-muted-foreground">Tổng Quan Hạ Tầng & Dung Lượng Đám Mây</span>
+            </div>
+            <span class="text-xs text-emerald-400 font-semibold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Tự động sao lưu an toàn • Mã hóa AES-256
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="p-3.5 rounded-2xl bg-card/60 border border-border/40">
+              <div class="text-[11px] text-muted-foreground">Tổng số dự án</div>
+              <div class="text-lg font-bold text-foreground mt-0.5">18</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-card/60 border border-border/40">
+              <div class="text-[11px] text-muted-foreground">Tổng số Slide</div>
+              <div class="text-lg font-bold text-foreground mt-0.5">284</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-card/60 border border-border/40">
+              <div class="text-[11px] text-muted-foreground">Lượt trình chiếu</div>
+              <div class="text-lg font-bold text-foreground mt-0.5">1.4K</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-card/60 border border-border/40">
+              <div class="text-[11px] text-muted-foreground">Dung lượng đám mây</div>
+              <div class="text-lg font-bold text-emerald-400 mt-0.5">1.2 / 50 GB</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+  </div>
+<!-- Client-side Interactive Script & Per-Project Management Engine -->
+  <script>
+    // Master State for Vault Presentations
+    const DEFAULT_PROJECTS = [
+      {
+        id: 'ai-strategy-2026',
+        title: 'Báo cáo Chiến lược Tăng trưởng AI 2026 - Q3',
+        category: 'Chiến Lược Kinh Doanh',
+        badge: 'McKinsey Format',
+        description: 'Phân tích thị trường LLM, lộ trình đầu tư hạ tầng GPU và mô hình kinh doanh AI Agent tự động.',
+        slidesCount: 16,
+        aspectRatio: '16:9 Cinema',
+        updatedAt: '2 giờ trước',
+        size: '2.4 MB',
+        favorite: true,
+        shared: false,
+        locked: false,
+        gradient: 'from-slate-900 via-indigo-950 to-slate-900',
+        slides: [
+          { num: 1, title: 'Chiến Lược Tăng Trưởng AI 2026', type: 'Cover Slide', note: 'Tuyên ngôn sứ mệnh & Tầm nhìn Q3' },
+          { num: 2, title: 'Bức Tranh Thị Trường LLM Toàn Cầu', type: 'Market Analysis', note: 'Thị phần 5 mô hình lớn nhất thế giới' },
+          { num: 3, title: 'Lộ Trình Đầu Tư Hạ Tầng Tính Toán GPU', type: 'Infra Roadmap', note: 'Kế hoạch triển khai cụm 1024 H100' },
+          { num: 4, title: 'Mô Hình Doanh Thu AI Agent Tự Động', type: 'Business Model', note: 'Dự phóng biên lợi nhuận ròng 42%' },
+          { num: 5, title: 'Kết Luận & Kế Hoạch Hành Động Q4', type: 'Next Steps', note: 'Phân bổ ngân sách & Chỉ số KPI cốt lõi' }
+        ]
+      },
+      {
+        id: 'edutech-series-a',
+        title: 'Pitch Deck Gọi Vốn Series A - EduTech Global',
+        category: 'Gọi Vốn Startup',
+        badge: 'Silicon Valley Deck',
+        description: 'Slide thuyết phục nhà đầu tư: Problem, Solution, Traction, TAM/SAM/SOM, Đội ngũ và Dự phóng tài chính 3 năm.',
+        slidesCount: 12,
+        aspectRatio: '16:9 Cinema',
+        updatedAt: 'Hôm qua',
+        size: '3.1 MB',
+        favorite: true,
+        shared: false,
+        locked: false,
+        gradient: 'from-slate-900 via-emerald-950 to-slate-900',
+        slides: [
+          { num: 1, title: 'EduTech Global Series A Pitch', type: 'Cover Slide', note: 'Định vị sản phẩm & Giá trị khác biệt' },
+          { num: 2, title: 'Nỗi Đau Giáo Dục Trực Tuyến Hiện Tại', type: 'The Problem', note: 'Tỷ lệ bỏ học 78% trên nền tảng cũ' },
+          { num: 3, title: 'Giải Pháp Không Gian Học 3D AI', type: 'The Solution', note: 'Trải nghiệm nhập vai & Gia sư AI 1-1' },
+          { num: 4, title: 'Traction & Tăng Trưởng Người Dùng', type: 'Traction', note: 'MRR $120k • 45k học viên hoạt động' },
+          { num: 5, title: 'Quy Mô Thị Trường TAM/SAM/SOM', type: 'Market Size', note: 'Thị trường toàn cầu $350 Tỷ USD' }
+        ]
+      },
+      {
+        id: 'stem-ai-edu',
+        title: 'Giáo án Chuyên đề: Ứng dụng AI trong Giáo dục STEM',
+        category: 'Giáo Dục & STEM',
+        badge: 'Giáo Án Chuẩn',
+        description: 'Bộ slide bài giảng trực quan dành cho giảng viên và học sinh cấp 3, đại học với video minh họa và bài tập thực hành.',
+        slidesCount: 24,
+        aspectRatio: '16:9 Cinema',
+        updatedAt: '3 ngày trước',
+        size: '4.8 MB',
+        favorite: false,
+        shared: false,
+        locked: false,
+        gradient: 'from-slate-900 via-purple-950 to-slate-900',
+        slides: [
+          { num: 1, title: 'Ứng Dụng AI Trong Giáo Dục STEM', type: 'Cover Slide', note: 'Chuyên đề học tập thế kỷ 21' },
+          { num: 2, title: 'Khái Niệm Trí Tuệ Nhân Tạo & Học Máy', type: 'Concept', note: 'Mô phỏng mạng nơ-ron sinh học' },
+          { num: 3, title: 'Thực Hành: Lập Trình Thị Giác Máy Tính', type: 'Lab Exercise', note: 'Nhận diện hình ảnh thời gian thực' },
+          { num: 4, title: 'Dự Án Nhóm: Robot Tự Hành Nhỏ', type: 'Team Project', note: 'Tiêu chí chấm điểm và hạn nộp' }
+        ]
+      },
+      {
+        id: 'finance-2026',
+        title: 'Báo cáo Doanh thu & Phân tích Tài chính Hợp nhất',
+        category: 'Báo Cáo Tài Chính',
+        badge: 'Financial Report',
+        description: 'Bảng cân đối kế toán, biểu đồ waterfall doanh thu, phân bổ chi phí hoạt động và chỉ số EBITDA.',
+        slidesCount: 15,
+        aspectRatio: '16:9 Cinema',
+        updatedAt: '1 tuần trước',
+        size: '1.9 MB',
+        favorite: false,
+        shared: true,
+        locked: true,
+        gradient: 'from-slate-900 via-amber-950 to-slate-900',
+        slides: [
+          { num: 1, title: 'Báo Cáo Tài Chính Hợp Nhất 2026', type: 'Cover Slide', note: 'Hội đồng quản trị & Cổ đông' },
+          { num: 2, title: 'Tổng Quan Doanh Thu & Lợi Nhuận Gộp', type: 'Executive Summary', note: 'Đạt 118% kế hoạch năm' },
+          { num: 3, title: 'Biểu Đồ Waterfall Biến Động Chi Phí', type: 'Cost Breakdown', note: 'Tối ưu hóa chi phí vận hành 12%' },
+          { num: 4, title: 'Chỉ Số EBITDA & Dòng Tiền Tự Do', type: 'Key Ratios', note: 'Biên EBITDA duy trì mức 28.5%' }
+        ]
+      },
+      {
+        id: 'gtm-launch',
+        title: 'Kế hoạch Ra mắt Sản phẩm Công nghệ Mới - Go-to-Market',
+        category: 'Marketing & GTM',
+        badge: 'Apple Style',
+        description: 'Lộ trình 3 giai đoạn: Teaser, Launch Day và Growth Retargeting, tích hợp persona khách hàng mục tiêu.',
+        slidesCount: 14,
+        aspectRatio: '16:9 Cinema',
+        updatedAt: '2 tuần trước',
+        size: '3.6 MB',
+        favorite: true,
+        shared: false,
+        locked: false,
+        gradient: 'from-slate-900 via-rose-950 to-slate-900',
+        slides: [
+          { num: 1, title: 'Kế Hoạch Ra Mắt Sản Phẩm Mới 2026', type: 'Cover Slide', note: 'Chiến dịch Keynote Đỉnh Cao' },
+          { num: 2, title: 'Chân Dung Khách Hàng Mục Tiêu ICP', type: 'Persona', note: 'Tech Leads & Product Designers' },
+          { num: 3, title: 'Kênh Tiếp Cận & Chiến Dịch Viral 360', type: 'Channels', note: 'X, LinkedIn, Tech Influencers' },
+          { num: 4, title: 'Lộ Trình Ra Mắt 3 Giai Đoạn', type: 'Timeline', note: 'Alpha -> Beta -> Global Launch' }
+        ]
+      },
+      {
+        id: 'company-profile-corp',
+        title: 'Hồ sơ Năng lực Doanh nghiệp (Company Profile)',
+        category: 'Hồ Sơ Năng Lực',
+        badge: 'Corporate Profile',
+        description: 'Giới thiệu lịch sử hình thành, đội ngũ lãnh đạo, các dự án tiêu biểu và chứng nhận đối tác chiến lược.',
+        slidesCount: 18,
+        aspectRatio: '16:9 Cinema',
+        updatedAt: '1 tháng trước',
+        size: '5.2 MB',
+        favorite: false,
+        shared: true,
+        locked: false,
+        gradient: 'from-slate-900 via-blue-950 to-slate-900',
+        slides: [
+          { num: 1, title: 'Hồ Sơ Năng Lực SlideVault Global', type: 'Cover Slide', note: 'Tầm nhìn, Sứ mệnh & Giá trị' },
+          { num: 2, title: 'Lịch Sử Hình Thành & Cột Mốc Đột Phá', type: 'History', note: 'Từ 2020 đến hiện tại' },
+          { num: 3, title: 'Đội Ngũ Lãnh Đạo & Chuyên Gia Cố Vấn', type: 'Leadership', note: 'Cựu kỹ sư Apple & Google' },
+          { num: 4, title: 'Hệ Sinh Thái Sản Phẩm & Bằng Sáng Chế', type: 'Ecosystem', note: '12 bằng sáng chế AI & UX' }
+        ]
+      }
+    ];
+
+    // Load state from localStorage or init
+    function getStoredProjects() {
+      try {
+        const raw = localStorage.getItem('slidevault_projects_v2');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {}
+      return [...DEFAULT_PROJECTS];
+    }
+
+    function saveStoredProjects(list) {
+      try {
+        localStorage.setItem('slidevault_projects_v2', JSON.stringify(list));
+      } catch (e) {}
+    }
+
+    let allProjects = getStoredProjects();
+    let currentSelectedProject = null;
+    let currentActiveFilter = 'all';
+
+    // Render Presentation Grid
+    function renderProjectsGrid(filter = 'all', searchQuery = '') {
+      const grid = document.getElementById('vaultGrid');
+      if (!grid) return;
+
+      const filtered = allProjects.filter(item => {
+        // Filter by Tab
+        let matchTab = true;
+        if (filter === 'recent') matchTab = true;
+        else if (filter === 'favorite') matchTab = !!item.favorite;
+        else if (filter === 'shared') matchTab = !!item.shared;
+
+        // Filter by Search Query
+        let matchQuery = true;
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase().trim();
+          matchQuery = item.title.toLowerCase().includes(q) || 
+                       item.category.toLowerCase().includes(q) || 
+                       (item.description && item.description.toLowerCase().includes(q));
+        }
+
+        return matchTab && matchQuery;
+      });
+
+      grid.innerHTML = filtered.map(deck => `
+        <div class="deck-card group rounded-3xl border border-border/60 hover:border-emerald-500/50 bg-card/85 backdrop-blur-xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between cursor-pointer" 
+             onclick="openProjectManagementModal('${deck.id}')"
+             data-id="${deck.id}"
+             data-category="${deck.category}">
+          <div>
+            <!-- Thumbnail Visual -->
+            <div class="relative h-44 rounded-2xl bg-gradient-to-br ${deck.gradient || 'from-slate-900 via-indigo-950 to-slate-900'} border border-white/10 p-4 overflow-hidden flex flex-col justify-between group-hover:scale-[1.01] transition-transform">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  ${deck.badge || '16:9 Cinema'}
+                </span>
+                <div class="flex items-center gap-1.5" onclick="event.stopPropagation()">
+                  ${deck.locked ? '<span class="text-xs text-amber-400" title="Dự án đã khóa"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>' : ''}
+                  <button type="button" onclick="toggleFavoriteProject('${deck.id}')" class="p-1 rounded-lg bg-black/40 hover:bg-black/70 ${deck.favorite ? 'text-amber-400' : 'text-slate-400'}" title="Yêu thích" aria-label="Đánh dấu yêu thích dự án">
+                    <i data-lucide="star" class="w-3.5 h-3.5 ${deck.favorite ? 'fill-current' : ''}"></i>
+                  </button>
+                </div>
+              </div>
+              <div>
+                <div class="text-[10px] uppercase font-bold tracking-widest text-emerald-400 mb-1">${deck.category}</div>
+                <h3 class="text-sm font-bold text-white line-clamp-2 leading-snug">${deck.title}</h3>
+              </div>
+              <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-white/10 pt-2">
+                <span>${deck.slidesCount || deck.slides.length} Slides • ${deck.aspectRatio || '16:9'}</span>
+                <span class="text-emerald-400 font-medium font-mono">Sẵn sàng xuất PPTX</span>
+              </div>
+            </div>
+
+            <!-- Card Info -->
+            <div class="mt-4">
+              <h4 class="font-display font-bold text-sm text-foreground line-clamp-1 group-hover:text-emerald-400 transition-colors">
+                ${deck.title}
+              </h4>
+              <p class="text-xs text-muted-foreground mt-1 line-clamp-2">
+                ${deck.description || 'Bài thuyết trình chuyên nghiệp tạo bởi SlideVault Engine.'}
+              </p>
+            </div>
+          </div>
+
+          <!-- Bottom Actions -->
+          <div class="mt-4 pt-3 border-t border-border/50 flex items-center justify-between text-xs" onclick="event.stopPropagation()">
+            <span class="text-muted-foreground text-[11px]">Sửa ${deck.updatedAt}</span>
+            <div class="flex items-center gap-1.5">
+              <button type="button" onclick="openProjectManagementModal('${deck.id}')" class="px-2.5 py-1.5 rounded-xl bg-surface-pill hover:bg-emerald-500/20 text-emerald-400 text-[11px] font-bold border border-emerald-500/30 flex items-center gap-1 transition-all" title="Mở bảng điều khiển chi tiết dự án">
+                <i data-lucide="sliders-horizontal" class="w-3 h-3"></i>
+                <span>Quản Lý</span>
+              </button>
+              <a href="trinhchieuchiase.html?deck=${encodeURIComponent(deck.id)}" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Trình chiếu">
+                <i data-lucide="play" class="w-3.5 h-3.5 text-emerald-400"></i>
+              </a>
+              <a href="AI.html?deckId=${encodeURIComponent(deck.id)}" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Chỉnh sửa Studio AI">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              </a>
+              <button type="button" onclick="exportProjectToPptxNative('${deck.id}')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Tải file .pptx thật" aria-label="Tải file .pptx thật của dự án">
+                <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-400"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // Toggle Favorite
+    function toggleFavoriteProject(id) {
+      const p = allProjects.find(x => x.id === id);
+      if (p) {
+        p.favorite = !p.favorite;
+        saveStoredProjects(allProjects);
+        renderProjectsGrid(currentActiveFilter, searchInput ? searchInput.value : '');
+        if (window.SlideVault) {
+          SlideVault.toast({
+            title: p.favorite ? 'Đã thêm yêu thích ⭐' : 'Đã bỏ yêu thích',
+            message: p.title,
+            type: 'info'
+          });
+        }
+      }
+    }
+
+    // Open Project Management Modal
+    function openProjectManagementModal(id) {
+      const p = allProjects.find(x => x.id === id);
+      if (!p) return;
+      currentSelectedProject = p;
+
+      const modal = document.getElementById('projectManageModal');
+      if (!modal) return;
+
+      document.getElementById('modalDeckTitleDisplay').textContent = p.title;
+      document.getElementById('modalDeckTitleInput').value = p.title;
+      document.getElementById('modalDeckCategorySelect').value = p.category || 'Chiến Lược Kinh Doanh';
+      document.getElementById('modalDeckId').textContent = 'ID: ' + p.id;
+      document.getElementById('modalDeckBadge').textContent = p.badge || '16:9 Cinema Deck';
+      document.getElementById('modalDeckSlideCount').textContent = (p.slidesCount || (p.slides ? p.slides.length : 5)) + ' Slides';
+      document.getElementById('modalDeckSize').textContent = p.size || '2.4 MB';
+      document.getElementById('modalDeckUpdated').textContent = p.updatedAt || 'Vừa xong';
+
+      // Lock status badge & button text
+      const lockBadge = document.getElementById('modalDeckLockStatus');
+      const lockIcon = document.getElementById('modalLockActionIcon');
+      const lockText = document.getElementById('modalLockActionText');
+      if (p.locked) {
+        lockBadge.textContent = '🔒 Đã Khóa Bảo Vệ';
+        lockBadge.className = 'text-[10px] font-bold text-amber-400';
+        if (lockText) lockText.textContent = 'Mở Khóa Dự Án';
+        if (lockIcon) lockIcon.className = 'w-4 h-4 text-amber-400';
+      } else {
+        lockBadge.textContent = '🟢 Mở Quyền Chỉnh Sửa';
+        lockBadge.className = 'text-[10px] font-semibold text-emerald-400';
+        if (lockText) lockText.textContent = 'Khóa Dự Án';
+        if (lockIcon) lockIcon.className = 'w-4 h-4 text-slate-300';
+      }
+
+      // Render Slide Thumbnails Breakdown
+      const thumbsContainer = document.getElementById('modalSlideThumbnailsContainer');
+      const slidesList = p.slides || [
+        { num: 1, title: p.title, type: 'Cover Slide', note: 'Tiêu đề chính' },
+        { num: 2, title: 'Bối Cảnh & Đặt Vấn Đề', type: 'Context', note: 'Phân tích' },
+        { num: 3, title: 'Giải Pháp Đột Phá', type: 'Solution', note: 'Cốt lõi' },
+        { num: 4, title: 'Chỉ Số Tăng Trưởng', type: 'Metrics', note: 'Dữ liệu KPI' },
+        { num: 5, title: 'Kế Hoạch Triển Khai', type: 'Timeline', note: 'Lộ trình' }
+      ];
+
+      thumbsContainer.innerHTML = slidesList.map(s => `
+        <div class="slide-thumb-preview p-3 rounded-xl flex flex-col justify-between">
+          <div class="flex items-center justify-between text-[10px] text-muted-foreground pb-1.5 border-b border-border/30">
+            <span class="font-mono font-bold text-emerald-400">Slide ${s.num}</span>
+            <span class="px-1.5 py-0.5 rounded bg-muted text-[9px]">${s.type}</span>
+          </div>
+          <div class="my-2">
+            <div class="text-xs font-bold text-foreground line-clamp-1">${s.title}</div>
+            <div class="text-[10px] text-muted-foreground mt-0.5 line-clamp-1">${s.note || ''}</div>
+          </div>
+          <div class="text-[9px] text-cyan-400 font-mono text-right">16:9 Cinema</div>
+        </div>
+      `).join('');
+
+      document.getElementById('modalSlideCountBadge').textContent = slidesList.length + ' slide chi tiết';
+
+      modal.classList.remove('hidden');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function closeProjectModal() {
+      const modal = document.getElementById('projectManageModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // Save Title Inline
+    function saveProjectTitle() {
+      if (!currentSelectedProject) return;
+      const newTitle = document.getElementById('modalDeckTitleInput').value.trim();
+      if (!newTitle) return;
+
+      currentSelectedProject.title = newTitle;
+      currentSelectedProject.updatedAt = 'Vừa xong';
+      saveStoredProjects(allProjects);
+      document.getElementById('modalDeckTitleDisplay').textContent = newTitle;
+      renderProjectsGrid(currentActiveFilter, searchInput ? searchInput.value : '');
+
+      if (window.SlideVault) {
+        SlideVault.toast({
+          title: 'Đã lưu tiêu đề thành công!',
+          message: 'Tên dự án mới: ' + newTitle,
+          type: 'success'
+        });
+      }
+    }
+
+    // Save Category
+    function saveProjectCategory() {
+      if (!currentSelectedProject) return;
+      const newCat = document.getElementById('modalDeckCategorySelect').value;
+      currentSelectedProject.category = newCat;
+      saveStoredProjects(allProjects);
+      renderProjectsGrid(currentActiveFilter, searchInput ? searchInput.value : '');
+    }
+
+    // Actions Handler from Modal
+    function executeProjectAction(action) {
+      if (!currentSelectedProject) return;
+      const p = currentSelectedProject;
+
+      switch(action) {
+        case 'edit-ai':
+          window.location.href = 'AI.html?deckId=' + encodeURIComponent(p.id);
+          break;
+        case 'present':
+          window.location.href = 'trinhchieuchiase.html?deck=' + encodeURIComponent(p.id);
+          break;
+        case 'export-pptx':
+          exportProjectToPptxNative(p.id);
+          break;
+        case 'duplicate':
+          const copy = JSON.parse(JSON.stringify(p));
+          copy.id = p.id + '-copy-' + Date.now();
+          copy.title = p.title + ' (Bản Sao)';
+          copy.updatedAt = 'Vừa tạo';
+          allProjects.unshift(copy);
+          saveStoredProjects(allProjects);
+          renderProjectsGrid(currentActiveFilter, searchInput ? searchInput.value : '');
+          closeProjectModal();
+          if (window.SlideVault) {
+            SlideVault.toast({
+              title: 'Nhân bản thành công!',
+              message: 'Đã tạo bản sao mới cho: ' + copy.title,
+              type: 'success'
+            });
+          }
+          break;
+        case 'toggle-lock':
+          p.locked = !p.locked;
+          saveStoredProjects(allProjects);
+          openProjectManagementModal(p.id);
+          renderProjectsGrid(currentActiveFilter, searchInput ? searchInput.value : '');
+          if (window.SlideVault) {
+            SlideVault.toast({
+              title: p.locked ? 'Đã khóa dự án 🔒' : 'Đã mở khóa dự án 🟢',
+              message: p.locked ? 'Dự án đang ở chế độ bảo vệ chỉ đọc.' : 'Dự án đã sẵn sàng chỉnh sửa.',
+              type: 'info'
+            });
+          }
+          break;
+        case 'share':
+          const shareUrl = window.location.origin + '/trinhchieuchiase.html?deck=' + encodeURIComponent(p.id);
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(shareUrl).then(() => {
+              if (window.SlideVault) {
+                SlideVault.toast({
+                  title: 'Đã sao chép liên kết chia sẻ!',
+                  message: 'Link an toàn: ' + shareUrl,
+                  type: 'success'
+                });
+              } else {
+                alert('Đã sao chép link: ' + shareUrl);
+              }
+            });
+          } else {
+            prompt('Sao chép link chia sẻ:', shareUrl);
+          }
+          break;
+        case 'export-json':
+          const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(p, null, 2));
+          const dlAnchor = document.createElement('a');
+          dlAnchor.setAttribute('href', dataStr);
+          dlAnchor.setAttribute('download', (p.id || 'slidevault-project') + '.json');
+          document.body.appendChild(dlAnchor);
+          dlAnchor.click();
+          dlAnchor.remove();
+          break;
+        case 'delete':
+          if (p.locked) {
+            alert('Dự án này đang bị KHÓA bảo vệ! Vui lòng mở khóa trước khi xóa.');
+            return;
+          }
+          if (confirm('Bạn có chắc chắn muốn xóa vĩnh viễn dự án "' + p.title + '" khỏi Vault không?')) {
+            allProjects = allProjects.filter(x => x.id !== p.id);
+            saveStoredProjects(allProjects);
+            renderProjectsGrid(currentActiveFilter, searchInput ? searchInput.value : '');
+            closeProjectModal();
+            if (window.SlideVault) {
+              SlideVault.toast({
+                title: 'Đã xóa dự án',
+                message: 'Bản ghi đã được xóa an toàn.',
+                type: 'info'
+              });
+            }
+          }
+          break;
+      }
+    }
+
+    // Export Real PPTX via PptxGenJS (100% Offline Native Export)
+    function exportProjectToPptxNative(projectId) {
+      const p = allProjects.find(x => x.id === projectId) || currentSelectedProject;
+      if (!p) return;
+
+      if (typeof PptxGenJS === 'undefined') {
+        if (window.SlideVault) {
+          SlideVault.toast({
+            title: 'Đang chuẩn bị thư viện PptxGenJS...',
+            message: 'Vui lòng nhấn lại sau 1 giây.',
+            type: 'warning'
+          });
+        }
+        return;
+      }
+
+      if (window.SlideVault) {
+        SlideVault.toast({
+          title: '📥 Đang đóng gói PowerPoint...',
+          message: 'Khởi tạo slide 16:9 Cinema nguyên bản cho: ' + p.title,
+          type: 'info'
+        });
+      }
+
+      try {
+        const pptx = new PptxGenJS();
+        pptx.layout = 'LAYOUT_16x9';
+
+        const slidesList = p.slides || [
+          { num: 1, title: p.title, type: 'Cover Slide', note: p.description },
+          { num: 2, title: 'Bối Cảnh Thị Trường & Vấn Đề', type: 'Market Problem', note: 'Phân tích chi tiết' },
+          { num: 3, title: 'Giải Pháp Kiến Trúc Đột Phá', type: 'Core Solution', note: 'Điểm khác biệt chính' },
+          { num: 4, title: 'Chỉ Số Dự Phóng & Tăng Trưởng', type: 'Key Metrics', note: 'Dữ liệu đo lường' },
+          { num: 5, title: 'Lộ Trình Triển Khai & Kết Luận', type: 'Action Roadmap', note: 'Các bước tiếp theo' }
+        ];
+
+        slidesList.forEach(s => {
+          const slide = pptx.addSlide();
+          slide.background = { color: '070C18' };
+
+          // Top Header Sub-text
+          slide.addText('SLIDEVAULT CINEMA STUDIO  |  ' + p.category.toUpperCase(), {
+            x: 0.8, y: 0.5, w: 11.5, h: 0.35,
+            fontSize: 9, bold: true, color: '64748B', fontFace: 'Arial'
+          });
+
+          // Badge Shape
+          slide.addShape(pptx.ShapeType.roundRect, {
+            x: 0.8, y: 0.9, w: 3.2, h: 0.35,
+            fill: { color: '0F172A' }, line: { color: '10B981', width: 1 }, rectRadius: 0.1
+          });
+          slide.addText(s.type || 'Nội Dung Cốt Lõi', {
+            x: 0.8, y: 0.9, w: 3.2, h: 0.35,
+            fontSize: 9, bold: true, color: '34D399', align: 'center', fontFace: 'Arial'
+          });
+
+          // Slide Title
+          slide.addText(s.title, {
+            x: 0.8, y: 1.4, w: 11.5, h: 1.1,
+            fontSize: 22, bold: true, color: 'FFFFFF', fontFace: 'Arial'
+          });
+
+          // Content Box
+          slide.addShape(pptx.ShapeType.roundRect, {
+            x: 0.8, y: 2.7, w: 11.7, h: 3.6,
+            fill: { color: '0A101C' }, line: { color: '1E293B', width: 1 }, rectRadius: 0.15
+          });
+
+          slide.addText(s.note || p.description || 'Nội dung chi tiết được kiến tạo tự động với độ phân giải cao và định dạng chuyên nghiệp.', {
+            x: 1.2, y: 3.1, w: 10.9, h: 2.8,
+            fontSize: 14, color: 'CBD5E1', fontFace: 'Arial', lineSpacing: 24
+          });
+
+          // Footer
+          slide.addText('Slide ' + s.num + ' / ' + slidesList.length + '  •  SlideVault Enterprise 2026', {
+            x: 0.8, y: 6.6, w: 11.5, h: 0.3,
+            fontSize: 8, color: '475569', fontFace: 'Arial'
+          });
+        });
+
+        const safeFilename = (p.title || 'SlideVault-Presentation')
+          .replace(/[^a-zA-Z0-9À-ɏẠ-ỹ- ]/g, '')
+          .trim() + '.pptx';
+
+        pptx.writeFile({ fileName: safeFilename }).then(() => {
+          if (window.SlideVault) {
+            SlideVault.toast({
+              title: '🎉 Xuất PPTX thành công!',
+              message: 'Tệp "' + safeFilename + '" đã được tải xuống máy của bạn.',
+              type: 'success'
+            });
+          }
+        });
+      } catch (err) {
+        console.error('Lỗi xuất PPTX:', err);
+        alert('Lỗi tạo tệp PPTX: ' + err.message);
+      }
+    }
+
+    // Pipeline Specs Inspector Handler
+    const pipelineStepData = {
+      1: {
+        title: 'Bước 01: Ingestion & Input Pipeline',
+        latency: 'Latency: ~120ms • Engine: Stream-v4',
+        desc: 'Module tiếp nhận ngôn ngữ tự nhiên, dàn ý Markdown hoặc tệp PowerPoint tải lên. Thực hiện lọc cú pháp, tách các luận điểm cốt lõi và định dạng thành mảng cấu trúc JSON nguyên tử.'
+      },
+      2: {
+        title: 'Bước 02: AI Semantic & Outline Synthesizer',
+        latency: 'Latency: ~340ms • Model: Claude & GPT-4o Keynote',
+        desc: 'Áp dụng mô hình tư duy McKinsey Pyramid Principle để trích xuất 3-5 ý then chốt cho mỗi slide. Tự động tính toán mật độ chữ (Word Count Budget) và phối màu thương hiệu tương phản WCAG AAA.'
+      },
+      3: {
+        title: 'Bước 03: 16:9 Cinema Canvas Engine',
+        latency: 'Latency: ~16ms (60-120fps) • CSS GPU Accelerated',
+        desc: 'Dựng khung trình diễn chuẩn rạp chiếu phim 16:9 Cinema Widescreen với công nghệ Liquid Glass phản chiếu ánh sáng. Tích hợp biểu đồ KPI SVG và typography Be Vietnam Pro sắc nét.'
+      },
+      4: {
+        title: 'Bước 04: SlideVault Atomic Store & Security Shield',
+        latency: 'Latency: ~45ms • Crypto: AES-256 GCM',
+        desc: 'Lưu trữ trạng thái slide vào bộ nhớ nguyên tử (Atomic Slide State). Kích hoạt tường lửa Anti-Crash, mã hóa dữ liệu cục bộ và đồng bộ thời gian thực với SlideVault Cloud an toàn tuyệt đối.'
+      },
+      5: {
+        title: 'Bước 05: Native Compiler & Cinema AirShare',
+        latency: 'Latency: Tức thì • Local PptxGenJS',
+        desc: 'Đóng gói toàn bộ các slide thành tệp PowerPoint (.pptx) nguyên bản 100% offline, đảm bảo 0% lỗi font chữ tiếng Việt. Hỗ trợ chia sẻ liên kết tức thì và điều khiển cử chỉ không dây.'
+      }
+    };
+
+    function showPipelineStepInfo(stepNum) {
+      const drawer = document.getElementById('pipelineSpecsDrawer');
+      const data = pipelineStepData[stepNum] || pipelineStepData[1];
+      if (drawer) {
+        drawer.classList.remove('hidden');
+        document.getElementById('pipelineStepTitle').textContent = data.title;
+        document.getElementById('pipelineStepLatency').textContent = data.latency;
+        document.getElementById('pipelineStepDesc').textContent = data.desc;
+        if (window.lucide) lucide.createIcons();
+      }
+    }
+
+    function togglePipelineDetails() {
+      const drawer = document.getElementById('pipelineSpecsDrawer');
+      const toggleText = document.getElementById('pipelineDetailsToggleText');
+      if (drawer) {
+        drawer.classList.toggle('hidden');
+        if (toggleText) {
+          toggleText.textContent = drawer.classList.contains('hidden') ? 'Xem Thông Số Kỹ Thuật' : 'Ẩn Thông Số Kỹ Thuật';
+        }
+      }
+    }
+
+    // Setup Search & Filter Tabs Listeners
+    const searchInput = document.getElementById('vaultSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        renderProjectsGrid(currentActiveFilter, e.target.value);
+      });
+    }
+
+    const filterButtons = document.querySelectorAll('.vault-filter-tab');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-emerald-500', 'text-white', 'shadow-sm');
+          b.classList.add('text-muted-foreground');
+        });
+        btn.classList.add('bg-emerald-500', 'text-white', 'shadow-sm');
+        btn.classList.remove('text-muted-foreground');
+
+        currentActiveFilter = btn.getAttribute('data-filter') || 'all';
+        renderProjectsGrid(currentActiveFilter, searchInput ? searchInput.value : '');
+      });
+    });
+
+    // Upload PPTX Handler
+    function handlePptxUpload(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const newProj = {
+          id: 'uploaded-' + Date.now(),
+          title: file.name.replace(/.[^/.]+$/, ''),
+          category: 'Tài Liệu Tải Lên',
+          badge: 'PPTX Uploaded',
+          description: 'Bản trình chiếu được nhập từ tệp ' + file.name + ' vào kho lưu trữ an toàn.',
+          slidesCount: 10,
+          aspectRatio: '16:9 Cinema',
+          updatedAt: 'Vừa xong',
+          size: (file.size / (1024 * 1024)).toFixed(1) + ' MB',
+          favorite: false,
+          shared: false,
+          locked: false,
+          gradient: 'from-slate-900 via-teal-950 to-slate-900',
+          slides: [
+            { num: 1, title: file.name, type: 'Cover Slide', note: 'Tệp nhập khẩu' },
+            { num: 2, title: 'Nội dung phân tích tổng hợp', type: 'Summary', note: 'AI Semantic parsed' }
+          ]
+        };
+
+        allProjects.unshift(newProj);
+        saveStoredProjects(allProjects);
+        renderProjectsGrid(currentActiveFilter, searchInput ? searchInput.value : '');
+
+        if (window.SlideVault) {
+          SlideVault.toast({
+            title: 'Tải tệp thành công!',
+            message: 'Đã nhập "' + file.name + '" vào kho lưu trữ.',
+            type: 'success'
+          });
+        } else {
+          alert('Tải tệp thành công: ' + file.name);
+        }
+      }
+    }
+
+    // Auto load cloud decks from /api/decks and merge
+    async function syncCloudLiveDecks() {
+      try {
+        const res = await fetch('/api/decks');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && Array.isArray(data.decks)) {
+          let hasNew = false;
+          data.decks.forEach(cd => {
+            if (!allProjects.some(x => x.id === cd.id)) {
+              allProjects.unshift({
+                id: cd.id,
+                title: cd.title || 'Bài Thuyết Trình AI Live',
+                category: cd.category || 'Đổi Mới & Sáng Tạo',
+                badge: 'AI Cloud Live',
+                description: cd.topic || 'Bản trình chiếu kiến tạo tự động bởi SlideVault Neural Engine.',
+                slidesCount: Array.isArray(cd.slides) ? cd.slides.length : (cd.slideCount || 5),
+                aspectRatio: '16:9 Cinema',
+                updatedAt: 'Hôm nay',
+                size: '2.8 MB',
+                favorite: false,
+                shared: false,
+                locked: false,
+                gradient: 'from-obsidian-950 via-slate-900 to-amber-950/40',
+                slides: cd.slides || []
+              });
+              hasNew = true;
+            }
+          });
+          if (hasNew) {
+            saveStoredProjects(allProjects);
+            renderProjectsGrid(currentActiveFilter, searchInput ? searchInput.value : '');
+          }
+        }
+      } catch (e) {
+        console.warn('Sync Cloud Decks:', e);
+      }
+    }
+
+    // Initialize on DOM Ready
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProjectsGrid('all', '');
+      syncCloudLiveDecks();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const openModalId = urlParams.get('openModal');
+      if (openModalId) {
+        setTimeout(() => openProjectManagementModal(openModalId), 300);
+      }
+    });
+  </script>
+
+    
+
+  <!-- Universal Dynamic Instagram/iPhone Style Mobile Nav (Bottom Dock) -->
+  <nav class="mobile-glass-nav visionos-liquid-glass" aria-label="Điều hướng chính di động">
+    <a class="mobile-nav-item" href="trangchudong.html" data-mobile-nav="home" title="Trang chủ">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Trang chủ</span>
+    </a>
+    <a class="mobile-nav-item active" href="vault.html" data-mobile-nav="vault" title="Vault">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></svg>
+      <span>Vault</span>
+    </a>
+    <a class="mobile-nav-item" href="thuvienmau.html" data-mobile-nav="templates" title="Mẫu">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+      <span>Mẫu</span>
+    </a>
+    <a class="mobile-nav-item" href="AI.html" data-mobile-nav="ai" title="AI Studio">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+      <span>AI Studio</span>
+    </a>
+    <button type="button" class="mobile-nav-item" data-sidebar-toggle data-mobile-menu title="Mở danh mục menu" aria-label="Mở danh mục menu">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      <span>Menu</span>
+    </button>
+  </nav>
+
+  <!-- ================= PROJECT MANAGEMENT & PROCESSING MODAL (PER-PROJECT ACTION HUB) ================= -->
+  <div id="projectManageModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-5 project-modal-backdrop" aria-hidden="true" role="dialog">
+    <div class="project-modal-card w-full max-w-4xl max-h-[92vh] rounded-3xl overflow-hidden flex flex-col shadow-2xl transition-all transform animate-in fade-in zoom-in-95">
+      
+      <!-- Modal Top Bar -->
+      <div class="flex items-center justify-between px-5 py-4 border-b border-border/50 bg-card/60">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-9 h-9 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0">
+            <i data-lucide="folder-kanban" class="w-5 h-5"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <span id="modalDeckBadge" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">16:9 Cinema Deck</span>
+              <span id="modalDeckLockStatus" class="text-[10px] font-semibold text-muted-foreground"></span>
+            </div>
+            <h3 id="modalDeckTitleDisplay" class="text-base sm:text-lg font-display font-bold text-foreground truncate mt-0.5">Báo cáo Chiến lược AI 2026</h3>
+          </div>
+        </div>
+        <button type="button" onclick="closeProjectModal()" class="w-8 h-8 rounded-full bg-surface-pill hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors cursor-pointer" title="Đóng bảng điều khiển" aria-label="Đóng bảng điều khiển">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Two-Column Responsive Workspace) -->
+      <div class="p-5 overflow-y-auto space-y-5 flex-1">
+        
+        <!-- Section 1: Inline Metadata & Title Editor -->
+        <div class="p-4 rounded-2xl bg-surface-pill/60 border border-border/50 space-y-3">
+          <div class="flex items-center justify-between text-xs font-bold text-muted-foreground uppercase tracking-wider">
+            <span>Thông Tin & Tiêu Đề Bài Thuyết Trình</span>
+            <span class="text-[10px] text-emerald-400 font-mono" id="modalDeckId">ID: ai-strategy-2026</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="sm:col-span-2">
+              <label class="block text-[11px] font-semibold text-muted-foreground mb-1">Tiêu Đề Dự Án (Chỉnh sửa trực tiếp):</label>
+              <div class="flex gap-2">
+                <input id="modalDeckTitleInput" type="text" aria-label="Tiêu đề bài thuyết trình" class="flex-1 px-3 py-2 rounded-xl bg-card border border-border/70 text-xs font-semibold text-foreground focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all">
+                <button type="button" onclick="saveProjectTitle()" class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold shadow-md transition-all shrink-0">
+                  Lưu Tên
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-muted-foreground mb-1">Chuyên Mục / Tags:</label>
+              <select id="modalDeckCategorySelect" onchange="saveProjectCategory()" class="w-full px-3 py-2 rounded-xl bg-card border border-border/70 text-xs font-semibold text-foreground focus:outline-none focus:border-emerald-500 transition-all">
+                <option value="Chiến Lược Kinh Doanh">Chiến Lược Kinh Doanh</option>
+                <option value="Gọi Vốn Startup">Gọi Vốn Startup (Pitch Deck)</option>
+                <option value="Giáo Dục & STEM">Giáo Dục & STEM</option>
+                <option value="Báo Cáo Tài Chính">Báo Cáo Tài Chính</option>
+                <option value="Marketing & GTM">Marketing & Ra Mắt</option>
+                <option value="Hồ Sơ Năng Lực">Hồ Sơ Năng Lực</option>
+                <option value="Sáng Tạo & Đổi Mới">Sáng Tạo & Đổi Mới</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-border/40 text-xs">
+            <div>
+              <div class="text-[10px] text-muted-foreground">Tổng số Slide:</div>
+              <div id="modalDeckSlideCount" class="font-bold text-foreground mt-0.5">16 Slides</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-muted-foreground">Tỷ Lệ Màn Hình:</div>
+              <div class="font-bold text-emerald-400 mt-0.5">16:9 Cinema Wide</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-muted-foreground">Kích Thước Bộ Nhớ:</div>
+              <div id="modalDeckSize" class="font-bold text-foreground mt-0.5">2.4 MB</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-muted-foreground">Cập Nhật Gần Nhất:</div>
+              <div id="modalDeckUpdated" class="font-bold text-foreground mt-0.5">Vừa xong</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Slide Breakdown & Thumbnails Strip -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="layers" class="w-3.5 h-3.5 text-cyan-400"></i>
+              <span>Dàn Ý & Danh Sách Slide Trong Dự Án</span>
+            </h4>
+            <span class="text-[11px] text-muted-foreground" id="modalSlideCountBadge">5 slide chi tiết</span>
+          </div>
+          <div id="modalSlideThumbnailsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-56 overflow-y-auto pr-1">
+            <!-- Dynamic Slide Cards generated via JS -->
+          </div>
+        </div>
+
+        <!-- Section 3: Project Actions Matrix -->
+        <div class="p-4 rounded-2xl bg-surface-pill/50 border border-border/50">
+          <h4 class="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3 flex items-center gap-1.5">
+            <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>Bộ Công Cụ Tác Vụ Dự Án (Project Actions)</span>
+          </h4>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+            <!-- 1. Open AI Studio -->
+            <button type="button" onclick="executeProjectAction('edit-ai')" class="p-3 rounded-xl bg-card hover:bg-emerald-500/10 border border-border/70 hover:border-emerald-500/40 text-left transition-all group cursor-pointer">
+              <div class="flex items-center justify-between text-emerald-400 mb-1">
+                <i data-lucide="sparkles" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-60"></i>
+              </div>
+              <div class="text-xs font-bold text-foreground">Sửa Trong AI Studio</div>
+              <div class="text-[10px] text-muted-foreground mt-0.5">Mở trình thiết kế 16:9</div>
+            </button>
+
+            <!-- 2. Present Fullscreen -->
+            <button type="button" onclick="executeProjectAction('present')" class="p-3 rounded-xl bg-card hover:bg-cyan-500/10 border border-border/70 hover:border-cyan-500/40 text-left transition-all group cursor-pointer">
+              <div class="flex items-center justify-between text-cyan-400 mb-1">
+                <i data-lucide="play" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 opacity-60"></i>
+              </div>
+              <div class="text-xs font-bold text-foreground">Trình Chiếu Fullscreen</div>
+              <div class="text-[10px] text-muted-foreground mt-0.5">Chế độ rạp chiếu phim</div>
+            </button>
+
+            <!-- 3. Export PPTX Native -->
+            <button type="button" onclick="executeProjectAction('export-pptx')" class="p-3 rounded-xl bg-card hover:bg-amber-500/10 border border-border/70 hover:border-amber-500/40 text-left transition-all group cursor-pointer">
+              <div class="flex items-center justify-between text-amber-400 mb-1">
+                <i data-lucide="download" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                <span class="text-[9px] font-mono px-1 rounded bg-amber-500/20 text-amber-300">Offline</span>
+              </div>
+              <div class="text-xs font-bold text-foreground">Xuất PowerPoint Thật</div>
+              <div class="text-[10px] text-muted-foreground mt-0.5">Tải file .pptx nguyên bản</div>
+            </button>
+
+            <!-- 4. Duplicate Project -->
+            <button type="button" onclick="executeProjectAction('duplicate')" class="p-3 rounded-xl bg-card hover:bg-purple-500/10 border border-border/70 hover:border-purple-500/40 text-left transition-all group cursor-pointer">
+              <div class="flex items-center justify-between text-purple-400 mb-1">
+                <i data-lucide="copy" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+              </div>
+              <div class="text-xs font-bold text-foreground">Nhân Bản Dự Án</div>
+              <div class="text-[10px] text-muted-foreground mt-0.5">Tạo bản sao lưu độc lập</div>
+            </button>
+
+            <!-- 5. Lock/Unlock Project -->
+            <button type="button" onclick="executeProjectAction('toggle-lock')" class="p-3 rounded-xl bg-card hover:bg-slate-500/10 border border-border/70 hover:border-slate-500/40 text-left transition-all group cursor-pointer">
+              <div class="flex items-center justify-between text-slate-300 mb-1">
+                <i id="modalLockActionIcon" data-lucide="lock" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+              </div>
+              <div id="modalLockActionText" class="text-xs font-bold text-foreground">Khóa Dự Án</div>
+              <div class="text-[10px] text-muted-foreground mt-0.5">Chống sửa đổi vô ý</div>
+            </button>
+
+            <!-- 6. Share Link -->
+            <button type="button" onclick="executeProjectAction('share')" class="p-3 rounded-xl bg-card hover:bg-blue-500/10 border border-border/70 hover:border-blue-500/40 text-left transition-all group cursor-pointer">
+              <div class="flex items-center justify-between text-blue-400 mb-1">
+                <i data-lucide="share-2" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+              </div>
+              <div class="text-xs font-bold text-foreground">Sao Chép Liên Kết</div>
+              <div class="text-[10px] text-muted-foreground mt-0.5">Link chia sẻ bảo mật</div>
+            </button>
+
+            <!-- 7. Export JSON State -->
+            <button type="button" onclick="executeProjectAction('export-json')" class="p-3 rounded-xl bg-card hover:bg-teal-500/10 border border-border/70 hover:border-teal-500/40 text-left transition-all group cursor-pointer">
+              <div class="flex items-center justify-between text-teal-400 mb-1">
+                <i data-lucide="code" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+              </div>
+              <div class="text-xs font-bold text-foreground">Xuất Dữ Liệu JSON</div>
+              <div class="text-[10px] text-muted-foreground mt-0.5">Sao lưu nguyên tử</div>
+            </button>
+
+            <!-- 8. Delete Project -->
+            <button type="button" onclick="executeProjectAction('delete')" class="p-3 rounded-xl bg-card hover:bg-rose-500/10 border border-rose-500/30 hover:border-rose-500/60 text-left transition-all group cursor-pointer">
+              <div class="flex items-center justify-between text-rose-400 mb-1">
+                <i data-lucide="trash-2" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+              </div>
+              <div class="text-xs font-bold text-rose-400">Xóa Dự Án</div>
+              <div class="text-[10px] text-rose-400/80 mt-0.5">Gỡ bỏ khỏi kho lưu trữ</div>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-5 py-3 border-t border-border/50 bg-card/60 flex items-center justify-between text-xs text-muted-foreground">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>Bảo mật AES-256 • Tương thích 100% Microsoft PowerPoint & Keynote</span>
+        </div>
+        <button type="button" onclick="closeProjectModal()" class="px-4 py-1.5 rounded-xl bg-surface-pill hover:bg-muted text-foreground font-semibold transition-all cursor-pointer">
+          Đóng
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  
+</body>
+</html>

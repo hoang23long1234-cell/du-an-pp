@@ -1,0 +1,7 @@
+.\pptxgen.bundle.js:2: !function(t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define([],t):("un
+3dtouch\phone.html:391: text-overflow: ellipsis;
+3dtouch\share.html:45: .file-card .meta b { display: block; font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+3dtouch\touch-control.js:461: const clickable = target.closest('a[href], button:not(:disabled), input:not(:disabled), select, textarea, [role="button"], [data-mobile-nav]
+tệp hệ thống\anti-crash-client.js:193: text-overflow: ellipsis;
+tệp hệ thống\glass-theme.js:935: const drawerToggleBtn = e.target.closest('[data-sidebar-toggle], [data-mobile-more], [data-mobile-nav="menu"], [data-drawer-toggle]');
+tệp hệ thống\glass-theme.js:1520: if (item && !item.hasAttribute('data-sidebar-toggle') && !item.hasAttribute('data-mobile-more')) {

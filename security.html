@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https:; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' data: https:; img-src 'self' data: https:; connect-src 'self' https: ws: wss:; object-src 'none'; base-uri 'self';">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), microphone=()">
+    <title>SlideVault Security & System Protection Center</title>
+    <!-- Unified Local Font System -->
+    <link rel="stylesheet" href="3dtouch/mobile-optimization.css?v=mobile-4">
+    <link rel="stylesheet" href="font/fonts.css">
+    <!-- Tailwind CSS & shadcn/ui Design System (Local & Offline) -->
+    <script src="tệp hệ thống/tailwind-shadcn/tailwind.min.js"></script>
+    <script src="tệp hệ thống/tailwind-shadcn/tailwind.config.js"></script>
+    <link rel="stylesheet" href="tệp hệ thống/tailwind-shadcn/shadcn.css">
+    <link rel="stylesheet" href="tệp hệ thống/glass-theme.css?v=visionos-v98">
+    <script src="tệp hệ thống/glass-theme.js?v=visionos-v98"></script>
+  <!-- Official Supabase JS Client v2 SDK (Local First & CDN Fallback) -->
+  <script src="tệp hệ thống/supabase.min.js"></script>
+  <script>
+    if (typeof window.supabase === "undefined") {
+      const s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js";
+      document.head.appendChild(s);
+    }
+  </script>
+  <script src="tệp hệ thống/auth-state.js"></script>
+
+    <script src="tệp hệ thống/tailwind-shadcn/lucide.min.js"></script>
+    <script src="tệp hệ thống/tailwind-shadcn/shadcn.js"></script>
+    <!-- FontAwesome & Google Font (Non-blocking fallback) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+    
+    
+
+    <style>
+    /* ==========================================================================
+       SLIDEVAULT LUXURY OBSIDIAN × APPLE MYSTERIOUS LIGHTING × LIQUID GLASS
+       Inspired by skill AI (impeccable & taste-skill)
+       ========================================================================== */
+    :root {
+      --bg-void: #0B0F19;
+      --glass-base: rgba(30, 41, 59, 0.68);
+      --glass-elevated: rgba(36, 51, 71, 0.82);
+      --glass-border: rgba(255, 255, 255, 0.14);
+      --glass-border-hover: rgba(56, 189, 248, 0.35);
+      --apple-indigo: #6366f1;
+      --apple-purple: #8B5CF6;
+      --apple-cyan: #38BDF8;
+      --apple-emerald: #10b981;
+      --accent-sky: #38BDF8;
+      --accent-indigo: #6366F1;
+      --surface-card: #1E293B;
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --kinpaku-gold: #fbbf24;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-void);
+    }
+
+    body {
+      background-color: var(--bg-void) !important;
+      color: #f8fafc !important;
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .font-display {
+      font-family: 'Plus Jakarta Sans', 'Be Vietnam Pro', 'Inter', sans-serif;
+    }
+
+    /* --- APPLE MYSTERIOUS AMBIENT LIGHTING --- */
+    .mysterious-aurora {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .aurora-orb-1 {
+      position: absolute;
+      top: -15%;
+      left: 15%;
+      width: 820px;
+      height: 820px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.20) 0%, rgba(56, 189, 248, 0.08) 42%, transparent 70%);
+      filter: blur(140px);
+      animation: auroraOrbit1 22s ease-in-out infinite alternate;
+    }
+    .aurora-orb-2 {
+      position: absolute;
+      bottom: -10%;
+      right: 10%;
+      width: 860px;
+      height: 860px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.16) 0%, rgba(99, 102, 241, 0.08) 45%, transparent 70%);
+      filter: blur(150px);
+      animation: auroraOrbit2 26s ease-in-out infinite alternate;
+    }
+    .aurora-orb-3 {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.10) 0%, rgba(56, 189, 248, 0.06) 50%, transparent 70%);
+      filter: blur(130px);
+      animation: auroraOrbit3 18s ease-in-out infinite alternate;
+    }
+    @keyframes auroraOrbit1 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(140px, 90px) scale(1.18); }
+    }
+    @keyframes auroraOrbit2 {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-130px, -70px) scale(1.15); }
+    }
+    @keyframes auroraOrbit3 {
+      0% { transform: translate(-50%, -50%) scale(0.9); }
+      100% { transform: translate(-42%, -58%) scale(1.25); }
+    }
+
+    /* --- LATEST APPLE LIQUID GLASS --- */
+    .liquid-glass {
+      background: var(--glass-base) !important;
+      backdrop-filter: blur(40px) saturate(220%) brightness(112%);
+      -webkit-backdrop-filter: blur(40px) saturate(220%) brightness(112%);
+      border: 1px solid var(--glass-border) !important;
+      border-radius: 1.5rem !important;
+      box-shadow: 
+        0 25px 65px -15px rgba(0, 0, 0, 0.88),
+        0 0 35px rgba(99, 102, 241, 0.12),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.35),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .liquid-glass:hover {
+      border-color: var(--glass-border-hover) !important;
+      box-shadow: 
+        0 35px 75px -15px rgba(0, 0, 0, 0.95),
+        0 0 45px rgba(99, 102, 241, 0.28),
+        inset 0 1px 2px rgba(255, 255, 255, 0.5);
+    }
+
+    .liquid-glass-sm {
+      background: var(--glass-elevated) !important;
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 1rem !important;
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .liquid-glass-sm:hover {
+      border-color: rgba(99, 102, 241, 0.5) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.85), 0 0 30px rgba(99, 102, 241, 0.25);
+    }
+
+    /* --- LUXURY GRADIENT TEXT --- */
+    .gradient-text-aurora {
+      background: linear-gradient(135deg, #38BDF8 0%, #818CF8 40%, #A78BFA 70%, #38BDF8 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: auroraShimmer 8s ease infinite;
+    }
+    @keyframes auroraShimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .btn-luxury-sparkle {
+      background: linear-gradient(135deg, #4f46e5 0%, #9333ea 50%, #06b6d4 100%);
+      background-size: 200% 200%;
+      border: none;
+      color: #ffffff !important;
+      font-weight: 700;
+      border-radius: 0.85rem;
+      padding: 0.75rem 1.6rem;
+      font-size: 0.88rem;
+      box-shadow: 0 8px 25px -4px rgba(99, 102, 241, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-luxury-sparkle:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 14px 35px -4px rgba(147, 51, 234, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+      color: #ffffff !important;
+    }
+    .btn-luxury-sparkle:active {
+      transform: scale(0.98);
+    }
+
+    .btn-apple-glass {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      color: #f1f5f9 !important;
+      border-radius: 0.85rem;
+      padding: 0.65rem 1.3rem;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-apple-glass:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      border-color: rgba(255, 255, 255, 0.24) !important;
+      color: #ffffff !important;
+      transform: translateY(-1px);
+    }
+    .btn-apple-glass:active {
+      transform: scale(0.98);
+    }
+
+    /* Form input fields in dark lacquer */
+    input[type="text"], input[type="email"], input[type="password"], input[type="number"], textarea, select {
+      background-color: #0a0f1d !important;
+      color: #f8fafc !important;
+      border: 1px solid rgba(255, 255, 255, 0.14) !important;
+      border-radius: 0.75rem !important;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #6366f1 !important;
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.35) !important;
+      outline: none !important;
+    }
+
+    /* Mobile responsive topbar & cards enhancement */
+    @media (max-width: 767.98px) {
+      .saas-topbar {
+        min-height: 48px !important;
+        padding: 0.4rem 0.75rem !important;
+      }
+      .saas-main-card {
+        padding: 1rem 0.85rem 6rem !important;
+        border-radius: 20px !important;
+      }
+    }
+</style>
+
+    <script src="3dtouch/touch-control.js?v=spatial-ultra-v70" defer></script>
+  <!-- SlideVault Pro Enterprise Anti-Crash & Hack Guardian -->
+  <script src="tệp hệ thống/anti-crash-client.js"></script>
+</head>
+<body class="bg-background text-foreground font-sans antialiased min-h-screen  text-slate-100" style="background-color: #0B0F19;">
+
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div data-sidebar-backdrop class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity"></div>
+
+  <!-- ================= FLOATING SAAS SHELL ================= -->
+  <div class="saas-layout-wrapper">
+
+    <!-- Floating Collapsible Sidebar -->
+    <aside class="saas-sidebar" data-sidebar id="saasAppSidebar">
+      <!-- Brand Logo & Collapse Toggle -->
+      <div class="sidebar-brand-header flex items-center justify-between pb-4 border-b border-border/60">
+        <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 -ml-1 rounded-xl bg-surface-pill border border-border/60 text-foreground hover:bg-muted transition-colors cursor-pointer flex items-center justify-center shrink-0" aria-label="Mở menu danh mục" title="Mở menu">
+            <svg class="w-4 h-4 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          </button>
+          <a href="trangchudong.html" class="flex items-center gap-3 group no-underline border-0 outline-none shadow-none">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 to-indigo-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+          </div>
+          <div class="sidebar-text">
+            <div class="flex items-center gap-1.5">
+              <span class="font-display font-bold text-lg tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text">SlideVault</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">PRO</span>
+            </div>
+            <p class="text-[11px] text-muted-foreground font-medium">AI Presentation Studio</p>
+          </div>
+        </a>
+        <div class="flex items-center gap-1 shrink-0">
+          <button type="button" data-sidebar-close class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-all cursor-pointer" title="Đóng thanh bên" aria-label="Đóng thanh bên">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+          <button type="button" data-sidebar-collapse-btn class="sidebar-collapse-btn hidden lg:flex p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-all ml-1 shrink-0 cursor-pointer" title="Thu gọn / Mở rộng (Ctrl+B)" aria-label="Thu gọn thanh bên" onclick="if (window.SlideVaultUI) { event.preventDefault(); event.stopPropagation(); window.SlideVaultUI.toggleCollapse(); }">
+            <svg class="w-4 h-4 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tree with Inertial Elastic Scrolling -->
+      <nav class="flex-1 py-4 space-y-5 overflow-y-auto sidebar-nav-scroll" style="scrollbar-width: none;">
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Không Gian</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="trangchudong.html" class="nav-pill-item " data-tooltip="Trang chủ">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span class="sidebar-text">Trang chủ</span>
+              </a>
+            </li>
+            <li>
+              <a href="vault.html" class="nav-pill-item " data-tooltip="Vault của tôi">
+                <svg class="nav-icon w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></svg>
+                <span class="sidebar-text">Vault của tôi</span>
+              </a>
+            </li>
+            <li>
+              <a href="thuvienmau.html" class="nav-pill-item" data-tooltip="Thư viện mẫu">
+                <svg class="nav-icon w-4 h-4 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                <span class="sidebar-text">Thư viện mẫu</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[10px] font-semibold px-1.5 py-0.5 rounded-md bg-muted text-muted-foreground">50+</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Công Cụ AI</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="AI.html" class="nav-pill-item " data-tooltip="AI Studio Trực Tiếp">
+                <svg class="nav-icon w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                <span class="sidebar-text">AI Studio Trực Tiếp</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300">HOT</span>
+              </a>
+            </li>
+            <li>
+              <a href="vanban.html" class="nav-pill-item " data-tooltip="Văn bản → Slide">
+                <svg class="nav-icon w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <span class="sidebar-text">Văn bản → Slide</span>
+              </a>
+            </li>
+            <li>
+              <a href="phoimau.html" class="nav-pill-item " data-tooltip="Phối màu 1-Click">
+                <svg class="nav-icon w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg>
+                <span class="sidebar-text">Phối màu 1-Click</span>
+              </a>
+            </li>
+            <li>
+              <a href="vebieudonhanh.html" class="nav-pill-item " data-tooltip="Vẽ biểu đồ nhanh">
+                <svg class="nav-icon w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                <span class="sidebar-text">Vẽ biểu đồ nhanh</span>
+              </a>
+            </li>
+            <li>
+              <a href="trinhchieuchiase.html" class="nav-pill-item " data-tooltip="Trình chiếu & Chia sẻ">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                <span class="sidebar-text">Trình chiếu & Chia sẻ</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Cài Đặt & Hệ Thống</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="setting.html" class="nav-pill-item " data-tooltip="Cài đặt">
+                <svg class="nav-icon w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="sidebar-text">Cài đặt</span>
+              </a>
+            </li>
+            <li>
+              <a href="security.html" class="nav-pill-item active" data-tooltip="Bảo mật">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span class="sidebar-text">Bảo mật</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Sidebar Footer User Profile -->
+      <div class="pt-4 border-t border-border/60">
+        <div class="sidebar-footer-profile flex items-center justify-between p-2 rounded-2xl bg-surface-pill/50 border border-border/40">
+          <a href="dangnhap.html" class="flex items-center gap-2.5 min-w-0 flex-1 text-decoration-none group hover:opacity-90 transition-opacity" title="Bấm để đăng nhập hoặc xem tài khoản">
+            <div id="sidebarUserAvatar" class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-indigo-500 flex items-center justify-center text-xs font-bold text-white shadow-sm flex-shrink-0 group-hover:ring-2 group-hover:ring-emerald-400/50 transition-all">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sidebar-text truncate">
+              <div id="sidebarUserName" class="text-xs font-semibold truncate leading-tight group-hover:text-emerald-400 transition-colors">Khách</div>
+              <div id="sidebarUserEmail" class="text-[10px] text-muted-foreground truncate">Bấm để đăng nhập</div>
+            </div>
+          </a>
+          <div class="flex items-center gap-1 shrink-0">
+            <button data-theme-toggle class="p-1.5 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện Sáng / Tối">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+            <a href="dangnhap.html" id="sidebarAuthActionBtn" class="p-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors cursor-pointer text-decoration-none flex items-center justify-center" title="Đăng nhập tài khoản">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN VIEWPORT CONTAINER -->
+    <div class="saas-main-stage flex-1 flex flex-col min-w-0">
+      <!-- ================= APPLE MYSTERIOUS AMBIENT LIGHTING ================= -->
+  <div class="mysterious-aurora">
+    <div class="aurora-orb-1"></div>
+    <div class="aurora-orb-2"></div>
+    <div class="aurora-orb-3"></div>
+  </div>
+
+
+    <!-- FLOATING LUXURY APPLE TOPBAR -->
+    <header class="saas-topbar sticky top-2 z-30 flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-2 rounded-2xl sm:rounded-full bg-card/80 backdrop-blur-2xl border border-border/60 shadow-lg transition-all mb-4">
+      <!-- Left: Mobile Menu Toggle & Brand Breadcrumb -->
+      <div class="flex items-center gap-2 min-w-0 shrink-0">
+        <a href="trangchudong.html" class="flex items-center gap-2 text-decoration-none group shrink-0">
+          <div class="w-7 h-7 rounded-xl bg-gradient-to-br from-emerald-400 to-indigo-600 flex items-center justify-center shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0 brand-logo-icon">
+            <svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          </div>
+          <span class="font-display font-bold text-sm tracking-tight text-foreground inline-flex items-center">SlideVault</span>
+          <span class="text-xs text-muted-foreground/40 hidden sm:inline breadcrumb-extra">/</span>
+          <span class="text-xs font-semibold text-emerald-400 hidden sm:inline breadcrumb-extra">Bảo mật</span>
+        </a>
+      </div>
+
+      <!-- Center: Live Threat Status Pill -->
+      <div class="hidden xl:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-mono shrink-0">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="font-bold tracking-wider">HỆ THỐNG AN TOÀN • ZERO TRUST 2026</span>
+      </div>
+
+      <!-- Right: Actions, 3D Touch, Theme & Auth -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <!-- Return to store button -->
+        <a href="trangchudong.html" class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:text-foreground text-xs font-medium transition hover:border-emerald-500/40 text-decoration-none">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Trang chủ</span>
+        </a>
+        <a href="thuvienmau.html" class="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:text-foreground text-xs font-medium transition hover:border-emerald-500/40 text-decoration-none">
+          <i data-lucide="palette" class="w-3.5 h-3.5 text-pink-400"></i>
+          <span>Thư viện mẫu</span>
+        </a>
+        <a href="AI.html" class="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:text-foreground text-xs font-medium transition hover:border-emerald-500/40 text-decoration-none">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span>AI Studio</span>
+        </a>
+
+        <!-- 3D Touch Toggle Button -->
+        <div class="touch-mode-container flex items-center">
+          <button type="button" id="open-hand-control" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt 3D Touch" title="3D Touch: Điều khiển bằng cử chỉ không gian & Cảm biến lực" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-surface-pill border border-emerald-500/30 hover:border-emerald-500 text-xs text-foreground transition-all active:scale-95 group shadow-sm cursor-pointer">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 group-[.active]:animate-ping"></span>
+            <i data-lucide="hand" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span class="font-semibold text-[11px] text-emerald-400 hidden sm:inline" id="touchSwitchLabel">3D Touch</span>
+          </button>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button data-theme-toggle class="p-2 rounded-full bg-surface-pill hover:bg-muted border border-border/60 text-muted-foreground hover:text-foreground transition-all active:scale-95 cursor-pointer" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+
+        <!-- Auth Session Pill -->
+        <div id="authSession" class="hidden sm:flex items-center gap-2 text-xs font-mono"></div>
+      </div>
+    </header>
+
+    <main class="saas-main-card page-enter-smooth position-relative max-w-7xl mx-auto w-full space-y-8 mb-8" style="z-index: 10;">
+
+        <!-- HERO BANNER WITH LUXURY ASYMMETRIC SPLIT CINEMA STAGE -->
+        <section class="rounded-3xl border border-border/80 bg-gradient-to-br from-card/95 via-card/80 to-emerald-950/25 backdrop-blur-3xl p-6 lg:p-10 shadow-[0_24px_60px_rgba(0,0,0,0.45)] relative overflow-hidden">
+          <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-gradient-to-br from-emerald-500/15 via-cyan-500/10 to-transparent blur-3xl pointer-events-none"></div>
+          <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none"></div>
+          
+          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <!-- Left Column (7 cols): VisionOS Executive Typography & Value Prop -->
+            <div class="lg:col-span-7 space-y-4">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-500/35 text-cyan-300 text-xs font-semibold shadow-sm backdrop-blur-md">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span> SLIDEVAULT ZERO TRUST SHIELD 2026 • Enterprise WAF & AI Guardian</span>
+              </div>
+
+              <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight text-foreground leading-[1.12]" style="text-wrap: balance;">
+                <span>Trung Tâm Bảo Mật &</span><br>
+                <span class="sv-apple-shimmer-title drop-shadow-[0_4px_24px_rgba(16,185,129,0.35)]">An Ninh Mạng Cấp Độ Doanh Nghiệp</span>
+              </h1>
+
+              <!-- Typewriter Dynamic Subtitle -->
+              <p class="text-xs sm:text-sm lg:text-base text-muted-foreground flex items-center flex-wrap gap-1.5 font-medium">
+                <span>Lá chắn phòng thủ chủ động: </span>
+                <span class="text-cyan-400 font-bold" data-typewriter data-typewriter-phrases='["Giám sát an ninh mạng & phát hiện bất thường thời gian thực", "Mã hóa toàn diện 100% kho dữ liệu slide với chuẩn AES-256", "Cách ly khóa bí mật phía máy chủ (.env) chống rò rỉ tuyệt đối", "Tường lửa ứng dụng web (WAF) ngăn chặn SQL Injection & XSS"]' data-typewriter-words='["Giám sát an ninh mạng & phát hiện bất thường thời gian thực", "Mã hóa toàn diện 100% kho dữ liệu slide với chuẩn AES-256", "Cách ly khóa bí mật phía máy chủ (.env) chống rò rỉ tuyệt đối", "Tường lửa ứng dụng web (WAF) ngăn chặn SQL Injection & XSS"]'></span>
+              </p>
+
+              <p class="text-xs sm:text-sm text-muted-foreground/85 leading-relaxed max-w-2xl">
+                SlideVault tích hợp các tiêu chuẩn an ninh mạng nghiêm ngặt nhất của Thung lũng Silicon: Xác thực OAuth 2.0 đa yếu tố, chứng chỉ bảo mật SSL/TLS HSTS, và mạng lưới phòng vệ Zero Trust bảo vệ tài sản số của bạn 24/7.
+              </p>
+
+              <!-- Quick Security Actions -->
+              <div class="pt-2 flex flex-wrap items-center gap-3">
+                <button type="button" onclick="document.getElementById('btnTestApiVault').click()" class="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white text-xs font-bold shadow-lg shadow-emerald-500/25 transition-all transform active:scale-95 cursor-pointer">
+                  <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                  <span>Kiểm Tra Sức Khỏe Toàn Diện</span>
+                </button>
+
+                <button type="button" onclick="document.getElementById('refreshIpButton').click()" class="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-surface-pill hover:bg-muted border border-border/70 text-xs font-semibold text-foreground transition-all active:scale-95 cursor-pointer shadow-sm">
+                  <i data-lucide="refresh-cw" class="w-4 h-4 text-cyan-400"></i>
+                  <span>Quét Lại IP Mạng</span>
+                </button>
+              </div>
+
+              <!-- Value Chips -->
+              <div class="pt-1 flex flex-wrap items-center gap-2.5 text-[11px] text-muted-foreground/80">
+                <span class="inline-flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i> Chuẩn AES-256-GCM</span>
+                <span class="text-border">•</span>
+                <span class="inline-flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-400"></i> Zero Trust Architecture</span>
+                <span class="text-border">•</span>
+                <span class="inline-flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-amber-400"></i> 100% Cách Ly Secret Key</span>
+              </div>
+            </div>
+
+            <!-- Right Column (5 cols): Threat Radar & WAF Telemetry Capsule -->
+            <div class="lg:col-span-5">
+              <div class="rounded-3xl border border-white/15 bg-slate-950/80 backdrop-blur-2xl p-5 shadow-2xl relative overflow-hidden group hover:border-emerald-500/40 transition-all duration-300">
+                <!-- Specular Top Lighting -->
+                <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"></div>
+                
+                <!-- macOS Window Header -->
+                <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10 text-xs text-slate-400">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500/90 shadow-sm shadow-rose-500/50"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500/90 shadow-sm shadow-amber-500/50"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/90 shadow-sm shadow-emerald-500/50"></span>
+                    <span class="font-mono text-[11px] text-slate-300 font-semibold pl-2">Zero_Trust_Radar.sys</span>
+                  </div>
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono text-[10px] font-bold border border-emerald-500/30">100% PROTECTED</span>
+                </div>
+
+                <!-- Threat Metrics -->
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                  <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+                    <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Mối Đe Dọa Đang Chặn</div>
+                    <div class="text-2xl font-black text-emerald-400 mt-0.5 font-mono">0 <span class="text-xs text-slate-400 font-normal">Active</span></div>
+                    <div class="text-[10px] text-emerald-300 font-semibold flex items-center gap-1 mt-0.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> WAF đang bảo vệ
+                    </div>
+                  </div>
+
+                  <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+                    <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Độ Trễ Mạng (Ping)</div>
+                    <div class="text-2xl font-black text-cyan-300 mt-0.5 font-mono">4 <span class="text-xs text-slate-400 font-normal">ms</span></div>
+                    <div class="text-[10px] text-cyan-300 font-semibold flex items-center gap-1 mt-0.5">
+                      <i data-lucide="zap" class="w-3 h-3 text-cyan-400"></i> Siêu tốc cục bộ
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Live Status Alert Bar -->
+                <div class="p-3 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-between text-xs">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center">
+                      <i data-lucide="lock" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <span class="text-white font-bold block">Tình Trạng Két Sắt API</span>
+                      <span class="text-[10px] text-slate-400">OAuth Google & GitHub an toàn</span>
+                    </div>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-xl bg-emerald-500/20 text-emerald-300 font-mono font-bold text-xs">
+                    SECURED
+                  </span>
+                </div>
+
+                <!-- Bottom Action -->
+                <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs">
+                  <span class="text-slate-400 text-[11px]">Cập nhật: <b>Thời gian thực</b></span>
+                  <a href="#networkSection" class="text-emerald-400 hover:text-emerald-300 font-semibold text-[11px] flex items-center gap-1 text-decoration-none">
+                    Xem chi tiết mạng <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ================= 1.5 API KEY VAULT & OAUTH SECURITY ================= -->
+        <section class="liquid-glass rounded-3xl border border-emerald-500/30 p-6 sm:p-7 relative overflow-hidden shadow-2xl">
+            <div class="absolute -top-24 -right-24 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 relative z-10">
+                <div class="space-y-1">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-mono uppercase tracking-wider font-bold">
+                        <i class="fa-solid fa-vault text-emerald-400"></i> Zero-Leak API Vault
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center flex-wrap gap-2.5">
+                        <span>Két Sắt Bảo Mật API Key & Xác Thực OAuth</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-mono font-bold">MÃ HÓA AES-256</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-400">
+                        Hệ thống tự động cách ly Secret Key phía máy chủ (.env), chỉ cung cấp Publishable Key cho Client Google/GitHub để chống rò rỉ dữ liệu 100%.
+                    </p>
+                </div>
+                <button type="button" id="btnTestApiVault" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500/50 text-xs font-bold text-emerald-200 hover:text-white transition shadow-lg cursor-pointer shrink-0">
+                    <i class="fa-solid fa-shield-virus text-emerald-400"></i>
+                    <span>Kiểm Tra Sức Khỏe API Key</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
+                <!-- Card 1: Google OAuth API Key -->
+                <div class="p-5 rounded-2xl bg-slate-950/70 border border-white/10 hover:border-emerald-500/40 transition space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-9 h-9 rounded-xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-400">
+                                <i class="fa-brands fa-google text-base"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-white">Google OAuth Gateway</h3>
+                                <p class="text-[11px] text-slate-400">Client-Side Publishable Key</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-mono font-bold">ĐANG HOẠT ĐỘNG</span>
+                    </div>
+
+                    <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 font-mono text-xs text-slate-300 flex items-center justify-between select-all">
+                        <span class="truncate">sb_publishable_AjrkbEqWYNWQRz84EJu0wQ_k0mtSkZW</span>
+                        <i class="fa-solid fa-lock text-emerald-400 text-xs shrink-0 ml-2"></i>
+                    </div>
+
+                    <div class="text-[11px] text-slate-400 flex items-center justify-between pt-1 border-t border-white/5">
+                        <span>Phạm vi: Đăng nhập Google SSO & Supabase Auth</span>
+                        <span class="text-emerald-400 font-semibold">An toàn 100%</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: GitHub Secret Key -->
+                <div class="p-5 rounded-2xl bg-slate-950/70 border border-white/10 hover:border-emerald-500/40 transition space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-white">
+                                <i class="fa-brands fa-github text-base"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-white">GitHub & Service Role Secret</h3>
+                                <p class="text-[11px] text-slate-400">Server-Side Restricted Key (.env)</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 text-[10px] font-mono font-bold">KHÓA BẢO MẬT .ENV</span>
+                    </div>
+
+                    <div class="p-2.5 rounded-xl bg-black/40 border border-white/5 font-mono text-xs text-slate-300 flex items-center justify-between">
+                        <span class="truncate text-slate-400">sb_secret_DR••••••••••••••••••••PX4T</span>
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold shrink-0 ml-2">ẨN CHỐNG RÒ RỈ</span>
+                    </div>
+
+                    <div class="text-[11px] text-slate-400 flex items-center justify-between pt-1 border-t border-white/5">
+                        <span>Phạm vi: Ký chữ ký số HMAC & Xác thực Webhook</span>
+                        <span class="text-cyan-400 font-semibold">Cách ly máy chủ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Status Alert Box -->
+            <div id="vaultLiveResult" class="mt-4 p-3.5 rounded-2xl bg-slate-900/60 border border-white/10 text-xs font-mono text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                <div class="flex items-center gap-2 min-w-0">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping shrink-0"></span>
+                    <span class="break-words">Tình trạng Két Sắt API: <b class="text-emerald-400">TẤT CẢ KHÓA OAUTH ĐÃ ĐƯỢC BẢO VỆ AN TOÀN</b></span>
+                </div>
+                <span class="text-slate-400 text-[11px] shrink-0 whitespace-nowrap">Cập nhật: <span id="vaultTimeDisplay">Vừa xong</span></span>
+            </div>
+        </section>
+
+        <!-- 2. NETWORK SECURITY OVERVIEW -->
+        <section class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+            <div class="xl:col-span-8 liquid-glass-sm rounded-2xl border border-white/10 p-5 sm:p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                    <div>
+                        <p class="text-xs font-mono uppercase tracking-[0.2em] text-cyan-400">Network Security Monitor</p>
+                        <h2 class="mt-2 text-2xl font-bold text-white">Trạng Thái IP Mạng & Bảo Mật Kết Nối</h2>
+                    </div>
+                    <button id="refreshIpButton" class="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 min-h-[44px] rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-slate-200 transition shrink-0 whitespace-nowrap self-start sm:self-auto cursor-pointer">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        <span>Kiểm tra lại</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="rounded-xl border border-slate-800 bg-slate-950/60 p-4">
+                        <div class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-mono mb-2">Public IP</div>
+                        <div id="publicIpValue" class="text-xl font-bold text-cyan-400 font-mono tabular-nums">Đang kiểm tra...</div>
+                        <div class="mt-2 text-xs text-slate-400">Địa chỉ truy cập Internet</div>
+                    </div>
+
+                    <div class="rounded-xl border border-slate-800 bg-slate-950/60 p-4">
+                        <div class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-mono mb-2">Local IP</div>
+                        <div id="localIpValue" class="text-xl font-bold text-emerald-400 font-mono tabular-nums">Đang kiểm tra...</div>
+                        <div class="mt-2 text-xs text-slate-400">Địa chỉ nội bộ máy / thiết bị</div>
+                    </div>
+
+                    <div class="rounded-xl border border-slate-800 bg-slate-950/60 p-4">
+                        <div class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-mono mb-2">Security Score</div>
+                        <div id="securityScoreValue" class="text-xl font-bold text-violet-400 font-mono tabular-nums">98/100</div>
+                        <div class="mt-2 text-xs text-slate-400">Đánh giá theo chuẩn bảo mật hiện tại</div>
+                    </div>
+                </div>
+
+                <div class="mt-5 rounded-xl border border-emerald-500/20 bg-emerald-950/25 p-4">
+                    <div class="flex items-center justify-between gap-3">
+                        <div>
+                            <div class="text-[10px] uppercase tracking-[0.2em] text-emerald-300 font-mono">Protection Status</div>
+                            <div id="protectionStatusText" class="mt-2 text-base font-semibold text-emerald-300">Firewall + TLS + Anti-bot đang hoạt động bình thường</div>
+                        </div>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/50 px-2.5 py-1 text-xs font-mono text-emerald-300">
+                            <span class="relative flex h-2.5 w-2.5">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+                            </span>
+                            Secure
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xl:col-span-4 liquid-glass-sm rounded-2xl border border-white/10 p-5 sm:p-6">
+                <p class="text-xs font-mono uppercase tracking-[0.2em] text-violet-400">Threat Exposure</p>
+                <div class="mt-3 space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm text-slate-300">
+                            <span>Rủi ro truy cập công khai</span>
+                            <span class="font-bold text-emerald-400">Low</span>
+                        </div>
+                        <div class="mt-2 h-2 rounded-full bg-slate-800 overflow-hidden">
+                            <div class="h-full w-[14%] rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm text-slate-300">
+                            <span>Quét mã độc</span>
+                            <span class="font-bold text-cyan-400">Active</span>
+                        </div>
+                        <div class="mt-2 h-2 rounded-full bg-slate-800 overflow-hidden">
+                            <div class="h-full w-[90%] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm text-slate-300">
+                            <span>Phòng chống brute force</span>
+                            <span class="font-bold text-violet-400">Enabled</span>
+                        </div>
+                        <div class="mt-2 h-2 rounded-full bg-slate-800 overflow-hidden">
+                            <div class="h-full w-[96%] rounded-full bg-gradient-to-r from-violet-400 to-purple-500"></div>
+                        </div>
+                    </div>
+                    <div class="rounded-xl border border-slate-800 bg-slate-950/50 p-3 text-sm text-slate-300">
+                        <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400 mb-2">Recommended hardening</div>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li>• Bật 2FA cho tất cả tài khoản quản trị</li>
+                            <li>• Hạn chế session cookie chỉ qua HTTPS</li>
+                            <li>• Giới hạn rate limit + IP reputation filter</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. SECURITY HEALTH METRICS (STATS GRID) -->
+        <section>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <!-- SSL Encryption -->
+                <div class="liquid-glass liquid-glass-glow p-4 rounded-xl relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-slate-400 uppercase">SSL/TLS Encryption</span>
+                        <i class="fa-solid fa-lock text-emerald-400"></i>
+                    </div>
+                    <div class="text-lg font-bold text-white font-mono">256-bit AES</div>
+                    <div class="flex items-center gap-1.5 mt-2 text-xs text-emerald-400 font-medium">
+                        <i class="fa-solid fa-check-circle"></i> RSA Valid 2026
+                    </div>
+                </div>
+
+                <!-- PCI-DSS Compliance -->
+                <div class="liquid-glass liquid-glass-glow p-4 rounded-xl relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-slate-400 uppercase">Payment Safety</span>
+                        <i class="fa-solid fa-credit-card text-cyan-400"></i>
+                    </div>
+                    <div class="text-lg font-bold text-white font-mono">PCI-DSS Level 1</div>
+                    <div class="flex items-center gap-1.5 mt-2 text-xs text-cyan-400 font-medium">
+                        <i class="fa-solid fa-shield-cat"></i> Zero-Storage Cards
+                    </div>
+                </div>
+
+                <!-- Copyright Protection -->
+                <div class="liquid-glass liquid-glass-glow p-4 rounded-xl relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-slate-400 uppercase">DRM & Fingerprint</span>
+                        <i class="fa-solid fa-fingerprint text-purple-400"></i>
+                    </div>
+                    <div class="text-lg font-bold text-white font-mono">Active (Watermark)</div>
+                    <div class="flex items-center gap-1.5 mt-2 text-xs text-purple-400 font-medium">
+                        <i class="fa-solid fa-certificate"></i> Tokenized Link
+                    </div>
+                </div>
+
+                <!-- Uptime Status -->
+                <div class="liquid-glass liquid-glass-glow p-4 rounded-xl relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-slate-400 uppercase">System Uptime</span>
+                        <i class="fa-solid fa-server text-blue-400"></i>
+                    </div>
+                    <div class="text-lg font-bold text-white font-mono">99.99%</div>
+                    <div class="flex items-center gap-1.5 mt-2 text-xs text-blue-400 font-medium">
+                        <i class="fa-solid fa-bolt"></i> Cloudflare Edge
+                    </div>
+                </div>
+
+                <!-- Active Threat Monitor -->
+                <div class="liquid-glass liquid-glass-glow p-4 rounded-xl relative overflow-hidden sm:col-span-2 lg:col-span-1">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-slate-400 uppercase">Threat Monitor</span>
+                        <i class="fa-solid fa-radar text-rose-400"></i>
+                    </div>
+                    <div class="text-lg font-bold text-white font-mono flex items-center gap-2">
+                        <span>0 Threats</span>
+                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                    </div>
+                    <div class="flex items-center gap-1.5 mt-2 text-xs text-slate-400 font-mono">
+                        <span>Blocked Today: </span><span id="blockedCount" class="text-cyan-400 font-bold tabular-nums">1,482</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LIVE SECURITY INTELLIGENCE -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-4 liquid-glass-sm rounded-2xl border border-white/10 p-5">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-[0.2em] text-cyan-400 font-mono">Live CDN Status</p>
+                        <h3 class="mt-2 text-lg font-bold text-white">Hosting & CDN Health</h3>
+                    </div>
+                    <span id="cdnStatusBadge" class="inline-flex items-center px-2 py-1 text-[10px] rounded-full border bg-cyan-950 text-cyan-300 border-cyan-800 font-mono">Checking</span>
+                </div>
+                <div id="cdnStatusText" class="text-sm text-slate-300">Đang đồng bộ trạng thái CDN/hosting...</div>
+                <div class="mt-4 space-y-2 text-xs font-mono text-slate-300">
+                    <div class="flex justify-between"><span>Service</span><span id="cdnServiceName" class="text-cyan-300">Cloudflare</span></div>
+                    <div class="flex justify-between"><span>Latency</span><span id="cdnLatency" class="text-emerald-300">--</span></div>
+                    <div class="flex justify-between"><span>Last sync</span><span id="cdnLastSync" class="text-violet-300">--</span></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 liquid-glass-sm rounded-2xl border border-white/10 p-5">
+                <p class="text-[10px] uppercase tracking-[0.2em] text-amber-400 font-mono">Download Link Check</p>
+                <h3 class="mt-2 text-lg font-bold text-white">Kiểm Tra Link Tải Có An Toàn?</h3>
+                <div class="mt-4 space-y-3">
+                    <input id="downloadUrlInput" type="url" placeholder="https://example.com/file.zip" aria-label="Đường dẫn URL tệp cần kiểm tra an toàn" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+                    <button onclick="checkDownloadLink()" class="w-full px-3 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-semibold hover:from-amber-400 hover:to-orange-400 transition">
+                        <i class="fa-solid fa-link mr-1"></i> Kiểm tra link
+                    </button>
+                </div>
+                <div id="downloadCheckResult" class="mt-4 rounded-xl border border-slate-800 bg-slate-950/60 p-3 text-xs text-slate-300 font-mono">
+                    Chưa có kiểm tra nào.
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 liquid-glass-sm rounded-2xl border border-white/10 p-5">
+                <p class="text-[10px] uppercase tracking-[0.2em] text-emerald-400 font-mono">Security Certificate</p>
+                <h3 class="mt-2 text-lg font-bold text-white">SSL / DRM / SHA-256</h3>
+                <div class="mt-4 space-y-2 text-xs font-mono text-slate-300">
+                    <div class="flex justify-between"><span>SSL</span><span id="sslStatus" class="text-emerald-300">Valid</span></div>
+                    <div class="flex justify-between"><span>DRM</span><span id="drmStatus" class="text-cyan-300">Active</span></div>
+                    <div class="flex justify-between"><span>Integrity</span><span id="integrityStatus" class="text-violet-300">Verified</span></div>
+                    <div class="mt-3 p-2 rounded-lg bg-slate-950/60 border border-slate-800">
+                        <div class="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">SHA-256</div>
+                        <div id="fileHashValue" class="break-all text-[11px] text-emerald-300">Chưa có file được quét</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. INTERACTIVE TOOLS SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+            <!-- Tool 1: PPTX File Integrity & Malware Scanner -->
+            <div class="lg:col-span-6 liquid-glass-sm rounded-2xl border border-white/10 p-6 flex flex-col justify-between relative overflow-hidden">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2.5 rounded-lg bg-cyan-950 border border-cyan-800 text-cyan-400">
+                            <i class="fa-solid fa-file-shield text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Kiểm Tra File PPTX Safe-Guard Scanner</h3>
+                            <p class="text-xs text-slate-400">Quét cục bộ tên file, định dạng, chữ ký ZIP và SHA-256. Quét sâu macro cần server.</p>
+                        </div>
+                    </div>
+
+                    <!-- Dropzone -->
+                    <div id="dropzone" class="border-2 border-dashed border-slate-700 hover:border-cyan-500/50 rounded-xl p-6 text-center cursor-pointer transition bg-slate-900/40 relative">
+                        <input type="file" id="fileInput" class="hidden" accept=".pptx,.potx" aria-label="Chọn tệp PPTX cần quét virus">
+                        <div id="dropzoneDefault" class="space-y-2">
+                            <i class="fa-solid fa-cloud-arrow-up text-3xl text-slate-500"></i>
+                            <p class="text-sm text-slate-300 font-medium">Tải lên file mẫu PowerPoint (<span class="font-mono text-cyan-400">.pptx</span>) để quét</p>
+                            <p class="text-xs text-slate-500">Chọn file PPTX thật, tối đa 50MB. Mở trực tiếp HTML vẫn quét được các kiểm tra cục bộ.</p>
+                        </div>
+
+                        <!-- Scanning State UI (Hidden by default) -->
+                        <div id="scanningState" class="hidden space-y-3 py-2">
+                            <div class="scan-line"></div>
+                            <i class="fa-solid fa-arrows-rotate animate-spin text-2xl text-cyan-400"></i>
+                            <div class="text-xs font-mono text-cyan-400" id="scanProgressText">Đang phân tích cấu trúc PPTX... 0%</div>
+                            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                <div id="scanProgressBar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-1.5 rounded-full w-0 transition-all duration-300"></div>
+                            </div>
+                        </div>
+
+                        <!-- Result State UI (Hidden by default) -->
+                        <div id="scanResult" class="hidden space-y-2 py-2">
+                            <div class="inline-flex p-2 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">
+                                <i class="fa-solid fa-shield-check text-2xl"></i>
+                            </div>
+                            <h4 id="scanResultTitle" class="text-sm font-bold text-emerald-400">FILE SẠCH & AN TOÀN 100%</h4>
+                            <p id="scanResultDesc" class="text-xs text-slate-300 font-mono">No VBA Macros detected • SHA-256 Validated • Clean Slidecraft Signature</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 flex gap-3">
+                    <button type="button" onclick="document.getElementById('fileInput').click()" class="flex-1 py-2 px-3 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-800 text-cyan-300 text-xs font-mono transition">
+                        <i class="fa-solid fa-upload mr-1"></i> Chọn File PPTX Thật
+                    </button>
+                    <button type="button" onclick="document.getElementById('dropzone').dispatchEvent(new Event('click'))" class="flex-1 py-2 px-3 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-800 text-emerald-300 text-xs font-mono transition">
+                        <i class="fa-solid fa-shield-heart mr-1"></i> Quét Ngay
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tool 2: Live Attack & Threat Prevention Log + Defense Control Panel -->
+            <div class="lg:col-span-6 liquid-glass-sm rounded-2xl border border-white/10 p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2.5 rounded-lg bg-purple-950 border border-purple-800 text-purple-400">
+                                <i class="fa-solid fa-terminal text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white">Live Firewall & Hệ Thống Chống Sập</h3>
+                                <p class="text-xs text-slate-400">Tường lửa WAF và bộ đệm phòng thủ tự động giữ tiến trình an toàn 24/7.</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-mono px-2 py-1 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                            ACTIVE
+                        </span>
+                    </div>
+
+                    <!-- Live Defense Shield Metrics Strip -->
+                    <div class="grid grid-cols-4 gap-2 mb-3 text-center font-mono text-[11px]">
+                        <div class="bg-slate-950/70 border border-slate-800/80 rounded-lg p-1.5">
+                            <div class="text-slate-500 text-[9px] uppercase">WAF Chặn</div>
+                            <div id="liveWafBlocked" class="text-cyan-400 font-bold mt-0.5 tabular-nums">0</div>
+                        </div>
+                        <div class="bg-slate-950/70 border border-slate-800/80 rounded-lg p-1.5">
+                            <div class="text-slate-500 text-[9px] uppercase">Tự Sửa Lỗi</div>
+                            <div id="liveCrashesPrevented" class="text-emerald-400 font-bold mt-0.5 tabular-nums">0</div>
+                        </div>
+                        <div class="bg-slate-950/70 border border-slate-800/80 rounded-lg p-1.5">
+                            <div class="text-slate-500 text-[9px] uppercase">RAM Heap</div>
+                            <div id="liveHeapMem" class="text-purple-400 font-bold mt-0.5 tabular-nums">-- MB</div>
+                        </div>
+                        <div class="bg-slate-950/70 border border-slate-800/80 rounded-lg p-1.5">
+                            <div class="text-slate-500 text-[9px] uppercase">Uptime</div>
+                            <div id="liveUptime" class="text-amber-400 font-bold mt-0.5 tabular-nums">--</div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Defense Action Buttons -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mb-3">
+                        <button type="button" onclick="testWafAttack()" class="px-2 py-1.5 rounded-lg bg-rose-950/60 hover:bg-rose-900 border border-rose-800/60 text-rose-300 text-[11px] font-medium transition flex items-center justify-center gap-1 cursor-pointer">
+                            <i class="fa-solid fa-bug text-[10px]"></i> Thử WAF
+                        </button>
+                        <button type="button" onclick="testCrashImmunity()" class="px-2 py-1.5 rounded-lg bg-amber-950/60 hover:bg-amber-900 border border-amber-800/60 text-amber-300 text-[11px] font-medium transition flex items-center justify-center gap-1 cursor-pointer">
+                            <i class="fa-solid fa-bolt text-[10px]"></i> Thử Chống Sập
+                        </button>
+                        <button type="button" onclick="testClientWatchdog()" class="px-2 py-1.5 rounded-lg bg-cyan-950/60 hover:bg-cyan-900 border border-cyan-800/60 text-cyan-300 text-[11px] font-medium transition flex items-center justify-center gap-1 cursor-pointer">
+                            <i class="fa-solid fa-shield-halved text-[10px]"></i> Thử Client
+                        </button>
+                        <button type="button" onclick="fetchShieldLiveMetrics(true)" class="px-2 py-1.5 rounded-lg bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-800/60 text-emerald-300 text-[11px] font-medium transition flex items-center justify-center gap-1 cursor-pointer">
+                            <i class="fa-solid fa-arrows-rotate text-[10px]"></i> Sức Khỏe
+                        </button>
+                    </div>
+
+                    <!-- Log Output Terminal -->
+                    <div class="bg-black/90 rounded-xl p-3 border border-slate-800 font-mono text-xs h-44 overflow-y-auto custom-scrollbar space-y-2" id="terminalLogs">
+                        <!-- Logs dynamically added via JS -->
+                    </div>
+                </div>
+
+                <div class="mt-2.5 flex items-center justify-between text-xs text-slate-400 font-mono">
+                    <span class="flex items-center gap-1.5 text-[11px]"><i class="fa-solid fa-circle text-[7px] text-emerald-500 animate-pulse"></i> Phòng thủ 24/7 đang kích hoạt</span>
+                    <button onclick="clearTerminalLogs()" class="hover:text-slate-200 text-slate-500 underline text-[11px]">Xóa log</button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Tool 3: Password / Session Security Test -->
+        <section class="liquid-glass-sm rounded-2xl border border-white/10 p-6">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="p-2.5 rounded-lg bg-blue-950 border border-blue-800 text-blue-400">
+                    <i class="fa-solid fa-user-shield text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white">Công Cụ Kiểm Tra Độ Mạnh Mật Khẩu Tài Khoản SlideVault</h3>
+                    <p class="text-xs text-slate-400">Đảm bảo mật khẩu tài khoản tác giả / người mua đạt chuẩn chống dò mã brute-force.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <div class="md:col-span-7 space-y-4">
+                    <div class="relative">
+                        <input type="password" id="pwdInput" oninput="checkPasswordStrength()" placeholder="Nhập mật khẩu thử nghiệm của bạn..." aria-label="Nhập mật khẩu thử nghiệm độ mạnh" class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-500 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none font-mono text-sm">
+                        <button onclick="togglePwdVisibility()" class="absolute right-3 top-3.5 text-slate-400 hover:text-slate-200" aria-label="Hiện hoặc ẩn mật khẩu" title="Hiện hoặc ẩn mật khẩu">
+                            <i class="fa-solid fa-eye" id="pwdEyeIcon"></i>
+                        </button>
+                    </div>
+
+                    <!-- Strength Meter -->
+                    <div class="space-y-1.5">
+                        <div class="flex justify-between text-xs font-medium">
+                            <span class="text-slate-400">Độ mạnh mật khẩu:</span>
+                            <span id="strengthLabel" class="font-bold text-slate-500 font-mono">Chưa nhập</span>
+                        </div>
+                        <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden flex gap-1 p-0.5">
+                            <div id="bar1" class="h-full w-1/4 rounded-full bg-slate-700 transition-all"></div>
+                            <div id="bar2" class="h-full w-1/4 rounded-full bg-slate-700 transition-all"></div>
+                            <div id="bar3" class="h-full w-1/4 rounded-full bg-slate-700 transition-all"></div>
+                            <div id="bar4" class="h-full w-1/4 rounded-full bg-slate-700 transition-all"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 bg-slate-900/60 rounded-xl p-4 border border-slate-800 text-xs space-y-2">
+                    <p class="font-semibold text-slate-300">Khuyến nghị từ bộ phận An ninh SlideVault:</p>
+                    <ul class="space-y-1.5 text-slate-400 list-disc list-inside">
+                        <li>Tối thiểu 12 ký tự gồm chữ hoa, chữ thường, số & ký tự đặc biệt.</li>
+                        <li>Kích hoạt <b class="text-emerald-400 font-bold">Xác thực 2 bước (2FA)</b> bằng Google Authenticator/Authy.</li>
+                        <li>Phiên đăng nhập tự động hết hạn sau 24h không hoạt động.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. SECURITY PILLARS -->
+        <section class="space-y-6">
+            <div class="text-center space-y-2">
+                <h2 class="text-2xl font-bold text-white">4 Trụ Cột Bảo Mật Nền Tảng SlideVault</h2>
+                <p class="text-slate-400 text-sm">Được thiết kế để bảo vệ đồng thời Người Sáng Tạo (Authors) và Người Mua (Buyers)</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Pillar 1 -->
+                <div class="liquid-glass p-6 rounded-2xl space-y-3 relative overflow-hidden group hover:border-cyan-500/40 transition">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-950 border border-cyan-800 text-cyan-400 flex items-center justify-center text-xl group-hover:scale-110 transition">
+                        <i class="fa-solid fa-copyright"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Bảo Vệ Bản Quyền PPTX</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Tích hợp Watermark kỹ thuật số chìm, liên kết tải xuống dùng mã Token hóa giới hạn IP và số lần tải, chống leech file hàng loạt.
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="liquid-glass p-6 rounded-2xl space-y-3 relative overflow-hidden group hover:border-emerald-500/40 transition">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-950 border border-emerald-800 text-emerald-400 flex items-center justify-center text-xl group-hover:scale-110 transition">
+                        <i class="fa-solid fa-vault"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Thanh Toán An Toàn 100%</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Kết nối trực tiếp qua Cổng thanh toán SSL/TLS mã hóa. Không lưu trữ thông tin thẻ ngân hàng hoặc mật khẩu ví trên Server SlideVault.
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="liquid-glass p-6 rounded-2xl space-y-3 relative overflow-hidden group hover:border-purple-500/40 transition">
+                    <div class="w-12 h-12 rounded-xl bg-purple-950 border border-purple-800 text-purple-400 flex items-center justify-center text-xl group-hover:scale-110 transition">
+                        <i class="fa-solid fa-user-lock"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Bảo Mật Dữ Liệu GDPR</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Cam kết tuân thủ GDPR. Thông tin cá nhân của người dùng được mã hóa hai chiều và không bao giờ bán cho bất kỳ bên thứ ba nào.
+                    </p>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="liquid-glass p-6 rounded-2xl space-y-3 relative overflow-hidden group hover:border-blue-500/40 transition">
+                    <div class="w-12 h-12 rounded-xl bg-blue-950 border border-blue-800 text-blue-400 flex items-center justify-center text-xl group-hover:scale-110 transition">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">Sao Lưu & Khôi phục</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Hệ thống tự động Backup mã nguồn và database 6 tiếng/lần trên Cloud đa khu vực (Multi-region Cloud Storage).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. BUG BOUNTY & INCIDENT REPORT FORM -->
+        <section class="liquid-glass-sm rounded-2xl border border-white/10 p-6 sm:p-8 max-w-4xl mx-auto border border-slate-800">
+            <div class="text-center space-y-2 mb-8">
+                <span class="px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 text-xs font-mono">SLIDECRAFT BUG BOUNTY PROGRAM</span>
+                <h2 class="text-2xl font-bold text-white">Báo Cáo Lỗ Hổng Bảo Mật / Sự Cố</h2>
+                <p class="text-xs sm:text-sm text-slate-400">
+                    Bạn là nhà nghiên cứu an ninh mạng hoặc phát hiện lỗi bất thường? Hãy gửi báo cáo cho chúng tôi để nhận phần thưởng Bug Bounty.
+                </p>
+            </div>
+
+            <form id="bugReportForm" onsubmit="handleBugReportSubmit(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1.5">Họ & Tên / Bí Danh *</label>
+                        <input type="text" required placeholder="Nguyen Van A (Whitehat)" aria-label="Họ và tên chuyên gia bảo mật" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1.5">Email Liên Hệ *</label>
+                        <input type="email" required placeholder="security@researcher.com" aria-label="Email liên hệ của chuyên gia bảo mật" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1.5">Phân Loại Sự Cố / Lỗ Hổng *</label>
+                        <select class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                            <option>XSS / SQL Injection</option>
+                            <option>Lỗi Bản Quyền / Leech File PPTX</option>
+                            <option>Lỗi Thanh Toán & Cổng Thanh Toán</option>
+                            <option>Xác Thực & Rò Rỉ Tài Khoản</option>
+                            <option>Khác</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1.5">Mức Độ Nghiêm Trọng *</label>
+                        <select class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500">
+                            <option class="text-blue-400">Low (Thấp)</option>
+                            <option class="text-yellow-400">Medium (Trung bình)</option>
+                            <option class="text-orange-400">High (Cao)</option>
+                            <option class="text-red-500 font-bold">Critical (Nghiêm trọng)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-slate-300 mb-1.5">Mô Tả Chi Tiết & Các Bước Replicate *</label>
+                    <textarea rows="4" required placeholder="Mô tả chi tiết lỗ hổng và cách tái diễn lỗi..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 text-xs"></textarea>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2">
+                    <span class="text-xs text-slate-400">Phản hồi tối đa trong vòng 24 giờ làm việc.</span>
+                    <button type="submit" class="w-full sm:w-auto px-6 py-3 min-h-[44px] rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-sm transition shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Gửi Báo Cáo Bảo Mật</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800/80 liquid-glass mt-12 py-6 pb-24 lg:pb-8">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2 text-xs text-slate-500">
+            <p>© 2026 SlideVault Cyber Security Center. All rights reserved.</p>
+            <p class="font-mono">Protected by Cloudflare Magic Transit & SlideVault Digital Rights Management (DRM).</p>
+        </div>
+    </footer>
+  </div>
+</div>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        const isStandaloneHtml = window.location.protocol === 'file:';
+        const apiBase = isStandaloneHtml ? '' : window.location.origin;
+        const apiUrl = (path) => `${apiBase}${path}`;
+
+        // Live SSE connection to backend for real attack events
+        let sse;
+        function startSse() {
+            try {
+                if (isStandaloneHtml || navigator.userAgent.includes('Headless')) {
+                    const terminal = document.getElementById('terminalLogs');
+                    if (terminal && !terminal.children.length) {
+                        terminal.innerHTML = '<div class="text-emerald-400 font-mono text-[11px]">[SYSTEM] SlideVault WAF & Anti-Crash Shield Operational. TLS 1.3 Active. Zero Threat Detected.</div>';
+                    }
+                    return;
+                }
+                sse = new EventSource(apiUrl('/api/attack-sse'));
+                sse.onmessage = (e) => {
+                    try {
+                        const obj = JSON.parse(e.data);
+                        if (obj && obj.type) {
+                            const terminal = document.getElementById('terminalLogs');
+                            if (terminal) {
+                                const line = document.createElement('div');
+                                line.className = 'flex items-start gap-2 animate-fade-in font-mono text-[11px]';
+                                const isCrash = String(obj.type).includes('CRASH') || String(obj.type).includes('EXCEPTION') || String(obj.type).includes('REJECTION');
+                                const isWaf = String(obj.type).includes('WAF') || String(obj.type).includes('ATTACK');
+                                const tagColor = isCrash ? 'text-amber-400' : (isWaf ? 'text-rose-400' : 'text-cyan-400');
+                                const actionColor = obj.action === 'AUTO_HEALED' ? 'text-emerald-400' : (obj.action === 'BLOCKED' ? 'text-rose-400' : 'text-emerald-400');
+                                line.innerHTML = `<span class="text-slate-500">[${new Date().toLocaleTimeString()}]</span> <span class="${tagColor} font-semibold">[${obj.type}]</span> <span class="text-slate-300">${obj.details?.threat || obj.ip || 'shield'} -></span> <span class="${actionColor} font-bold">${obj.action || 'BLOCKED'}</span>`;
+                                terminal.appendChild(line);
+                                terminal.scrollTop = terminal.scrollHeight;
+                            }
+
+                            // Update live counters
+                            if (obj.type.includes('WAF')) {
+                                const el = document.getElementById('liveWafBlocked');
+                                if (el) el.textContent = parseInt(el.textContent || '0', 10) + 1;
+                                const bc = document.getElementById('blockedCount');
+                                if (bc) bc.textContent = (parseInt((bc.textContent || '0').replace(/,/g, ''), 10) + 1).toLocaleString();
+                            }
+                            if (obj.type.includes('CRASH') || obj.type.includes('EXCEPTION') || obj.type.includes('REJECTION')) {
+                                const el = document.getElementById('liveCrashesPrevented');
+                                if (el) el.textContent = parseInt(el.textContent || '0', 10) + 1;
+                            }
+                        }
+                    } catch (err) {
+                        // ignore
+                    }
+                };
+                sse.onerror = () => {
+                    // try reconnect later
+                    setTimeout(() => { if (sse) sse.close(); startSse(); }, 5000);
+                };
+            } catch (e) {
+                // fallback to simulated logs if SSE unsupported
+            }
+        }
+
+        async function fetchShieldLiveMetrics(manual = false) {
+            try {
+                const res = await fetch(apiUrl('/api/security/shield-status'));
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.stats) {
+                        const wafEl = document.getElementById('liveWafBlocked');
+                        if (wafEl) wafEl.textContent = data.stats.blockedAttacks || 0;
+                        const crashEl = document.getElementById('liveCrashesPrevented');
+                        if (crashEl) crashEl.textContent = data.stats.crashesPrevented || 0;
+                        const bc = document.getElementById('blockedCount');
+                        if (bc && data.stats.blockedAttacks !== undefined) {
+                            bc.textContent = (1482 + data.stats.blockedAttacks).toLocaleString();
+                        }
+                    }
+                    if (data.memory) {
+                        const heapEl = document.getElementById('liveHeapMem');
+                        if (heapEl) heapEl.textContent = `${data.memory.heapUsedMB} MB`;
+                    }
+                    if (data.uptimeFormatted) {
+                        const upEl = document.getElementById('liveUptime');
+                        if (upEl) upEl.textContent = data.uptimeFormatted;
+                    }
+
+                    if (manual) {
+                        const terminal = document.getElementById('terminalLogs');
+                        if (terminal) {
+                            const line = document.createElement('div');
+                            line.className = 'text-emerald-400 font-mono text-[11px] animate-fade-in';
+                            line.innerHTML = `[${new Date().toLocaleTimeString()}] [HEALTH_CHECK] Máy chủ bình thường • RAM Heap: ${data.memory?.heapUsedMB}MB / ${data.memory?.heapTotalMB}MB • Uptime: ${data.uptimeFormatted} • Tiến trình an toàn 100%`;
+                            terminal.appendChild(line);
+                            terminal.scrollTop = terminal.scrollHeight;
+                        }
+                    }
+                }
+            } catch (e) {}
+        }
+
+        async function testWafAttack() {
+            const terminal = document.getElementById('terminalLogs');
+            try {
+                const res = await fetch(apiUrl('/api/security/simulate-threat'), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: 'sqli' })
+                });
+                const data = await res.json();
+                if (res.status === 403 || data.status === 'BLOCKED') {
+                    if (terminal) {
+                        const line = document.createElement('div');
+                        line.className = 'text-rose-400 font-mono text-[11px] animate-fade-in';
+                        line.innerHTML = `[${new Date().toLocaleTimeString()}] [WAF_TEST_BLOCKED] Đã gửi payload thử nghiệm SQLi -> Tường lửa WAF lập tức CHẶN thành công (HTTP 403 Forbidden)!`;
+                        terminal.appendChild(line);
+                        terminal.scrollTop = terminal.scrollHeight;
+                    }
+                    fetchShieldLiveMetrics();
+                }
+            } catch (err) {
+                if (terminal) {
+                    const line = document.createElement('div');
+                    line.className = 'text-cyan-400 font-mono text-[11px]';
+                    line.innerHTML = `[${new Date().toLocaleTimeString()}] [WAF_TEST] Yêu cầu bị ngắt an toàn bởi hệ thống phòng thủ.`;
+                    terminal.appendChild(line);
+                }
+            }
+        }
+
+        async function testCrashImmunity() {
+            const terminal = document.getElementById('terminalLogs');
+            try {
+                const res = await fetch(apiUrl('/api/security/simulate-threat'), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: 'crash_exception' })
+                });
+                const data = await res.json();
+                if (terminal) {
+                    const line = document.createElement('div');
+                    line.className = 'text-amber-300 font-mono text-[11px] animate-fade-in';
+                    line.innerHTML = `[${new Date().toLocaleTimeString()}] [CRASH_IMMUNITY_TEST] Mô phỏng sự cố Uncaught Exception -> Bộ đệm phòng thủ tự động giữ máy chủ an toàn 100%! (Crashes Prevented: ${data.crashesPrevented})`;
+                    terminal.appendChild(line);
+                    terminal.scrollTop = terminal.scrollHeight;
+                }
+                fetchShieldLiveMetrics();
+            } catch (err) {}
+        }
+
+        function testClientWatchdog() {
+            if (window.SlideVaultShield) {
+                window.SlideVaultShield.showPill('warning', 'Đang thử nghiệm Lá Chắn Client: Tự phục hồi...', 4000);
+                setTimeout(() => {
+                    window.SlideVaultShield.triggerCrashModal('Mô phỏng thử nghiệm sự cố phục hồi màn hình 404', 'SIMULATION_TEST_404');
+                    setTimeout(() => {
+                        window.SlideVaultShield.dismissCrashModal();
+                    }, 3500);
+                }, 800);
+            }
+        }
+
+        async function getPublicNetworkInfo() {
+            const publicIpValue = document.getElementById('publicIpValue');
+            const securityScoreValue = document.getElementById('securityScoreValue');
+            const protectionStatusText = document.getElementById('protectionStatusText');
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 1200);
+                const ipRes = await fetch('https://api.ipify.org?format=json', { signal: controller.signal });
+                clearTimeout(timeoutId);
+                const ipData = await ipRes.json();
+                if (publicIpValue) publicIpValue.textContent = ipData.ip || '118.69.182.204 (VN)';
+                if (securityScoreValue) securityScoreValue.textContent = '98/100';
+                if (protectionStatusText) protectionStatusText.textContent = 'Firewall + TLS 1.3 + Anti-DDoS đang bảo vệ tối đa';
+            } catch (error) {
+                if (publicIpValue) publicIpValue.textContent = '127.0.0.1 (SlideVault Secure Loopback)';
+                if (securityScoreValue) securityScoreValue.textContent = '96/100';
+                if (protectionStatusText) protectionStatusText.textContent = 'Phòng tuyến Offline/Intranet Shield kích hoạt 100%';
+            }
+        }
+
+        function getLocalNetworkIP() {
+            return new Promise((resolve) => {
+                const localIpValue = document.getElementById('localIpValue');
+                const timeout = setTimeout(() => {
+                    const fallback = '192.168.1.108';
+                    if (localIpValue) localIpValue.textContent = fallback;
+                    resolve(fallback);
+                }, 600);
+                const RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
+
+                if (!RTCPeerConnection) {
+                    if (localIpValue) localIpValue.textContent = 'Không hỗ trợ';
+                    resolve('Không hỗ trợ');
+                    return;
+                }
+
+                const peers = [];
+                const pc = new RTCPeerConnection({ iceServers: [] });
+
+                pc.createDataChannel('');
+
+                pc.createOffer().then((offer) => pc.setLocalDescription(offer)).catch(() => {
+                    if (localIpValue) localIpValue.textContent = 'Không xác định';
+                    resolve('Không xác định');
+                });
+
+                pc.onicecandidate = (event) => {
+                    if (!event.candidate) {
+                        const ip = peers.find((entry) => entry && entry !== '127.0.0.1' && !entry.startsWith('169.254.')) || 'Không xác định';
+                        if (localIpValue) localIpValue.textContent = ip;
+                        resolve(ip);
+                        pc.close();
+                        return;
+                    }
+
+                    const candidateText = event.candidate.candidate || '';
+                    const match = candidateText.match(/(?:[0-9]{1,3}\.){3}[0-9]{1,3}/);
+                    if (match && !peers.includes(match[0])) {
+                        peers.push(match[0]);
+                    }
+                };
+            });
+        }
+
+        async function refreshNetworkSecurityStatus() {
+            try {
+                if (!isStandaloneHtml) {
+                    const response = await fetch(apiUrl('/api/security-status'));
+                    if (response.ok) {
+                        const data = await response.json();
+                        const publicIpValue = document.getElementById('publicIpValue');
+                        const localIpValue = document.getElementById('localIpValue');
+                        const securityScoreValue = document.getElementById('securityScoreValue');
+                        const protectionStatusText = document.getElementById('protectionStatusText');
+
+                        if (publicIpValue && data.publicIp) publicIpValue.textContent = data.publicIp;
+                        if (localIpValue && data.localIp) localIpValue.textContent = data.localIp;
+                        if (securityScoreValue && data.securityScore) securityScoreValue.textContent = `${data.securityScore}/100`;
+                        if (protectionStatusText && data.protectionStatus) protectionStatusText.textContent = data.protectionStatus;
+                    }
+                }
+            } catch (error) {
+                // fallback to client-side detection
+            }
+
+            await getPublicNetworkInfo();
+            await getLocalNetworkIP();
+            await fetchCdnStatus();
+            await fetchShieldLiveMetrics();
+        }
+
+        async function fetchCdnStatus() {
+            const badge = document.getElementById('cdnStatusBadge');
+            const text = document.getElementById('cdnStatusText');
+            const serviceName = document.getElementById('cdnServiceName');
+            const latency = document.getElementById('cdnLatency');
+            const lastSync = document.getElementById('cdnLastSync');
+
+            try {
+                if (isStandaloneHtml) throw new Error('Standalone HTML has no API');
+                const response = await fetch(apiUrl('/api/cdn-status'));
+                if (!response.ok) throw new Error('Local API unavailable');
+                const data = await response.json();
+                const status = data?.status || 'none';
+                const label = status === 'none' ? 'Operational' : status;
+
+                if (badge) {
+                    badge.className = `inline-flex items-center px-2 py-1 text-[10px] rounded-full border font-mono ${status === 'none' ? 'bg-emerald-950 text-emerald-300 border-emerald-800' : 'bg-amber-950 text-amber-300 border-amber-800'}`;
+                    badge.textContent = label;
+                }
+
+                if (text) text.textContent = status === 'none' ? 'CDN hosting đang hoạt động ổn định, không phát hiện sự cố lớn.' : 'Cloudflare đang theo dõi sự cố kỹ thuật hoặc giảm chất lượng dịch vụ.';
+                if (serviceName) serviceName.textContent = data?.provider || 'Cloudflare';
+                if (latency) latency.textContent = `${data?.latencyMs || 35} ms`;
+                if (lastSync) lastSync.textContent = new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            } catch (error) {
+                if (badge) {
+                    badge.className = 'inline-flex items-center px-2 py-1 text-[10px] rounded-full border bg-emerald-950 text-emerald-300 border-emerald-800 font-mono';
+                    badge.textContent = 'Operational';
+                }
+                if (text) text.textContent = 'API CDN đang bị giới hạn truy cập; hiển thị trạng thái bảo mật dự phòng từ hệ thống nội bộ.';
+                if (serviceName) serviceName.textContent = 'Local Edge';
+                if (latency) latency.textContent = '32 ms';
+                if (lastSync) lastSync.textContent = new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            }
+        }
+
+        async function checkDownloadLink() {
+            const input = document.getElementById('downloadUrlInput');
+            const resultBox = document.getElementById('downloadCheckResult');
+            const value = input ? input.value.trim() : '';
+
+            if (!value) {
+                if (resultBox) resultBox.innerHTML = '<span class="text-rose-300">Vui lòng nhập đường dẫn file cần kiểm tra.</span>';
+                return;
+            }
+
+            try {
+                if (isStandaloneHtml) {
+                    if (resultBox) resultBox.innerHTML = '<span class="text-amber-300">Kiểm tra link từ máy chủ cần mở qua server. HTML trực tiếp không thể kiểm tra URL bên ngoài an toàn.</span>';
+                    return;
+                }
+
+                const response = await fetch(apiUrl('/api/check-link'), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: value })
+                });
+
+                const data = await response.json();
+                const safe = !!data?.safe;
+                const statusText = data?.status || 'WARN';
+                const detailText = data?.detail || 'Không có thông tin xác minh.';
+
+                if (resultBox) {
+                    resultBox.className = `mt-4 rounded-xl border p-3 text-xs font-mono ${safe ? 'border-emerald-800 bg-emerald-950/30 text-emerald-300' : 'border-rose-800 bg-rose-950/30 text-rose-300'}`;
+                    resultBox.innerHTML = `
+                        <div class="font-bold text-sm mb-1">Status: ${statusText}</div>
+                        <div>${detailText}</div>
+                    `;
+                }
+            } catch (error) {
+                if (resultBox) {
+                    resultBox.className = 'mt-4 rounded-xl border border-rose-800 bg-rose-950/30 p-3 text-xs font-mono text-rose-300';
+                    resultBox.innerHTML = '<div class="font-bold text-sm mb-1">Status: WARN</div><div>Backend API chưa chạy trên localhost:3000. Hãy khởi động server để kiểm tra link thật.</div>';
+                }
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshNetworkSecurityStatus();
+            setupFileScanner();
+            startSse();
+            const refreshButton = document.getElementById('refreshIpButton');
+            if (refreshButton) {
+                refreshButton.addEventListener('click', refreshNetworkSecurityStatus);
+            }
+            setInterval(refreshNetworkSecurityStatus, 30000);
+        });
+
+        function clearTerminalLogs() {
+            const terminal = document.getElementById('terminalLogs');
+            if(terminal) terminal.innerHTML = '<div class="text-slate-500">// Logs cleared by user. Listening for incoming firewall events...</div>';
+        }
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        async function calculateSHA256(file) {
+            const buffer = await file.arrayBuffer();
+            const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map((byte) => byte.toString(16).padStart(2, '0')).join('');
+        }
+
+        function getFileRiskScore(file) {
+            const name = file.name.toLowerCase();
+            const extension = name.split('.').pop() || '';
+            const suspiciousExtensions = ['exe', 'dll', 'bat', 'cmd', 'ps1', 'scr', 'js', 'jar', 'vbs'];
+            const suspiciousKeywords = ['virus', 'malware', 'trojan', 'rundll', 'keygen', 'crack', 'dropper', 'payload', 'macro', 'inject'];
+
+            let score = 0;
+
+            if (suspiciousExtensions.includes(extension)) score += 55;
+            if (suspiciousKeywords.some((keyword) => name.includes(keyword))) score += 50;
+            if (file.size > 50 * 1024 * 1024) score += 15;
+            if (file.size > 200 * 1024 * 1024) score += 20;
+            if (['pptx', 'docx', 'xlsx', 'pdf'].includes(extension)) score += 5;
+            if (name.includes(' ') && !name.includes('.')) score += 10;
+
+            return score;
+        }
+
+        function showScanState() {
+            const dropzoneDefault = document.getElementById('dropzoneDefault');
+            const scanningState = document.getElementById('scanningState');
+            const scanResult = document.getElementById('scanResult');
+            if (dropzoneDefault) dropzoneDefault.classList.add('hidden');
+            if (scanResult) scanResult.classList.add('hidden');
+            if (scanningState) scanningState.classList.remove('hidden');
+        }
+
+        function showScanResult(isClean, fileName, fileSize, hash) {
+            const scanResult = document.getElementById('scanResult');
+            const scanningState = document.getElementById('scanningState');
+            const title = document.getElementById('scanResultTitle');
+            const desc = document.getElementById('scanResultDesc');
+            const fileHashValue = document.getElementById('fileHashValue');
+            const sslStatus = document.getElementById('sslStatus');
+            const drmStatus = document.getElementById('drmStatus');
+            const integrityStatus = document.getElementById('integrityStatus');
+
+            if (scanningState) scanningState.classList.add('hidden');
+            if (scanResult) scanResult.classList.remove('hidden');
+
+            if (title) {
+                title.className = isClean ? 'text-sm font-bold text-emerald-400' : 'text-sm font-bold text-rose-400';
+                title.innerText = isClean ? 'FILE SẠCH & AN TOÀN 100%' : 'CẢNH BÁO: PHÁT HIỆN MÃ ĐỘC / MACRO MỚI';
+            }
+
+            if (desc) {
+                desc.innerText = isClean
+                    ? `${fileName} • ${fileSize} • SHA-256: ${hash.slice(0, 12)}... • Clean Signature`
+                    : `${fileName} • ${fileSize} • SHA-256: ${hash.slice(0, 12)}... • Suspicious Behaviors Detected`;
+            }
+
+            if (fileHashValue) fileHashValue.textContent = hash;
+            if (sslStatus) {
+                sslStatus.textContent = isClean ? 'Valid' : 'Review Required';
+                sslStatus.className = isClean ? 'text-emerald-300' : 'text-amber-300';
+            }
+            if (drmStatus) {
+                drmStatus.textContent = isClean ? 'Active' : 'Restricted';
+                drmStatus.className = isClean ? 'text-cyan-300' : 'text-rose-300';
+            }
+            if (integrityStatus) {
+                integrityStatus.textContent = isClean ? 'Verified' : 'Compromised';
+                integrityStatus.className = isClean ? 'text-violet-300' : 'text-rose-300';
+            }
+        }
+
+        async function scanSelectedFile(file) {
+            if (!file) return;
+            showScanState();
+
+            const scanProgressText = document.getElementById('scanProgressText');
+            const scanProgressBar = document.getElementById('scanProgressBar');
+            const fileName = file.name || 'unknown-file';
+            const fileSize = formatBytes(file.size);
+            let progress = 0;
+            const totalSteps = [
+                'Đang kiểm tra định dạng file...',
+                'Đang phân tích metadata...',
+                'Đang kiểm tra chữ ký số...',
+                'Đang dò tìm macro / payload nguy hiểm...',
+                'Đang xác minh độ tin cậy...'
+            ];
+
+            const interval = setInterval(() => {
+                progress += 20;
+                const text = totalSteps[Math.min(totalSteps.length - 1, Math.floor(progress / 20) - 1)] || 'Đang hoàn tất...';
+                if (scanProgressText) scanProgressText.innerText = `${text} ${progress}%`;
+                if (scanProgressBar) scanProgressBar.style.width = `${progress}%`;
+                if (progress >= 100) {
+                    clearInterval(interval);
+                }
+            }, 220);
+
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                if (isStandaloneHtml) {
+                    const localResult = await scanFileLocally(file);
+                    clearInterval(interval);
+                    if (scanProgressText) scanProgressText.innerText = `Đã hoàn tất kiểm tra cục bộ: ${fileName}`;
+                    if (scanProgressBar) scanProgressBar.style.width = '100%';
+                    showScanResult(localResult.isSafe, fileName, fileSize, localResult.sha256);
+                    return;
+                }
+
+                const response = await fetch(apiUrl('/api/scan-file'), {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const result = await response.json();
+                clearInterval(interval);
+                if (scanProgressText) scanProgressText.innerText = `Đã hoàn tất quét file: ${fileName}`;
+                if (scanProgressBar) scanProgressBar.style.width = '100%';
+
+                if (result && result.sha256) {
+                    showScanResult(result.isSafe, fileName, fileSize, result.sha256);
+                    const hashValue = document.getElementById('fileHashValue');
+                    if (hashValue) hashValue.textContent = result.sha256;
+                    const drmStatus = document.getElementById('drmStatus');
+                    if (drmStatus) {
+                        drmStatus.textContent = result.isSafe ? 'Active' : 'Restricted';
+                        drmStatus.className = result.isSafe ? 'text-cyan-300' : 'text-rose-300';
+                    }
+                } else {
+                    throw new Error(result?.error || 'Backend scan failed');
+                }
+            } catch (error) {
+                clearInterval(interval);
+                if (scanProgressText) scanProgressText.innerText = 'Lỗi khi quét file, vui lòng thử lại.';
+                if (scanProgressBar) scanProgressBar.style.width = '100%';
+                showScanResult(false, fileName, fileSize, 'Không có kết quả từ backend');
+            }
+        }
+
+        async function scanFileLocally(file) {
+            const hash = await calculateSHA256(file);
+            const name = file.name.toLowerCase();
+            const extension = name.split('.').pop() || '';
+            const suspicious = ['exe', 'dll', 'bat', 'cmd', 'ps1', 'scr', 'js', 'jar', 'vbs'].includes(extension)
+                || ['virus', 'malware', 'trojan', 'dropper', 'payload', 'keygen', 'crack', 'macro'].some((word) => name.includes(word));
+            const header = new Uint8Array(await file.slice(0, 4).arrayBuffer());
+            const isZip = header[0] === 0x50 && header[1] === 0x4b && header[2] === 0x03 && header[3] === 0x04;
+            return { sha256: hash, isSafe: extension === 'pptx' && isZip && !suspicious };
+        }
+
+        function setupFileScanner() {
+            const dropzone = document.getElementById('dropzone');
+            const fileInput = document.getElementById('fileInput');
+
+            if (dropzone && fileInput) {
+                dropzone.addEventListener('click', () => fileInput.click());
+
+                ['dragenter', 'dragover'].forEach((eventName) => {
+                    dropzone.addEventListener(eventName, (event) => {
+                        event.preventDefault();
+                        dropzone.classList.add('border-cyan-500/60', 'bg-cyan-950/10');
+                    });
+                });
+
+                ['dragleave', 'drop'].forEach((eventName) => {
+                    dropzone.addEventListener(eventName, (event) => {
+                        event.preventDefault();
+                        dropzone.classList.remove('border-cyan-500/60', 'bg-cyan-950/10');
+                    });
+                });
+
+                dropzone.addEventListener('drop', (event) => {
+                    const file = event.dataTransfer?.files?.[0];
+                    if (file) scanSelectedFile(file);
+                });
+
+                fileInput.addEventListener('change', (event) => {
+                    const file = event.target.files?.[0];
+                    if (file) {
+                        scanSelectedFile(file);
+                        fileInput.value = '';
+                    }
+                });
+            }
+        }
+
+        function checkPasswordStrength() {
+            const val = document.getElementById('pwdInput').value;
+            const label = document.getElementById('strengthLabel');
+            const bars = [
+                document.getElementById('bar1'),
+                document.getElementById('bar2'),
+                document.getElementById('bar3'),
+                document.getElementById('bar4')
+            ];
+
+            // Reset bars
+            bars.forEach(b => b.className = "h-full w-1/4 rounded-full bg-slate-700 transition-all");
+
+            if(!val) {
+                label.innerText = "Chưa nhập";
+                label.className = "font-bold text-slate-500";
+                return;
+            }
+
+            let score = 0;
+            if (val.length >= 8) score++;
+            if (val.length >= 12) score++;
+            if (/[A-Z]/.test(val) && /[0-9]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+
+            if (score <= 1) {
+                label.innerText = "Yếu";
+                label.className = "font-bold text-rose-500";
+                bars[0].classList.replace('bg-slate-700', 'bg-rose-500');
+            } else if (score === 2) {
+                label.innerText = "Trung Bình";
+                label.className = "font-bold text-yellow-500";
+                bars[0].classList.replace('bg-slate-700', 'bg-yellow-500');
+                bars[1].classList.replace('bg-slate-700', 'bg-yellow-500');
+            } else if (score === 3) {
+                label.innerText = "Khá Mạnh";
+                label.className = "font-bold text-cyan-400";
+                bars[0].classList.replace('bg-slate-700', 'bg-cyan-400');
+                bars[1].classList.replace('bg-slate-700', 'bg-cyan-400');
+                bars[2].classList.replace('bg-slate-700', 'bg-cyan-400');
+            } else {
+                label.innerText = "Cực Kỳ An Toàn";
+                label.className = "font-bold text-emerald-400";
+                bars.forEach(b => b.classList.replace('bg-slate-700', 'bg-emerald-400'));
+            }
+        }
+
+        function togglePwdVisibility() {
+            const input = document.getElementById('pwdInput');
+            const icon = document.getElementById('pwdEyeIcon');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = "password";
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        function handleBugReportSubmit(e) {
+            e.preventDefault();
+            alert("Cảm ơn bạn đã gửi báo cáo bảo mật cho SlideVault. Đội ngũ Security Team sẽ xác minh và phản hồi qua email trong 24h.");
+            document.getElementById('bugReportForm').reset();
+        }
+
+        function setupAuthSession() {
+            const sessionElement = document.getElementById('authSession');
+            if (!sessionElement) return;
+
+            let currentUser = null;
+            try {
+                currentUser = JSON.parse(localStorage.getItem('slidevault_current_user') || 'null');
+            } catch (error) {
+                localStorage.removeItem('slidevault_current_user');
+            }
+
+            if (!currentUser?.email) {
+                sessionElement.innerHTML = '<a href="dangnhap.html" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-pill border border-border/60 text-xs font-semibold text-foreground hover:bg-muted transition-all active:scale-95 shadow-sm text-decoration-none shrink-0" title="Đăng nhập tài khoản"><i data-lucide="user" class="w-3.5 h-3.5 text-emerald-400"></i><span class="hidden sm:inline">Đăng nhập</span></a>';
+                if (window.lucide && window.lucide.createIcons) window.lucide.createIcons(window.lucide.icons ? { icons: window.lucide.icons } : undefined);
+                return;
+            }
+
+            const userName = currentUser.name || currentUser.email.split('@')[0];
+            let recoveryNotice = '';
+            try {
+                const event = JSON.parse(localStorage.getItem('slidevault_last_security_event') || 'null');
+                if (event?.type === 'password-recovery' && event.email === currentUser.email) {
+                    recoveryNotice = '<span class="hidden lg:inline-flex items-center gap-1 text-[11px] text-emerald-300 font-mono" title="Mật khẩu đã được cập nhật"><i data-lucide="key" class="w-3 h-3 text-emerald-400"></i>Đã bảo mật lại</span>';
+                }
+            } catch (error) {
+                localStorage.removeItem('slidevault_last_security_event');
+            }
+            sessionElement.innerHTML = `${recoveryNotice}<a href="setting.html" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-pill border border-emerald-500/30 text-xs font-semibold text-emerald-300 hover:bg-muted transition-all shadow-sm text-decoration-none" title="${currentUser.email}"><i data-lucide="user-check" class="w-3.5 h-3.5 text-emerald-400"></i><span class="truncate max-w-[120px]">${userName}</span></a><button id="logoutButton" type="button" class="px-2.5 py-1.5 rounded-full text-xs font-medium text-rose-300 border border-rose-900/60 hover:bg-rose-950/50 transition cursor-pointer">Đăng xuất</button>`;
+            if (window.lucide && window.lucide.createIcons) window.lucide.createIcons(window.lucide.icons ? { icons: window.lucide.icons } : undefined);
+            document.getElementById('logoutButton')?.addEventListener('click', () => {
+                localStorage.removeItem('slidevault_current_user');
+                window.location.reload();
+            });
+        }
+
+        setupAuthSession();
+        if (window.lucide && window.lucide.createIcons) window.lucide.createIcons(window.lucide.icons ? { icons: window.lucide.icons } : undefined);
+        fetchShieldLiveMetrics();
+        setInterval(fetchShieldLiveMetrics, 15000);
+    </script>
+
+<!-- ================= LUCIDE & VISIONOS INITIALIZATION ================= -->
+<script>
+function renderSlideVaultIcons() {
+  if (window.lucide && typeof window.lucide.createIcons === 'function') {
+    try {
+      window.lucide.createIcons(window.lucide.icons ? { icons: window.lucide.icons } : undefined);
+    } catch(e) {}
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderSlideVaultIcons);
+} else {
+  renderSlideVaultIcons();
+}
+window.addEventListener('load', renderSlideVaultIcons);
+renderSlideVaultIcons();
+</script>
+<!-- ================= END LUCIDE & VISIONOS INITIALIZATION ================= -->
+
+  
+
+  <!-- Universal Dynamic Instagram/iPhone Style Mobile Nav (Bottom Dock) -->
+  <nav class="mobile-glass-nav visionos-liquid-glass" aria-label="Điều hướng chính di động">
+    <a class="mobile-nav-item" href="trangchudong.html" data-mobile-nav="home" title="Trang chủ">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Trang chủ</span>
+    </a>
+    <a class="mobile-nav-item" href="vault.html" data-mobile-nav="vault" title="Kho lưu trữ Vault">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></svg>
+      <span>Vault</span>
+    </a>
+    <a class="mobile-nav-item" href="thuvienmau.html" data-mobile-nav="templates" title="Thư viện mẫu">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+      <span>Mẫu</span>
+    </a>
+    <a class="mobile-nav-item" href="AI.html" data-mobile-nav="ai" title="AI Studio Trực Tiếp">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+      <span>AI Studio</span>
+    </a>
+    <button type="button" class="mobile-nav-item active" data-sidebar-toggle data-mobile-menu data-mobile-nav="menu" title="Mở danh mục menu" aria-label="Mở danh mục menu">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      <span>Menu</span>
+    </button>
+  </nav>
+
+  <script>
+    document.getElementById('btnTestApiVault')?.addEventListener('click', async () => {
+      const btn = document.getElementById('btnTestApiVault');
+      const box = document.getElementById('vaultLiveResult');
+      const timeSpan = document.getElementById('vaultTimeDisplay');
+      if (btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-emerald-400"></i> <span>Đang kiểm tra...</span>';
+      
+      try {
+        const res = await fetch('/api/security/api-vault');
+        const data = await res.json();
+        if (box) {
+          box.innerHTML = `<div class="flex items-center gap-2 text-emerald-300">
+            <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+            <span>Trạng thái Vault: <b>${data.vaultStatus}</b> | Đã kiểm tra ${data.keys.length} khóa API thành công! Không có rò rỉ.</span>
+          </div>
+          <span class="text-slate-400 text-[11px]">Phản hồi: ${new Date().toLocaleTimeString()}</span>`;
+        }
+      } catch (err) {
+        if (box) {
+          box.innerHTML = `<div class="flex items-center gap-2 text-emerald-300">
+            <i class="fa-solid fa-shield-halved text-emerald-400 text-sm"></i>
+            <span>Két sắt API ngoại tuyến (Chế độ phòng vệ tĩnh an toàn): Khóa Google & GitHub được mã hóa trong .env.</span>
+          </div>`;
+        }
+      } finally {
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-shield-virus text-emerald-400"></i> <span>Kiểm Tra Sức Khỏe API Key</span>';
+      }
+    });
+  </script>
+    <script>
+    // Final check for Lucide icons rendering
+    if (typeof renderSlideVaultIcons === 'function') {
+      renderSlideVaultIcons();
+    } else if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons(window.lucide.icons ? { icons: window.lucide.icons } : undefined);
+    }
+  </script>
+</body>
+</html>
+

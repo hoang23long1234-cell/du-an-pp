@@ -1,0 +1,10 @@
+{
+  "model": "onnx-community/Qwen2.5-0.5B-Instruct",
+  "official_file": "onnx/model_quantized.onnx",
+  "sha256": "41834041ab1b29eff9fc592f1a29a1844133aea35832ea9fa91682be13016100",
+  "local_file": "server AI/models/qwen-0.5b/model_q4.onnx",
+  "quantization_note": "Existing file is the official quantized (q8) artifact renamed q4; browser dtype corrected to q8.",
+  "tokenizer_json_matches_official": true,
+  "tokenizer_config_matches_official": true,
+  "weights_changed": false
+}

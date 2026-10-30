@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "elapsed_seconds": 34.097,
+  "stdout": "[NeuralEngine] Loading Qwen 2.5 0.5B ONNX...\n[NeuralEngine] Qwen 2.5 0.5B loaded successfully and ready!\nPROOF_JSON={\"loaded\": true, \"actual_model\": \"qwen-0.5b\", \"load_seconds\": 11.141, \"tests\": [{\"prompt\": \"Viet tiep bang tieng Viet: Mot con meo dang\", \"output\": \"Việt tiep hàm truy vấn về một số lượng các số nguyên\", \"onnx_session_run_calls\": 16, \"seconds\": 16.312, \"first_chunk_seconds\": 7.31}, {\"prompt\": \"Tinh 2 + 3. Chi tra loi mot con so.\", \"output\": \"Tuyệt, hai chữ \\\"đ\", \"onnx_session_run_calls\": 8, \"seconds\": 5.876, \"first_chunk_seconds\": 3.06}], \"providers\": [\"CPUExecutionProvider\"], \"input_count\": 51}\n",
+  "stderr": ""
+}

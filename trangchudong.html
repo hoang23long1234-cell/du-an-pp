@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>SlideVault | Nền Tảng Thiết Kế & Kho Slide AI Đẳng Cấp 2026</title>
+  <meta name="description" content="SlideVault - Nền tảng thiết kế slide AI, kho mẫu slide chuyên nghiệp và trình chiếu cử chỉ không gian đẳng cấp 2026.">
+  <meta name="theme-color" content="#090d16">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SlideVault">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="favicon.ico">
+  
+  <!-- Local Fonts -->
+  <link rel="stylesheet" href="3dtouch/mobile-optimization.css?v=mobile-4">
+  <link rel="stylesheet" href="font/fonts.css">
+  
+  <!-- Tailwind CSS & shadcn/ui Design System -->
+  <link rel="stylesheet" href="tệp hệ thống/tailwind-shadcn/shadcn.css">
+  <link rel="stylesheet" href="tệp hệ thống/glass-theme.css?v=visionos-v98">
+  <script src="tệp hệ thống/glass-theme.js?v=visionos-v98"></script>
+  
+  <!-- PowerPoint Generator Library (.pptx) -->
+  <script src="pptxgen.bundle.js"></script>
+
+  <!-- Official Supabase SDK & Auth -->
+  <script src="tệp hệ thống/supabase.min.js"></script>
+  <script>
+    if (typeof window.supabase === "undefined" && typeof supabase !== "undefined") {
+      window.supabase = supabase;
+    }
+  </script>
+  <script src="tệp hệ thống/auth-state.js"></script>
+
+  <script src="tệp hệ thống/tailwind-shadcn/tailwind.min.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/tailwind.config.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/lucide.min.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/shadcn.js?v=visionos-v98" defer></script>
+  <script src="3dtouch/touch-control.js?v=spatial-ultra-v70" defer></script>
+  <script src="fix.html/security_shield.js"></script>
+
+  <style id="lab-optimization-styles">
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .hero-gradient-text {
+      background: linear-gradient(135deg, #34D399 0%, #38BDF8 50%, #818CF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .bento-card-hover {
+      transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bento-card-hover:hover {
+      transform: translateY(-3px);
+      border-color: rgba(16, 185, 129, 0.45);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(16, 185, 129, 0.15);
+    }
+  </style>
+  
+  <!-- SlideVault Pro Anti-Crash -->
+  <script src="tệp hệ thống/anti-crash-client.js"></script>
+  
+  <!-- Progressive Web App Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').catch(function() {});
+      });
+    }
+  </script>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen selection:bg-emerald-500/30 selection:text-emerald-300">
+
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div data-sidebar-backdrop class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity"></div>
+
+  <!-- ================= FLOATING SAAS SHELL ================= -->
+  <div class="saas-layout-wrapper">
+
+  <!-- Floating Collapsible Sidebar -->
+    <aside class="saas-sidebar" data-sidebar id="saasAppSidebar">
+      <!-- Brand Logo & Collapse Toggle -->
+      <div class="sidebar-brand-header flex items-center justify-between pb-4 border-b border-border/60">
+        <a href="trangchudong.html" class="flex items-center gap-3 group no-underline border-0 outline-none shadow-none">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 to-indigo-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+          </div>
+          <div class="sidebar-text">
+            <div class="flex items-center gap-1.5">
+              <span class="font-display font-bold text-lg tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text">SlideVault</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">PRO</span>
+            </div>
+            <p class="text-[11px] text-muted-foreground font-medium">AI Presentation Studio</p>
+          </div>
+        </a>
+        <div class="flex items-center gap-1 shrink-0">
+          <button type="button" data-sidebar-close class="lg:hidden min-w-[48px] min-h-[48px] flex items-center justify-center p-2 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-all cursor-pointer" title="Đóng thanh bên" aria-label="Đóng thanh bên">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+          <button type="button" data-sidebar-collapse-btn class="sidebar-collapse-btn hidden lg:flex p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-all ml-1 shrink-0 cursor-pointer" title="Thu gọn / Mở rộng (Ctrl+B)" aria-label="Thu gọn thanh bên" onclick="if (window.SlideVaultUI) { event.preventDefault(); event.stopPropagation(); window.SlideVaultUI.toggleCollapse(); }">
+            <svg class="w-4 h-4 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tree with Inertial Elastic Scrolling -->
+      <nav class="flex-1 py-4 space-y-5 overflow-y-auto sidebar-nav-scroll" style="scrollbar-width: thin;">
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Không Gian</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="trangchudong.html" class="nav-pill-item active" data-tooltip="Trang chủ">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span class="sidebar-text">Trang chủ</span>
+              </a>
+            </li>
+            <li>
+              <a href="vault.html" class="nav-pill-item " data-tooltip="Vault của tôi">
+                <svg class="nav-icon w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></svg>
+                <span class="sidebar-text">Vault của tôi</span>
+              </a>
+            </li>
+            <li>
+              <a href="thuvienmau.html" class="nav-pill-item" data-tooltip="Thư viện mẫu">
+                <svg class="nav-icon w-4 h-4 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                <span class="sidebar-text">Thư viện mẫu</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[10px] font-semibold px-1.5 py-0.5 rounded-md bg-muted text-muted-foreground">50+</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Công Cụ AI</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="AI.html" class="nav-pill-item " data-tooltip="AI Studio Trực Tiếp">
+                <svg class="nav-icon w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                <span class="sidebar-text">AI Studio Trực Tiếp</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300">HOT</span>
+              </a>
+            </li>
+            <li>
+              <a href="vanban.html" class="nav-pill-item " data-tooltip="Văn bản → Slide">
+                <svg class="nav-icon w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <span class="sidebar-text">Văn bản → Slide</span>
+              </a>
+            </li>
+            <li>
+              <a href="phoimau.html" class="nav-pill-item " data-tooltip="Phối màu 1-Click">
+                <svg class="nav-icon w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg>
+                <span class="sidebar-text">Phối màu 1-Click</span>
+              </a>
+            </li>
+            <li>
+              <a href="vebieudonhanh.html" class="nav-pill-item " data-tooltip="Vẽ biểu đồ nhanh">
+                <svg class="nav-icon w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                <span class="sidebar-text">Vẽ biểu đồ nhanh</span>
+              </a>
+            </li>
+            <li>
+              <a href="trinhchieuchiase.html" class="nav-pill-item " data-tooltip="Trình chiếu & Chia sẻ">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                <span class="sidebar-text">Trình chiếu & Chia sẻ</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Cài Đặt & Hệ Thống</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="setting.html" class="nav-pill-item " data-tooltip="Cài đặt">
+                <svg class="nav-icon w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="sidebar-text">Cài đặt</span>
+              </a>
+            </li>
+            <li>
+              <a href="security.html" class="nav-pill-item " data-tooltip="Bảo mật">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span class="sidebar-text">Bảo mật</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Sidebar Footer User Profile -->
+      <div class="pt-4 border-t border-border/60">
+        <div class="sidebar-footer-profile flex items-center justify-between p-2 rounded-2xl bg-surface-pill/50 border border-border/40">
+          <a href="dangnhap.html" class="flex items-center gap-2.5 min-w-0 flex-1 text-decoration-none group hover:opacity-90 transition-opacity" title="Bấm để đăng nhập hoặc xem tài khoản">
+            <div id="sidebarUserAvatar" class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-indigo-500 flex items-center justify-center text-xs font-bold text-white shadow-sm flex-shrink-0 group-hover:ring-2 group-hover:ring-emerald-400/50 transition-all">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sidebar-text truncate">
+              <div id="sidebarUserName" class="text-xs font-semibold truncate leading-tight group-hover:text-emerald-400 transition-colors">Khách</div>
+              <div id="sidebarUserEmail" class="text-[10px] text-muted-foreground truncate">Bấm để đăng nhập</div>
+            </div>
+          </a>
+          <div class="flex items-center gap-1 shrink-0">
+            <button data-theme-toggle class="p-1.5 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện Sáng / Tối">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            </button>
+            <a href="dangnhap.html" id="sidebarAuthActionBtn" class="p-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors cursor-pointer text-decoration-none flex items-center justify-center" title="Đăng nhập tài khoản">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <div class="saas-main-stage flex-1 flex flex-col min-w-0">
+    
+    <!-- FLOATING TOPBAR (Reference: Image 2) -->
+    <!-- FLOATING LUXURY APPLE TOPBAR -->
+      <header class="saas-topbar sticky top-2 z-30 flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-2 rounded-2xl sm:rounded-full bg-card/80 backdrop-blur-2xl border border-border/60 shadow-lg transition-all">
+        <!-- Left: Brand Breadcrumb -->
+        <div class="flex items-center gap-2 min-w-0">
+          <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 -ml-1 rounded-xl bg-surface-pill border border-border/60 text-foreground hover:bg-muted transition-colors cursor-pointer flex items-center justify-center shrink-0" aria-label="Mở menu danh mục" title="Mở menu">
+            <svg class="w-4 h-4 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          </button>
+          <a href="trangchudong.html" class="flex items-center gap-2 text-decoration-none group shrink-0">
+            <div class="w-7 h-7 rounded-xl bg-gradient-to-br from-emerald-400 to-indigo-600 flex items-center justify-center shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0 brand-logo-icon">
+              <svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+            </div>
+            <span class="font-display font-bold text-sm tracking-tight text-foreground inline-flex items-center">SlideVault</span>
+            <span class="text-xs text-muted-foreground/40 hidden sm:inline breadcrumb-extra">/</span>
+            <span class="text-xs font-semibold text-emerald-400 hidden sm:inline breadcrumb-extra">Trang chủ</span>
+          </a>
+        </div>
+
+        <!-- Center: Minimalist Search Bar -->
+        <div class="relative hidden sm:block flex-1 max-w-xs md:max-w-md mx-2">
+        <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/70 pointer-events-none"></i>
+        <input id="templateSearchInput" type="text" placeholder="Tìm mẫu theo chủ đề, ngành nghề..." aria-label="Tìm kiếm mẫu slide" class="w-full pl-10 pr-9 py-1.5 text-xs rounded-full bg-surface-pill border border-border/60 text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-emerald-500/60 focus:ring-1 focus:ring-emerald-500/40 transition-all">
+        <button type="button" data-command-trigger class="hidden" aria-label="Kích hoạt bảng điều khiển lệnh" aria-hidden="true"></button>
+        <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] font-mono text-muted-foreground/60 bg-card/60 px-1 py-0.2 rounded border border-border/40 pointer-events-none hidden md:inline">⌘K</span>
+      </div>
+
+        <!-- Right: Actions, Language, Theme & Primary CTA -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <!-- 3D Touch Toggle Button -->
+          <div class="touch-mode-container hidden lg:flex items-center">
+            <button type="button" id="open-hand-control" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt 3D Touch" title="3D Touch: Điều khiển bằng cử chỉ không gian & Cảm biến lực" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-surface-pill border border-emerald-500/30 hover:border-emerald-500 text-xs text-foreground transition-all active:scale-95 group shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 group-[.active]:animate-ping"></span>
+              <i data-lucide="hand" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span class="font-semibold text-[11px] text-emerald-400 hidden sm:inline" id="touchSwitchLabel">3D Touch</span>
+            </button>
+          </div>
+
+          <!-- Language Selector -->
+          <div class="lang-dropdown-container relative hidden sm:block">
+            <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class="control-pill text-xs flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-surface-pill border border-border/60 text-foreground hover:bg-muted transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span class="font-semibold text-xs">VI</span>
+              <i data-lucide="chevron-down" class="w-3 h-3 text-muted-foreground"></i>
+            </button>
+            <div class="lang-dropdown-menu">
+              <div class="lang-dropdown-item font-semibold text-emerald-400 border border-emerald-500/40 bg-emerald-500/10 rounded-lg p-1.5 mb-1">
+                <span>Tiếng Việt</span>
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+              </div>
+              <div class="lang-dropdown-item text-muted-foreground hover:text-foreground p-1.5 cursor-pointer">
+                <span>English</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Theme Toggle Button -->
+          <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:text-foreground transition-all active:scale-95 flex items-center justify-center cursor-pointer" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+
+          <!-- Topbar Auth Slot -->
+          <div id="topbarAuthSlot"><a href="dangnhap.html" class="flex items-center justify-center gap-1.5 p-2 sm:px-3 sm:py-1.5 rounded-full bg-surface-pill border border-border/60 text-xs font-semibold text-foreground hover:bg-muted transition-all active:scale-95 shadow-sm text-decoration-none shrink-0" title="Đăng nhập tài khoản"><i data-lucide="user" class="w-3.5 h-3.5 text-emerald-400"></i><span class="hidden sm:inline">Đăng nhập</span></a></div>
+
+          <!-- Primary CTA: Tạo Slide AI -->
+          <a href="AI.html" class="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs shadow-md shadow-emerald-500/25 transition-all transform active:scale-95 text-decoration-none shrink-0">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Tạo Slide AI</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Main Stage Container -->
+      <main class="saas-main-card space-y-8">
+
+        <!-- ================= SECTION 1: HERO SECTION ================= -->
+        <section class="rounded-3xl border border-white/10 bg-gradient-to-br from-card/95 via-card/85 to-slate-900/60 backdrop-blur-3xl p-6 sm:p-8 lg:p-10 shadow-2xl relative overflow-hidden glass-card spotlight-card">
+          <div class="absolute -right-20 -top-20 w-96 h-96 rounded-full bg-gradient-to-br from-emerald-500/20 via-cyan-500/15 to-transparent blur-3xl pointer-events-none"></div>
+          <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-gradient-to-tr from-indigo-500/20 via-purple-500/10 to-transparent blur-3xl pointer-events-none"></div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            <!-- Left Info Column (7 Cols) -->
+            <div class="lg:col-span-7 space-y-5">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold shadow-inner">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span>⚡ Động Cơ Gemini 4 Argon & Antigravity Core 2026 · Chuẩn Silicon Valley</span>
+              </div>
+
+              <h1 class="text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-display font-extrabold text-foreground tracking-tight leading-[1.18] max-w-2xl">
+                Biến Ý Tưởng Thành Bộ Slide <span class="hero-gradient-text">Triệu Đô Tức Thì</span>
+              </h1>
+
+              <p class="text-sm sm:text-base text-muted-foreground max-w-xl leading-relaxed">
+                Tích hợp AI tạo slide tự động chuẩn thuyết trình, điều khiển không chạm 3D Touch qua camera và kho 10,000+ bản mẫu PowerPoint cao cấp.
+              </p>
+
+              <!-- Prompt Input Bar: VisionOS Glassmorphism & Responsive 48px Touch Targets -->
+              <div class="visionos-liquid-glass p-2 sm:p-2.5 rounded-2xl bg-slate-950/80 border border-white/15 shadow-2xl backdrop-blur-2xl flex flex-col sm:flex-row gap-2.5 sm:gap-2 max-w-xl">
+                <div class="relative flex-1 flex items-center min-h-[48px] px-3.5 py-2.5 sm:py-2 bg-white/5 sm:bg-transparent rounded-xl border border-white/10 sm:border-none focus-within:border-emerald-500/50 transition-colors">
+                  <i data-lucide="sparkles" class="w-4 h-4 text-emerald-400 mr-2.5 shrink-0"></i>
+                  <input type="text" id="heroPromptInput" placeholder="Nhập chủ đề slide muốn tạo..." aria-label="Nhập chủ đề slide AI mong muốn" class="w-full bg-transparent border-none text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0">
+                </div>
+                <button type="button" onclick="handleHeroQuickAi()" class="w-full sm:w-auto min-h-[48px] px-6 py-3 sm:py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 active:scale-95 transition-all cursor-pointer touch-target-48">
+                  <span>Tạo Slide AI</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <!-- Metrics Row -->
+              <div class="flex flex-wrap items-center gap-6 pt-2 text-xs text-muted-foreground border-t border-white/10 max-w-xl">
+                <div class="flex items-center gap-2">
+                  <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+                  <span class="font-semibold text-foreground tabular-nums">100% Thuần Vector</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
+                  <span class="font-semibold text-foreground tabular-nums">60 FPS Siêu Mượt</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+                  <span class="font-semibold text-foreground tabular-nums">99.9% Uptime</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right 16:9 Interactive Deck Preview Column (5 Cols) -->
+            <div class="lg:col-span-5 space-y-3">
+              <div class="rounded-2xl border border-white/15 bg-slate-950/80 p-3 shadow-2xl backdrop-blur-xl space-y-3">
+                <div class="flex items-center justify-between text-xs text-muted-foreground px-1">
+                  <span class="font-semibold flex items-center gap-1.5 text-foreground">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Bản Xem Trước Sân Khấu 16:9</span>
+                  </span>
+                  <span id="heroSlideIndicator" class="tabular-nums font-mono text-[11px] px-2 py-0.5 rounded-md bg-white/10 text-emerald-400 border border-emerald-500/20">
+                    Slide 1 / 4
+                  </span>
+                </div>
+
+                <!-- 16:9 Cinema Screen -->
+                <div id="heroInteractiveDeck" class="aspect-video rounded-xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-950 to-black p-5 flex flex-col justify-between relative overflow-hidden group shadow-inner">
+                  <div class="absolute inset-0 bg-radial-gradient from-emerald-500/10 via-transparent to-transparent pointer-events-none"></div>
+
+                  <div class="space-y-1 relative z-10">
+                    <span id="heroDeckEyebrow" class="text-[10px] font-bold tracking-wider text-emerald-400 uppercase bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                      BẢN QUYỀN SILICON VALLEY
+                    </span>
+                    <h3 id="heroDeckTitle" class="text-base sm:text-lg font-bold text-white leading-tight">
+                      Kế Hoạch Tăng Trưởng Toàn Cầu 2026
+                    </h3>
+                    <p id="heroDeckDesc" class="text-xs text-slate-300 line-clamp-2">
+                      Mở rộng thị phần Đông Nam Á với công nghệ AI thế hệ mới và mô hình tài chính đột phá.
+                    </p>
+                  </div>
+
+                  <div id="heroDeckMetrics" class="grid grid-cols-3 gap-2 relative z-10 pt-2 border-t border-white/10">
+                    <div class="p-2 rounded-lg bg-white/5 border border-white/5">
+                      <div class="text-[10px] text-muted-foreground">Tăng trưởng</div>
+                      <div class="text-xs font-bold text-emerald-400 tabular-nums">+142%</div>
+                    </div>
+                    <div class="p-2 rounded-lg bg-white/5 border border-white/5">
+                      <div class="text-[10px] text-muted-foreground">Doanh thu</div>
+                      <div class="text-xs font-bold text-cyan-400 tabular-nums">$4.8M</div>
+                    </div>
+                    <div class="p-2 rounded-lg bg-white/5 border border-white/5">
+                      <div class="text-[10px] text-muted-foreground">Khách hàng</div>
+                      <div class="text-xs font-bold text-indigo-400 tabular-nums">28,500+</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4 Thumbnails Slider -->
+                <div class="grid grid-cols-4 gap-2">
+                  <button type="button" id="heroThumb0" onclick="selectHeroSlide(0)" class="aspect-video rounded-lg border-2 border-emerald-500 bg-slate-900 p-1 flex flex-col justify-center items-center text-center transition-all">
+                    <span class="text-[9px] font-bold text-emerald-400">Slide 1</span>
+                    <span class="text-[8px] text-muted-foreground truncate w-full">Tổng quan</span>
+                  </button>
+                  <button type="button" id="heroThumb1" onclick="selectHeroSlide(1)" class="aspect-video rounded-lg border border-white/10 bg-slate-900/60 p-1 flex flex-col justify-center items-center text-center opacity-70 hover:opacity-100 transition-all">
+                    <span class="text-[9px] font-bold text-slate-300">Slide 2</span>
+                    <span class="text-[8px] text-muted-foreground truncate w-full">Thị trường</span>
+                  </button>
+                  <button type="button" id="heroThumb2" onclick="selectHeroSlide(2)" class="aspect-video rounded-lg border border-white/10 bg-slate-900/60 p-1 flex flex-col justify-center items-center text-center opacity-70 hover:opacity-100 transition-all">
+                    <span class="text-[9px] font-bold text-slate-300">Slide 3</span>
+                    <span class="text-[8px] text-muted-foreground truncate w-full">Tài chính</span>
+                  </button>
+                  <button type="button" id="heroThumb3" onclick="selectHeroSlide(3)" class="aspect-video rounded-lg border border-white/10 bg-slate-900/60 p-1 flex flex-col justify-center items-center text-center opacity-70 hover:opacity-100 transition-all">
+                    <span class="text-[9px] font-bold text-slate-300">Slide 4</span>
+                    <span class="text-[8px] text-muted-foreground truncate w-full">Kế hoạch</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 2: BENTO CONTROL CENTER ================= -->
+        <section class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold font-display text-foreground flex items-center gap-2">
+                <i data-lucide="layout-grid" class="w-5 h-5 text-emerald-400"></i>
+                <span>Trung Tâm Điều Khiển Sáng Tạo 2026</span>
+              </h2>
+              <p class="text-xs sm:text-sm text-muted-foreground mt-0.5">Trải nghiệm các siêu công cụ thiết kế slide tự động trong một hệ sinh thái duy nhất</p>
+            </div>
+            <a href="thuvienmau.html" class="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors text-decoration-none">
+              <span>Xem tất cả công cụ</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+            <!-- BENTO TILE 1: AI STUDIO PROMPT PLAYGROUND (7 COLS) -->
+            <div id="bentoAiStudioTile" class="col-span-1 md:col-span-12 lg:col-span-7 rounded-3xl bg-card/80 border border-border/80 bento-card-hover p-6 sm:p-7 shadow-xl flex flex-col justify-between relative overflow-hidden group glass-card spotlight-card">
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                      <i data-lucide="sparkles" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-bold text-foreground">AI Studio Trực Tiếp</h3>
+                      <p class="text-xs text-muted-foreground">Khởi tạo trọn bộ slide chuyên nghiệp từ một câu lệnh</p>
+                    </div>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">Mới nhất</span>
+                </div>
+
+                <div class="p-3.5 rounded-2xl bg-background/60 border border-white/10 space-y-2.5">
+                  <div class="text-xs text-muted-foreground flex items-center gap-1.5">
+                    <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>Chủ đề đề xuất 1-Click:</span>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5">
+                    <button type="button" onclick="fillPromptAndFocus('Báo cáo kết quả kinh doanh Quý 4 & Định hướng 2026')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-foreground transition-all">
+                      Báo cáo kinh doanh Quý 4
+                    </button>
+                    <button type="button" onclick="fillPromptAndFocus('Kế hoạch Marketing số đa kênh thúc đẩy chuyển đổi')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-foreground transition-all">
+                      Marketing đa kênh
+                    </button>
+                    <button type="button" onclick="fillPromptAndFocus('Bài giảng Sinh học KHTN 10: Tế bào & Trao đổi chất')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-foreground transition-all">
+                      Sinh học KHTN 10
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-5 mt-2 flex items-center justify-between border-t border-white/10">
+                <span class="text-xs text-muted-foreground">Tự động dàn trang, chọn màu và xuất file .pptx</span>
+                <a href="AI.html" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-all text-decoration-none shadow-md shadow-emerald-500/20">
+                  <span>Mở AI Studio</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- BENTO TILE 2: 3D TOUCH SPATIAL (5 COLS) -->
+            <div id="bentoSpatialCamTile" class="hidden lg:flex lg:col-span-5 rounded-3xl bg-card/80 border border-border/80 bento-card-hover p-6 sm:p-7 shadow-xl flex-col justify-between relative overflow-hidden group glass-card spotlight-card">
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                      <i data-lucide="camera" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-bold text-foreground">3D Touch Spatial</h3>
+                      <p class="text-xs text-muted-foreground">Điều khiển chuyển slide bằng cử chỉ tay</p>
+                    </div>
+                  </div>
+                  <span class="breathing-led" title="Hardware Ready"></span>
+                </div>
+
+                <div class="p-3.5 rounded-2xl bg-background/60 border border-white/10 space-y-2 text-xs text-muted-foreground">
+                  <div class="flex items-center justify-between">
+                    <span>Trạng thái Camera AI:</span>
+                    <span class="font-semibold text-emerald-400 flex items-center gap-1">
+                      <i data-lucide="check" class="w-3.5 h-3.5"></i> Sẵn sàng 100%
+                    </span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span>Độ trễ phản hồi:</span>
+                    <span class="font-mono text-cyan-400 tabular-nums">~16ms (60 FPS)</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span>Nhận diện cử chỉ:</span>
+                    <span class="font-semibold text-white">Chụm tay / Vuốt lật slide</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-5 mt-2 flex items-center justify-between border-t border-white/10">
+                <button type="button" onclick="toggle3DTouchEngine()" class="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-cyan-500/20 active:scale-95">
+                  <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                  <span>Bật Camera AI 3D Touch</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 3: KHO SLIDE BẢN QUYỀN (FULL 12 PRODUCTS) ================= -->
+        <section id="catalog" class="space-y-6 pt-4">
+          <!-- Catalog Header & Controls -->
+          <div class="rounded-3xl border border-white/10 bg-card/70 backdrop-blur-2xl p-6 shadow-2xl space-y-5 glass-card spotlight-card">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
+              <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-2">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                  <span>Thư Viện Chuẩn 2026 · <span id="catalogItemCounter" class="tabular-nums font-bold">12</span> Mẫu Cao Cấp</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold font-display text-foreground flex items-center gap-2">
+                  <span>Kho Slide Bản Quyền Silicon Valley</span>
+                </h2>
+                <p class="text-xs sm:text-sm text-muted-foreground mt-0.5">Tải trực tiếp định dạng PowerPoint (.pptx) chuẩn cấu trúc 16:9 hoặc mở trong AI Studio</p>
+              </div>
+
+              <!-- Search Bar & Filters -->
+              <div class="flex flex-wrap items-center gap-2.5">
+                <div class="relative min-w-[220px]">
+                  <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"></i>
+                  <input type="text" id="catalogSearchField" oninput="runCatalogSearch()" placeholder="Tìm kiếm mẫu slide..." aria-label="Tìm kiếm mẫu slide" class="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-background/60 border border-white/10 text-foreground focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all">
+                </div>
+                <select id="catalogSortField" onchange="runCatalogSort()" aria-label="Sắp xếp danh mục mẫu slide" class="px-3 py-2 text-xs rounded-xl bg-background/60 border border-white/10 text-foreground focus:outline-none focus:border-emerald-500 transition-all">
+                  <option value="popular">Phổ biến nhất</option>
+                  <option value="newest">Mới nhất 2026</option>
+                  <option value="price-asc">Giá tăng dần</option>
+                  <option value="price-desc">Giá giảm dần</option>
+                </select>
+                <select id="catalogPerPageField" onchange="runCatalogPerPage()" aria-label="Số lượng mẫu hiển thị trên mỗi trang" class="px-2.5 py-2 text-xs rounded-xl bg-background/60 border border-white/10 text-foreground focus:outline-none focus:border-emerald-500 transition-all">
+                  <option value="6">6 / trang</option>
+                  <option value="12" selected>12 / trang</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Category Chips -->
+            <div id="categoryChipsGroup" class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+              <button type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-medium border border-emerald-500/40 bg-emerald-500/15 text-emerald-400 shrink-0 transition-all filter-chip active" onclick="selectCategory('all', this)">
+                Tất Cả (12)
+              </button>
+              <button type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-medium border border-white/10 bg-background/40 hover:bg-white/5 text-muted-foreground shrink-0 transition-all filter-chip" onclick="selectCategory('pitch-deck', this)">
+                Pitch Deck
+              </button>
+              <button type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-medium border border-white/10 bg-background/40 hover:bg-white/5 text-muted-foreground shrink-0 transition-all filter-chip" onclick="selectCategory('report', this)">
+                Báo Cáo & Tài Chính
+              </button>
+              <button type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-medium border border-white/10 bg-background/40 hover:bg-white/5 text-muted-foreground shrink-0 transition-all filter-chip" onclick="selectCategory('education', this)">
+                Giáo Dục & KHTN
+              </button>
+              <button type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-medium border border-white/10 bg-background/40 hover:bg-white/5 text-muted-foreground shrink-0 transition-all filter-chip" onclick="selectCategory('medical', this)">
+                Y Tế & Sức Khỏe
+              </button>
+              <button type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-medium border border-white/10 bg-background/40 hover:bg-white/5 text-muted-foreground shrink-0 transition-all filter-chip" onclick="selectCategory('ai-tech', this)">
+                Công Nghệ AI
+              </button>
+              <button type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-medium border border-white/10 bg-background/40 hover:bg-white/5 text-muted-foreground shrink-0 transition-all filter-chip" onclick="selectCategory('creative', this)">
+                Nghệ Thuật & Thiết Kế
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Products Grid -->
+          <div id="catalogProductContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Injected by renderCatalogGrid() -->
+          </div>
+
+          <!-- Pagination Controls -->
+          <div id="catalogPaginationNav" class="flex items-center justify-between pt-2">
+            <!-- Injected by renderPaginationControls() -->
+          </div>
+        </section>
+
+        <!-- Elegant Glass Bottom Brand Footer -->
+        <footer class="mt-12 pt-6 pb-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/80">
+          <div class="flex items-center gap-2.5">
+            <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+            <span class="font-bold text-foreground">SlideVault Pro 2026</span>
+            <span class="text-white/20">•</span>
+            <span class="text-emerald-400 font-medium">Hệ Thống Trực Tuyến 100%</span>
+          </div>
+          <p class="text-center sm:text-right text-[11px] text-muted-foreground/60 leading-relaxed">
+            Studio AI thiết kế slide & Kho mẫu PowerPoint chuẩn quốc tế. Bản quyền &copy; 2026 SlideVault Inc.
+          </p>
+        </footer>
+      </main>
+
+    </div>
+
+  </div>
+
+  
+
+  <!-- Universal Dynamic Instagram/iPhone Style Mobile Nav (Bottom Dock) -->
+  <nav class="mobile-glass-nav visionos-liquid-glass" aria-label="Điều hướng chính di động">
+    <a class="mobile-nav-item active" href="trangchudong.html" data-mobile-nav="home" title="Trang chủ">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Trang chủ</span>
+    </a>
+    <a class="mobile-nav-item" href="vault.html" data-mobile-nav="vault" title="Kho lưu trữ Vault">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></svg>
+      <span>Vault</span>
+    </a>
+    <a class="mobile-nav-item" href="thuvienmau.html" data-mobile-nav="templates" title="Thư viện mẫu">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+      <span>Mẫu</span>
+    </a>
+    <a class="mobile-nav-item" href="AI.html" data-mobile-nav="ai" title="AI Studio Trực Tiếp">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+      <span>AI Studio</span>
+    </a>
+    <button type="button" class="mobile-nav-item" data-sidebar-toggle data-mobile-menu title="Mở danh mục menu" aria-label="Mở danh mục menu">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      <span>Menu</span>
+    </button>
+  </nav>
+
+  <!-- Floating AI Studio Launcher Pill -->
+  <a href="AI.html" id="floatingGemma4Btn" class="fixed bottom-24 md:bottom-8 right-4 sm:right-6 lg:right-56 z-40 px-3.5 py-2 sm:py-2.5 rounded-full bg-slate-900/90 hover:bg-slate-900 border border-blue-500/40 hover:border-blue-400 text-blue-300 hover:text-white font-bold text-xs backdrop-blur-2xl shadow-2xl shadow-blue-500/20 flex items-center gap-1.5 sm:gap-2 active:scale-95 transition-all cursor-pointer group" aria-label="Mở AI Studio Tạo Slide Tự Động" title="AI Studio">
+    <span class="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-blue-400 group-hover:animate-ping"></span>
+    <i data-lucide="sparkles" class="w-3.5 sm:w-4 h-3.5 sm:h-4 text-blue-400 group-hover:scale-110 transition-transform"></i>
+    <span>AI Studio</span>
+  </a>
+
+  <!-- Floating 3D Touch Camera AI Quick Launcher Pill -->
+  <button id="floatingQuickCamAi" type="button" data-sv-touch-toggle onclick="toggle3DTouchEngine()" class="fixed bottom-24 md:bottom-8 right-6 md:right-8 z-40 px-3.5 py-2.5 rounded-full bg-slate-900/90 hover:bg-slate-900 border border-emerald-500/40 hover:border-emerald-400 text-emerald-300 hover:text-white font-bold text-xs backdrop-blur-2xl shadow-2xl shadow-emerald-500/20 hidden lg:flex items-center gap-2 active:scale-95 transition-all cursor-pointer group" aria-label="Bật tắt Camera AI 3D Touch" title="Camera AI 3D Touch">
+    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 group-hover:animate-ping"></span>
+    <i data-lucide="camera" class="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform"></i>
+    <span>Camera AI 3D Touch</span>
+  </button>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed z-50 flex flex-col gap-2 pointer-events-none" style="top: 5.2rem; right: 1.5rem; bottom: auto;"></div>
+
+  <!-- macOS Spotlight / Linear Style Command Palette Dialog -->
+  <dialog id="commandPaletteModal" style="display: none;" class="p-0 bg-transparent backdrop:bg-black/70 backdrop:backdrop-blur-md rounded-2xl border-0 shadow-2xl max-w-xl w-full m-auto open:flex open:flex-col overflow-hidden outline-none z-50">
+    <div class="relative w-full bg-slate-900/95 border border-white/15 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] backdrop-blur-2xl overflow-hidden flex flex-col text-slate-200">
+      <div class="flex items-center gap-3 px-4 py-3.5 border-b border-white/10 bg-white/[0.02]">
+        <i data-lucide="search" class="w-5 h-5 text-amber-400 shrink-0"></i>
+        <input type="text" id="cmdPaletteInput" placeholder="Tìm kiếm trang, tạo slide AI, bật camera 3D... (Ctrl+K)" aria-label="Tìm kiếm trang, tạo slide AI hoặc nhập lệnh" class="w-full bg-transparent text-sm text-slate-100 placeholder:text-slate-400 outline-none border-none font-medium" oninput="filterCommandPalette(this.value)">
+        <kbd class="px-2 py-0.5 rounded bg-white/10 border border-white/15 text-[10px] text-slate-400 font-mono">ESC</kbd>
+      </div>
+      <div id="cmdPaletteResults" class="max-h-[360px] overflow-y-auto p-2 space-y-1"></div>
+      <div class="flex items-center justify-between px-4 py-2 border-t border-white/10 bg-black/40 text-[11px] text-slate-400">
+        <span class="flex items-center gap-2">
+          <span><kbd class="px-1.5 py-0.5 rounded bg-white/10 font-mono text-[9px]">ESC</kbd> Đóng</span>
+          <span><kbd class="px-1.5 py-0.5 rounded bg-white/10 font-mono text-[9px]">CLICK</kbd> Mở</span>
+        </span>
+        <span class="text-amber-400 font-medium">SlideVault Spotlight OS</span>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- QUICK VIEW PRODUCT MODAL DIALOG -->
+  <dialog id="quickViewDialog" class="rounded-3xl border border-white/15 bg-slate-950/90 text-foreground p-0 max-w-4xl w-[92vw] shadow-2xl backdrop:bg-black/70 backdrop:backdrop-blur-md">
+    <div class="p-6 space-y-5">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div class="flex items-center gap-2">
+          <span id="qvBadgeLabel" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Pitch Deck</span>
+          <h3 id="qvTitleLabel" class="text-lg sm:text-xl font-bold font-display text-white">Chi Tiết Mẫu Slide</h3>
+        </div>
+        <button type="button" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all" onclick="document.getElementById('quickViewDialog').close()" aria-label="Đóng cửa sổ xem nhanh" title="Đóng">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 space-y-3">
+          <div class="aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black/80 relative">
+            <img id="qvMainImage" src="" alt="Preview Mẫu Slide" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'450\' viewBox=\'0 0 800 450\'><rect width=\'100%\' height=\'100%\' fill=\'%23090d16\'/><circle cx=\'400\' cy=\'225\' r=\'100\' fill=\'%2310b981\' opacity=\'0.12\'/><text x=\'50%\' y=\'48%\' text-anchor=\'middle\' fill=\'%2334d399\' font-family=\'sans-serif\' font-size=\'22\' font-weight=\'bold\'>SLIDEVAULT 16:9</text><text x=\'50%\' y=\'58%\' text-anchor=\'middle\' fill=\'%2394a3b8\' font-family=\'sans-serif\' font-size=\'14\'>Preview Mẫu Slide</text></svg>';" class="w-full h-full object-cover" loading="lazy" decoding="async">
+            <button type="button" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center border border-white/15 transition-all" onclick="qvStepImg(-1)" aria-label="Xem ảnh trước" title="Ảnh trước">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button type="button" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center border border-white/15 transition-all" onclick="qvStepImg(1)" aria-label="Xem ảnh kế tiếp" title="Ảnh kế tiếp">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <div id="qvThumbsRow" class="flex gap-2 overflow-x-auto pb-1"></div>
+        </div>
+
+        <div class="lg:col-span-5 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-baseline gap-2">
+              <span id="qvPrice" class="text-2xl font-black text-emerald-400 tabular-nums"></span>
+              <span id="qvOldPrice" class="text-xs text-muted-foreground line-through tabular-nums"></span>
+            </div>
+            <p id="qvDesc" class="text-xs text-muted-foreground leading-relaxed"></p>
+            <div class="p-3 rounded-2xl bg-white/5 border border-white/10 space-y-1 text-xs">
+              <div class="flex justify-between"><span class="text-muted-foreground">Định dạng:</span><span class="font-semibold text-white">PowerPoint (.pptx) & AI Studio</span></div>
+              <div class="flex justify-between"><span class="text-muted-foreground">Tỷ lệ:</span><span class="font-semibold text-white">16:9 Widescreen</span></div>
+              <div class="flex justify-between"><span class="text-muted-foreground">Số slide:</span><span id="qvSlides" class="font-semibold text-white">65+ Slides</span></div>
+              <div class="flex justify-between"><span class="text-muted-foreground">Đánh giá:</span><span id="qvRating" class="font-semibold text-amber-400 tabular-nums">5.0 / 5.0</span></div>
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-2">
+            <button type="button" id="qvBtnDownload" class="w-full py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all active:scale-95">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              <span>Tải Xuống File (.pptx) Ngay</span>
+            </button>
+            <button type="button" id="qvBtnCart" class="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-foreground font-semibold text-xs border border-white/15 flex items-center justify-center gap-2 transition-all active:scale-95">
+              <i data-lucide="shopping-cart" class="w-4 h-4 text-emerald-400"></i>
+              <span>Thêm Vào Giỏ Hàng</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- CART & CHECKOUT MODAL DIALOG -->
+  <dialog id="checkoutDialog" class="rounded-3xl border border-white/15 bg-slate-950/95 text-foreground p-0 max-w-lg w-[92vw] shadow-2xl backdrop:bg-black/70 backdrop:backdrop-blur-md">
+    <div class="p-6 space-y-5">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shopping-bag" class="w-5 h-5 text-emerald-400"></i>
+          <h3 class="text-lg font-bold font-display text-white">Giỏ Hàng & Thanh Toán VietQR</h3>
+        </div>
+        <button type="button" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all" onclick="document.getElementById('checkoutDialog').close()" aria-label="Đóng cửa sổ thanh toán" title="Đóng">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div id="cartItemsContainer" class="space-y-3 max-h-60 overflow-y-auto pr-1"></div>
+
+      <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+        <div class="flex justify-between text-xs text-muted-foreground">
+          <span>Tổng tiền:</span>
+          <span id="cartTotalPrice" class="text-sm font-bold text-emerald-400 tabular-nums">0₫</span>
+        </div>
+        <div class="text-[11px] text-muted-foreground flex items-center gap-1.5">
+          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+          <span>Thanh toán mã QR tự động kích hoạt tài khoản trong 30 giây</span>
+        </div>
+      </div>
+
+      <div class="pt-2 flex gap-3">
+        <button type="button" class="flex-1 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all active:scale-95" onclick="confirmPaymentDone()">
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          <span>Xác Nhận Đã Chuyển Khoản</span>
+        </button>
+        <button type="button" class="py-3 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-muted-foreground text-xs font-semibold" onclick="document.getElementById('checkoutDialog').close()">
+          Đóng
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    // 12 Products Catalog Database
+    const catalogDB = [
+      {
+        id: 1,
+        title: "Unicorn Pitch Deck Series A (Gọi Vốn Đỉnh Cao)",
+        category: "pitch-deck",
+        categoryName: "Pitch Deck",
+        price: 199000,
+        oldPrice: 350000,
+        rating: 5.0,
+        sales: 480,
+        slides: "65+ Slides",
+        tag: "Bán chạy nhất",
+        description: "Bộ Pitch Deck đầy đủ cấu trúc 12 slide gọi vốn chuẩn Silicon Valley: Problem, Solution, TAM/SAM/SOM, Unit Economics và Traction.",
+        images: [
+          "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 2,
+        title: "Báo Cáo Doanh Thu & Business Plan 2026",
+        category: "business",
+        categoryName: "Kinh Doanh",
+        price: 149000,
+        oldPrice: 250000,
+        rating: 4.9,
+        sales: 340,
+        slides: "50+ Slides",
+        tag: "Mới cập nhật",
+        description: "Thiết kế hiện đại dành cho báo cáo tài chính quý, phân tích điểm hòa vốn, cơ cấu dòng tiền và mục tiêu phát triển kinh doanh.",
+        images: [
+          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 3,
+        title: "Aesthetic Minimalist Portfolio & Studio Deck",
+        category: "minimal",
+        categoryName: "Tối Giản",
+        price: 129000,
+        oldPrice: 200000,
+        rating: 4.8,
+        sales: 590,
+        slides: "45+ Slides",
+        tag: "Thiết kế vàng",
+        description: "Bố cục nghệ thuật theo phong cách Thụy Sĩ và tối giản Bắc Âu. Tôn vinh hình ảnh tác phẩm của nhiếp ảnh gia và nhà thiết kế.",
+        images: [
+          "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 4,
+        title: "Chiến Lược Marketing & Social Media Launch",
+        category: "marketing",
+        categoryName: "Marketing",
+        price: 179000,
+        oldPrice: 300000,
+        rating: 4.9,
+        sales: 260,
+        slides: "55+ Slides",
+        tag: "Xu hướng",
+        description: "Tổng hợp các ma trận phân tích đối thủ, phễu chuyển đổi AARRR, lịch trình content viral và kế hoạch phân bổ ngân sách quảng cáo.",
+        images: [
+          "https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 5,
+        title: "Bài Giảng Khoa Học & Báo Cáo Luận Văn ĐH",
+        category: "education",
+        categoryName: "Giáo Dục",
+        price: 99000,
+        oldPrice: 180000,
+        rating: 5.0,
+        sales: 730,
+        slides: "60+ Slides",
+        tag: "Học thuật",
+        description: "Bộ slide chuẩn hóa cho giảng viên, nghiên cứu sinh và sinh viên bảo vệ đồ án. Có sẵn sơ đồ cây phân tích và bảng trích dẫn chuẩn APA.",
+        images: [
+          "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 6,
+        title: "AI & SaaS Enterprise Platform Presentation",
+        category: "pitch-deck",
+        categoryName: "Pitch Deck",
+        price: 219000,
+        oldPrice: 390000,
+        rating: 5.0,
+        sales: 410,
+        slides: "70+ Slides",
+        tag: "Tech VIP",
+        description: "Chuyên biệt cho giới thiệu sản phẩm phần mềm, kiến trúc vi dịch vụ, bảng so sánh tính năng và API developer documentation.",
+        images: [
+          "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 7,
+        title: "Hồ Sơ Năng Lực Doanh Nghiệp (Company Profile)",
+        category: "business",
+        categoryName: "Kinh Doanh",
+        price: 189000,
+        oldPrice: 320000,
+        rating: 4.8,
+        sales: 430,
+        slides: "48+ Slides",
+        tag: "Chuyên nghiệp",
+        description: "Giới thiệu lịch sử hình thành, tầm nhìn, sứ mệnh, ban lãnh đạo, các dự án tiêu biểu và chứng nhận năng lực ISO.",
+        images: [
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 8,
+        title: "Bất Động Sản & Dự Án Đô Thị Nghỉ Dưỡng",
+        category: "business",
+        categoryName: "Kinh Doanh",
+        price: 199000,
+        oldPrice: 360000,
+        rating: 4.9,
+        sales: 310,
+        slides: "52+ Slides",
+        tag: "Sang trọng",
+        description: "Tone màu sang trọng, slide vị trí địa lý, bản đồ liên kết vùng, phối cảnh tiện ích 5 sao và chính sách bán hàng chiết khấu.",
+        images: [
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 9,
+        title: "Y Tế, Bệnh Viện & Nghiên Cứu Dược Phẩm",
+        category: "education",
+        categoryName: "Giáo Dục",
+        price: 159000,
+        oldPrice: 280000,
+        rating: 4.9,
+        sales: 195,
+        slides: "46+ Slides",
+        tag: "Y tế chuẩn",
+        description: "Tông màu xanh thanh khiết, đầy đủ biểu đồ ca lâm sàng, quy trình chăm sóc bệnh nhân và sơ đồ thử nghiệm lâm sàng.",
+        images: [
+          "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 10,
+        title: "Pitch Deck Khởi Nghiệp Xanh & ESG 2026",
+        category: "pitch-deck",
+        categoryName: "Pitch Deck",
+        price: 179000,
+        oldPrice: 310000,
+        rating: 4.8,
+        sales: 230,
+        slides: "50+ Slides",
+        tag: "Eco Green",
+        description: "Thiết kế sắc xanh tự nhiên cho các dự án kinh tế tuần hoàn, tín chỉ carbon và công nghệ xử lý môi trường thông minh.",
+        images: [
+          "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 11,
+        title: "Báo Cáo Nhân Sự & Văn Hóa Doanh Nghiệp",
+        category: "business",
+        categoryName: "Kinh Doanh",
+        price: 139000,
+        oldPrice: 240000,
+        rating: 4.7,
+        sales: 350,
+        slides: "42+ Slides",
+        tag: "HR Deck",
+        description: "Bản báo cáo biến động nhân sự, chỉ số giữ chân nhân tài eNPS, kế hoạch đào tạo nội bộ và cẩm nang văn hóa công ty.",
+        images: [
+          "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop&q=80"
+        ]
+      },
+      {
+        id: 12,
+        title: "Infographic & Dashboard Dữ Liệu Chuyên Nghiệp",
+        category: "minimal",
+        categoryName: "Tối Giản",
+        price: 169000,
+        oldPrice: 290000,
+        rating: 5.0,
+        sales: 640,
+        slides: "85+ Slides",
+        tag: "Kho Dữ Liệu",
+        description: "Bộ sưu tập 85+ bảng biểu, sơ đồ Gantt, phễu doanh thu, biểu đồ Venn và bản đồ thế giới vector cho mọi bài thuyết trình.",
+        images: [
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&auto=format&fit=crop&q=80"
+        ]
+      }
+    ];
+
+    // Hero 16:9 Slides Data
+    const heroSlides = [
+      {
+        eyebrow: "BẢN QUYỀN SILICON VALLEY",
+        title: "Kế Hoạch Tăng Trưởng Toàn Cầu 2026",
+        desc: "Mở rộng thị phần Đông Nam Á với công nghệ AI thế hệ mới và mô hình tài chính đột phá.",
+        metrics: [
+          { label: "Tăng trưởng", val: "+142%", color: "text-emerald-400" },
+          { label: "Doanh thu", val: "$4.8M", color: "text-cyan-400" },
+          { label: "Khách hàng", val: "28,500+", color: "text-indigo-400" }
+        ]
+      },
+      {
+        eyebrow: "CHIẾN LƯỢC SẢN PHẨM",
+        title: "Phân Tích Cạnh Tranh & Thị Trường",
+        desc: "Bản đồ đối thủ, ma trận định vị và lợi thế cạnh tranh cốt lõi độc quyền.",
+        metrics: [
+          { label: "Thị phần", val: "34.5%", color: "text-emerald-400" },
+          { label: "Đối thủ", val: "4 lớn", color: "text-amber-400" },
+          { label: "NPS", val: "78.2", color: "text-cyan-400" }
+        ]
+      },
+      {
+        eyebrow: "TÀI CHÍNH & ĐẦU TƯ",
+        title: "Mô Hình Dòng Tiền & Hòa Vốn",
+        desc: "Dự phóng doanh thu 5 năm, tỷ suất hoàn vốn ROI và điểm hòa vốn tháng thứ 14.",
+        metrics: [
+          { label: "Hòa vốn", val: "Tháng 14", color: "text-emerald-400" },
+          { label: "Biên lợi nhuận", val: "48.2%", color: "text-indigo-400" },
+          { label: "Burn rate", val: "-12%", color: "text-rose-400" }
+        ]
+      },
+      {
+        eyebrow: "LỘ TRÌNH TRIỂN KHAI",
+        title: "Milestones Quý 1 Đến Quý 4 2026",
+        desc: "Các cột mốc phát triển phần mềm, thử nghiệm lâm sàng và mở rộng chi nhánh.",
+        metrics: [
+          { label: "Mục tiêu", val: "12 mốc", color: "text-emerald-400" },
+          { label: "Nhân sự", val: "+45 FTE", color: "text-cyan-400" },
+          { label: "Độ trễ", val: "0 ngày", color: "text-emerald-400" }
+        ]
+      }
+    ];
+
+    let currentHeroIndex = 0;
+    function selectHeroSlide(idx) {
+      if (idx < 0 || idx >= heroSlides.length) return;
+      currentHeroIndex = idx;
+      const s = heroSlides[idx];
+
+      const deck = document.getElementById('heroInteractiveDeck');
+      const eyebrow = document.getElementById('heroDeckEyebrow');
+      const title = document.getElementById('heroDeckTitle');
+      const desc = document.getElementById('heroDeckDesc');
+      const metrics = document.getElementById('heroDeckMetrics');
+      const indicator = document.getElementById('heroSlideIndicator');
+
+      if (indicator) indicator.innerText = `Slide ${idx + 1} / ${heroSlides.length}`;
+      const islandInd = document.getElementById('islandSlideIndicator');
+      if (islandInd) islandInd.innerText = `${idx + 1}/${heroSlides.length}`;
+      if (eyebrow) eyebrow.innerText = s.eyebrow;
+      if (title) title.innerText = s.title;
+      if (desc) desc.innerText = s.desc;
+
+      if (metrics) {
+        metrics.innerHTML = s.metrics.map(m => `
+          <div class="p-2 rounded-lg bg-white/5 border border-white/5">
+            <div class="text-[10px] text-muted-foreground">${m.label}</div>
+            <div class="text-xs font-bold ${m.color} tabular-nums">${m.val}</div>
+          </div>
+        `).join('');
+      }
+
+      for (let i = 0; i < heroSlides.length; i++) {
+        const thumb = document.getElementById('heroThumb' + i);
+        if (thumb) {
+          if (i === idx) {
+            thumb.className = "aspect-video rounded-lg border-2 border-emerald-500 bg-slate-900 p-1 flex flex-col justify-center items-center text-center transition-all";
+          } else {
+            thumb.className = "aspect-video rounded-lg border border-white/10 bg-slate-900/60 p-1 flex flex-col justify-center items-center text-center opacity-70 hover:opacity-100 transition-all";
+          }
+        }
+      }
+
+      if (deck) {
+        deck.classList.remove('cinematic-slide-transition');
+        void deck.offsetWidth;
+        deck.classList.add('cinematic-slide-transition');
+      }
+      window.currentHeroIndex = idx;
+    }
+    window.heroSlides = heroSlides;
+    window.selectHeroSlide = selectHeroSlide;
+
+    // Catalog state & methods
+    let catalogCurrentCat = 'all';
+    let catalogPage = 1;
+    let catalogPageSize = 12;
+    let userBookmarks = [];
+    let userCart = [];
+    let currentQvProduct = null;
+    let currentQvImgIdx = 0;
+
+    try {
+      userBookmarks = JSON.parse(localStorage.getItem('slidevault_bookmarks') || '[]');
+      userCart = JSON.parse(localStorage.getItem('slidevault_cart') || '[]');
+    } catch(e) {}
+
+    function getCatalogItems() {
+      const search = (document.getElementById('catalogSearchField')?.value || '').toLowerCase().trim();
+      const sort = document.getElementById('catalogSortField')?.value || 'popular';
+
+      let items = catalogDB.slice();
+
+      if (catalogCurrentCat !== 'all') {
+        items = items.filter(p => p.category === catalogCurrentCat);
+      }
+
+      if (search) {
+        items = items.filter(p => p.title.toLowerCase().includes(search) || p.description.toLowerCase().includes(search));
+      }
+
+      if (sort === 'popular') items.sort((a, b) => b.sales - a.sales);
+      else if (sort === 'newest') items.sort((a, b) => b.id - a.id);
+      else if (sort === 'price-asc') items.sort((a, b) => a.price - b.price);
+      else if (sort === 'price-desc') items.sort((a, b) => b.price - a.price);
+
+      return items;
+    }
+
+    function renderCatalogGrid() {
+      const all = getCatalogItems();
+      const countEl = document.getElementById('catalogItemCounter');
+      if (countEl) countEl.innerText = all.length;
+
+      const totalPages = Math.ceil(all.length / catalogPageSize) || 1;
+      if (catalogPage > totalPages) catalogPage = totalPages;
+
+      const start = (catalogPage - 1) * catalogPageSize;
+      const pageItems = all.slice(start, start + catalogPageSize);
+      const grid = document.getElementById('catalogProductContainer');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      if (pageItems.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-12 text-center text-muted-foreground space-y-3">
+            <i data-lucide="folder-search" class="w-12 h-12 mx-auto text-muted-foreground/40"></i>
+            <h4 class="text-base font-bold text-foreground">Không tìm thấy mẫu slide phù hợp</h4>
+            <p class="text-xs">Hãy thử tìm từ khóa khác hoặc bấm nút "Tất Cả" để xem toàn bộ kho.</p>
+          </div>
+        `;
+        renderPaginationControls(0, 1);
+        if (window.lucide) window.lucide.createIcons();
+        return;
+      }
+
+      pageItems.forEach(p => {
+        const isFav = userBookmarks.includes(p.id);
+        const card = document.createElement('div');
+        card.className = "rounded-3xl border border-white/10 bg-card/85 backdrop-blur-2xl glass-card spotlight-card overflow-hidden flex flex-col justify-between shadow-xl group transition-all duration-300 hover:-translate-y-1.5 hover:border-emerald-500/40 relative";
+        card.innerHTML = `
+          <div>
+            <div class="relative overflow-hidden cursor-pointer aspect-video bg-black/60" onclick="openQuickView(${p.id})">
+              <img src="${p.images[0]}" alt="${p.title}" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'450\' viewBox=\'0 0 800 450\'><defs><linearGradient id=\'bg\' x1=\'0%\' y1=\'0%\' x2=\'100%\' y2=\'100%\'><stop offset=\'0%\' stop-color=\'%23090d16\'/><stop offset=\'100%\' stop-color=\'%231e293b\'/></linearGradient></defs><rect width=\'100%\' height=\'100%\' fill=\'url(%23bg)\'/><circle cx=\'400\' cy=\'225\' r=\'120\' fill=\'%2310b981\' opacity=\'0.15\'/><text x=\'50%\' y=\'48%\' text-anchor=\'middle\' fill=\'%2334d399\' font-family=\'sans-serif\' font-size=\'22\' font-weight=\'bold\'>SLIDEVAULT PRO</text><text x=\'50%\' y=\'58%\' text-anchor=\'middle\' fill=\'%2394a3b8\' font-family=\'sans-serif\' font-size=\'14\'>PowerPoint 16:9 Presentation Deck</text></svg>';" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
+              
+              <div class="absolute top-3 left-3 flex items-center gap-1.5">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/90 text-white shadow-md backdrop-blur-md">
+                  ${p.tag}
+                </span>
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-black/60 text-emerald-300 border border-emerald-500/30 backdrop-blur-md">
+                  ${p.categoryName}
+                </span>
+              </div>
+
+              <div class="absolute top-3 right-3 flex items-center gap-1.5">
+                <button type="button" class="w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 border border-white/20 text-white flex items-center justify-center transition-all ${isFav ? 'text-rose-500 border-rose-500/50' : ''}" onclick="event.stopPropagation(); toggleFav(${p.id})" title="Lưu yêu thích" aria-label="Lưu ${p.title} vào danh sách yêu thích">
+                  <i data-lucide="heart" class="w-4 h-4 ${isFav ? 'fill-rose-500 text-rose-500' : ''}"></i>
+                </button>
+              </div>
+
+              <div class="absolute bottom-3 left-3 text-xs text-white/90 font-medium flex items-center gap-1 bg-black/50 px-2.5 py-1 rounded-lg backdrop-blur-md border border-white/10">
+                <i data-lucide="layers" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span class="tabular-nums">${p.slides}</span>
+              </div>
+            </div>
+
+            <div class="p-5 space-y-3">
+              <div class="flex items-center justify-between text-xs text-muted-foreground">
+                <div class="flex items-center gap-1 text-amber-400">
+                  <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+                  <span class="font-bold tabular-nums text-foreground">${p.rating.toFixed(1)}</span>
+                </div>
+                <span class="tabular-nums">${p.sales} lượt tải</span>
+              </div>
+
+              <h3 class="font-bold text-base text-foreground group-hover:text-emerald-400 transition-colors line-clamp-2 leading-snug cursor-pointer" onclick="openQuickView(${p.id})">
+                ${p.title}
+              </h3>
+
+              <p class="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                ${p.description}
+              </p>
+            </div>
+          </div>
+
+          <div class="p-5 pt-0 space-y-4">
+            <div class="flex items-baseline justify-between border-t border-white/10 pt-3">
+              <div>
+                <span class="text-lg font-black text-emerald-400 tabular-nums">${p.price.toLocaleString('vi-VN')}₫</span>
+                <span class="text-xs text-muted-foreground line-through ml-1.5 tabular-nums">${p.oldPrice.toLocaleString('vi-VN')}₫</span>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                Tiết kiệm 43%
+              </span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" class="w-full py-2.5 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-500/20 transition-all active:scale-95" onclick="downloadProductPptx(${p.id})">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                <span>Tải PPTX</span>
+              </button>
+              <button type="button" class="w-full py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-foreground font-semibold text-xs border border-white/15 flex items-center justify-center gap-1.5 transition-all active:scale-95" onclick="addItemToCart(${p.id})">
+                <i data-lucide="shopping-cart" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Thêm Giỏ</span>
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      renderPaginationControls(all.length, totalPages);
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+
+      // Tự động nạp trước AI Cục Bộ vào bộ nhớ đệm (CacheStorage) khi rảnh
+      if ('caches' in window) {
+        setTimeout(() => {
+          caches.open('slidevault-ai-models-v1').then(cache => {
+            cache.match('/models/smollm-135m/model_q4.onnx').then(has => {
+              if (!has) {
+                fetch('/models/smollm-135m/model_q4.onnx').then(res => {
+                  if (res.ok) cache.put('/models/smollm-135m/model_q4.onnx', res);
+                }).catch(() => {});
+              }
+            });
+          }).catch(() => {});
+        }, 3500);
+      }
+    }
+
+    function renderPaginationControls(totalItems, totalPages) {
+      const nav = document.getElementById('catalogPaginationNav');
+      if (!nav) return;
+      if (totalItems <= catalogPageSize) {
+        nav.innerHTML = '';
+        return;
+      }
+
+      nav.innerHTML = `
+        <div class="text-xs text-muted-foreground tabular-nums">
+          Trang ${catalogPage} / ${totalPages} (${totalItems} mẫu slide)
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button type="button" class="px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-semibold disabled:opacity-40 disabled:pointer-events-none transition-all" ${catalogPage <= 1 ? 'disabled' : ''} onclick="goPage(${catalogPage - 1})">
+            Trước
+          </button>
+          <button type="button" class="px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-semibold disabled:opacity-40 disabled:pointer-events-none transition-all" ${catalogPage >= totalPages ? 'disabled' : ''} onclick="goPage(${catalogPage + 1})">
+            Sau
+          </button>
+        </div>
+      `;
+    }
+
+    function goPage(p) {
+      catalogPage = p;
+      renderCatalogGrid();
+      const el = document.getElementById('catalog');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function selectCategory(cat, btn) {
+      catalogCurrentCat = cat;
+      catalogPage = 1;
+      const chips = document.querySelectorAll('#categoryChipsGroup .filter-chip');
+      chips.forEach(c => {
+        c.classList.remove('active', 'border-emerald-500/40', 'bg-emerald-500/15', 'text-emerald-400');
+        c.classList.add('border-white/10', 'bg-background/40', 'text-muted-foreground');
+      });
+      if (btn) {
+        btn.classList.add('active', 'border-emerald-500/40', 'bg-emerald-500/15', 'text-emerald-400');
+        btn.classList.remove('border-white/10', 'bg-background/40', 'text-muted-foreground');
+      }
+      renderCatalogGrid();
+    }
+
+    window.filterCatalogByCategory = (cat) => {
+      const catMap = {
+        'all': 'all',
+        'pitch': 'pitch-deck',
+        'report': 'bao-cao',
+        'business': 'doanh-nghiep',
+        'creative': 'sang-tao',
+        'ai': 'khoa-hoc-ai',
+        'security': 'doanh-nghiep'
+      };
+      const mapped = catMap[cat] || cat;
+      const targetBtn = document.querySelector(`[data-cat="${mapped}"]`) || document.querySelector(`[onclick*="'${mapped}'"]`);
+      selectCategory(mapped, targetBtn);
+    };
+
+    function runCatalogSearch() {
+      catalogPage = 1;
+      renderCatalogGrid();
+    }
+
+    function runCatalogSort() {
+      renderCatalogGrid();
+    }
+
+    function runCatalogPerPage() {
+      const sel = document.getElementById('catalogPerPageField');
+      if (sel) catalogPageSize = parseInt(sel.value, 10) || 12;
+      catalogPage = 1;
+      renderCatalogGrid();
+    }
+
+    function openQuickView(id) {
+      const p = catalogDB.find(item => item.id === id);
+      if (!p) return;
+      currentQvProduct = p;
+      currentQvImgIdx = 0;
+
+      const badge = document.getElementById('qvBadgeLabel');
+      const title = document.getElementById('qvTitleLabel');
+      const img = document.getElementById('qvMainImage');
+      const price = document.getElementById('qvPrice');
+      const oldPrice = document.getElementById('qvOldPrice');
+      const desc = document.getElementById('qvDesc');
+      const slides = document.getElementById('qvSlides');
+      const rating = document.getElementById('qvRating');
+      const btnDownload = document.getElementById('qvBtnDownload');
+      const btnCart = document.getElementById('qvBtnCart');
+      const thumbs = document.getElementById('qvThumbsRow');
+
+      if (badge) badge.innerText = p.categoryName;
+      if (title) title.innerText = p.title;
+      if (img) img.src = p.images[0];
+      if (price) price.innerText = p.price.toLocaleString('vi-VN') + '₫';
+      if (oldPrice) oldPrice.innerText = p.oldPrice.toLocaleString('vi-VN') + '₫';
+      if (desc) desc.innerText = p.description;
+      if (slides) slides.innerText = p.slides;
+      if (rating) rating.innerText = p.rating.toFixed(1) + ' / 5.0';
+
+      if (btnDownload) btnDownload.onclick = () => downloadProductPptx(p.id);
+      if (btnCart) btnCart.onclick = () => { addItemToCart(p.id); document.getElementById('quickViewDialog')?.close(); };
+
+      if (thumbs) {
+        thumbs.innerHTML = '';
+        p.images.forEach((src, idx) => {
+          const t = document.createElement('img');
+          t.src = src;
+          t.className = `w-14 h-10 object-cover rounded-lg border cursor-pointer transition-all ${idx === 0 ? 'border-emerald-500 ring-2 ring-emerald-500/40' : 'border-white/10 opacity-70 hover:opacity-100'}`;
+          t.onclick = () => {
+            currentQvImgIdx = idx;
+            if (img) img.src = src;
+            Array.from(thumbs.children).forEach((c, i) => {
+              if (i === idx) c.className = 'w-14 h-10 object-cover rounded-lg border border-emerald-500 ring-2 ring-emerald-500/40';
+              else c.className = 'w-14 h-10 object-cover rounded-lg border border-white/10 opacity-70 hover:opacity-100';
+            });
+          };
+          thumbs.appendChild(t);
+        });
+      }
+
+      const dialog = document.getElementById('quickViewDialog');
+      if (dialog && typeof dialog.showModal === 'function') dialog.showModal();
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function qvStepImg(step) {
+      if (!currentQvProduct) return;
+      currentQvImgIdx = (currentQvImgIdx + step + currentQvProduct.images.length) % currentQvProduct.images.length;
+      const img = document.getElementById('qvMainImage');
+      if (img) img.src = currentQvProduct.images[currentQvImgIdx];
+      const thumbs = document.getElementById('qvThumbsRow');
+      if (thumbs) {
+        Array.from(thumbs.children).forEach((c, i) => {
+          if (i === currentQvImgIdx) c.className = 'w-14 h-10 object-cover rounded-lg border border-emerald-500 ring-2 ring-emerald-500/40';
+          else c.className = 'w-14 h-10 object-cover rounded-lg border border-white/10 opacity-70 hover:opacity-100';
+        });
+      }
+    }
+
+    function downloadProductPptx(id) {
+      const p = catalogDB.find(item => item.id === id);
+      if (!p) return;
+      showToast(`⏳ Đang tạo file PowerPoint cho "${p.title}"...`, 'info');
+      try {
+        if (typeof PptxGenJS === 'undefined') {
+          showToast('⚠️ Thư viện PptxGenJS đang tải, vui lòng thử lại sau giây lát!', 'warning');
+          return;
+        }
+        const pptx = new PptxGenJS();
+        pptx.layout = 'LAYOUT_16x9';
+        pptx.author = 'SlideVault AI System';
+        pptx.title = p.title;
+
+        // Slide 1: Cover
+        const slide1 = pptx.addSlide();
+        slide1.background = { color: '0A101D' };
+        slide1.addText(p.title.toUpperCase(), {
+          x: 0.8, y: 2.2, w: 8.4, h: 1.5,
+          fontSize: 32, bold: true, color: 'FFFFFF', fontFace: 'Arial'
+        });
+        slide1.addText(`Chuyên mục: ${p.categoryName} · Chuẩn Silicon Valley 16:9`, {
+          x: 0.8, y: 3.8, w: 8.4, h: 0.6,
+          fontSize: 16, color: '38BDF8', fontFace: 'Arial'
+        });
+        slide1.addText('SlideVault Presentation Ecosystem 2026', {
+          x: 0.8, y: 4.8, w: 8.4, h: 0.5,
+          fontSize: 12, color: '94A3B8', fontFace: 'Arial'
+        });
+
+        // Slide 2: Content Breakdown
+        const slide2 = pptx.addSlide();
+        slide2.background = { color: '0F172A' };
+        slide2.addText('TỔNG QUAN NỘI DUNG & CẤU TRÚC CHI TIẾT', {
+          x: 0.8, y: 0.8, w: 8.4, h: 0.8,
+          fontSize: 22, bold: true, color: '10B981', fontFace: 'Arial'
+        });
+        slide2.addText(p.description, {
+          x: 0.8, y: 1.8, w: 8.4, h: 1.5,
+          fontSize: 15, color: 'E2E8F0', fontFace: 'Arial', lineSpacing: 24
+        });
+        slide2.addText([
+          { text: `• Quy mô bộ slide: ${p.slides}\n`, options: { bullet: true, color: 'FFFFFF' } },
+          { text: `• Đánh giá chất lượng: ${p.rating} / 5.0 (${p.sales} lượt tải)\n`, options: { bullet: true, color: 'F59E0B' } },
+          { text: '• Bản quyền thiết kế: Độc quyền phân phối tại SlideVault\n', options: { bullet: true, color: '38BDF8' } }
+        ], { x: 0.8, y: 3.5, w: 8.4, h: 2.2, fontSize: 14, fontFace: 'Arial' });
+
+        const filename = `SlideVault_${p.category}_${p.id}.pptx`;
+        pptx.writeFile({ fileName: filename })
+          .then(() => {
+            showToast(`🎉 Đã tải xuống thành công: ${filename}!`, 'success');
+          })
+          .catch(err => {
+            console.error('Lỗi xuất PPTX:', err);
+            showToast('⚠️ Không thể tải file: ' + err.message, 'error');
+          });
+      } catch (err) {
+        console.error('PPTX Error:', err);
+        showToast('⚠️ Lỗi tạo PPTX: ' + err.message, 'error');
+      }
+    }
+
+    function addItemToCart(id) {
+      const p = catalogDB.find(item => item.id === id);
+      if (!p) return;
+      if (!userCart.includes(id)) {
+        userCart.push(id);
+        try { localStorage.setItem('slidevault_cart', JSON.stringify(userCart)); } catch(e) {}
+        refreshCartUI();
+        showToast(`🛒 Đã thêm "${p.title}" vào giỏ hàng!`, 'success');
+      } else {
+        showToast('ℹ️ Sản phẩm này đã có trong giỏ hàng!', 'info');
+      }
+    }
+
+    function removeCartItem(id) {
+      userCart = userCart.filter(itemId => itemId !== id);
+      try { localStorage.setItem('slidevault_cart', JSON.stringify(userCart)); } catch(e) {}
+      refreshCartUI();
+      openCartDialog();
+    }
+
+    function refreshCartUI() {
+      const badge = document.getElementById('navCartBadge');
+      if (badge) {
+        badge.innerText = userCart.length;
+        if (userCart.length > 0) badge.classList.remove('hidden');
+        else badge.classList.add('hidden');
+      }
+    }
+
+    function openCartDialog() {
+      const dialog = document.getElementById('checkoutDialog');
+      const container = document.getElementById('cartItemsContainer');
+      const totalEl = document.getElementById('cartTotalPrice');
+      if (!dialog || !container) return;
+
+      container.innerHTML = '';
+      if (userCart.length === 0) {
+        container.innerHTML = '<div class="py-8 text-center text-xs text-muted-foreground">Giỏ hàng của bạn đang trống!</div>';
+        if (totalEl) totalEl.innerText = '0₫';
+      } else {
+        let total = 0;
+        userCart.forEach(id => {
+          const p = catalogDB.find(item => item.id === id);
+          if (p) {
+            total += p.price;
+            const itemEl = document.createElement('div');
+            itemEl.className = 'flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 gap-3';
+            itemEl.innerHTML = `
+              <img src="${p.images[0]}" alt="${p.title}" class="w-12 h-8 rounded-lg object-cover" loading="lazy" decoding="async">
+              <div class="flex-1 min-w-0">
+                <div class="text-xs font-semibold text-white truncate">${p.title}</div>
+                <div class="text-[11px] text-emerald-400 tabular-nums font-bold">${p.price.toLocaleString('vi-VN')}₫</div>
+              </div>
+              <button type="button" class="text-muted-foreground hover:text-rose-400 p-1" onclick="removeCartItem(${p.id})" aria-label="Xóa ${p.title} khỏi giỏ hàng" title="Xóa">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            `;
+            container.appendChild(itemEl);
+          }
+        });
+        if (totalEl) totalEl.innerText = total.toLocaleString('vi-VN') + '₫';
+      }
+
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function confirmPaymentDone() {
+      showToast('🎉 Cảm ơn bạn! Đơn hàng đang được xác nhận tự động.', 'success');
+      userCart = [];
+      try { localStorage.setItem('slidevault_cart', '[]'); } catch(e) {}
+      refreshCartUI();
+      document.getElementById('checkoutDialog')?.close();
+    }
+
+    function toggleFav(id) {
+      if (userBookmarks.includes(id)) {
+        userBookmarks = userBookmarks.filter(x => x !== id);
+        showToast('Đã xóa khỏi danh sách yêu thích!', 'info');
+      } else {
+        userBookmarks.push(id);
+        showToast('❤️ Đã lưu vào danh sách yêu thích!', 'success');
+      }
+      try { localStorage.setItem('slidevault_bookmarks', JSON.stringify(userBookmarks)); } catch(e) {}
+      renderCatalogGrid();
+    }
+
+    function fillPromptAndFocus(text) {
+      const inp = document.getElementById('heroPromptInput');
+      if (inp) {
+        inp.value = text;
+        inp.focus();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function handleHeroQuickAi() {
+      const inp = document.getElementById('heroPromptInput');
+      const val = (inp?.value || '').trim();
+      if (!val) {
+        showToast('Vui lòng nhập chủ đề slide cần tạo!', 'warning');
+        inp?.focus();
+        return;
+      }
+      try {
+        sessionStorage.setItem('slidevault_ai_intent', val);
+      } catch(e) {}
+      window.location.href = 'AI.html?topic=' + encodeURIComponent(val);
+    }
+
+    // Command palette
+    const HOME_COMMANDS = [
+      { title: 'Tạo Slide Mới Với AI Studio', category: 'Tính năng AI', icon: 'sparkles', url: 'AI.html' },
+      { title: 'Kho Bản Mẫu Bản Quyền (Templates)', category: 'Thư viện', icon: 'palette', url: 'thuvienmau.html' },
+      { title: 'Kho Lưu Trữ Đám Mây (Vault)', category: 'Quản lý', icon: 'folder-kanban', url: 'vault.html' },
+      { title: 'Chuyển Đổi Văn Bản Sang Slide', category: 'Công cụ', icon: 'file-text', url: 'vanban.html' },
+      { title: 'Bảng Phối Màu Thông Minh 1-Click', category: 'Thiết kế', icon: 'droplet', url: 'phoimau.html' },
+      { title: 'Vẽ Biểu Đồ Thống Kê Nhanh', category: 'Đồ họa', icon: 'bar-chart-2', url: 'vebieudonhanh.html' },
+      { title: 'Bật Điều Khiển Không Chạm 3D Touch', category: 'Spatial Vision', icon: 'camera', action: () => { if (typeof toggle3DTouchEngine === 'function') toggle3DTouchEngine(); } },
+      { title: 'Bảo Mật Hệ Thống & Radar Phòng Thủ', category: 'Hệ thống', icon: 'shield', url: 'security.html' }
+    ];
+
+    function openCommandPalette() {
+      const modal = document.getElementById('commandPaletteModal');
+      if (modal) modal.style.display = 'flex';
+      if (typeof modal.showModal === 'function') modal.showModal();
+      else modal.setAttribute('open', '');
+      if (input) { input.value = ''; input.focus(); }
+      filterCommandPalette('');
+    }
+
+    function closeCommandPalette() {
+      const modal = document.getElementById('commandPaletteModal');
+      if (!modal) return;
+      if (typeof modal.close === 'function') modal.close();
+      else modal.removeAttribute('open');
+      modal.style.display = 'none';
+    }
+
+    function filterCommandPalette(kw) {
+      const container = document.getElementById('cmdPaletteResults');
+      if (!container) return;
+      const cleanKw = (kw || '').toLowerCase().trim();
+      const filtered = HOME_COMMANDS.filter(cmd => !cleanKw || cmd.title.toLowerCase().includes(cleanKw) || cmd.category.toLowerCase().includes(cleanKw));
+
+      container.innerHTML = '';
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">Không tìm thấy kết quả phù hợp</div>';
+        return;
+      }
+
+      filtered.forEach(cmd => {
+        const item = document.createElement('div');
+        item.className = 'flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 cursor-pointer transition-all text-xs';
+        item.innerHTML = `
+          <div class="flex items-center gap-2.5">
+            <div class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+              <i data-lucide="${cmd.icon}" class="w-3.5 h-3.5"></i>
+            </div>
+            <div>
+              <div class="font-medium text-slate-100">${cmd.title}</div>
+              <div class="text-[10px] text-slate-400">${cmd.category}</div>
+            </div>
+          </div>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-500"></i>
+        `;
+        item.onclick = () => {
+          closeCommandPalette();
+          if (cmd.url) window.location.href = cmd.url;
+          else if (cmd.action) cmd.action();
+        };
+        container.appendChild(item);
+      });
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openCommandPalette();
+      }
+      if (e.key === 'Escape') closeCommandPalette();
+    });
+
+    // Toast helper
+    function showToast(msg, kind = 'info') {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+      const t = document.createElement('div');
+      const borderCol = kind === 'success' ? 'border-emerald-500/40 text-emerald-300' : (kind === 'warning' ? 'border-amber-500/40 text-amber-300' : (kind === 'error' ? 'border-rose-500/40 text-rose-300' : 'border-cyan-500/40 text-cyan-300'));
+      t.className = `px-4 py-2.5 rounded-2xl bg-slate-900/90 border ${borderCol} text-xs font-semibold backdrop-blur-xl shadow-2xl flex items-center gap-2 pointer-events-auto transition-all duration-300 transform translate-y-2 opacity-0`;
+      t.innerHTML = `
+        <span>${msg}</span>
+      `;
+      container.appendChild(t);
+      requestAnimationFrame(() => {
+        t.classList.remove('translate-y-2', 'opacity-0');
+      });
+      setTimeout(() => {
+        t.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => t.remove(), 300);
+      }, 3500);
+    }
+
+    // Robust App Initialization (Immediate or on DOMContentLoaded)
+    function initSlideVaultApp() {
+      if (typeof renderCatalogGrid === 'function') renderCatalogGrid();
+      if (typeof refreshCartUI === 'function') refreshCartUI();
+      if (typeof selectHeroSlide === 'function') selectHeroSlide(0);
+
+      if (!window._svHeroInterval && typeof heroSlides !== 'undefined' && heroSlides.length > 0) {
+        window._svHeroInterval = setInterval(() => {
+          currentHeroIndex = (currentHeroIndex + 1) % heroSlides.length;
+          selectHeroSlide(currentHeroIndex);
+        }, 6500);
+      }
+
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+    }
+
+    // Immediate initial rendering to eliminate any blank gap
+    initSlideVaultApp();
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSlideVaultApp);
+    }
+  </script>
+
+</body>
+</html>

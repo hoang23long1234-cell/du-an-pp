@@ -1,0 +1,79 @@
+=== 404.html: No <header class='saas-topbar'> found ===
+=== AI.html Topbar: 17 buttons ===
+  Button: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground 
+  Button: <button type="button" onclick="setPaletteTheme('ROSE_GOLD')" id="palBtn_ROSE_GOLD" class="px-3 py-1 rounded-xl text-xs f
+  Button: <button type="button" onclick="setPaletteTheme('SAPPHIRE')" id="palBtn_SAPPHIRE" class="px-2.5 py-1 rounded-xl text-xs f
+  Button: <button type="button" onclick="setPaletteTheme('EMERALD')" id="palBtn_EMERALD" class="px-2.5 py-1 rounded-xl text-xs fon
+  Button: <button type="button" onclick="setPaletteTheme('OBSIDIAN')" id="palBtn_OBSIDIAN" class="px-2.5 py-1 rounded-xl text-xs f
+  Button: <button type="button" id="mobileTabSlide" onclick="setMobileStudioTab('slide')" class="px-2.5 py-1 rounded-lg bg-emerald
+  Button: <button type="button" id="mobileTabChat" onclick="setMobileStudioTab('chat')" class="px-2.5 py-1 rounded-lg text-muted-f
+  Button: <button type="button" id="open-hand-control" data-sv-touch-toggle onclick="toggle3DTouchEngine()" class="flex items-cent
+  Button: <button type="button" onclick="openAirShareModal()" id="btnAirShareTop" class="hidden sm:flex group items-center gap-1.5
+  Button: <button type="button" onclick="openCommandPalette()" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/[0.0
+  Button: <button type="button" onclick="window.SlideVaultTheme && window.SlideVaultTheme.openGlassCustomizerModal()" id="btnGlass
+  Button: <button data-theme-toggle class="p-2 rounded-xl bg-white/[0.04] hover:bg-white/10 border border-white/10 text-slate-400 
+  Button: <button type="button" onclick="addNewSlide()" class="hidden lg:flex group items-center gap-1.5 px-3 py-1.5 rounded-xl bg
+  Button: <button type="button" onclick="saveDeckToVault()" id="btnSaveVault" class="hidden sm:flex group items-center gap-1.5 px-
+  Button: <button type="button" onclick="exportPPTXFile()" class="hidden lg:flex group items-center gap-1.5 px-3 py-1.5 rounded-xl
+  Button: <button type="button" onclick="launchPresentationMode()" class="group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py
+  Button: <button type="button" onclick="launchPresentationMode()" class="p-2 rounded-xl bg-white/[0.04] hover:bg-white/10 border 
+=== dangki.html: No <header class='saas-topbar'> found ===
+=== dangnhap.html: No <header class='saas-topbar'> found ===
+=== index.html Topbar: 5 buttons ===
+  Button: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground 
+  Button: <button type="button" data-command-trigger class="hidden"></button>
+  Button: <button type="button" id="open-hand-control" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt
+  Button: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class=
+  Button: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:te
+=== khoiphuctaikhoan.html: No <header class='saas-topbar'> found ===
+=== mobile-connect.html: No <header class='saas-topbar'> found ===
+=== phoimau.html Topbar: 4 buttons ===
+  Button: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground 
+  Button: <button type="button" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt 3D Touch" title="Slide
+  Button: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class=
+  Button: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:te
+=== phone.html: No <header class='saas-topbar'> found ===
+=== phoneindex.html: No <header class='saas-topbar'> found ===
+=== security.html Topbar: 3 buttons ===
+  Button: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground 
+  Button: <button type="button" id="open-hand-control" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt
+  Button: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill hover:bg-muted border border-border/60 text-muted-fore
+=== service-admin.html: No <header class='saas-topbar'> found ===
+=== setting.html Topbar: 4 buttons ===
+  Button: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground 
+  Button: <button type="button" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt 3D Touch" title="Slide
+  Button: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class=
+  Button: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:te
+=== thuvienmau.html Topbar: 5 buttons ===
+  Button: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground 
+  Button: <button type="button" data-command-trigger class="hidden"></button>
+  Button: <button type="button" id="open-hand-control" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt
+  Button: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class=
+  Button: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:te
+=== trangchudong.html Topbar: 5 buttons ===
+  Button: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground 
+  Button: <button type="button" data-command-trigger class="hidden"></button>
+  Button: <button type="button" id="open-hand-control" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt
+  Button: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class=
+  Button: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:te
+=== trinhchieuchiase.html Topbar: 4 buttons ===
+  Button: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground 
+  Button: <button type="button" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt 3D Touch" title="Slide
+  Button: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class=
+  Button: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:te
+=== vanban.html Topbar: 4 buttons ===
+  Button: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground 
+  Button: <button type="button" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt 3D Touch" title="Slide
+  Button: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class=
+  Button: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:te
+=== vault.html Topbar: 5 buttons ===
+  Button: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground 
+  Button: <button type="button" data-command-trigger class="hidden"></button>
+  Button: <button type="button" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt 3D Touch" title="Slide
+  Button: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class=
+  Button: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:te
+=== vebieudonhanh.html Topbar: 4 buttons ===
+  Button: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground 
+  Button: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class=
+  Button: <button type="button" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt 3D Touch" title="Slide
+  Button: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:te

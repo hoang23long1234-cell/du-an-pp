@@ -1,0 +1,112 @@
+/* ====================================================================
+   SLIDEVAULT UNIFIED LOCAL FONT SYSTEM
+   Tối ưu hóa tải font nội bộ cực nhanh, không phụ thuộc mạng ngoài
+   ==================================================================== */
+
+/* --- Be Vietnam Pro (Việt hoá chuẩn Quốc Gia) --- */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('./Be_Vietnam_Pro/BeVietnamPro-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('./Be_Vietnam_Pro/BeVietnamPro-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('./Be_Vietnam_Pro/BeVietnamPro-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('./Be_Vietnam_Pro/BeVietnamPro-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('./Be_Vietnam_Pro/BeVietnamPro-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('./Be_Vietnam_Pro/BeVietnamPro-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('./Be_Vietnam_Pro/BeVietnamPro-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  src: url('./Be_Vietnam_Pro/BeVietnamPro-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Inter (UI Modern Sans-Serif) --- */
+@font-face {
+  font-family: 'Inter';
+  src: url('./Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations'),
+       url('./Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('./Inter/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations'),
+       url('./Inter/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* --- Montserrat (Tiêu đề VIP & Branding) --- */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype-variations'),
+       url('./Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./Montserrat/Montserrat-Italic-VariableFont_wght.ttf') format('truetype-variations'),
+       url('./Montserrat/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Biến CSS chuẩn định dạng font cho toàn bộ ứng dụng */
+:root {
+  --font-sans: 'Be Vietnam Pro', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Montserrat', 'Be Vietnam Pro', 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+}

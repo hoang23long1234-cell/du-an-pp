@@ -1,0 +1,200 @@
+:root {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  min-width: 0;
+}
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+:where(h1, h2) {
+  text-wrap: balance;
+}
+
+:where(a, button, [role="button"], input, select, textarea) {
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+:where(a, button, [role="button"], input, select, textarea):focus-visible {
+  outline: 2px solid var(--accent-cyan, #38bdf8);
+  outline-offset: 3px;
+}
+
+html[data-bs-theme="dark"] .text-secondary,
+html.dark .text-secondary {
+  color: #a3b4c7 !important;
+}
+
+html[data-bs-theme="dark"] input::placeholder,
+html[data-bs-theme="dark"] textarea::placeholder,
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #a3b4c7 !important;
+  opacity: 1;
+}
+
+html[data-bs-theme="dark"] .text-success,
+html.dark .text-success {
+  color: #34d399 !important;
+}
+
+html[data-bs-theme="dark"] .btn-brand,
+html[data-bs-theme="dark"] .btn-luxury-sparkle,
+html[data-bs-theme="dark"] .btn-pptx-download,
+html.dark .btn-brand,
+html.dark .btn-luxury-sparkle,
+html.dark .btn-pptx-download {
+  background-image: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #0e7490 100%);
+}
+
+html[data-bs-theme="dark"] .control-pill.active,
+html.dark .control-pill.active {
+  background-image: linear-gradient(135deg, #047857, #047857);
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100% !important;
+}
+
+:where(.container, .container-fluid, .row, [class*="col-"], .table-responsive, pre) {
+  min-width: 0;
+  max-width: 100%;
+}
+
+:where(button, a, input, select, textarea, [role="button"]) {
+  touch-action: manipulation;
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: max(12px, env(safe-area-inset-top));
+    scroll-padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  select,
+  textarea {
+    min-width: 0;
+    max-width: 100% !important;
+    font-size: max(16px, 1em) !important;
+  }
+
+  :where(button, input[type="button"], input[type="submit"], input[type="reset"], select):not(.mobile-nav-item):not(.p-1):not(.p-1\.5) {
+    min-height: 48px !important;
+  }
+
+  :where(img, video, canvas, iframe) {
+    max-width: 100%;
+  }
+
+  :where(pre, code) {
+    overflow-wrap: anywhere;
+  }
+
+  :where(dialog, .modal-dialog, [role="dialog"]) {
+    max-width: calc(100vw - 24px);
+  }
+
+  :where(.table-responsive) {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-inline: contain;
+  }
+
+  [contenteditable="true"],
+  [contenteditable="true"] * {
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    user-select: text !important;
+    -webkit-touch-callout: default !important;
+  }
+}
+
+@media (max-width: 768px), (update: slow) {
+  :where(
+    .glass-panel,
+    .glass-card,
+    .liquid-glass,
+    .liquid-glass-sm,
+    .liquid-obsidian,
+    .frosted-ether,
+    .suggestion-card,
+    .ai-bubble
+  ) {
+    -webkit-backdrop-filter: blur(12px) saturate(125%) !important;
+    backdrop-filter: blur(12px) saturate(125%) !important;
+  }
+
+  :where(.mysterious-aurora .aurora-orb-1, .mysterious-aurora .aurora-orb-2, .mysterious-aurora .aurora-orb-3) {
+    animation: none !important;
+    filter: none !important;
+  }
+}
+
+@media (hover: none) {
+  :where(.glass-card, .liquid-glass, .liquid-glass-sm, .suggestion-card):hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Apple iOS & Mobile Web Haptic Feel & Safe Area Insets */
+@supports (-webkit-touch-callout: none) {
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+:where(button, [role="button"], a.btn, .filter-chip):active {
+  transform: scale(0.96) !important;
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@media (max-width: 480px) {
+  :where(.container, .saas-layout-wrapper) {
+    padding-left: max(8px, env(safe-area-inset-left)) !important;
+    padding-right: max(8px, env(safe-area-inset-right)) !important;
+  }
+}
+

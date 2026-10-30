@@ -1,0 +1,897 @@
+[
+  {
+    "file": "404.html",
+    "size": 9334,
+    "title": "404 - Không Tìm Thấy Trang | SlideVault Pro",
+    "stylesheets": [
+      "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;700;800&display=swap",
+      "3dtouch/mobile-optimization.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-linear-v70"
+    ],
+    "scripts": [
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/glass-theme.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 570,
+    "inlineScriptCount": 1,
+    "inlineScriptLen": 923,
+    "layout": {
+      "hasSaasLayoutWrapper": false,
+      "hasSaasSidebar": false,
+      "hasSidebarBackdrop": false,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": false,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "AI.html",
+    "size": 237307,
+    "title": "SlideVault Pro - Canva Magic AI Studio | Keynote AI Presentation Architect",
+    "stylesheets": [
+      "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;700;800&display=swap",
+      "font/fonts.css",
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-v75"
+    ],
+    "scripts": [
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "tệp hệ thống/glass-theme.js?v=visionos-v75",
+      "tệp hệ thống/supabase.min.js",
+      "tệp hệ thống/auth-state.js",
+      "fix.html/pptxgen.bundle.js",
+      "3dtouch/gesture-share.js",
+      "3dtouch/vision-engine.js?v=spatial-ultra-v5",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "tệp hệ thống/anti-crash-client.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 9375,
+    "inlineScriptCount": 3,
+    "inlineScriptLen": 134619,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": true
+    }
+  },
+  {
+    "file": "dangki.html",
+    "size": 75906,
+    "title": "Đăng ký tài khoản VIP | SlideVault - Kho Slide & AI Presentation",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-linear-v70"
+    ],
+    "scripts": [
+      "tệp hệ thống/supabase.min.js",
+      "tệp hệ thống/auth-state.js",
+      "tệp hệ thống/glass-theme.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 2,
+    "inlineStyleLen": 10072,
+    "inlineScriptCount": 5,
+    "inlineScriptLen": 27738,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "dangnhap.html",
+    "size": 51184,
+    "title": "Đăng nhập tài khoản | SlideVault - Kho Slide AI Đẳng Cấp",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-linear-v70"
+    ],
+    "scripts": [
+      "tệp hệ thống/supabase.min.js",
+      "tệp hệ thống/auth-state.js",
+      "tệp hệ thống/glass-theme.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 5325,
+    "inlineScriptCount": 4,
+    "inlineScriptLen": 21242,
+    "layout": {
+      "hasSaasLayoutWrapper": false,
+      "hasSaasSidebar": false,
+      "hasSidebarBackdrop": false,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": false,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "index.html",
+    "size": 98755,
+    "title": "SlideVault | Nền Tảng Thiết Kế & Kho Slide AI Đẳng Cấp 2026",
+    "stylesheets": [
+      "font/fonts.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-v75"
+    ],
+    "scripts": [
+      "tệp hệ thống/glass-theme.js?v=visionos-v75",
+      "pptxgen.bundle.js",
+      "tệp hệ thống/supabase.min.js",
+      "tệp hệ thống/auth-state.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 612,
+    "inlineScriptCount": 2,
+    "inlineScriptLen": 40347,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": true,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "khoiphuctaikhoan.html",
+    "size": 48459,
+    "title": "Khôi phục tài khoản | SlideVault Security Center",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-linear-v70"
+    ],
+    "scripts": [
+      "tệp hệ thống/glass-theme.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 2,
+    "inlineStyleLen": 9996,
+    "inlineScriptCount": 4,
+    "inlineScriptLen": 15993,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "mobile-connect.html",
+    "size": 10398,
+    "title": "SlideVault Mobile Hub | Cổng Kết Nối Thử Nghiệm Điện Thoại",
+    "stylesheets": [
+      "font/fonts.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-linear-v70"
+    ],
+    "scripts": [
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/glass-theme.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 505,
+    "inlineScriptCount": 1,
+    "inlineScriptLen": 1222,
+    "layout": {
+      "hasSaasLayoutWrapper": false,
+      "hasSaasSidebar": false,
+      "hasSidebarBackdrop": false,
+      "hasSaasTopbar": false,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": false,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "phoimau.html",
+    "size": 57198,
+    "title": "Phối Màu 1-Click AI | SlideVault - Color Harmony Cho Slide Đẳng Cấp",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-v75"
+    ],
+    "scripts": [
+      "tệp hệ thống/glass-theme.js?v=visionos-v75",
+      "tệp hệ thống/supabase.min.js",
+      "tệp hệ thống/auth-state.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 452,
+    "inlineScriptCount": 3,
+    "inlineScriptLen": 6726,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "phone.html",
+    "size": 63724,
+    "title": "SlideVault Vision Remote | Bộ Điều Khiển 3D Touch & Phòng Chiếu VIP",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-5",
+      "font/fonts.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-linear-v70"
+    ],
+    "scripts": [
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/glass-theme.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "3dtouch/vision-engine.js?v=spatial-ultra-v5",
+      "https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js",
+      "tệp hệ thống/supabase.min.js",
+      "tệp hệ thống/auth-state.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 9468,
+    "inlineScriptCount": 2,
+    "inlineScriptLen": 32959,
+    "layout": {
+      "hasSaasLayoutWrapper": false,
+      "hasSaasSidebar": false,
+      "hasSidebarBackdrop": false,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": false,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "phoneindex.html",
+    "size": 16352,
+    "title": "Liquid High-Fidelity Architecture",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-linear-v70",
+      "tệp hệ thống/glass-theme.css?v=visionos-linear-v70"
+    ],
+    "scripts": [
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/glass-theme.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 2,
+    "inlineStyleLen": 7748,
+    "inlineScriptCount": 2,
+    "inlineScriptLen": 2721,
+    "layout": {
+      "hasSaasLayoutWrapper": false,
+      "hasSaasSidebar": false,
+      "hasSidebarBackdrop": false,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "security.html",
+    "size": 125068,
+    "title": "SlideVault Security & System Protection Center",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-v75",
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
+      "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    ],
+    "scripts": [
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "tệp hệ thống/glass-theme.js?v=visionos-v75",
+      "tệp hệ thống/supabase.min.js",
+      "tệp hệ thống/auth-state.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 7950,
+    "inlineScriptCount": 5,
+    "inlineScriptLen": 38090,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": false,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": true,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "service-admin.html",
+    "size": 52480,
+    "title": "Admin Control Center | SlideVault VIP",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-linear-v70",
+      "tệp hệ thống/glass-theme.css?v=visionos-linear-v70"
+    ],
+    "scripts": [
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/glass-theme.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 4,
+    "inlineStyleLen": 15385,
+    "inlineScriptCount": 2,
+    "inlineScriptLen": 18810,
+    "layout": {
+      "hasSaasLayoutWrapper": false,
+      "hasSaasSidebar": false,
+      "hasSidebarBackdrop": false,
+      "hasSaasTopbar": false,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": true,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "setting.html",
+    "size": 92193,
+    "title": "Cài Đặt Hệ Thống | SlideVault - Quản Trị AI & Tùy Biến Giao Diện",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-v75"
+    ],
+    "scripts": [
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "tệp hệ thống/glass-theme.js?v=visionos-v75",
+      "tệp hệ thống/supabase.min.js",
+      "tệp hệ thống/auth-state.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 1683,
+    "inlineScriptCount": 3,
+    "inlineScriptLen": 17831,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "thuvienmau.html",
+    "size": 64533,
+    "title": "Thư Viện Mẫu Slide | SlideVault - 50+ Mẫu Thuyết Trình Đẳng Cấp",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-v75"
+    ],
+    "scripts": [
+      "tệp hệ thống/glass-theme.js?v=visionos-v75",
+      "tệp hệ thống/supabase.min.js",
+      "tệp hệ thống/auth-state.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 452,
+    "inlineScriptCount": 3,
+    "inlineScriptLen": 4216,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "trangchudong.html",
+    "size": 98755,
+    "title": "SlideVault | Nền Tảng Thiết Kế & Kho Slide AI Đẳng Cấp 2026",
+    "stylesheets": [
+      "font/fonts.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-v75"
+    ],
+    "scripts": [
+      "tệp hệ thống/glass-theme.js?v=visionos-v75",
+      "pptxgen.bundle.js",
+      "tệp hệ thống/supabase.min.js",
+      "tệp hệ thống/auth-state.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 612,
+    "inlineScriptCount": 2,
+    "inlineScriptLen": 40347,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": true,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "trinhchieuchiase.html",
+    "size": 52169,
+    "title": "Trình Chiếu & Chia Sẻ | SlideVault - Trợ Lý Diễn Tập AI & Live Presenter",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-v75"
+    ],
+    "scripts": [
+      "tệp hệ thống/glass-theme.js?v=visionos-v75",
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 452,
+    "inlineScriptCount": 2,
+    "inlineScriptLen": 6832,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "vanban.html",
+    "size": 60746,
+    "title": "Văn Bản Sang Slide AI | SlideVault - Chuyển Đổi Dàn Ý & Tài Liệu Tự Động",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-v75"
+    ],
+    "scripts": [
+      "tệp hệ thống/glass-theme.js?v=visionos-v75",
+      "tệp hệ thống/supabase.min.js",
+      "tệp hệ thống/auth-state.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 452,
+    "inlineScriptCount": 3,
+    "inlineScriptLen": 12162,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "vault.html",
+    "size": 120114,
+    "title": "Vault Của Tôi | SlideVault - Quản Lý Slide Đẳng Cấp",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-v75"
+    ],
+    "scripts": [
+      "tệp hệ thống/glass-theme.js?v=visionos-v75",
+      "tệp hệ thống/supabase.min.js",
+      "tệp hệ thống/auth-state.js",
+      "fix.html/pptxgen.bundle.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 5098,
+    "inlineScriptCount": 3,
+    "inlineScriptLen": 33816,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "vebieudonhanh.html",
+    "size": 74553,
+    "title": "Vẽ Biểu Đồ Nhanh | SlideVault - Trực Quan Hóa Dữ Liệu Slide Đẳng Cấp",
+    "stylesheets": [
+      "3dtouch/mobile-optimization.css?v=mobile-4",
+      "font/fonts.css",
+      "tệp hệ thống/tailwind-shadcn/shadcn.css",
+      "tệp hệ thống/glass-theme.css?v=visionos-v75"
+    ],
+    "scripts": [
+      "tệp hệ thống/glass-theme.js?v=visionos-v75",
+      "tệp hệ thống/tailwind-shadcn/tailwind.min.js",
+      "tệp hệ thống/tailwind-shadcn/tailwind.config.js",
+      "tệp hệ thống/tailwind-shadcn/lucide.min.js",
+      "tệp hệ thống/tailwind-shadcn/shadcn.js",
+      "3dtouch/touch-control.js?v=spatial-ultra-v70",
+      "fix.html/security_shield.js",
+      "tệp hệ thống/anti-crash-client.js",
+      "tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 452,
+    "inlineScriptCount": 2,
+    "inlineScriptLen": 24486,
+    "layout": {
+      "hasSaasLayoutWrapper": true,
+      "hasSaasSidebar": true,
+      "hasSidebarBackdrop": true,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": true,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "3dtouch/dieukhien.html",
+    "size": 76465,
+    "title": "SlideVault Motion | Điều khiển bằng tay",
+    "stylesheets": [
+      "mobile-optimization.css?v=mobile-4",
+      "../tệp hệ thống/glass-theme.css?v=visionos-linear-v70",
+      "../font/fonts.css",
+      "../tệp hệ thống/glass-theme.css?v=visionos-linear-v70"
+    ],
+    "scripts": [
+      "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js",
+      "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@4.22.0/dist/tf-backend-wasm.min.js",
+      "https://cdn.jsdelivr.net/npm/@tensorflow-models/hand-pose-detection@2.0.1/dist/hand-pose-detection.min.js",
+      "../tệp hệ thống/glass-theme.js",
+      "../tệp hệ thống/anti-crash-client.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 11394,
+    "inlineScriptCount": 1,
+    "inlineScriptLen": 46421,
+    "layout": {
+      "hasSaasLayoutWrapper": false,
+      "hasSaasSidebar": false,
+      "hasSidebarBackdrop": false,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": false,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "3dtouch/phone.html",
+    "size": 19039,
+    "title": "SlideVault Touch Remote",
+    "stylesheets": [
+      "mobile-optimization.css?v=mobile-4",
+      "../font/fonts.css",
+      "../tệp hệ thống/glass-theme.css?v=visionos-linear-v70",
+      "../tệp hệ thống/glass-theme.css?v=visionos-linear-v70"
+    ],
+    "scripts": [
+      "https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js",
+      "phone-controller.js?v=target-lock-3",
+      "../tệp hệ thống/glass-theme.js",
+      "../tệp hệ thống/anti-crash-client.js",
+      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 12546,
+    "inlineScriptCount": 1,
+    "inlineScriptLen": 1189,
+    "layout": {
+      "hasSaasLayoutWrapper": false,
+      "hasSaasSidebar": false,
+      "hasSidebarBackdrop": false,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": false,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "3dtouch/share.html",
+    "size": 25196,
+    "title": "AirShare · Chia sẻ bằng cử chỉ · SlideVault",
+    "stylesheets": [
+      "mobile-optimization.css?v=mobile-4",
+      "../font/fonts.css",
+      "../tệp hệ thống/glass-theme.css?v=visionos-linear-v70",
+      "../tệp hệ thống/glass-theme.css?v=visionos-linear-v70"
+    ],
+    "scripts": [
+      "../tệp hệ thống/glass-theme.js",
+      "../tệp hệ thống/anti-crash-client.js",
+      "gesture-share.js",
+      "vision-engine.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 7486,
+    "inlineScriptCount": 1,
+    "inlineScriptLen": 11507,
+    "layout": {
+      "hasSaasLayoutWrapper": false,
+      "hasSaasSidebar": false,
+      "hasSidebarBackdrop": false,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": false,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  },
+  {
+    "file": "3dtouch/tutorial.html",
+    "size": 21823,
+    "title": "Hướng dẫn sử dụng · SlideVault 3D Touch",
+    "stylesheets": [
+      "mobile-optimization.css?v=mobile-4",
+      "../font/fonts.css",
+      "../tệp hệ thống/glass-theme.css?v=visionos-linear-v70",
+      "../tệp hệ thống/glass-theme.css?v=visionos-linear-v70"
+    ],
+    "scripts": [
+      "../tệp hệ thống/glass-theme.js",
+      "../tệp hệ thống/anti-crash-client.js",
+      "hand3d.js?v=20261012_ultra_fix_v4",
+      "vision-engine.js?v=20261012_v4",
+      "../tệp hệ thống/glass-theme.js"
+    ],
+    "inlineStyleCount": 1,
+    "inlineStyleLen": 5315,
+    "inlineScriptCount": 1,
+    "inlineScriptLen": 6135,
+    "layout": {
+      "hasSaasLayoutWrapper": false,
+      "hasSaasSidebar": false,
+      "hasSidebarBackdrop": false,
+      "hasSaasTopbar": true,
+      "hasDynamicMobileIsland": false,
+      "hasThreeDots": false,
+      "hasModal": false,
+      "hasCartModal": false,
+      "hasPreviewModal": false,
+      "hasCheckoutModal": false,
+      "hasPromptInput": false
+    }
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "exit_code": 0,
+  "stdout": "[NeuralEngine] Loading Qwen 2.5 0.5B ONNX...\n[NeuralEngine] Qwen 2.5 0.5B loaded successfully and ready!\n[{\"token\": \"2\", \"done\": false, \"model\": \"qwen-0.5b\", \"provider\": \"onnx-local\"}, {\"token\": \".\", \"done\": false, \"model\": \"qwen-0.5b\", \"provider\": \"onnx-local\"}, {\"token\": \" Bạn\", \"done\": false, \"model\": \"qwen-0.5b\", \"provider\": \"onnx-local\"}, {\"token\": \" đang\", \"done\": false, \"model\": \"qwen-0.5b\", \"provider\": \"onnx-local\"}, {\"done\": true, \"inference\": true, \"model\": \"qwen-0.5b\", \"provider\": \"CPUExecutionProvider\", \"fullText\": \"2. Bạn đang\", \"reply\": \"2. Bạn đang\", \"tokens\": 4, \"speed\": 0.68, \"elapsedMs\": 5854, \"slides\": [], \"forSlides\": false, \"chips\": []}]\n",
+  "stderr": ""
+}

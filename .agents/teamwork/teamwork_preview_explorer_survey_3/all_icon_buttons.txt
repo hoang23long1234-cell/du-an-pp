@@ -1,0 +1,98 @@
+=== trangchudong.html: 40 buttons found ===
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-close class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transitio
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-collapse-btn class="sidebar-collapse-btn hidden lg:flex p-1.5 rounded-xl hover:bg-surface-pill text-muted-foregroun
+  [ICON-ONLY BUTTON]: <button data-theme-toggle class="p-1.5 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer" title="
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transiti
+  [ICON-ONLY BUTTON]: <button type="button" data-command-trigger class="hidden"></button>
+  [ICON-ONLY BUTTON]: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class="control-pill text-xs flex ite
+  [ICON-ONLY BUTTON]: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:text-foreground transition-all a
+  [CANDIDATE]: <button type="button" class="mobile-nav-item" data-sidebar-toggle title="Mở danh mục menu"> <svg class="w-5 h-5 text-slate-300" viewBox="0 0 24 24" fi
+  [ICON-ONLY BUTTON]: <button type="button" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all" onclick="d
+  [ICON-ONLY BUTTON]: <button type="button" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center 
+  [ICON-ONLY BUTTON]: <button type="button" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center
+  [ICON-ONLY BUTTON]: <button type="button" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all" onclick="d
+  [ICON-ONLY BUTTON]: <button type="button" class="w-8 h-8 rounded-full bg-black/60 hover:bg-black/90 border border-white/20 text-white flex items-center justify-center tra
+  [ICON-ONLY BUTTON]: <button type="button" class="text-muted-foreground hover:text-rose-400 p-1" onclick="removeCartItem(${p.id})"> <i data-lucide="trash-2" class="w-4 h-4
+=== vault.html: 43 buttons found ===
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-close class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transitio
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-collapse-btn class="sidebar-collapse-btn hidden lg:flex p-1.5 rounded-xl hover:bg-surface-pill text-muted-foregroun
+  [ICON-ONLY BUTTON]: <button data-theme-toggle class="p-1.5 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer" title="
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transiti
+  [ICON-ONLY BUTTON]: <button type="button" data-command-trigger class="hidden"></button>
+  [ICON-ONLY BUTTON]: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class="control-pill text-xs flex ite
+  [ICON-ONLY BUTTON]: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:text-foreground transition-all a
+  [ICON-ONLY BUTTON]: <button type="button" onclick="document.getElementById('pipelineFlowchartBody').classList.toggle('hidden')" class="p-1.5 rounded-xl bg-surface-pill ho
+  [ICON-ONLY BUTTON]: <button class="p-1 rounded-lg bg-black/40 hover:bg-black/70 text-amber-400" title="Yêu thích"> <i data-lucide="star" class="w-3.5 h-3.5 fill-current">
+  [ICON-ONLY BUTTON]: <button onclick="downloadPptxDemo('Báo cáo Chiến lược Tăng trưởng AI 2026')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground tran
+  [ICON-ONLY BUTTON]: <button class="p-1 rounded-lg bg-black/40 hover:bg-black/70 text-amber-400" title="Yêu thích"> <i data-lucide="star" class="w-3.5 h-3.5 fill-current">
+  [ICON-ONLY BUTTON]: <button onclick="downloadPptxDemo('Pitch Deck Gọi Vốn Series A')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colo
+  [ICON-ONLY BUTTON]: <button class="p-1 rounded-lg bg-black/40 hover:bg-black/70 text-slate-400 hover:text-amber-400" title="Yêu thích"> <i data-lucide="star" class="w-3.5
+  [ICON-ONLY BUTTON]: <button onclick="downloadPptxDemo('Giáo án STEM')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Tải 
+  [ICON-ONLY BUTTON]: <button class="p-1 rounded-lg bg-black/40 hover:bg-black/70 text-slate-400 hover:text-amber-400" title="Yêu thích"> <i data-lucide="star" class="w-3.5
+  [ICON-ONLY BUTTON]: <button onclick="downloadPptxDemo('Báo cáo Tài chính')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title=
+  [ICON-ONLY BUTTON]: <button class="p-1 rounded-lg bg-black/40 hover:bg-black/70 text-amber-400" title="Yêu thích"> <i data-lucide="star" class="w-3.5 h-3.5 fill-current">
+  [ICON-ONLY BUTTON]: <button onclick="downloadPptxDemo('Kế hoạch Go-to-Market')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" ti
+  [ICON-ONLY BUTTON]: <button class="p-1 rounded-lg bg-black/40 hover:bg-black/70 text-slate-400 hover:text-amber-400" title="Yêu thích"> <i data-lucide="star" class="w-3.5
+  [ICON-ONLY BUTTON]: <button onclick="downloadPptxDemo('Hồ sơ Năng lực Doanh nghiệp')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colo
+  [ICON-ONLY BUTTON]: <button type="button" onclick="toggleFavoriteProject('${deck.id}')" class="p-1 rounded-lg bg-black/40 hover:bg-black/70 ${deck.favorite ? 'text-amber-
+  [ICON-ONLY BUTTON]: <button type="button" onclick="exportProjectToPptxNative('${deck.id}')" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transitio
+  [CANDIDATE]: <button type="button" class="mobile-nav-item" data-sidebar-toggle title="Mở danh mục menu"> <svg class="w-5 h-5 text-slate-300" viewBox="0 0 24 24" fi
+  [ICON-ONLY BUTTON]: <button type="button" onclick="closeProjectModal()" class="w-8 h-8 rounded-full bg-surface-pill hover:bg-muted text-muted-foreground hover:text-foregr
+=== thuvienmau.html: 29 buttons found ===
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-close class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transitio
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-collapse-btn class="sidebar-collapse-btn hidden lg:flex p-1.5 rounded-xl hover:bg-surface-pill text-muted-foregroun
+  [ICON-ONLY BUTTON]: <button data-theme-toggle class="p-1.5 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer" title="
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transiti
+  [ICON-ONLY BUTTON]: <button type="button" data-command-trigger class="hidden"></button>
+  [ICON-ONLY BUTTON]: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class="control-pill text-xs flex ite
+  [ICON-ONLY BUTTON]: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:text-foreground transition-all a
+  [ICON-ONLY BUTTON]: <button onclick="closePreviewModal()" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-muted-foreground hover:text-foreground"> <i data-lucid
+  [CANDIDATE]: <button type="button" class="mobile-nav-item" data-sidebar-toggle title="Mở danh mục menu"> <svg class="w-5 h-5 text-slate-300" viewBox="0 0 24 24" fi
+=== AI.html: 93 buttons found ===
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-close class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transitio
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-collapse-btn class="sidebar-collapse-btn hidden lg:flex p-1.5 rounded-xl hover:bg-surface-pill text-muted-foregroun
+  [ICON-ONLY BUTTON]: <button data-theme-toggle class="p-1.5 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer" title="
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transiti
+  [ICON-ONLY BUTTON]: <button data-theme-toggle class="p-2 rounded-xl bg-white/[0.04] hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-al
+  [ICON-ONLY BUTTON]: <button type="button" onclick="launchPresentationMode()" class="p-2 rounded-xl bg-white/[0.04] hover:bg-white/10 border border-white/10 text-slate-400
+  [ICON-ONLY BUTTON]: <button type="button" onclick="togglePresentationTimer()" id="btnPlayPauseTimer" class="text-emerald-400 hover:text-emerald-300 transition-colors curs
+  [ICON-ONLY BUTTON]: <button type="button" onclick="resetPresentationTimer()" class="text-slate-500 hover:text-slate-300 transition-colors ml-0.5 cursor-pointer" title="Đặ
+  [ICON-ONLY BUTTON]: <button type="button" id="btnToggleLaserDraw" onclick="toggleLaserDrawMode()" class="p-1.5 rounded-xl bg-white/[0.04] hover:bg-amber-500/15 border bor
+  [ICON-ONLY BUTTON]: <button type="button" id="btnClearLaserDraw" onclick="clearLaserDrawCanvas()" class="p-1.5 rounded-xl bg-white/[0.04] hover:bg-rose-500/15 border bord
+  [ICON-ONLY BUTTON]: <button type="button" onclick="launchPresentationMode()" class="p-1.5 rounded-xl bg-white/[0.04] hover:bg-white/15 border border-white/10 text-slate-4
+  [ICON-ONLY BUTTON]: <button type="button" onclick="prevSlide()" class="p-1.5 rounded-lg hover:bg-white/15 text-slate-300 transition-colors cursor-pointer" title="Slide tr
+  [ICON-ONLY BUTTON]: <button type="button" onclick="nextSlide()" class="p-1.5 rounded-lg hover:bg-white/15 text-slate-300 transition-colors cursor-pointer" title="Slide ti
+  [ICON-ONLY BUTTON]: <button type="button" onclick="resetChatHistory()" class="p-1.5 rounded-xl hover:bg-white/10 text-slate-400 hover:text-slate-200 transition-colors tex
+  [ICON-ONLY BUTTON]: <button type="button" id="chatSendButton" onclick="sendChatMessage()" class="absolute right-2.5 bottom-2.5 w-8 h-8 rounded-xl bg-gradient-to-r from-am
+  [ICON-ONLY BUTTON]: <button type="button" onclick="closeDirectEditModal()" class="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white cursor-pointer"> <i dat
+  [ICON-ONLY BUTTON]: <button type="button" onclick="closeEditScriptModal()" class="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white cursor-pointer"> <i dat
+  [ICON-ONLY BUTTON]: <button type="button" onclick="togglePresentationTimer()" id="btnToggleTimer" class="hover:text-white p-0.5 ml-1 transition-colors cursor-pointer" tit
+  [ICON-ONLY BUTTON]: <button type="button" onclick="resetPresentationTimer()" class="hover:text-white p-0.5 transition-colors cursor-pointer" title="Đặt lại đồng hồ 5 phút
+  [ICON-ONLY BUTTON]: <button type="button" onclick="setPresenterInkColor('#f59e0b')" class="w-3.5 h-3.5 rounded-full bg-amber-400 border border-white/40 cursor-pointer" ti
+  [ICON-ONLY BUTTON]: <button type="button" onclick="setPresenterInkColor('#06b6d4')" class="w-3.5 h-3.5 rounded-full bg-cyan-400 border border-white/40 cursor-pointer" tit
+  [ICON-ONLY BUTTON]: <button type="button" onclick="setPresenterInkColor('#f43f5e')" class="w-3.5 h-3.5 rounded-full bg-rose-500 border border-white/40 cursor-pointer" tit
+  [ICON-ONLY BUTTON]: <button type="button" onclick="clearPresenterInk()" class="p-1 text-slate-400 hover:text-rose-400 text-[10px] cursor-pointer" title="Xóa toàn bộ nét v
+  [ICON-ONLY BUTTON]: <button type="button" onclick="togglePresenterNotesDrawer()" class="hover:text-white cursor-pointer"><i data-lucide="x" class="w-3.5 h-3.5"></i></butt
+  [ICON-ONLY BUTTON]: <button type="button" onclick="closeAirShareModal()" class="p-1.5 rounded-xl hover:bg-white/10 text-slate-400 hover:text-white transition-colors curso
+  [ICON-ONLY BUTTON]: <button type="button" onclick="toggle3DTouchEngine()" class="p-1 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor
+  [ICON-ONLY BUTTON]: <button type="button" onclick="duplicateSlide(${idx})" title="Nhân đôi slide" class="p-1 rounded hover:bg-white/15 hover:text-emerald-400 transition-c
+  [ICON-ONLY BUTTON]: <button type="button" onclick="deleteSlide(${idx})" title="Xóa slide" class="p-1 rounded hover:bg-white/15 hover:text-rose-400 transition-colors curso
+  [CANDIDATE]: <button type="button" class="mobile-nav-item" data-sidebar-toggle title="Mở danh mục menu"> <svg class="w-5 h-5 text-slate-300" viewBox="0 0 24 24" fi
+=== setting.html: 38 buttons found ===
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-close class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transitio
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-collapse-btn class="sidebar-collapse-btn hidden lg:flex p-1.5 rounded-xl hover:bg-surface-pill text-muted-foregroun
+  [ICON-ONLY BUTTON]: <button data-theme-toggle class="p-1.5 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer" title="
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transiti
+  [ICON-ONLY BUTTON]: <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class="control-pill text-xs flex ite
+  [ICON-ONLY BUTTON]: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:text-foreground transition-all a
+  [ICON-ONLY BUTTON]: <button type="button" id="btnToggleApiKeyVisibility" onclick="toggleApiKeyVisibility()" class="absolute right-3 p-1 text-muted-foreground hover:text-w
+  [ICON-ONLY BUTTON]: <button type="button" class="absolute -bottom-1 -right-1 p-1.5 rounded-full bg-card border border-border shadow-lg text-muted-foreground hover:text-fo
+  [CANDIDATE]: <button type="button" class="mobile-nav-item" data-sidebar-toggle title="Mở danh mục menu"> <svg class="w-5 h-5 text-slate-300" viewBox="0 0 24 24" fi
+=== security.html: 22 buttons found ===
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-close class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transitio
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-collapse-btn class="sidebar-collapse-btn hidden lg:flex p-1.5 rounded-xl hover:bg-surface-pill text-muted-foregroun
+  [ICON-ONLY BUTTON]: <button data-theme-toggle class="p-1.5 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer" title="
+  [ICON-ONLY BUTTON]: <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transiti
+  [ICON-ONLY BUTTON]: <button data-theme-toggle class="p-2 rounded-full bg-surface-pill hover:bg-muted border border-border/60 text-muted-foreground hover:text-foreground t
+  [ICON-ONLY BUTTON]: <button onclick="togglePwdVisibility()" class="absolute right-3 top-3.5 text-slate-400 hover:text-slate-200"> <i class="fa-solid fa-eye" id="pwdEyeIco
+  [CANDIDATE]: <button type="button" class="mobile-nav-item" data-sidebar-toggle title="Mở danh mục menu"> <svg class="w-5 h-5 text-slate-300" viewBox="0 0 24 24" fi

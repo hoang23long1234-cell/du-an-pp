@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="stylesheet" href="3dtouch/mobile-optimization.css?v=mobile-4">
+  <title>Trình Chiếu & Chia Sẻ | SlideVault - Trợ Lý Diễn Tập AI & Live Presenter</title>
+  
+  <!-- Local Fonts -->
+  <link rel="stylesheet" href="font/fonts.css">
+  
+  <!-- Tailwind CSS & shadcn/ui Design System -->
+  <link rel="stylesheet" href="tệp hệ thống/tailwind-shadcn/shadcn.css">
+  <link rel="stylesheet" href="tệp hệ thống/glass-theme.css?v=visionos-v98">
+  <script src="tệp hệ thống/glass-theme.js?v=visionos-v98"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/tailwind.min.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/tailwind.config.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/lucide.min.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/shadcn.js" defer></script>
+  <script src="3dtouch/touch-control.js?v=spatial-ultra-v70" defer></script>
+  <script>
+    try {
+      if (window.matchMedia('(max-width: 1024px)').matches) {
+        localStorage.removeItem('slidevault_sidebar_collapsed');
+      }
+    } catch(e) {}
+    window.__sv_sidebar_clean = true;
+  </script>
+  <script src="fix.html/security_shield.js"></script>
+
+  <style id="lab-optimization-styles">
+    /* Hardware Acceleration & High Refresh Rate (120Hz+) */
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .offcanvas, #appSidebar, .modal, .glass-panel {
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+    /* Touch optimization */
+    button, a, input, select, textarea {
+      touch-action: manipulation;
+    }
+  </style>
+  
+  <!-- SlideVault Pro Enterprise Anti-Crash & Hack Guardian -->
+  <script src="tệp hệ thống/anti-crash-client.js"></script>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen selection:bg-emerald-500/30 selection:text-emerald-300">
+
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div data-sidebar-backdrop class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity"></div>
+
+  <!-- ================= FLOATING SAAS SHELL ================= -->
+  <div class="saas-layout-wrapper">
+
+  <!-- Floating Collapsible Sidebar -->
+    <aside class="saas-sidebar" data-sidebar id="saasAppSidebar">
+      <!-- Brand Logo & Collapse Toggle -->
+      <div class="sidebar-brand-header flex items-center justify-between pb-4 border-b border-border/60">
+        <a href="trangchudong.html" class="flex items-center gap-3 group no-underline border-0 outline-none shadow-none">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 to-indigo-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+          </div>
+          <div class="sidebar-text">
+            <div class="flex items-center gap-1.5">
+              <span class="font-display font-bold text-lg tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text">SlideVault</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">PRO</span>
+            </div>
+            <p class="text-[11px] text-muted-foreground font-medium">AI Presentation Studio</p>
+          </div>
+        </a>
+        <div class="flex items-center gap-1 shrink-0">
+          <button type="button" data-sidebar-close class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-all cursor-pointer" title="Đóng thanh bên" aria-label="Đóng thanh bên">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+          <button type="button" data-sidebar-collapse-btn class="sidebar-collapse-btn hidden lg:flex p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-all ml-1 shrink-0 cursor-pointer" title="Thu gọn / Mở rộng (Ctrl+B)" aria-label="Thu gọn thanh bên" onclick="if (window.SlideVaultUI) { event.preventDefault(); event.stopPropagation(); window.SlideVaultUI.toggleCollapse(); }">
+            <svg class="w-4 h-4 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tree with Inertial Elastic Scrolling -->
+      <nav class="flex-1 py-4 space-y-5 overflow-y-auto sidebar-nav-scroll" style="scrollbar-width: none;">
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Không Gian</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="trangchudong.html" class="nav-pill-item " data-tooltip="Trang chủ">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span class="sidebar-text">Trang chủ</span>
+              </a>
+            </li>
+            <li>
+              <a href="vault.html" class="nav-pill-item " data-tooltip="Vault của tôi">
+                <svg class="nav-icon w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></svg>
+                <span class="sidebar-text">Vault của tôi</span>
+              </a>
+            </li>
+            <li>
+              <a href="thuvienmau.html" class="nav-pill-item " data-tooltip="Thư viện mẫu">
+                <svg class="nav-icon w-4 h-4 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                <span class="sidebar-text">Thư viện mẫu</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[10px] font-semibold px-1.5 py-0.5 rounded-md bg-muted text-muted-foreground">50+</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Công Cụ AI</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="AI.html" class="nav-pill-item " data-tooltip="AI Studio Trực Tiếp">
+                <svg class="nav-icon w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                <span class="sidebar-text">AI Studio Trực Tiếp</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300">HOT</span>
+              </a>
+            </li>
+            <li>
+              <a href="vanban.html" class="nav-pill-item " data-tooltip="Văn bản → Slide">
+                <svg class="nav-icon w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <span class="sidebar-text">Văn bản → Slide</span>
+              </a>
+            </li>
+            <li>
+              <a href="phoimau.html" class="nav-pill-item " data-tooltip="Phối màu 1-Click">
+                <svg class="nav-icon w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg>
+                <span class="sidebar-text">Phối màu 1-Click</span>
+              </a>
+            </li>
+            <li>
+              <a href="vebieudonhanh.html" class="nav-pill-item " data-tooltip="Vẽ biểu đồ nhanh">
+                <svg class="nav-icon w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                <span class="sidebar-text">Vẽ biểu đồ nhanh</span>
+              </a>
+            </li>
+            <li>
+              <a href="trinhchieuchiase.html" class="nav-pill-item active" data-tooltip="Trình chiếu & Chia sẻ">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                <span class="sidebar-text">Trình chiếu & Chia sẻ</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Cài Đặt & Hệ Thống</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="setting.html" class="nav-pill-item " data-tooltip="Cài đặt">
+                <svg class="nav-icon w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="sidebar-text">Cài đặt</span>
+              </a>
+            </li>
+            <li>
+              <a href="security.html" class="nav-pill-item " data-tooltip="Bảo mật">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span class="sidebar-text">Bảo mật</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </nav>
+
+      <!-- Sidebar Footer User Profile -->
+      <div class="pt-4 border-t border-border/60">
+        <div class="sidebar-footer-profile flex items-center justify-between p-2 rounded-2xl bg-surface-pill/50 border border-border/40">
+          <a href="dangnhap.html" class="flex items-center gap-2.5 min-w-0 flex-1 text-decoration-none group hover:opacity-90 transition-opacity" title="Bấm để đăng nhập hoặc xem tài khoản">
+            <div id="sidebarUserAvatar" class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-indigo-500 flex items-center justify-center text-xs font-bold text-white shadow-sm flex-shrink-0 group-hover:ring-2 group-hover:ring-emerald-400/50 transition-all">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sidebar-text truncate">
+              <div id="sidebarUserName" class="text-xs font-semibold truncate leading-tight group-hover:text-emerald-400 transition-colors">Khách</div>
+              <div id="sidebarUserEmail" class="text-[10px] text-muted-foreground truncate">Bấm để đăng nhập</div>
+            </div>
+          </a>
+          <div class="flex items-center gap-1 shrink-0">
+            <button data-theme-toggle class="p-1.5 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện Sáng / Tối">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            </button>
+            <a href="dangnhap.html" id="sidebarAuthActionBtn" class="p-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors cursor-pointer text-decoration-none flex items-center justify-center" title="Đăng nhập tài khoản">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <div class="saas-main-stage flex-1 flex flex-col min-w-0">
+    
+    <!-- FLOATING TOPBAR -->
+    <!-- FLOATING LUXURY APPLE TOPBAR -->
+      <header class="saas-topbar sticky top-2 z-30 flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-2 rounded-2xl sm:rounded-full bg-card/80 backdrop-blur-2xl border border-border/60 shadow-lg transition-all">
+        <!-- Left: Brand Breadcrumb -->
+        <div class="flex items-center gap-2.5 min-w-0">
+          <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 -ml-1 rounded-xl bg-surface-pill border border-border/60 text-foreground hover:bg-muted transition-colors cursor-pointer flex items-center justify-center shrink-0" aria-label="Mở menu danh mục" title="Mở menu">
+            <svg class="w-4 h-4 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          </button>
+          <a href="trangchudong.html" class="flex items-center gap-2 text-decoration-none group shrink-0">
+            <div class="w-7 h-7 rounded-xl bg-gradient-to-br from-emerald-400 to-indigo-600 flex items-center justify-center shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-white"></i>
+            </div>
+            <span class="font-display font-bold text-sm tracking-tight text-foreground inline-flex">SlideVault</span>
+            <span class="text-xs text-muted-foreground/40 hidden md:inline">/</span>
+            <span class="text-xs font-semibold text-emerald-400 hidden md:inline">Trình chiếu</span>
+          </a>
+        </div>
+
+        <!-- Center: Minimalist Search Bar -->
+        <div class="relative hidden md:block flex-1 max-w-xs mx-2">
+        <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/70 pointer-events-none"></i>
+        <input type="text" placeholder="Tìm buổi trình chiếu..." aria-label="Tìm kiếm buổi trình chiếu" class="w-full pl-10 pr-4 py-1.5 text-xs rounded-full bg-surface-pill border border-border/60 text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-emerald-500/60 transition-all">
+      </div>
+
+        <!-- Right: Actions, Language, Theme & Primary CTA -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <!-- 3D Touch Master Toggle -->
+          <button type="button" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt 3D Touch" title="SlideVault 3D Touch: Chuột Laser, Remote điện thoại, AirShare & Cảm ứng lực" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-surface-pill border border-emerald-500/30 hover:border-emerald-500 text-xs text-foreground transition-all active:scale-95 group shadow-sm cursor-pointer">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 group-[.active]:animate-ping"></span>
+            <i data-lucide="hand" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span class="font-semibold text-[11px] text-foreground group-hover:text-emerald-400 hidden sm:inline">3D Touch</span>
+          </button>
+
+          <!-- Language Selector -->
+          <div class="lang-dropdown-container relative hidden sm:block">
+            <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class="control-pill text-xs flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-surface-pill border border-border/60 text-foreground hover:bg-muted transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span class="font-semibold text-xs">VI</span>
+              <i data-lucide="chevron-down" class="w-3 h-3 text-muted-foreground"></i>
+            </button>
+            <div class="lang-dropdown-menu">
+              <div class="lang-dropdown-item font-semibold text-emerald-400 border border-emerald-500/40 bg-emerald-500/10 rounded-lg p-1.5 mb-1">
+                <span>Tiếng Việt</span>
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+              </div>
+              <div class="lang-dropdown-item text-muted-foreground hover:text-foreground p-1.5 cursor-pointer">
+                <span>English</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Theme Toggle Button -->
+          <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:text-foreground transition-all active:scale-95" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện">
+            <i data-lucide="moon" class="w-4 h-4"></i>
+          </button>
+
+          <!-- Topbar Auth Slot -->
+          <div id="topbarAuthSlot"><a href="dangnhap.html" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-pill border border-border/60 text-xs font-semibold text-foreground hover:bg-muted transition-all active:scale-95 shadow-sm text-decoration-none shrink-0" title="Đăng nhập tài khoản"><i data-lucide="user" class="w-3.5 h-3.5 text-emerald-400"></i><span class="hidden sm:inline">Đăng nhập</span></a></div>
+
+          <!-- Primary CTA: Tạo Slide AI -->
+          <a href="AI.html" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs shadow-md shadow-emerald-500/25 transition-all transform active:scale-95 text-decoration-none shrink-0">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Tạo Slide AI</span>
+          </a>
+        </div>
+      </header>
+
+    <!-- MAIN STAGE CONTENT -->
+    <main class="saas-main-card page-enter-smooth position-relative" style="z-index: 10;">
+      
+      <!-- HERO BANNER WITH LUXURY ASYMMETRIC SPLIT CINEMA STAGE -->
+      <section class="rounded-3xl border border-border/80 bg-gradient-to-br from-card/95 via-card/80 to-emerald-950/25 backdrop-blur-3xl p-6 lg:p-10 shadow-[0_24px_60px_rgba(0,0,0,0.45)] relative overflow-hidden mb-6">
+        <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-gradient-to-br from-emerald-500/15 via-teal-500/10 to-transparent blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none"></div>
+        
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Left Column (7 cols): VisionOS Executive Typography & Value Prop -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 text-xs font-semibold shadow-sm backdrop-blur-md">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span> SLIDEVAULT AIRPRESENTER 2026 • Trợ Lý Diễn Tập AI & Live Presenter</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight text-foreground leading-[1.12]" style="text-wrap: balance;">
+              <span>Trình Chiếu Thông Minh</span><br>
+              <span class="sv-apple-shimmer-title drop-shadow-[0_4px_24px_rgba(16,185,129,0.35)]">Trợ Lý Diễn Tập Canh Giờ AI</span>
+            </h1>
+
+            <!-- Typewriter Dynamic Subtitle -->
+            <p class="text-xs sm:text-sm lg:text-base text-muted-foreground flex items-center flex-wrap gap-1.5 font-medium">
+              <span>Sẵn sàng cho bài thuyết trình đỉnh cao: </span>
+              <span class="text-emerald-400 font-bold" data-typewriter data-typewriter-words='["Đồng hồ bấm giờ chính xác từng slide kèm ghi chú diễn giả", "Tạo mã QR tức thì cho khán giả cùng xem trên điện thoại", "Chế độ con trỏ Laser quang học trực quan sinh động", "Chia sẻ liên kết bảo mật với quyền hạn tùy biến"]'></span>
+            </p>
+
+            <p class="text-xs sm:text-sm text-muted-foreground/85 leading-relaxed max-w-2xl">
+              Tích hợp AI phân tích tốc độ nói (WPM), phát hiện slide trình bày quá dài hoặc thiếu điểm nhấn, kèm chế độ hiển thị hai màn hình (Dual-Screen) chuyên nghiệp cho các hội nghị và buổi gọi vốn lớn.
+            </p>
+
+            <!-- Quick Action Buttons -->
+            <div class="pt-2 flex flex-wrap items-center gap-3">
+              <button type="button" onclick="toggleFullscreen()" class="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white text-xs font-bold shadow-lg shadow-emerald-500/25 transition-all transform active:scale-95 cursor-pointer">
+                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                <span>Trình Chiếu Toàn Màn Hình</span>
+              </button>
+
+              <button type="button" onclick="toggleLaserPointer()" class="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-surface-pill hover:bg-muted border border-border/70 text-xs font-semibold text-foreground transition-all active:scale-95 cursor-pointer shadow-sm">
+                <i data-lucide="crosshair" class="w-4 h-4 text-rose-500"></i>
+                <span>Con Trỏ Laser</span>
+              </button>
+
+              <button type="button" onclick="startTimer()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-slate-300 hover:text-white transition-all active:scale-95 cursor-pointer">
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Bấm Giờ Diễn Tập</span>
+              </button>
+            </div>
+
+            <!-- Value Chips -->
+            <div class="pt-1 flex flex-wrap items-center gap-2.5 text-[11px] text-muted-foreground/80">
+              <span class="inline-flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i> Phân Tích WPM Nhịp Độ</span>
+              <span class="text-border">•</span>
+              <span class="inline-flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-400"></i> Quét QR Xem Trực Tiếp</span>
+              <span class="text-border">•</span>
+              <span class="inline-flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-amber-400"></i> Dual-Screen Speaker Notes</span>
+            </div>
+          </div>
+
+          <!-- Right Column (5 cols): Rehearsal Telemetry HUD & Audience Radar Capsule -->
+          <div class="lg:col-span-5">
+            <div class="rounded-3xl border border-white/15 bg-slate-950/80 backdrop-blur-2xl p-5 shadow-2xl relative overflow-hidden group hover:border-emerald-500/40 transition-all duration-300">
+              <!-- Specular Top Lighting -->
+              <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></div>
+              
+              <!-- macOS Window Header -->
+              <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10 text-xs text-slate-400">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500/90 shadow-sm shadow-rose-500/50"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500/90 shadow-sm shadow-amber-500/50"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/90 shadow-sm shadow-emerald-500/50"></span>
+                  <span class="font-mono text-[11px] text-slate-300 font-semibold pl-2">Presenter_Live_Telemetry.hud</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono text-[10px] font-bold border border-emerald-500/30">BROADCAST READY</span>
+              </div>
+
+              <!-- Live Rehearsal Telemetry Grid -->
+              <div class="grid grid-cols-2 gap-3 mb-4">
+                <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+                  <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Thời Gian Diễn Tập</div>
+                  <div class="text-xl font-black text-emerald-400 mt-0.5 font-mono" id="heroRehearsalClock">14:25 <span class="text-xs text-slate-400 font-normal">/ 20:00</span></div>
+                  <div class="text-[10px] text-emerald-300 font-semibold flex items-center gap-1 mt-0.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Tiến độ chuẩn 100%
+                  </div>
+                </div>
+
+                <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+                  <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Tốc Độ Nói (Pacing)</div>
+                  <div class="text-xl font-black text-amber-300 mt-0.5 font-mono">132 <span class="text-xs text-slate-400 font-normal">WPM</span></div>
+                  <div class="text-[10px] text-cyan-300 font-semibold flex items-center gap-1 mt-0.5">
+                    <i data-lucide="check" class="w-3 h-3 text-cyan-400"></i> Rõ ràng & truyền cảm
+                  </div>
+                </div>
+              </div>
+
+              <!-- Audience Remote Sync Bar -->
+              <div class="p-3 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <span class="text-white font-bold block">Khán Giả Kết Nối</span>
+                    <span class="text-[10px] text-slate-400">Quét QR hoặc AirShare P2P</span>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-xl bg-emerald-500/20 text-emerald-300 font-mono font-bold text-xs">
+                  34 ONLINE
+                </span>
+              </div>
+
+              <!-- Bottom Action -->
+              <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Độ trễ truyền hình: <b>~16ms</b></span>
+                <a href="#presenterStage" class="text-emerald-400 hover:text-emerald-300 font-semibold text-[11px] flex items-center gap-1 text-decoration-none">
+                  Vào sân khấu thuyết trình <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PRESENTATION WORKSPACE -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+        
+        <!-- MAIN PRESENTATION STAGE (8 cols) -->
+        <div class="xl:col-span-8 rounded-3xl border border-border/70 bg-card/85 backdrop-blur-2xl p-6 shadow-xl space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-border/60">
+            <div class="flex items-center gap-3">
+              <span id="currentSlideBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                Slide 1 / 5
+              </span>
+              <h3 id="currentSlideDeckTitle" class="font-display font-bold text-sm text-foreground">
+                Chiến Lược Tái Cấu Trúc Doanh Nghiệp 2026
+              </h3>
+            </div>
+
+            <!-- Fullscreen & Laser Controls -->
+            <div class="flex items-center gap-2">
+              <button id="laserPointerBtn" onclick="toggleLaserPointer()" class="px-3 py-1.5 rounded-xl bg-surface-pill hover:bg-muted text-xs font-medium text-foreground flex items-center gap-1.5 transition-colors" title="Bật con trỏ Laser">
+                <i data-lucide="crosshair" class="w-3.5 h-3.5 text-rose-500"></i>
+                <span class="hidden sm:inline">Laser Pointer</span>
+              </button>
+              <button type="button" onclick="toggleFullscreen()" class="p-2 rounded-xl bg-surface-pill hover:bg-muted text-foreground transition-colors" title="Toàn màn hình (F11)" aria-label="Bật/Tắt toàn màn hình">
+                <i data-lucide="maximize" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Slide Stage Screen -->
+          <div id="presenterStage" class="relative aspect-video rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 border border-white/10 p-8 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-300">
+            <div class="flex items-center justify-between text-xs text-slate-400">
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">McKinsey Executive</span>
+              <span class="text-slate-400">SlideVault Live Presenter</span>
+            </div>
+
+            <div class="space-y-4 max-w-2xl my-auto">
+              <h2 id="stageHeading" class="text-2xl lg:text-4xl font-display font-extrabold text-white leading-tight">
+                Chiến Lược Tái Cấu Trúc Doanh Nghiệp & Tối Ưu Hóa Chi Phí Vận Hành
+              </h2>
+              <p id="stageSubtext" class="text-xs lg:text-base text-slate-300 leading-relaxed">
+                Áp dụng công nghệ trí tuệ nhân tạo và tự động hóa quy trình giúp giảm thiểu 35% chi phí vận hành và tăng 40% hiệu suất đội ngũ.
+              </p>
+            </div>
+
+            <div class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-white/10">
+              <span>Nhấn phím [ ← ] [ → ] hoặc [ Space ] để chuyển slide</span>
+              <span class="text-emerald-400 font-semibold">100% Native Vector</span>
+            </div>
+          </div>
+
+          <!-- Bottom Control Bar -->
+          <div class="flex items-center justify-between pt-2">
+            <button onclick="changeSlide(-1)" class="px-4 py-2 rounded-xl bg-surface-pill hover:bg-muted text-xs font-semibold text-foreground flex items-center gap-1.5 transition-colors">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              <span>Slide trước</span>
+            </button>
+
+            <!-- Slide Dots -->
+            <div class="flex items-center gap-1.5" id="slideDots">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              <span class="w-2 h-2 rounded-full bg-border"></span>
+              <span class="w-2 h-2 rounded-full bg-border"></span>
+              <span class="w-2 h-2 rounded-full bg-border"></span>
+              <span class="w-2 h-2 rounded-full bg-border"></span>
+            </div>
+
+            <button onclick="changeSlide(1)" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold flex items-center gap-1.5 shadow-md shadow-emerald-500/20 transition-colors">
+              <span>Slide tiếp theo</span>
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL: SPEAKER NOTES & REHEARSAL / SHARE (4 cols) -->
+        <div class="xl:col-span-4 space-y-6">
+          
+          <!-- REHEARSAL & TIMER CARD (TRỢ LÝ DIỄN TẬP) -->
+          <div class="rounded-3xl border border-border/70 bg-card/85 backdrop-blur-2xl p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-border/60">
+              <h3 class="font-display font-bold text-sm text-foreground flex items-center gap-2">
+                <i data-lucide="mic" class="w-4 h-4 text-rose-400"></i>
+                <span>Trợ Lý Diễn Tập & Canh Giờ</span>
+              </h3>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-400">AI Coach</span>
+            </div>
+
+            <!-- Timer Display -->
+            <div class="p-4 rounded-2xl bg-surface-pill border border-border/60 text-center space-y-2">
+              <div class="text-[10px] text-muted-foreground uppercase font-semibold">Thời gian diễn tập</div>
+              <div id="timerDisplay" class="font-mono text-3xl font-extrabold text-foreground tracking-wider">00:00:00</div>
+              
+              <!-- Timer Controls -->
+              <div class="flex items-center justify-center gap-2 pt-1">
+                <button id="startTimerBtn" onclick="toggleTimer()" class="px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-semibold flex items-center gap-1 shadow-sm transition-all">
+                  <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                  <span id="timerBtnText">Bắt đầu</span>
+                </button>
+                <button onclick="resetTimer()" class="px-3.5 py-1.5 rounded-xl bg-card hover:bg-muted border border-border/60 text-xs font-medium text-foreground transition-all">
+                  Đặt lại
+                </button>
+              </div>
+            </div>
+
+            <!-- Speaker Notes -->
+            <div class="space-y-2">
+              <label class="block text-xs font-semibold text-foreground flex items-center justify-between">
+                <span>Ghi chú của Diễn giả (Speaker Notes)</span>
+                <span class="text-[10px] text-muted-foreground">Khán giả không thấy</span>
+              </label>
+              <textarea id="speakerNotesArea" rows="4" class="w-full p-3 rounded-xl bg-surface-pill border border-border/60 text-xs text-foreground placeholder:text-muted-foreground/60 leading-relaxed resize-none focus:outline-none focus:border-rose-500/60">
+- Mở đầu bằng câu hỏi: "Bao nhiêu người trong phòng từng cảm thấy chi phí tăng nhưng doanh thu đi ngang?"
+- Dành khoảng 45 giây cho slide này, giữ nhịp thở đều.
+- Nhấn mạnh vào tỷ lệ tiết kiệm 35% ở slide tiếp theo.
+              </textarea>
+            </div>
+          </div>
+
+          <!-- SHARE & QR CARD (CHIA SẺ) -->
+          <div class="rounded-3xl border border-border/70 bg-card/85 backdrop-blur-2xl p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-border/60">
+              <h3 class="font-display font-bold text-sm text-foreground flex items-center gap-2">
+                <i data-lucide="share-2" class="w-4 h-4 text-emerald-400"></i>
+                <span>Chia Sẻ Cho Khán Giả</span>
+              </h3>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400">Trực Tuyến</span>
+            </div>
+
+            <!-- Share Link Bar -->
+            <div class="space-y-1.5">
+              <label class="block text-xs font-semibold text-foreground">Liên kết xem trực tiếp</label>
+              <div class="flex items-center gap-2">
+                <input type="text" readonly value="https://slidevault.ai/p/deck-vip-2026" id="shareUrlInput" aria-label="Liên kết xem trực tiếp" class="flex-1 p-2 rounded-xl bg-surface-pill border border-border/60 text-xs text-foreground font-mono truncate focus:outline-none">
+                <button type="button" onclick="copyShareUrl()" aria-label="Sao chép liên kết chia sẻ" class="p-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white transition-colors" title="Sao chép liên kết">
+                  <i data-lucide="copy" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Mock QR Code SVG for Audience Scanning -->
+            <div class="p-4 rounded-2xl bg-surface-pill border border-border/60 flex items-center gap-4">
+              <div class="w-20 h-20 rounded-xl bg-white p-1.5 shadow flex items-center justify-center shrink-0">
+                <!-- SVG QR Pattern -->
+                <svg viewBox="0 0 100 100" class="w-full h-full fill-slate-900">
+                  <rect x="5" y="5" width="25" height="25" fill="#000" />
+                  <rect x="10" y="10" width="15" height="15" fill="#fff" />
+                  <rect x="13" y="13" width="9" height="9" fill="#000" />
+
+                  <rect x="70" y="5" width="25" height="25" fill="#000" />
+                  <rect x="75" y="10" width="15" height="15" fill="#fff" />
+                  <rect x="78" y="13" width="9" height="9" fill="#000" />
+
+                  <rect x="5" y="70" width="25" height="25" fill="#000" />
+                  <rect x="10" y="75" width="15" height="15" fill="#fff" />
+                  <rect x="13" y="78" width="9" height="9" fill="#000" />
+
+                  <rect x="40" y="10" width="10" height="10" fill="#000" />
+                  <rect x="55" y="25" width="10" height="10" fill="#000" />
+                  <rect x="40" y="45" width="20" height="10" fill="#000" />
+                  <rect x="25" y="45" width="10" height="15" fill="#000" />
+                  <rect x="70" y="50" width="15" height="10" fill="#000" />
+                  <rect x="45" y="70" width="15" height="15" fill="#000" />
+                  <rect x="75" y="75" width="15" height="15" fill="#000" />
+                </svg>
+              </div>
+              <div class="space-y-1">
+                <div class="text-xs font-bold text-foreground">Quét QR Tham Gia</div>
+                <p class="text-[11px] text-muted-foreground leading-relaxed">
+                  Khán giả quét mã để xem slide song song và tương tác biểu quyết trực tiếp.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+  </div>
+<!-- Interactive Presenter Script -->
+  <script>
+    const slidesData = [
+      {
+        heading: "Chiến Lược Tái Cấu Trúc Doanh Nghiệp & Tối Ưu Hóa Chi Phí Vận Hành",
+        subtext: "Áp dụng công nghệ trí tuệ nhân tạo và tự động hóa quy trình giúp giảm thiểu 35% chi phí vận hành và tăng 40% hiệu suất đội ngũ.",
+        notes: "Mở đầu bằng câu hỏi: 'Bao nhiêu người trong phòng từng cảm thấy chi phí tăng nhưng doanh thu đi ngang?' Dành khoảng 45 giây cho slide này, giữ nhịp thở đều."
+      },
+      {
+        heading: "Thực Trạng Doanh Nghiệp & Điểm Nghẽn Tăng Trưởng",
+        subtext: "Phân tích 3 yếu tố cản trở: Quy trình phê duyệt phân mảnh qua nhiều cấp, thiếu hệ thống dữ liệu tập trung và chi phí marketing tăng 45%.",
+        notes: "Nêu bật số liệu chi phí Marketing tăng 45%. Chú ý nhìn vào khu vực khách mời phía bên trái hội trường."
+      },
+      {
+        heading: "Giải Pháp: Hệ Sinh Thái AI & Tự Động Hóa Tập Trung",
+        subtext: "Xây dựng luồng dữ liệu tự động đồng bộ thời gian thực giữa Sales, Marketing và Kế toán, rút ngắn 70% thời gian tạo báo cáo tài chính.",
+        notes: "Slide then chốt! Giải thích rõ mô hình 3 lớp dữ liệu. Nói chậm rãi, nhấn mạnh từ 'thời gian thực'."
+      },
+      {
+        heading: "Dự Phóng Tài Chính & Chỉ Số ROI Sau 12 Tháng",
+        subtext: "Kỳ vọng dòng tiền dương sau 6 tháng triển khai, tỷ suất hoàn vốn ROI đạt 240% và tiết kiệm ước tính 1.8 triệu USD chi phí nhân sự gián tiếp.",
+        notes: "Khán giả tài chính sẽ rất quan tâm slide này. Hãy chuẩn bị tinh thần trả lời câu hỏi về mốc hòa vốn."
+      },
+      {
+        heading: "Kế Hoạch Triển Khai & Phiên Hỏi Đáp (Q&A)",
+        subtext: "Lộ trình 3 giai đoạn triển khai thí điểm trong 90 ngày. Trân trọng cảm ơn sự chú ý của quý vị và xin mời bắt đầu phần thảo luận.",
+        notes: "Cảm ơn toàn thể ban lãnh đạo. Mở màn hình Q&A và mời câu hỏi đầu tiên từ ban điều hành."
+      }
+    ];
+
+    let currentSlideIndex = 0;
+
+    function renderSlide() {
+      const slide = slidesData[currentSlideIndex];
+      document.getElementById('stageHeading').textContent = slide.heading;
+      document.getElementById('stageSubtext').textContent = slide.subtext;
+      document.getElementById('speakerNotesArea').value = slide.notes;
+      document.getElementById('currentSlideBadge').textContent = `Slide ${currentSlideIndex + 1} / ${slidesData.length}`;
+
+      const dots = document.querySelectorAll('#slideDots span');
+      dots.forEach((dot, idx) => {
+        if (idx === currentSlideIndex) {
+          dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400 transition-all';
+        } else {
+          dot.className = 'w-2 h-2 rounded-full bg-border transition-all';
+        }
+      });
+    }
+
+    function changeSlide(direction) {
+      currentSlideIndex += direction;
+      if (currentSlideIndex < 0) currentSlideIndex = 0;
+      if (currentSlideIndex >= slidesData.length) currentSlideIndex = slidesData.length - 1;
+      renderSlide();
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        changeSlide(1);
+      } else if (e.key === 'ArrowLeft') {
+        changeSlide(-1);
+      }
+    });
+
+    // Fullscreen toggle
+    function toggleFullscreen() {
+      const elem = document.getElementById('presenterStage');
+      if (!document.fullscreenElement) {
+        elem.requestFullscreen().catch(err => {
+          console.error(err);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Laser pointer toggle
+    let laserActive = false;
+    function toggleLaserPointer() {
+      laserActive = !laserActive;
+      const stage = document.getElementById('presenterStage');
+      const btn = document.getElementById('laserPointerBtn');
+      if (laserActive) {
+        stage.style.cursor = 'crosshair';
+        btn.classList.add('bg-rose-500/20', 'text-rose-400');
+        if (window.SlideVault) SlideVault.toast('Chế độ con trỏ Laser đã kích hoạt');
+      } else {
+        stage.style.cursor = 'default';
+        btn.classList.remove('bg-rose-500/20', 'text-rose-400');
+      }
+    }
+
+    // Rehearsal Stopwatch
+    let timerInterval = null;
+    let secondsElapsed = 0;
+    let isRunning = false;
+
+    function formatTime(s) {
+      const hrs = String(Math.floor(s / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+      const secs = String(s % 60).padStart(2, '0');
+      return `${hrs}:${mins}:${secs}`;
+    }
+
+    function toggleTimer() {
+      const btn = document.getElementById('startTimerBtn');
+      const btnText = document.getElementById('timerBtnText');
+
+      if (!isRunning) {
+        isRunning = true;
+        btnText.textContent = 'Tạm dừng';
+        btn.classList.remove('bg-emerald-500', 'hover:bg-emerald-600');
+        btn.classList.add('bg-amber-500', 'hover:bg-amber-600');
+        timerInterval = setInterval(() => {
+          secondsElapsed++;
+          document.getElementById('timerDisplay').textContent = formatTime(secondsElapsed);
+        }, 1000);
+      } else {
+        isRunning = false;
+        clearInterval(timerInterval);
+        btnText.textContent = 'Tiếp tục';
+        btn.classList.remove('bg-amber-500', 'hover:bg-amber-600');
+        btn.classList.add('bg-emerald-500', 'hover:bg-emerald-600');
+      }
+    }
+
+    function resetTimer() {
+      isRunning = false;
+      clearInterval(timerInterval);
+      secondsElapsed = 0;
+      document.getElementById('timerDisplay').textContent = '00:00:00';
+      document.getElementById('timerBtnText').textContent = 'Bắt đầu';
+      const btn = document.getElementById('startTimerBtn');
+      btn.classList.remove('bg-amber-500', 'hover:bg-amber-600');
+      btn.classList.add('bg-emerald-500', 'hover:bg-emerald-600');
+    }
+
+    function copyShareUrl() {
+      const url = document.getElementById('shareUrlInput').value;
+      navigator.clipboard.writeText(url).then(() => {
+        if (window.SlideVault) {
+          SlideVault.toast({
+            title: 'Đã sao chép liên kết!',
+            message: 'Liên kết xem slide trực tuyến đã được lưu vào bộ nhớ tạm.',
+            type: 'success'
+          });
+        }
+      });
+    }
+
+    // Dynamic host URL for sharing
+    if (window.location.protocol.startsWith('http')) {
+      const shareInput = document.getElementById('shareUrlInput');
+      if (shareInput) shareInput.value = window.location.origin + '/trinhchieuchiase.html';
+    }
+
+    // Initial render
+    renderSlide();
+  </script>
+
+    
+
+  <!-- Universal Dynamic Instagram/iPhone Style Mobile Nav (Bottom Dock) -->
+  <nav class="mobile-glass-nav visionos-liquid-glass" aria-label="Điều hướng chính di động">
+    <a class="mobile-nav-item" href="trangchudong.html" data-mobile-nav="home" title="Trang chủ">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Trang chủ</span>
+    </a>
+    <a class="mobile-nav-item" href="vault.html" data-mobile-nav="vault" title="Vault">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></svg>
+      <span>Vault</span>
+    </a>
+    <a class="mobile-nav-item" href="thuvienmau.html" data-mobile-nav="templates" title="Mẫu">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+      <span>Mẫu</span>
+    </a>
+    <a class="mobile-nav-item active" href="AI.html" data-mobile-nav="ai" title="AI Studio">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+      <span>AI Studio</span>
+    </a>
+    <button type="button" class="mobile-nav-item" data-sidebar-toggle data-mobile-menu title="Mở danh mục menu" aria-label="Mở danh mục menu">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      <span>Menu</span>
+    </button>
+  </nav>
+  
+</body>
+</html>

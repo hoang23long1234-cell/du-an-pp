@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a100e">
+  <meta name="description" content="Hướng dẫn sử dụng SlideVault 3D Touch: điều khiển bằng cử chỉ, bàn tay 3D minh họa, chia sẻ file kiểu Huawei bằng cử chỉ.">
+  <title>Hướng dẫn sử dụng · SlideVault 3D Touch</title>
+  <link rel="stylesheet" href="mobile-optimization.css?v=mobile-4">
+  <link rel="stylesheet" href="../font/fonts.css">
+  <link rel="stylesheet" href="../tệp hệ thống/glass-theme.css?v=visionos-v95">
+  <style>
+    :root { color-scheme: dark; --bg:#090e0c; --panel:rgba(17,25,22,.92); --panel-soft:rgba(20,30,25,.72); --line:#28362f; --line-soft:rgba(185,210,191,.12); --text:#f1f4ec; --muted:#a0ada4; --quiet:#8b988f; --mint:#b7f36b; --cyan:#76d6d1; --amber:#f3bd72; --radius:14px; }
+    * { box-sizing: border-box; } html, body { margin: 0; }
+    body { min-width: 320px; min-height: 100dvh; color: var(--text); font-family: 'Be Vietnam Pro', 'Segoe UI', system-ui, sans-serif; -webkit-font-smoothing: antialiased; padding-bottom: max(24px, env(safe-area-inset-bottom));
+      background: radial-gradient(ellipse at 8% 0%, rgba(90,139,92,.16), transparent 38rem), radial-gradient(ellipse at 98% 72%, rgba(51,116,111,.12), transparent 34rem), var(--bg); }
+    .shell { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
+    .topbar { min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line-soft); }
+    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--text); }
+    .brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid rgba(183,243,107,.5); color: var(--mint); font: 700 11px 'Montserrat', sans-serif; transform: rotate(-8deg); border-radius: 7px; }
+    .brand-name { font: 700 13px 'Montserrat', sans-serif; letter-spacing: .06em; }
+    .topbar-links { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .topbar-links a { color: var(--muted); text-decoration: none; font-size: 12px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 9px; transition: border-color .2s, color .2s; }
+    .topbar-links a:hover { color: var(--text); border-color: var(--mint); }
+    .topbar-links a.primary { background: var(--mint); color: #10200a; border-color: transparent; font-weight: 700; }
+    .hero { padding: 34px 0 8px; animation: rise-in .5s cubic-bezier(.2,.8,.2,1) both; }
+    .eyebrow { color: var(--mint); font: 600 11px 'Montserrat', sans-serif; letter-spacing: .18em; text-transform: uppercase; }
+    h1 { margin: 10px 0 8px; font: 600 30px 'Montserrat', sans-serif; }
+    .hero p { margin: 0; max-width: 780px; color: var(--muted); font-size: 13.5px; line-height: 1.75; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 16px; border-bottom: 1px solid var(--line); }
+    .section-label { color: var(--cyan); font: 600 10.5px 'Montserrat', sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+    .hand-lab { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 14px; margin-top: 22px; }
+    .hand-stage-wrap { position: relative; min-height: 380px; background: radial-gradient(circle at 50% 42%, rgba(118,214,209,.09), transparent 60%), rgba(10,16,13,.8); }
+    #hand3d-stage { position: absolute; inset: 0; }
+    #live-layer { position: absolute; inset: 0; display: none; }
+    #live-layer video { width: 100%; height: 100%; object-fit: cover; }
+    #live-layer canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .stage-note { position: absolute; left: 12px; bottom: 12px; right: 12px; display: flex; justify-content: space-between; gap: 8px; font: 500 10.5px ui-monospace, monospace; color: var(--quiet); pointer-events: none; z-index: 3; }
+    .demo-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; padding: 14px; }
+    .demo-buttons button { min-height: 44px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-soft); color: var(--text); font: 600 12px 'Be Vietnam Pro', sans-serif; cursor: pointer; transition: transform .15s, border-color .2s, background .2s; }
+    .demo-buttons button:hover { border-color: var(--cyan); }
+    .demo-buttons button.active { border-color: var(--mint); background: rgba(183,243,107,.14); color: var(--mint); }
+    .demo-buttons button:active { transform: scale(.97); }
+    .demo-desc { padding: 0 16px 16px; color: var(--muted); font-size: 12.5px; line-height: 1.7; min-height: 66px; }
+    .demo-desc b { color: var(--text); }
+    .live-toggle { display: flex; gap: 8px; padding: 0 14px 14px; }
+    .live-toggle button { flex: 1; min-height: 46px; border-radius: 11px; border: 1px solid var(--line); background: var(--panel-soft); color: var(--text); font: 700 12.5px 'Be Vietnam Pro', sans-serif; cursor: pointer; }
+    .live-toggle button.live { background: var(--mint); color: #10200a; border-color: transparent; }
+    .live-toggle button.stop { border-color: rgba(240,132,121,.5); color: #ffb4aa; }
+    @keyframes rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 900px) { .hand-lab { grid-template-columns: 1fr; } .hand-stage-wrap { min-height: 320px; } }
+    @media (max-width: 700px) { .shell { width: min(100% - 22px, 620px); } h1 { font-size: 24px; } .hand-stage-wrap { min-height: 280px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+  <!-- Universal Glass Design System & Anti-Crash Guardian -->
+  <link rel="stylesheet" href="../tệp hệ thống/glass-theme.css?v=visionos-v95">
+  <script src="../tệp hệ thống/glass-theme.js?v=visionos-v95"></script>
+  <script src="../tệp hệ thống/anti-crash-client.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="../trangchudong.html" aria-label="SlideVault 3D Touch">
+        <span class="brand-mark">SV</span>
+        <span class="brand-name">3D TOUCH · HƯỚNG DẪN</span>
+      </a>
+      <nav class="topbar-links">
+        <a href="../trangchudong.html">🏠 Về trang chủ</a>
+        <a href="share.html">AirShare</a>
+        <a href="dieukhien.html">Motion Lab</a>
+        <a class="primary" href="../phone.html">📱 Điều khiển điện thoại</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <span class="eyebrow">Trung tâm hướng dẫn</span>
+      <h1>Dùng 3D Touch như một người thật</h1>
+      <p>Bàn tay 3D diễn lại từng động tác đúng như khi bạn đứng trước camera: chỉ để rê con trỏ, chụm ngón để bấm, xòe tay để vuốt, nắm để cầm file và ném để chuyển sang máy khác. Xem minh họa 3D, bật camera thật để thử, rồi làm theo từng bước bên dưới.</p>
+    </section>
+
+    <section class="hand-lab" aria-label="Phòng thí nghiệm bàn tay 3D">
+      <div class="card">
+        <div class="card-head">
+          <span class="section-label">Bàn tay 3D · minh họa</span>
+          <span class="section-label" id="stage-mode-tag">DEMO</span>
+        </div>
+        <div class="hand-stage-wrap">
+          <div id="hand3d-stage" role="img" aria-label="Bàn tay 3D minh họa cử chỉ"></div>
+          <div id="live-layer">
+            <video id="live-video" playsinline muted></video>
+            <canvas id="live-canvas" aria-hidden="true"></canvas>
+          </div>
+          <div class="stage-note">
+            <span id="stage-status">Đang tải mô hình 3D…</span>
+            <span id="stage-fps"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="section-label">Chọn động tác</span>
+          <span class="section-label" id="gesture-name">Vẫy tay</span>
+        </div>
+        <div class="demo-buttons" id="demo-buttons">
+          <button type="button" data-demo="wave" class="active">👋 Vẫy tay</button>
+          <button type="button" data-demo="point">☝️ Chỉ ngón</button>
+          <button type="button" data-demo="scroll">✌️ Cuộn 2 ngón</button>
+          <button type="button" data-demo="thumbsUp">👍 Toàn màn hình</button>
+          <button type="button" data-demo="pinch">🤏 Chụm ngón</button>
+          <button type="button" data-demo="grabThrow">✊ Nắm &amp; ném</button>
+          <button type="button" data-demo="swipe">🖐️ Xòe vuốt</button>
+        </div>
+        <p class="demo-desc" id="demo-desc"><b>Vẫy tay</b> — cử chỉ làm quen: giữ tay đủ sáng, lòng bàn tay hướng camera. Doanh trỏ sẽ bám theo đầu ngón trỏ của bạn.</p>
+        <div class="live-toggle">
+          <button type="button" id="btn-live" class="live">🎥 Bật camera thật</button>
+          <button type="button" id="btn-stop" class="stop" hidden>⏹ Dừng camera</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top: 22px;" aria-label="Video minh họa">
+      <div class="card-head">
+        <span class="section-label">Video minh họa</span>
+        <span class="section-label">assets/tutorial-3dtouch.mp4</span>
+      </div>
+      <div style="padding: 14px;">
+        <video id="tutorial-video" controls playsinline preload="metadata" style="width:100%;border-radius:12px;border:1px solid var(--line);background:#050a07;"
+          poster="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Crect width='1280' height='720' fill='%23090e0c'/%3E%3Ctext x='640' y='340' fill='%23b7f36b' font-family='sans-serif' font-size='44' text-anchor='middle'%3E3D Touch %E2%80%94 Video minh h%E1%BB%8Da%3C/text%3E%3Ctext x='640' y='400' fill='%23a0ada4' font-family='sans-serif' font-size='26' text-anchor='middle'%3ECh%C6%B0a c%C3%B3 t%E1%BB%87p video %E2%80%94 xem minh h%E1%BB%8Da 3D ph%C3%ADa tr%C3%AAn%3C/text%3E%3C/svg%3E">
+          <source src="assets/tutorial-3dtouch.mp4" type="video/mp4">
+        </video>
+        <p id="video-fallback" class="demo-desc" style="padding: 10px 2px 0;" hidden>
+          Chưa tìm thấy tệp video minh họa trong thư mục <b>assets/</b>. Bạn vẫn có thể xem minh họa 3D động phía trên hoặc bật camera để thực hành trực tiếp. Muốn thêm video: đặt tệp <b>tutorial-3dtouch.mp4</b> vào <b>3dtouch/assets/</b> là trang tự nhận.
+        </p>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top: 22px;" aria-label="Các bước sử dụng">
+      <div class="card-head"><span class="section-label">4 bước để dùng</span></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));">
+        <div style="padding:16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);"><b style="color:var(--mint);">1 · Kết nối</b><p style="margin:8px 0 0;color:var(--muted);font-size:12.5px;line-height:1.7;">Mở Motion Lab trên máy tính → bấm <b>Điện thoại</b> → quét mã QR bằng điện thoại (hoặc nhập mã PIN 4 số ở trang phone.html).</p></div>
+        <div style="padding:16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);"><b style="color:var(--mint);">2 · Bật camera</b><p style="margin:8px 0 0;color:var(--muted);font-size:12.5px;line-height:1.7;">Chọn camera máy tính hoặc webcam điện thoại P2P. Đứng cách 85–115cm (cự ly vàng), đủ sáng, tránh ngược sáng.</p></div>
+        <div style="padding:16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);"><b style="color:var(--mint);">3 · Ra cử chỉ</b><p style="margin:8px 0 0;color:var(--muted);font-size:12.5px;line-height:1.7;">Chỉ ngón trỏ để rê. Chụm ngón cái + trỏ để bấm. Xòe tay vuốt ngang để chuyển trang, vuốt dọc để cuộn.</p></div>
+        <div style="padding:16px;border-bottom:1px solid var(--line);"><b style="color:var(--mint);">4 · Chia sẻ</b><p style="margin:8px 0 0;color:var(--muted);font-size:12.5px;line-height:1.7;">Nắm tay trên file/slide để &quot;cầm&quot;, rồi ném hoặc thả vào chip thiết bị để chuyển sang máy khác — như Huawei Share nhưng bằng cử chỉ.</p></div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top: 22px;" aria-label="Chia sẻ kiểu Huawei Share">
+      <div class="card-head">
+        <span class="section-label">AirShare · Chia sẻ kiểu Huawei</span>
+        <a href="share.html" style="color:var(--cyan);font-size:12px;text-decoration:none;">Mở bản demo →</a>
+      </div>
+      <div style="padding:16px;color:var(--muted);font-size:12.7px;line-height:1.8;">
+        <p style="margin:0 0 10px;"><b style="color:var(--text);">Cách hoạt động:</b> hai thiết bị bất kỳ (phone ↔ laptop ↔ tablet ↔ pc, đều có camera hoặc không) kết nối cùng một phiên — qua mã PIN/QR cho máy khác mạng, hoặc tự nhận nhau khi mở cùng trình duyệt (BroadcastChannel). File/folder/PowerPoint truyền trực tiếp P2P qua WebRTC, không qua server.</p>
+        <p style="margin:0 0 10px;"><b style="color:var(--text);">Động tác cử chỉ:</b> ✊ Nắm tay trên thẻ file (giữ 0.14s) → file &quot;dính&quot; vào tay bạn; 🖐️ Xòe đẩy về phía camera hoặc thả vào chip thiết bị → file bay sang máy nhận kèm hiệu ứng, bên nhận rung + tự tải xuống.</p>
+        <p style="margin:0;"><b style="color:var(--text);">Không có camera?</b> Vẫn dùng tốt: kéo–thả file vào AirShare hoặc bấm nút Gửi trong danh sách thiết bị. Folder tự đóng gói thành danh sách tải tuần tự; PowerPoint nhận về mở ngay bằng URL cục bộ. Khi P2P bị chặn (mạng công ty), hệ thống tự chuyển sang relay của server và trả link chia sẻ.</p>
+      </div>
+    </section>
+
+    <footer style="margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--line-soft); display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; color:var(--quiet); font-size:11px;">
+      <span>SlideVault 3D Touch · AI xử lý ngay trên thiết bị — video không rời khỏi máy bạn.</span>
+      <span>v2 · 04/2026</span>
+    </footer>
+  </div>
+
+  <script src="hand3d.js?v=20261012_ultra_fix_v4"></script>
+  <script src="vision-engine.js?v=20261012_v4"></script>
+  <script>
+    (function () {
+      'use strict';
+      var stageEl = document.getElementById('hand3d-stage');
+      var statusEl = document.getElementById('stage-status');
+      var fpsEl = document.getElementById('stage-fps');
+      var modeTag = document.getElementById('stage-mode-tag');
+      var gestureName = document.getElementById('gesture-name');
+      var demoDesc = document.getElementById('demo-desc');
+      var liveLayer = document.getElementById('live-layer');
+      var liveVideo = document.getElementById('live-video');
+      var liveCanvas = document.getElementById('live-canvas');
+      var btnLive = document.getElementById('btn-live');
+      var btnStop = document.getElementById('btn-stop');
+      var hand = null;
+      var engine = null;
+
+      var DESC = {
+        wave: ['Vẫy tay', 'Cử chỉ làm quen: lòng bàn tay hướng camera, tay đủ sáng. Con trỏ sẽ bám theo đầu ngón trỏ khi bạn đưa tay.'],
+        point: ['Chỉ ngón', 'Duỗi thẳng ngón trỏ, các ngón khác thu lại. Đầu ngón trỏ điều khiển con trỏ như chuột — chế độ dùng nhiều nhất.'],
+        scroll: ['Cuộn 2 ngón', 'Duỗi thẳng ngón trỏ và ngón giữa song song (như 2 ngón trackpad macOS), di chuyển lên/xuống để cuộn trang web mượt mà.'],
+        thumbsUp: ['Toàn màn hình', 'Nắm tay và giơ ngón cái hướng lên trên (Thumbs Up) để phóng to toàn màn hình hoặc thoát toàn màn hình tức thì.'],
+        pinch: ['Chụm ngón', 'Chụm ngón cái và ngón trỏ như nhấc hạt gạo. Mỗi lần chụm là một cú bấm tại vị trí con trỏ; nhịp chống lặp 0.36s tránh bấm đúp.'],
+        grabThrow: ['Nắm & ném', 'Nắm tay (giữ 0.14s) để "cầm" file/slide đang trỏ tới — file dính vào tay bạn. Mở tay kèm hất về phía camera để ném sang máy ghép đôi.'],
+        swipe: ['Xòe vuốt', 'Xòe cả bàn tay rồi vuốt ngang để chuyển trang, vuốt dọc để cuộn. Vuốt dứt khoát, biên độ ≥ 20% màn hình trong 0.45s.'],
+      };
+
+      function setDemo(name) {
+        gestureName.textContent = DESC[name][0];
+        demoDesc.innerHTML = '<b>' + DESC[name][0] + '</b> — ' + DESC[name][1];
+        document.querySelectorAll('#demo-buttons button').forEach(function (b) {
+          b.classList.toggle('active', b.dataset.demo === name);
+        });
+        hand && hand.playDemo(name);
+      }
+
+      document.querySelectorAll('#demo-buttons button').forEach(function (b) {
+        b.addEventListener('click', function () { setDemo(b.dataset.demo); });
+      });
+
+      if (window.SlideVaultHand3D) {
+        window.SlideVaultHand3D.mount(stageEl, { mode: 'demo', demo: 'wave' }).then(function (instance) {
+          if (!instance) { statusEl.textContent = 'Không tải được thư viện 3D (cần mạng lần đầu).'; return; }
+          hand = instance;
+          statusEl.textContent = 'Sẵn sàng · đổi động tác bằng nút bên cạnh';
+        });
+      } else {
+        statusEl.textContent = 'Thiếu hand3d.js — kiểm tra lại thư mục 3dtouch.';
+      }
+
+      function fmtEvent(e) {
+        switch (e.type) {
+          case 'move': return 'Con trỏ: ' + (e.pointer.x * 100).toFixed(0) + '% / ' + (e.pointer.y * 100).toFixed(0) + '%';
+          case 'click': return '✨ Bấm! (chụm ngón)';
+          case 'grab': return '✊ Đang cầm — hãy ném về phía camera';
+          case 'release': return '🖐️ Đã thả';
+          case 'air-drop': return '🚀 Ném! tốc độ ' + (e.speed || 0).toFixed(2) + '/s';
+          case 'swipe': return '↔️ Vuốt hướng ' + e.direction;
+          case 'lost': return 'Không thấy tay — đưa tay vào khung hình';
+          default: return null;
+        }
+      }
+
+      btnLive.addEventListener('click', async function () {
+        if (!window.SlideVaultVision || !window.SlideVaultVision.create) {
+          statusEl.textContent = 'Thiếu vision-engine.js.';
+          return;
+        }
+        btnLive.disabled = true;
+        statusEl.textContent = 'Đang tải mô hình AI (lần đầu hơi lâu)…';
+        try {
+          engine = await window.SlideVaultVision.create({
+            video: liveVideo,
+            canvas: liveCanvas,
+            withPose: false,
+            onEvent: function (e) {
+              if (e.type === 'ready') statusEl.textContent = 'Mô hình sẵn sàng · ' + e.delegate;
+              else if (e.type === 'started') statusEl.textContent = 'Camera chạy · lấy nét ' + (e.focus && e.focus.focus ? 'liên tục ✓' : 'tự động');
+              else if (e.type === 'stats') fpsEl.textContent = e.fps + ' FPS · ' + e.inferMs + 'ms · ' + e.delegate + (e.lowPower ? ' · tiết kiệm pin' : '');
+              else {
+                var line = fmtEvent(e);
+                if (line) statusEl.textContent = line;
+              }
+            },
+          });
+          await engine.start();
+          stageEl.style.display = 'none';
+          liveLayer.style.display = 'block';
+          modeTag.textContent = 'LIVE';
+          btnStop.hidden = false;
+          btnLive.textContent = '🎥 Camera đang chạy';
+        } catch (error) {
+          statusEl.textContent = 'Không mở được camera: ' + (error && error.message ? error.message : error);
+          btnLive.disabled = false;
+        }
+      });
+
+      btnStop.addEventListener('click', function () {
+        engine && engine.stop();
+        engine = null;
+        liveLayer.style.display = 'none';
+        stageEl.style.display = 'block';
+        modeTag.textContent = 'DEMO';
+        btnLive.disabled = false;
+        btnLive.textContent = '🎥 Bật camera thật';
+        btnStop.hidden = true;
+        fpsEl.textContent = '';
+        statusEl.textContent = 'Đã dừng camera · quay lại minh họa 3D';
+      });
+
+      var video = document.getElementById('tutorial-video');
+      var fallback = document.getElementById('video-fallback');
+      var videoFailed = function () {
+        video.style.display = 'none';
+        fallback.hidden = false;
+      };
+      video.addEventListener('error', videoFailed, true);
+      setTimeout(function () { if (video.networkState === 3) videoFailed(); }, 3000);
+
+      window.addEventListener('pagehide', function () {
+        engine && engine.stop();
+        hand && hand.dispose();
+      });
+    })();
+  </script>
+  <script src="../tệp hệ thống/glass-theme.js?v=visionos-v95"></script>
+</body>
+</html>

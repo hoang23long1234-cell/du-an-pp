@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="stylesheet" href="3dtouch/mobile-optimization.css?v=mobile-4">
+  <title>Cài Đặt Hệ Thống | SlideVault - Quản Trị AI & Tùy Biến Giao Diện</title>
+  
+  <!-- Local Fonts -->
+  <link rel="stylesheet" href="font/fonts.css">
+  
+  <!-- Tailwind CSS & shadcn/ui Design System -->
+  <link rel="stylesheet" href="tệp hệ thống/tailwind-shadcn/shadcn.css">
+  <link rel="stylesheet" href="tệp hệ thống/glass-theme.css?v=visionos-v98">
+  <script src="tệp hệ thống/tailwind-shadcn/tailwind.min.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/tailwind.config.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/lucide.min.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/shadcn.js" defer></script>
+  <script src="tệp hệ thống/glass-theme.js?v=visionos-v98"></script>
+  <!-- Official Supabase JS Client v2 SDK (Local First & CDN Fallback) -->
+  <script src="tệp hệ thống/supabase.min.js"></script>
+  <script>
+    if (typeof window.supabase === "undefined") {
+      const s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js";
+      document.head.appendChild(s);
+    }
+  </script>
+  <script src="tệp hệ thống/auth-state.js"></script>
+
+  <script src="3dtouch/touch-control.js?v=spatial-ultra-v70" defer></script>
+  <script>
+    try {
+      if (window.matchMedia('(max-width: 1024px)').matches) {
+        localStorage.removeItem('slidevault_sidebar_collapsed');
+      }
+    } catch(e) {}
+    window.__sv_sidebar_clean = true;
+  </script>
+  <script src="fix.html/security_shield.js"></script>
+
+  <style id="lab-optimization-styles">
+    /* Hardware Acceleration & High Refresh Rate (120Hz+) */
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .offcanvas, #appSidebar, .modal, .glass-panel {
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+    /* Touch optimization */
+    button, a, input, select, textarea {
+      touch-action: manipulation;
+    }
+
+    /* Chống chọn nhầm văn bản gây ra khối màu xanh và popup thanh dịch Chrome khi chạm màn hình hoặc vuốt slider */
+    .saas-layout-wrapper,
+    .sv-ultra-card,
+    .saas-sidebar,
+    .setting-tab-pill,
+    .custom-slider,
+    button,
+    label,
+    select,
+    .sidebar-footer-profile,
+    nav {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+    }
+
+    /* Cho phép chọn văn bản chỉ trong ô nhập liệu */
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="url"],
+    textarea,
+    pre,
+    code {
+      -webkit-user-select: text !important;
+      -moz-user-select: text !important;
+      user-select: text !important;
+      -webkit-touch-callout: default !important;
+    }
+
+    /* Style vùng chọn tinh tế, không bao giờ bị màu xanh che khuất giao diện */
+    ::selection {
+      background: rgba(16, 185, 129, 0.25) !important;
+      color: inherit !important;
+    }
+    ::-moz-selection {
+      background: rgba(16, 185, 129, 0.25) !important;
+      color: inherit !important;
+    }
+  </style>
+  
+  <!-- SlideVault Pro Enterprise Anti-Crash & Hack Guardian -->
+  <script src="tệp hệ thống/anti-crash-client.js"></script>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen selection:bg-emerald-500/30 selection:text-emerald-300">
+
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div data-sidebar-backdrop class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity"></div>
+
+  <!-- ================= FLOATING SAAS SHELL ================= -->
+  <div class="saas-layout-wrapper">
+
+  <!-- Floating Collapsible Sidebar -->
+    <aside class="saas-sidebar" data-sidebar id="saasAppSidebar">
+      <!-- Brand Logo & Collapse Toggle -->
+      <div class="sidebar-brand-header flex items-center justify-between pb-4 border-b border-border/60">
+        <a href="trangchudong.html" class="flex items-center gap-3 group no-underline border-0 outline-none shadow-none">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 to-indigo-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+          </div>
+          <div class="sidebar-text">
+            <div class="flex items-center gap-1.5">
+              <span class="font-display font-bold text-lg tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text">SlideVault</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">PRO</span>
+            </div>
+            <p class="text-[11px] text-muted-foreground font-medium">AI Presentation Studio</p>
+          </div>
+        </a>
+        <div class="flex items-center gap-1 shrink-0">
+          <button type="button" data-sidebar-close class="lg:hidden p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-all cursor-pointer" title="Đóng thanh bên" aria-label="Đóng thanh bên">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+          <button type="button" data-sidebar-collapse-btn class="sidebar-collapse-btn hidden lg:flex p-1.5 rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-all ml-1 shrink-0 cursor-pointer" title="Thu gọn / Mở rộng (Ctrl+B)" aria-label="Thu gọn thanh bên" onclick="if (window.SlideVaultUI) { event.preventDefault(); event.stopPropagation(); window.SlideVaultUI.toggleCollapse(); }">
+            <svg class="w-4 h-4 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tree with Inertial Elastic Scrolling -->
+      <nav class="flex-1 py-4 space-y-5 overflow-y-auto sidebar-nav-scroll" style="scrollbar-width: none;">
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Không Gian</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="trangchudong.html" class="nav-pill-item " data-tooltip="Trang chủ">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span class="sidebar-text">Trang chủ</span>
+              </a>
+            </li>
+            <li>
+              <a href="vault.html" class="nav-pill-item " data-tooltip="Vault của tôi">
+                <svg class="nav-icon w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></svg>
+                <span class="sidebar-text">Vault của tôi</span>
+              </a>
+            </li>
+            <li>
+              <a href="thuvienmau.html" class="nav-pill-item " data-tooltip="Thư viện mẫu">
+                <svg class="nav-icon w-4 h-4 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                <span class="sidebar-text">Thư viện mẫu</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[10px] font-semibold px-1.5 py-0.5 rounded-md bg-muted text-muted-foreground">50+</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Công Cụ AI</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="AI.html" class="nav-pill-item " data-tooltip="AI Studio Trực Tiếp">
+                <svg class="nav-icon w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                <span class="sidebar-text">AI Studio Trực Tiếp</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300">HOT</span>
+              </a>
+            </li>
+            <li>
+              <a href="vanban.html" class="nav-pill-item " data-tooltip="Văn bản → Slide">
+                <svg class="nav-icon w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <span class="sidebar-text">Văn bản → Slide</span>
+              </a>
+            </li>
+            <li>
+              <a href="phoimau.html" class="nav-pill-item " data-tooltip="Phối màu 1-Click">
+                <svg class="nav-icon w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg>
+                <span class="sidebar-text">Phối màu 1-Click</span>
+              </a>
+            </li>
+            <li>
+              <a href="vebieudonhanh.html" class="nav-pill-item " data-tooltip="Vẽ biểu đồ nhanh">
+                <svg class="nav-icon w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                <span class="sidebar-text">Vẽ biểu đồ nhanh</span>
+              </a>
+            </li>
+            <li>
+              <a href="trinhchieuchiase.html" class="nav-pill-item " data-tooltip="Trình chiếu & Chia sẻ">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                <span class="sidebar-text">Trình chiếu & Chia sẻ</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Cài Đặt & Hệ Thống</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="setting.html" class="nav-pill-item active" data-tooltip="Cài đặt">
+                <svg class="nav-icon w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="sidebar-text">Cài đặt</span>
+              </a>
+            </li>
+            <li>
+              <a href="security.html" class="nav-pill-item " data-tooltip="Bảo mật">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span class="sidebar-text">Bảo mật</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </nav>
+
+      <!-- Sidebar Footer User Profile -->
+      <div class="pt-4 border-t border-border/60">
+        <div class="sidebar-footer-profile flex items-center justify-between p-2 rounded-2xl bg-surface-pill/50 border border-border/40">
+          <a href="dangnhap.html" class="flex items-center gap-2.5 min-w-0 flex-1 text-decoration-none group hover:opacity-90 transition-opacity" title="Bấm để đăng nhập hoặc xem tài khoản">
+            <div id="sidebarUserAvatar" class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-indigo-500 flex items-center justify-center text-xs font-bold text-white shadow-sm flex-shrink-0 group-hover:ring-2 group-hover:ring-emerald-400/50 transition-all">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sidebar-text truncate">
+              <div id="sidebarUserName" class="text-xs font-semibold truncate leading-tight group-hover:text-emerald-400 transition-colors">Khách</div>
+              <div id="sidebarUserEmail" class="text-[10px] text-muted-foreground truncate">Bấm để đăng nhập</div>
+            </div>
+          </a>
+          <div class="flex items-center gap-1 shrink-0">
+            <button data-theme-toggle class="p-1.5 rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện Sáng / Tối">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+            <a href="dangnhap.html" id="sidebarAuthActionBtn" class="p-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors cursor-pointer text-decoration-none flex items-center justify-center" title="Đăng nhập tài khoản">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <div class="saas-main-stage flex-1 flex flex-col min-w-0">
+    
+    <!-- FLOATING TOPBAR -->
+    <!-- FLOATING LUXURY APPLE TOPBAR -->
+      <header class="saas-topbar sticky top-2 z-30 flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-2 rounded-2xl sm:rounded-full bg-card/80 backdrop-blur-2xl border border-border/60 shadow-lg transition-all">
+        <!-- Left: Brand Breadcrumb -->
+        <div class="flex items-center gap-2.5 min-w-0">
+          <button type="button" data-sidebar-toggle class="lg:hidden p-1.5 -ml-1 rounded-xl bg-surface-pill border border-border/60 text-foreground hover:bg-muted transition-colors cursor-pointer flex items-center justify-center shrink-0" aria-label="Mở menu danh mục" title="Mở menu">
+            <svg class="w-4 h-4 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          </button>
+          <a href="trangchudong.html" class="flex items-center gap-2 text-decoration-none group shrink-0">
+            <div class="w-7 h-7 rounded-xl bg-gradient-to-br from-emerald-400 to-indigo-600 flex items-center justify-center shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-white"></i>
+            </div>
+            <span class="font-display font-bold text-sm tracking-tight text-foreground inline-flex items-center">SlideVault</span>
+            <span class="text-xs text-muted-foreground/40 hidden sm:inline">/</span>
+            <span class="text-xs font-semibold text-emerald-400 hidden sm:inline">Cài đặt hệ thống</span>
+          </a>
+        </div>
+
+        <!-- Center: Minimalist Search Bar -->
+        <div class="relative hidden md:block flex-1 max-w-xs mx-2">
+        <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/70 pointer-events-none"></i>
+        <input id="settingSearchInput" type="text" oninput="filterSettingsSearch(this.value)" placeholder="Tìm kiếm cài đặt nhanh (AI, Kính mờ, Tài khoản, 3D Touch...)" aria-label="Tìm kiếm cài đặt nhanh" class="w-full pl-10 pr-4 py-1.5 text-xs rounded-full bg-surface-pill border border-border/60 text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-emerald-500/60 transition-all">
+      </div>
+
+        <!-- Right: Actions, Language, Theme & Primary CTA -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <!-- 3D Touch Master Toggle -->
+          <button type="button" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt 3D Touch" title="SlideVault 3D Touch: Chuột Laser, Remote điện thoại, AirShare & Cảm ứng lực" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-surface-pill border border-emerald-500/30 hover:border-emerald-500 text-xs text-foreground transition-all active:scale-95 group shadow-sm cursor-pointer">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 group-[.active]:animate-ping"></span>
+            <i data-lucide="hand" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span class="font-semibold text-[11px] text-foreground group-hover:text-emerald-400 hidden sm:inline">3D Touch</span>
+          </button>
+
+          <!-- Language Selector -->
+          <div class="lang-dropdown-container relative hidden sm:block">
+            <button type="button" onclick="this.nextElementSibling ? this.nextElementSibling.classList.toggle('show') : null" class="control-pill text-xs flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-surface-pill border border-border/60 text-foreground hover:bg-muted transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span class="font-semibold text-xs">VI</span>
+              <i data-lucide="chevron-down" class="w-3 h-3 text-muted-foreground"></i>
+            </button>
+            <div class="lang-dropdown-menu">
+              <div class="lang-dropdown-item font-semibold text-emerald-400 border border-emerald-500/40 bg-emerald-500/10 rounded-lg p-1.5 mb-1">
+                <span>Tiếng Việt</span>
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+              </div>
+              <div class="lang-dropdown-item text-muted-foreground hover:text-foreground p-1.5 cursor-pointer">
+                <span>English</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Theme Toggle Button -->
+          <button data-theme-toggle class="p-2 rounded-full bg-surface-pill border border-border/60 text-muted-foreground hover:text-foreground transition-all active:scale-95 cursor-pointer" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+
+          <!-- Topbar Auth Action: Đăng Xuất / Đăng Nhập -->
+          <div id="topbarAuthSlot" class="flex items-center"><a href="dangnhap.html" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-pill border border-border/60 text-xs font-semibold text-foreground hover:bg-muted transition-all active:scale-95 shadow-sm text-decoration-none shrink-0" title="Đăng nhập tài khoản"><i data-lucide="user" class="w-3.5 h-3.5 text-emerald-400"></i><span class="hidden sm:inline">Đăng nhập</span></a></div>
+
+          <!-- Primary CTA: Tạo Slide AI -->
+          <a href="AI.html" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs shadow-md shadow-emerald-500/25 transition-all transform active:scale-95 text-decoration-none shrink-0">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Tạo Slide AI</span>
+          </a>
+        </div>
+      </header>
+
+    <!-- MAIN STAGE CONTENT -->
+    <main class="saas-main-card page-enter-smooth relative overflow-hidden" style="z-index: 10;">
+      
+      <!-- HERO BANNER WITH LUXURY ASYMMETRIC SPLIT CINEMA STAGE -->
+      <section class="rounded-3xl border border-border/80 bg-gradient-to-br from-card/95 via-card/80 to-slate-900/50 backdrop-blur-3xl p-6 lg:p-10 shadow-[0_24px_60px_rgba(0,0,0,0.45)] relative overflow-hidden mb-6">
+        <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-gradient-to-br from-emerald-500/15 via-cyan-500/10 to-transparent blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none"></div>
+        
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Left Column (7 cols): VisionOS Executive Typography & Value Prop -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 text-xs font-semibold shadow-sm backdrop-blur-md">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span> SLIDEVAULT SYSTEM CONTROL 2026 • AI Engine & Liquid Glass Preferences</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight text-foreground leading-[1.12]" style="text-wrap: balance;">
+              <span>Thiết Lập Hệ Thống</span><br>
+              <span class="sv-apple-shimmer-title drop-shadow-[0_4px_24px_rgba(16,185,129,0.35)]">Trí Tuệ Nhân Tạo & Giao Diện Kính</span>
+            </h1>
+
+            <!-- Typewriter Dynamic Subtitle -->
+            <p class="text-xs sm:text-sm lg:text-base text-muted-foreground flex items-center flex-wrap gap-1.5 font-medium">
+              <span>Toàn quyền kiểm soát: </span>
+              <span class="text-emerald-400 font-bold" data-typewriter data-typewriter-words='["Cấu hình mô hình Gemini 2.5 Flash & Pro siêu tốc", "Chuyển đổi giao diện Obsidian Liquid Dark hoặc AgriNova Studio Light", "Quản lý khóa API Key bảo mật mã hóa AES-256", "Điều khiển cử chỉ không gian 3D Touch thời gian thực", "Sao lưu toàn bộ kho slide dự án về máy tính 1-Click"]'></span>
+            </p>
+
+            <p class="text-xs sm:text-sm text-muted-foreground/85 leading-relaxed max-w-2xl">
+              Tùy biến từng chi tiết theo phong cách làm việc của bạn: độ mờ đục kính thấu quang, phông chữ hiển thị, kết nối tài khoản đám mây và thông số kỹ thuật bộ xử lý AI.
+            </p>
+
+            <!-- SMART TAB NAVIGATION PILLS (CHUYỂN MỤC THÔNG MINH) -->
+            <div class="pt-3 border-t border-border/50 flex items-center gap-2 overflow-x-auto pb-1" style="scrollbar-width: none;">
+              <button type="button" onclick="switchSettingTab('all')" data-tab="all" class="setting-tab-pill px-3.5 py-2 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/50 text-white font-bold text-xs shadow-md shadow-emerald-500/20 flex items-center gap-1.5 cursor-pointer transition-all shrink-0">
+                <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Tất Cả</span>
+              </button>
+              <button type="button" onclick="switchSettingTab('ai')" data-tab="ai" class="setting-tab-pill px-3.5 py-2 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white font-semibold text-xs flex items-center gap-1.5 cursor-pointer transition-all shrink-0">
+                <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span>Mô Hình AI</span>
+              </button>
+              <button type="button" onclick="switchSettingTab('glass')" data-tab="glass" class="setting-tab-pill px-3.5 py-2 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white font-semibold text-xs flex items-center gap-1.5 cursor-pointer transition-all shrink-0">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-sky-400"></i>
+                <span>Kính Dạng Lỏng</span>
+              </button>
+              <button type="button" onclick="switchSettingTab('account')" data-tab="account" class="setting-tab-pill px-3.5 py-2 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white font-semibold text-xs flex items-center gap-1.5 cursor-pointer transition-all shrink-0">
+                <i data-lucide="user" class="w-3.5 h-3.5 text-indigo-400"></i>
+                <span>Hồ Sơ & VIP</span>
+              </button>
+              <button type="button" onclick="switchSettingTab('touch')" data-tab="touch" class="setting-tab-pill px-3.5 py-2 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white font-semibold text-xs flex items-center gap-1.5 cursor-pointer transition-all shrink-0">
+                <i data-lucide="hand" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>3D Touch</span>
+              </button>
+              <button type="button" onclick="switchSettingTab('system')" data-tab="system" class="setting-tab-pill px-3.5 py-2 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white font-semibold text-xs flex items-center gap-1.5 cursor-pointer transition-all shrink-0">
+                <i data-lucide="sliders" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Hiệu Năng</span>
+              </button>
+            </div>
+
+            <!-- Live Search Feedback Indicator -->
+            <div id="settingSearchFeedback" class="hidden text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-xl"></div>
+          </div>
+
+          <!-- Right Column (5 cols): Diagnostic & Theme Matrix Capsule -->
+          <div class="lg:col-span-5">
+            <div class="rounded-3xl border border-white/15 bg-slate-950/80 backdrop-blur-2xl p-5 shadow-2xl relative overflow-hidden group hover:border-emerald-500/40 transition-all duration-300">
+              <!-- Specular Top Lighting -->
+              <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent"></div>
+              
+              <!-- macOS Window Header -->
+              <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10 text-xs text-slate-400">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500/90 shadow-sm shadow-rose-500/50"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500/90 shadow-sm shadow-amber-500/50"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/90 shadow-sm shadow-emerald-500/50"></span>
+                  <span class="font-mono text-[11px] text-slate-300 font-semibold pl-2">System_Diagnostic.cfg</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono text-[10px] font-bold border border-emerald-500/30">CALIBRATED</span>
+              </div>
+
+              <!-- Quick Theme & Engine Status -->
+              <div class="space-y-3">
+                <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center">
+                      <i data-lucide="cpu" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <div class="text-xs font-bold text-white">Mô Hình AI Mặc Định</div>
+                      <div class="text-[10px] text-slate-400">Gemini 2.5 Flash • 1M Context</div>
+                    </div>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-mono font-bold text-[10px]">OPTIMAL</span>
+                </div>
+
+                <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-sky-500/20 text-sky-300 flex items-center justify-center">
+                      <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <div class="text-xs font-bold text-white">Độ Mờ Kính Thấu Quang</div>
+                      <div class="text-[10px] text-slate-400">Blur: 24px • Saturation: 180%</div>
+                    </div>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-full bg-sky-500/20 text-sky-300 font-mono font-bold text-[10px]">ULTRA HD</span>
+                </div>
+              </div>
+
+              <!-- Bottom Action -->
+              <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs">
+                <span class="text-slate-400 text-[11px]">Tự động lưu: <b>Bật</b></span>
+                <a href="#aiModelSelect" class="text-emerald-400 hover:text-emerald-300 font-semibold text-[11px] flex items-center gap-1 text-decoration-none">
+                  Chỉnh tham số AI <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SETTINGS MAIN GRID -->
+      <div class="space-y-6">
+
+        <!-- ================= SECTION 1: AI ENGINE & API KEYS (PRIORITY #1) ================= -->
+        <section data-setting-section="ai" class="sv-ultra-card rounded-3xl border border-border/70 p-6 lg:p-8 space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-border/60">
+            <div>
+              <h3 class="font-display font-bold text-base sm:text-lg text-foreground flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                  <i data-lucide="cpu" class="w-4 h-4"></i>
+                </div>
+                <span>Cấu Hình Mô Hình Trí Tuệ Nhân Tạo (AI Engine & LLM)</span>
+              </h3>
+              <p class="text-xs text-muted-foreground mt-1">Lựa chọn mô hình ngôn ngữ lớn để tạo nội dung slide, tóm tắt bài giảng và thiết kế tự động.</p>
+            </div>
+            <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 uppercase tracking-wider">
+              Gemini 2.5 Flash Ultra
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <!-- Left: Model Select & Capabilities -->
+            <div class="lg:col-span-7 space-y-4">
+              <div>
+                <label for="aiModelSelect" class="block text-xs font-bold text-foreground mb-1.5">Mô Hình AI Mặc Định Cho Hệ Thống</label>
+                <div class="relative">
+                  <select id="aiModelSelect" class="w-full p-3 rounded-2xl bg-surface-pill border border-border/70 text-xs font-semibold text-foreground focus:outline-none focus:border-cyan-500/60 shadow-sm cursor-pointer appearance-none">
+                    <option value="gemini-4-argon" selected>⚡ Google Gemini 4 Argon (1M Token Context & Frontier Reasoning • Antigravity Linked)</option>
+                    <option value="gemini-3.8-flash">⚡ Google Gemini 3.8 Flash (Tốc độ cực cao • Dùng lâu dài không lo quota)</option>
+                    <option value="gemini-2.5-flash">Google Gemini 2.5 Flash (Siêu nhanh 0.3s • Tối ưu thuyết trình)</option>
+                    <option value="gemini-2.5-pro">Google Gemini 2.5 Pro (Lập luận sâu sắc • Phân tích tài chính & học thuật)</option>
+                    <option value="groq-llama">Groq Llama 3.3 70B (Tốc độ phản xạ tức thì • Độ trễ cực thấp)</option>
+                    <option value="ollama-local">Ollama Local LLM (Bảo mật cục bộ 100% trên máy riêng)</option>
+                  </select>
+                  <div class="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground">
+                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- API Key Management with Eye Toggle -->
+              <div class="p-4 rounded-2xl bg-surface-pill/70 border border-border/60 space-y-3">
+                <div class="flex items-center justify-between">
+                  <label for="settingInputApiKey" class="text-xs font-bold text-foreground flex items-center gap-1.5">
+                    <i data-lucide="key" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    <span>Khóa API Riêng (Tùy Chọn Hoặc Để Trống Dùng Server Sẵn Có)</span>
+                  </label>
+                  <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Mã hóa AES-256</span>
+                </div>
+                <div class="relative flex items-center">
+                  <input id="settingInputApiKey" type="password" placeholder="Nhập khóa API Gemini hoặc Groq của bạn..." class="w-full pl-3.5 pr-11 py-2.5 text-xs font-mono rounded-xl bg-black/40 border border-white/10 text-foreground focus:outline-none focus:border-cyan-400 placeholder:text-muted-foreground/50">
+                  <button type="button" id="btnToggleApiKeyVisibility" onclick="toggleApiKeyVisibility()" class="absolute right-3 p-1 text-muted-foreground hover:text-white transition cursor-pointer" title="Ẩn/Hiện khóa API" aria-label="Ẩn hoặc hiện khóa API">
+                    <i data-lucide="eye" id="eyeIconApiKey" class="w-4 h-4"></i>
+                  </button>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-muted-foreground">
+                  <span>Hệ thống đã có sẵn Server AI chạy nền trên cổng 3000 & 8000.</span>
+                  <button type="button" onclick="testAiConnectionPing()" class="px-2.5 py-1 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-300 font-semibold cursor-pointer transition flex items-center gap-1">
+                    <i data-lucide="activity" class="w-3 h-3"></i>
+                    <span id="aiPingStatusLabel">Kiểm tra kết nối AI</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Creative Tuning Parameters -->
+            <div class="lg:col-span-5 space-y-4 p-5 rounded-2xl bg-surface-pill/50 border border-border/60">
+              <span class="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-cyan-400"></i>
+                Tham Số Sinh Nội Dung Slide
+              </span>
+
+              <div class="space-y-3">
+                <div>
+                  <div class="flex items-center justify-between text-xs font-semibold mb-1">
+                    <span class="text-foreground">Độ Sáng Tạo (Temperature):</span>
+                    <span id="labelAiTemp" class="font-mono text-cyan-400">0.7 (Cân bằng)</span>
+                  </div>
+                  <input type="range" min="1" max="10" value="7" aria-label="Thời gian tự động lưu slide" class="custom-slider w-full" oninput="document.getElementById('labelAiTemp').textContent = (this.value / 10).toFixed(1)">
+                  <div class="flex justify-between text-[10px] text-muted-foreground mt-1">
+                    <span>Chính xác / Logic</span>
+                    <span>Sáng tạo / Đột phá</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between text-xs font-semibold mb-1">
+                    <span class="text-foreground">Độ Dài Nội Dung (Tokens):</span>
+                    <span id="labelAiTokens" class="font-mono text-cyan-400">4,096 tokens</span>
+                  </div>
+                  <input type="range" min="1024" max="8192" step="512" value="4096" aria-label="Dung lượng bộ đệm RAM tối đa" class="custom-slider w-full" oninput="document.getElementById('labelAiTokens').textContent = Number(this.value).toLocaleString() + ' tokens'">
+                  <div class="flex justify-between text-[10px] text-muted-foreground mt-1">
+                    <span>Ngắn gọn (1-2 slide)</span>
+                    <span>Chi tiết sâu (15+ slide)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 2: LIQUID GLASS STUDIO & APPEARANCE (PRIORITY #2) ================= -->
+        <section data-setting-section="glass" class="sv-ultra-card rounded-3xl border border-border/70 p-6 lg:p-8 space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-border/60">
+            <div>
+              <h3 class="font-display font-bold text-base sm:text-lg text-foreground flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400">
+                  <i data-lucide="sparkles" class="w-4 h-4"></i>
+                </div>
+                <span>Studio Kính Dạng Lỏng (Liquid Glassmorphism) & Typography 2026</span>
+              </h3>
+              <p class="text-xs text-muted-foreground mt-1">Tùy biến độ trong suốt, khúc xạ ánh sáng và phông chữ  -  áp dụng đồng bộ tức thì cho toàn bộ 19 trang web.</p>
+            </div>
+            <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-sky-500/15 text-sky-400 border border-sky-500/30">
+              Universal Live Engine
+            </span>
+          </div>
+
+          <!-- Dual-Engine Theme Mode Selection -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Dark Mode Card -->
+            <div onclick="setAppTheme('dark')" id="themeCardDark" class="p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-500/10 cursor-pointer transition-all space-y-2 group hover:scale-[1.01]">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="moon" class="w-5 h-5 text-indigo-400"></i>
+                  <span class="text-xs font-bold text-foreground">Obsidian Liquid Dark Mode</span>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">Đang dùng</span>
+              </div>
+              <p class="text-[11px] text-muted-foreground">Tối sâu dịu mắt, huyền bí và sang trọng đẳng cấp Apple Pro Display.</p>
+            </div>
+
+            <!-- Light Mode Card -->
+            <div onclick="setAppTheme('light')" id="themeCardLight" class="p-4 rounded-2xl border border-border/60 hover:border-emerald-500/40 bg-surface-pill cursor-pointer transition-all space-y-2 group hover:scale-[1.01]">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="sun" class="w-5 h-5 text-amber-500"></i>
+                  <span class="text-xs font-bold text-foreground">AgriNova Studio Light</span>
+                </div>
+                <span class="text-[10px] font-semibold text-muted-foreground">Canva Style</span>
+              </div>
+              <p class="text-[11px] text-muted-foreground">Trắng ngọc tinh tế, sáng sủa, hoàn hảo khi trình chiếu hội nghị ban ngày.</p>
+            </div>
+          </div>
+
+          <!-- Glass Sliders & Live Preview Matrix -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start pt-2">
+            <!-- Left: Range Sliders (7 cols) -->
+            <div class="lg:col-span-7 space-y-4 p-5 rounded-2xl bg-surface-pill/70 border border-border/60 backdrop-blur-xl shadow-inner">
+              <div class="flex items-center justify-between pb-2 border-b border-border/40">
+                <span class="text-xs font-bold text-foreground uppercase tracking-wider flex items-center gap-2">
+                  <i data-lucide="sliders" class="w-4 h-4 text-sky-400"></i>
+                  Thông Số Kính Lỏng (Glass Sliders)
+                </span>
+                <span class="text-[11px] text-muted-foreground">Kéo thanh trượt để xem trực tiếp</span>
+              </div>
+
+              <!-- Sliders Container from glass.txt -->
+              <div class="sliders-container space-y-3.5 pt-1">
+                <!-- Slider 1: Opacity -->
+                <div class="slider-row">
+                  <label for="settingSliderOpacity" class="text-xs font-semibold text-foreground w-28 shrink-0">Trong Suốt:</label>
+                  <div class="slider-wrapper">
+                    <input type="range" min="15" max="95" value="55" id="settingSliderOpacity" class="custom-slider" oninput="onSettingSliderChange(); updateLiveGlassPreview();" />
+                  </div>
+                  <div class="slider-content">
+                    <div class="slider-divider"></div>
+                    <span class="slider-value" id="settingLabelOpacity">55%</span>
+                  </div>
+                </div>
+
+                <!-- Slider 2: Blur -->
+                <div class="slider-row">
+                  <label for="settingSliderBlur" class="text-xs font-semibold text-foreground w-28 shrink-0">Độ Mờ Hậu Cảnh:</label>
+                  <div class="slider-wrapper">
+                    <input type="range" min="0" max="40" value="24" id="settingSliderBlur" class="custom-slider" oninput="onSettingSliderChange(); updateLiveGlassPreview();" />
+                  </div>
+                  <div class="slider-content">
+                    <div class="slider-divider"></div>
+                    <span class="slider-value" id="settingLabelBlur">24px</span>
+                  </div>
+                </div>
+
+                <!-- Slider 3: Border Highlight -->
+                <div class="slider-row">
+                  <label for="settingSliderBorder" class="text-xs font-semibold text-foreground w-28 shrink-0">Độ Nét Viền Kính:</label>
+                  <div class="slider-wrapper">
+                    <input type="range" min="4" max="35" value="16" id="settingSliderBorder" class="custom-slider" oninput="onSettingSliderChange(); updateLiveGlassPreview();" />
+                  </div>
+                  <div class="slider-content">
+                    <div class="slider-divider"></div>
+                    <span class="slider-value" id="settingLabelBorder">16%</span>
+                  </div>
+                </div>
+
+                <!-- Slider 4: Brightness -->
+                <div class="slider-row">
+                  <label for="settingSliderBrightness" class="text-xs font-semibold text-foreground w-28 shrink-0">Độ Sáng Phản Quang:</label>
+                  <div class="slider-wrapper">
+                    <input type="range" min="70" max="130" value="100" id="settingSliderBrightness" class="custom-slider" oninput="onSettingSliderChange(); updateLiveGlassPreview();" />
+                  </div>
+                  <div class="slider-content">
+                    <div class="slider-divider"></div>
+                    <span class="slider-value" id="settingLabelBrightness">100%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Switches Toggles -->
+              <div class="pt-3 border-t border-border/40 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div class="flex items-center justify-between p-3 rounded-xl bg-card border border-border/50 shadow-sm">
+                  <div class="pr-2">
+                    <span class="font-bold text-foreground block">Tăng tốc 120Hz</span>
+                    <span class="text-[10px] text-muted-foreground">GPU Hardware Acceleration</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="settingHwAccelCheck" class="checkbox" checked aria-label="Bật tăng tốc phần cứng WebGL" onchange="onSettingSliderChange()" />
+                    <div class="slider"></div>
+                  </label>
+                </div>
+
+                <div class="flex items-center justify-between p-3 rounded-xl bg-card border border-border/50 shadow-sm">
+                  <div class="pr-2">
+                    <span class="font-bold text-foreground block">Giám sát sập web</span>
+                    <span class="text-[10px] text-muted-foreground">Crash & Downtime Monitor</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="settingCrashMonitorCheck" class="checkbox" checked aria-label="Bật giám sát chống treo ứng dụng" onchange="onSettingSliderChange()" />
+                    <div class="slider"></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: LIVE GLASS PREVIEW & TYPOGRAPHY PICKER (5 cols) -->
+            <div class="lg:col-span-5 space-y-4">
+              <!-- Live Glass Preview Card (Trực quan hóa kính lỏng tức thì) -->
+              <div class="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 via-cyan-500/5 to-indigo-500/10 border border-white/10 relative overflow-hidden">
+                <div class="text-[11px] font-bold uppercase tracking-wider text-emerald-400 mb-2 flex items-center gap-1.5">
+                  <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                  <span>Xem Trước Kính Lỏng Thời Gian Thực</span>
+                </div>
+                <div id="liveGlassPreviewCard" class="p-4 rounded-2xl transition-all relative overflow-hidden" style="background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.25);">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                      <i data-lucide="sparkles" class="w-3 h-3 text-emerald-400"></i>
+                      <span>Slide Thử Nghiệm</span>
+                    </span>
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">120 FPS</span>
+                  </div>
+                  <p class="text-[11px] text-slate-300 mb-3">Hiệu ứng khúc xạ, làm mờ hậu cảnh và viền kính phản chiếu sẽ hiển thị trực quan giống như khung này.</p>
+                  <div class="flex items-center gap-2">
+                    <button type="button" class="px-3 py-1 rounded-xl bg-emerald-500 text-slate-950 text-[10px] font-bold shadow-md">Thử bấm</button>
+                    <span class="text-[10px] text-slate-400">Tự động thích ứng theme</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Font Selection Box -->
+              <div class="p-5 rounded-2xl bg-surface-pill/70 border border-border/60 backdrop-blur-xl shadow-inner space-y-3">
+                <div class="flex items-center justify-between pb-2 border-b border-border/40">
+                  <span class="text-xs font-bold text-foreground uppercase tracking-wider flex items-center gap-2">
+                    <i data-lucide="type" class="w-4 h-4 text-emerald-400"></i>
+                    Bộ Phông Chữ Cao Cấp (Typography)
+                  </span>
+                  <span class="text-[11px] text-emerald-400 font-mono font-bold" id="settingCurrentFontTag">Be Vietnam Pro</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2" id="settingFontGrid">
+                  <button type="button" onclick="selectSettingFont('Be Vietnam Pro')" class="font-pill-btn p-2.5 rounded-xl border border-sky-500 bg-sky-500/15 text-left text-xs transition-all active:scale-95" data-font-btn="Be Vietnam Pro">
+                    <span class="font-bold text-foreground block">Be Vietnam Pro</span>
+                    <span class="text-[10px] text-muted-foreground">Chuẩn Quốc Tế</span>
+                  </button>
+                  <button type="button" onclick="selectSettingFont('Space Grotesk')" class="font-pill-btn p-2.5 rounded-xl border border-border/60 bg-surface-pill hover:bg-muted text-left text-xs transition-all active:scale-95" data-font-btn="Space Grotesk">
+                    <span class="font-bold text-foreground block font-display">Space Grotesk</span>
+                    <span class="text-[10px] text-muted-foreground">Tech Keynote</span>
+                  </button>
+                  <button type="button" onclick="selectSettingFont('Plus Jakarta Sans')" class="font-pill-btn p-2.5 rounded-xl border border-border/60 bg-surface-pill hover:bg-muted text-left text-xs transition-all active:scale-95" data-font-btn="Plus Jakarta Sans">
+                    <span class="font-bold text-foreground block">Plus Jakarta</span>
+                    <span class="text-[10px] text-muted-foreground">SaaS Apple</span>
+                  </button>
+                  <button type="button" onclick="selectSettingFont('Inter')" class="font-pill-btn p-2.5 rounded-xl border border-border/60 bg-surface-pill hover:bg-muted text-left text-xs transition-all active:scale-95" data-font-btn="Inter">
+                    <span class="font-bold text-foreground block">Inter</span>
+                    <span class="text-[10px] text-muted-foreground">Tối Giản Siêu Nét</span>
+                  </button>
+                  <button type="button" onclick="selectSettingFont('Outfit')" class="font-pill-btn p-2.5 rounded-xl border border-border/60 bg-surface-pill hover:bg-muted text-left text-xs transition-all active:scale-95" data-font-btn="Outfit">
+                    <span class="font-bold text-foreground block">Outfit</span>
+                    <span class="text-[10px] text-muted-foreground">Canva Magic Style</span>
+                  </button>
+                  <button type="button" onclick="selectSettingFont('Montserrat')" class="font-pill-btn p-2.5 rounded-xl border border-border/60 bg-surface-pill hover:bg-muted text-left text-xs transition-all active:scale-95" data-font-btn="Montserrat">
+                    <span class="font-bold text-foreground block">Montserrat</span>
+                    <span class="text-[10px] text-muted-foreground">Doanh Nghiệp VIP</span>
+                  </button>
+                  <button type="button" onclick="selectSettingFont('Playfair Display')" class="font-pill-btn p-2.5 rounded-xl border border-border/60 bg-surface-pill hover:bg-muted text-left text-xs transition-all active:scale-95" data-font-btn="Playfair Display">
+                    <span class="font-bold text-foreground block italic">Playfair Serif</span>
+                    <span class="text-[10px] text-muted-foreground">Thơ Mộng Editorial</span>
+                  </button>
+                  <button type="button" onclick="selectSettingFont('Lexend')" class="font-pill-btn p-2.5 rounded-xl border border-border/60 bg-surface-pill hover:bg-muted text-left text-xs transition-all active:scale-95" data-font-btn="Lexend">
+                    <span class="font-bold text-foreground block">Lexend</span>
+                    <span class="text-[10px] text-muted-foreground">Dễ Đọc, Thư Thái</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Presentation Soundtrack Player from timeline.txt -->
+              <div id="settingAudioCardContainer"></div>
+            </div>
+          </div>
+
+          <!-- Bottom Master Action Bar with apply.txt button -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-border/60">
+            <button type="button" onclick="resetSettingGlassTheme()" class="px-4 py-2 rounded-xl bg-surface-pill hover:bg-muted text-xs text-muted-foreground hover:text-foreground transition-all cursor-pointer border border-border/40">
+              ↺ Khôi Phục Mặc Định
+            </button>
+
+            <!-- Master Apply Button from apply.txt (adeladel522) -->
+            <button type="button" onclick="applyMasterGlassTheme()" class="apply-button-uiverse">
+              <span>Áp Dụng Cho Tất Cả Giao Diện Web</span>
+              <svg fill="currentColor" viewBox="0 0 24 24" class="icon">
+                <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 3: PROFILE & ACCOUNT (PRIORITY #3) ================= -->
+        <section data-setting-section="account" class="sv-ultra-card rounded-3xl border border-border/70 p-6 lg:p-8 space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-border/60">
+            <div>
+              <h3 class="font-display font-bold text-base sm:text-lg text-foreground flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+                  <i data-lucide="user" class="w-4 h-4"></i>
+                </div>
+                <span>Hồ Sơ Cá Nhân & Quản Trị Tài Khoản VIP</span>
+              </h3>
+              <p class="text-xs text-muted-foreground mt-1">Thông tin phiên đăng nhập Supabase OAuth (Google / GitHub) và đặc quyền bảo mật.</p>
+            </div>
+            <span id="settingUserTierBadge" class="text-[10px] font-bold px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 uppercase tracking-wider">
+              Gói Trọn Đời VIP
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-4 flex items-center gap-4">
+              <div class="relative shrink-0">
+                <div id="settingUserAvatar" class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-emerald-500 to-indigo-600 flex items-center justify-center text-2xl font-bold text-white shadow-xl shadow-emerald-500/20">
+                  <i data-lucide="user" class="w-7 h-7 text-white"></i>
+                </div>
+                <button type="button" class="absolute -bottom-1 -right-1 p-1.5 rounded-full bg-card border border-border shadow-lg text-muted-foreground hover:text-foreground cursor-pointer" title="Đổi ảnh đại diện" aria-label="Đổi ảnh đại diện">
+                  <i data-lucide="camera" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div id="settingUserName" class="font-bold text-lg text-foreground truncate">Khách</div>
+                <div id="settingUserEmail" class="text-xs text-muted-foreground truncate">Chưa đăng nhập • Thành viên VIP</div>
+                <div id="settingUserSecurityStatus" class="text-[11px] text-emerald-400 mt-1 font-semibold flex items-center gap-1">
+                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Web Crypto SHA-256
+                </div>
+              </div>
+            </div>
+
+            <div class="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label for="settingInputName" class="block text-xs font-semibold text-foreground mb-1">Tên Hiển Thị</label>
+                <input id="settingInputName" type="text" value="Khách" placeholder="Nhập tên hiển thị..." class="w-full p-2.5 rounded-xl bg-surface-pill border border-border/70 text-xs text-foreground focus:outline-none focus:border-emerald-500/60">
+              </div>
+              <div>
+                <label for="settingInputEmail" class="block text-xs font-semibold text-foreground mb-1">Email Đăng Ký</label>
+                <input id="settingInputEmail" type="email" value="Chưa đăng nhập" placeholder="Email của bạn..." class="w-full p-2.5 rounded-xl bg-surface-pill border border-border/70 text-xs text-foreground focus:outline-none focus:border-emerald-500/60" readonly>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons: Lưu thay đổi & ĐĂNG XUẤT -->
+          <div class="pt-4 border-t border-border/60 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="saveSettingUserProfile()" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white text-xs font-bold transition-all shadow-md shadow-emerald-500/20 flex items-center gap-1.5 active:scale-95 cursor-pointer">
+                <i data-lucide="save" class="w-3.5 h-3.5"></i>
+                <span>Lưu Thay Đổi Hồ Sơ</span>
+              </button>
+              <a href="khoiphuctaikhoan.html" class="px-3.5 py-2.5 rounded-xl bg-surface-pill hover:bg-muted border border-border/60 text-xs text-muted-foreground hover:text-foreground font-medium transition-all text-decoration-none flex items-center gap-1.5">
+                <i data-lucide="key-round" class="w-3.5 h-3.5"></i>
+                <span>Đổi Mật Khẩu</span>
+              </a>
+            </div>
+
+            <div id="settingAuthActionArea">
+              <button type="button" onclick="confirmLogoutSetting()" id="btnSettingLogout" class="px-4 py-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 hover:border-rose-500/50 text-rose-400 hover:text-rose-300 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer">
+                <i data-lucide="log-out" class="w-3.5 h-3.5 text-rose-400"></i>
+                <span>Đăng Xuất Tài Khoản</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 4: SPATIAL 3D TOUCH & GESTURE CONTROLS ================= -->
+        <section data-setting-section="touch" class="sv-ultra-card rounded-3xl border border-emerald-500/30 p-6 lg:p-8 space-y-5" aria-labelledby="touch-settings-title">
+          <div class="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-border/50">
+            <div class="min-w-0">
+              <h3 id="touch-settings-title" class="font-display font-bold text-base sm:text-lg text-foreground flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <i data-lucide="mouse-pointer-2" class="w-4 h-4"></i>
+                </div>
+                <span>Hệ Thống 3D Touch & Cử Chỉ Không Gian (Spatial Engine)</span>
+              </h3>
+              <p class="mt-1 text-xs text-muted-foreground">Điều khiển chuột laser, lật slide bằng camera và ghép nối điện thoại qua mã QR.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <a href="mobile-connect.html" class="px-3.5 py-2 rounded-xl bg-surface-pill hover:bg-muted border border-border/60 text-xs font-semibold text-slate-300 hover:text-white transition flex items-center gap-1.5 text-decoration-none">
+                <i data-lucide="qr-code" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Mở Cổng QR Mobile</span>
+              </a>
+              <button type="button" data-sv-touch-open class="inline-flex min-h-10 items-center gap-2 rounded-xl bg-emerald-500 px-4 text-xs font-bold text-slate-950 hover:bg-emerald-400 shadow-md shadow-emerald-500/25 active:scale-95 transition cursor-pointer">
+                <i data-lucide="hand" class="w-4 h-4"></i>
+                <span>Bật Điều Khiển Touch</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <label for="sv-touch-server-url" class="block text-xs font-bold text-foreground">Địa Chỉ Cổng Server Touch (WebRTC / LAN)</label>
+            <div class="flex items-center gap-2">
+              <input id="sv-touch-server-url" type="url" value="http://localhost:9000" class="w-full max-w-lg rounded-xl border border-border/70 bg-surface-pill px-3.5 py-2.5 text-xs font-mono text-foreground focus:outline-none focus:border-emerald-400" placeholder="http://localhost:9000">
+              <button type="button" onclick="document.getElementById('sv-touch-server-url').value = window.location.origin" class="px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-slate-300 hover:text-white transition cursor-pointer shrink-0">
+                Lấy IP Hiện Tại
+              </button>
+            </div>
+            <p class="text-[11px] text-muted-foreground leading-relaxed">
+              Quét mã QR từ điện thoại khi cùng bắt một Wi-Fi. Khi trình chiếu trực tiếp trên máy tính, camera sẽ tự động nhận diện bàn tay và tạo chuột Laser không chạm.
+            </p>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 5: PERFORMANCE, BACKUP & SYSTEM (PRIORITY #5) ================= -->
+        <section data-setting-section="system" class="sv-ultra-card rounded-3xl border border-border/70 p-6 lg:p-8 space-y-6">
+          <div class="flex items-center justify-between pb-3 border-b border-border/60">
+            <div>
+              <h3 class="font-display font-bold text-base sm:text-lg text-foreground flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                  <i data-lucide="database" class="w-4 h-4"></i>
+                </div>
+                <span>Hiệu Năng, Dữ Liệu & Sao Lưu Toàn Diện</span>
+              </h3>
+              <p class="text-xs text-muted-foreground mt-1">Quản lý dung lượng bộ nhớ, xuất tệp JSON dự án và dọn dẹp bộ nhớ đệm.</p>
+            </div>
+            <span class="text-[11px] font-mono font-semibold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/30">
+              Đã dùng 1.2 / 50 GB
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-2xl bg-surface-pill border border-border/60 flex items-center justify-between gap-3">
+              <div>
+                <div class="text-xs font-bold text-foreground">Sao Lưu Toàn Bộ Dự Án (JSON)</div>
+                <div class="text-[10px] text-muted-foreground mt-0.5">Tải toàn bộ bài thuyết trình và mẫu lưu trữ về máy tính an toàn</div>
+              </div>
+              <button onclick="exportAllProjects()" class="px-4 py-2 rounded-xl bg-card hover:bg-muted border border-border/70 text-xs font-semibold text-foreground flex items-center gap-1.5 transition-colors shadow-sm cursor-pointer shrink-0">
+                <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Tải Tệp</span>
+              </button>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-surface-pill border border-border/60 flex items-center justify-between gap-3">
+              <div>
+                <div class="text-xs font-bold text-foreground">Dọn Dẹp Bộ Nhớ Đệm (Cache)</div>
+                <div class="text-[10px] text-muted-foreground mt-0.5">Giải phóng 145 MB dữ liệu bản nháp và hình ảnh tạm thời</div>
+              </div>
+              <button onclick="clearCacheAction()" class="px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-semibold transition-colors border border-rose-500/20 cursor-pointer shrink-0">
+                Dọn Dẹp
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- STICKY FLOATING ACTION ISLAND (LƯU TẤT CẢ CÀI ĐẶT) -->
+      <div class="sticky bottom-4 z-30 pt-6 flex items-center justify-end">
+        <div class="p-2 rounded-2xl bg-slate-900/85 dark:bg-slate-900/85 backdrop-blur-2xl border border-white/15 shadow-2xl flex items-center gap-2.5">
+          <button type="button" onclick="window.history.back()" class="px-4 py-2 rounded-xl text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+            Quay Lại
+          </button>
+          <button type="button" onclick="saveAllSettings()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/30 flex items-center gap-2 transition-all transform active:scale-95 cursor-pointer">
+            <i data-lucide="save" class="w-4 h-4"></i>
+            <span>Lưu Cài Đặt Hệ Thống</span>
+          </button>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+  </div>
+
+  <script>
+    
+      
+
+
+    
+    // =========================================================================
+    // SMART TAB & SEARCH SYSTEM 2026
+    // =========================================================================
+    let currentSettingTab = 'all';
+
+    function switchSettingTab(tabName) {
+      currentSettingTab = tabName;
+      document.querySelectorAll('.setting-tab-pill').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabName) {
+          btn.className = 'setting-tab-pill px-3.5 py-2 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/50 text-white font-bold text-xs shadow-md shadow-emerald-500/20 flex items-center gap-1.5 cursor-pointer transition-all shrink-0';
+        } else {
+          btn.className = 'setting-tab-pill px-3.5 py-2 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white font-semibold text-xs flex items-center gap-1.5 cursor-pointer transition-all shrink-0';
+        }
+      });
+
+      document.querySelectorAll('[data-setting-section]').forEach(sec => {
+        const secType = sec.getAttribute('data-setting-section');
+        if (tabName === 'all' || secType === tabName) {
+          sec.style.display = '';
+          sec.classList.add('page-enter-smooth');
+        } else {
+          sec.style.display = 'none';
+        }
+      });
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function filterSettingsSearch(query) {
+      const q = (query || '').toLowerCase().trim();
+      const feedback = document.getElementById('settingSearchFeedback');
+      if (!q) {
+        if (feedback) feedback.classList.add('hidden');
+        switchSettingTab(currentSettingTab);
+        return;
+      }
+
+      let matchCount = 0;
+      document.querySelectorAll('[data-setting-section]').forEach(sec => {
+        const text = sec.textContent.toLowerCase();
+        if (text.includes(q)) {
+          sec.style.display = '';
+          matchCount++;
+        } else {
+          sec.style.display = 'none';
+        }
+      });
+
+      if (feedback) {
+        feedback.classList.remove('hidden');
+        feedback.textContent = `Đã tìm thấy ${matchCount} khu vực cài đặt liên quan đến: "${query}"`;
+      }
+    }
+
+    function toggleApiKeyVisibility() {
+      const input = document.getElementById('settingInputApiKey');
+      const eyeIcon = document.getElementById('eyeIconApiKey');
+      if (!input) return;
+      if (input.type === 'password') {
+        input.type = 'text';
+        if (eyeIcon) eyeIcon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        input.type = 'password';
+        if (eyeIcon) eyeIcon.setAttribute('data-lucide', 'eye');
+      }
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    async function testAiConnectionPing() {
+      const lbl = document.getElementById('aiPingStatusLabel');
+      if (lbl) lbl.textContent = 'Đang kiểm tra...';
+      const start = performance.now();
+      try {
+        const res = await fetch('/api/health');
+        const latency = Math.round(performance.now() - start);
+        if (res.ok) {
+          if (lbl) lbl.textContent = `Server AI Phản hồi tốt (${latency}ms)`;
+        } else {
+          if (lbl) lbl.textContent = `Phản hồi mã: ${res.status}`;
+        }
+      } catch (e) {
+        if (lbl) lbl.textContent = 'Không có kết nối server';
+      }
+    }
+
+    function updateLiveGlassPreview() {
+      const card = document.getElementById('liveGlassPreviewCard');
+      if (!card) return;
+      const op = Number(document.getElementById('settingSliderOpacity')?.value || 55) / 100;
+      const bl = document.getElementById('settingSliderBlur')?.value || 24;
+      const bd = Number(document.getElementById('settingSliderBorder')?.value || 16) / 100;
+      card.style.background = `rgba(15, 23, 42, ${op})`;
+      card.style.backdropFilter = `blur(${bl}px)`;
+      card.style.webkitBackdropFilter = `blur(${bl}px)`;
+      card.style.borderColor = `rgba(255, 255, 255, ${bd})`;
+    }
+
+    function setAppTheme(mode) {
+      if (window.SlideVault) {
+        SlideVault.theme.set(mode);
+      }
+      const darkCard = document.getElementById('themeCardDark');
+      const lightCard = document.getElementById('themeCardLight');
+
+      if (mode === 'dark') {
+        darkCard.className = 'p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-500/10 cursor-pointer transition-all space-y-2';
+        lightCard.className = 'p-4 rounded-2xl border border-border/60 hover:border-emerald-500/40 bg-surface-pill cursor-pointer transition-all space-y-2';
+      } else {
+        lightCard.className = 'p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-500/10 cursor-pointer transition-all space-y-2';
+        darkCard.className = 'p-4 rounded-2xl border border-border/60 hover:border-emerald-500/40 bg-surface-pill cursor-pointer transition-all space-y-2';
+      }
+    }
+
+    function exportAllProjects() {
+      if (window.SlideVault) {
+        SlideVault.toast({
+          title: 'Đang kết xuất tệp sao lưu',
+          message: 'Gói dữ liệu 18 bài thuyết trình đang được nén và tải xuống...',
+          type: 'info'
+        });
+      }
+    }
+
+    function clearCacheAction() {
+      if (window.SlideVault) {
+        SlideVault.toast({
+          title: 'Đã dọn dẹp bộ nhớ đệm',
+          message: 'Đã xóa thành công 145 MB dữ liệu nháp tạm thời.',
+          type: 'success'
+        });
+      }
+    }
+
+    function saveAllSettings() {
+      const model = document.getElementById('aiModelSelect').value;
+      localStorage.setItem('slidevault_ai_model', model);
+      const touchServer = document.getElementById('sv-touch-server-url');
+      if (touchServer?.value.trim()) {
+        localStorage.setItem('slidevault_touch_server_url', touchServer.value.trim().replace(/\/+$/, ''));
+      }
+      if (window.SlideVault) {
+        SlideVault.toast({
+          title: 'Đã lưu cài đặt!',
+          message: 'Tất cả tùy chỉnh mô hình AI và hệ thống đã được đồng bộ thành công.',
+          type: 'success'
+        });
+      }
+    }
+
+    const touchServerSetting = document.getElementById('sv-touch-server-url');
+    if (touchServerSetting) {
+      const savedTouchServer = localStorage.getItem('slidevault_touch_server_url');
+      const savedLocalhost = savedTouchServer && /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(savedTouchServer);
+      const currentOrigin = location.protocol === 'file:' ? touchServerSetting.value : location.origin;
+      touchServerSetting.value = savedLocalhost && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1'
+        ? currentOrigin
+        : savedTouchServer || currentOrigin;
+    }
+
+    // --------------------------------------------------------------------------
+    // Glassmorphism & Typography Universal Studio Handlers (glass.txt + apply.txt)
+    // --------------------------------------------------------------------------
+    let settingSelectedFont = 'Be Vietnam Pro';
+
+    function initSettingGlassControls() {
+      if (!window.SlideVaultTheme) return;
+      const s = window.SlideVaultTheme.getSettings();
+      settingSelectedFont = s.fontId || 'Be Vietnam Pro';
+
+      const op = document.getElementById('settingSliderOpacity');
+      if (op) { op.value = Math.round(s.opacity * 100); document.getElementById('settingLabelOpacity').textContent = op.value + '%'; }
+      const bl = document.getElementById('settingSliderBlur');
+      if (bl) { bl.value = s.blur; document.getElementById('settingLabelBlur').textContent = s.blur + 'px'; }
+      const bd = document.getElementById('settingSliderBorder');
+      if (bd) { bd.value = Math.round(s.borderOpacity * 100); document.getElementById('settingLabelBorder').textContent = bd.value + '%'; }
+      const br = document.getElementById('settingSliderBrightness');
+      if (br) { br.value = Math.round(s.brightness * 100); document.getElementById('settingLabelBrightness').textContent = br.value + '%'; }
+
+      const hw = document.getElementById('settingHwAccelCheck');
+      if (hw) hw.checked = s.hwAccel !== false;
+      const cr = document.getElementById('settingCrashMonitorCheck');
+      if (cr) cr.checked = s.crashMonitor !== false;
+
+      updateSettingFontButtons(settingSelectedFont);
+
+      const audioContainer = document.getElementById('settingAudioCardContainer');
+      if (audioContainer && window.SlideVaultTheme.createPresentationAudioCard) {
+        window.SlideVaultTheme.createPresentationAudioCard(audioContainer);
+      }
+    }
+
+    function onSettingSliderChange() {
+      const opacity = Number(document.getElementById('settingSliderOpacity').value) / 100;
+      const blur = Number(document.getElementById('settingSliderBlur').value);
+      const borderOpacity = Number(document.getElementById('settingSliderBorder').value) / 100;
+      const brightness = Number(document.getElementById('settingSliderBrightness').value) / 100;
+
+      document.getElementById('settingLabelOpacity').textContent = document.getElementById('settingSliderOpacity').value + '%';
+      document.getElementById('settingLabelBlur').textContent = blur + 'px';
+      document.getElementById('settingLabelBorder').textContent = document.getElementById('settingSliderBorder').value + '%';
+      document.getElementById('settingLabelBrightness').textContent = document.getElementById('settingSliderBrightness').value + '%';
+
+      const hwAccel = document.getElementById('settingHwAccelCheck')?.checked;
+      const crashMonitor = document.getElementById('settingCrashMonitorCheck')?.checked;
+
+      if (window.SlideVaultTheme) {
+        window.SlideVaultTheme.applySettings({
+          opacity,
+          blur,
+          borderOpacity,
+          brightness,
+          fontId: settingSelectedFont,
+          hwAccel,
+          crashMonitor
+        }, false);
+      }
+    }
+
+    function selectSettingFont(fontName) {
+      settingSelectedFont = fontName;
+      updateSettingFontButtons(fontName);
+      onSettingSliderChange();
+    }
+
+    function updateSettingFontButtons(fontName) {
+      const tag = document.getElementById('settingCurrentFontTag');
+      if (tag) tag.textContent = fontName;
+
+      document.querySelectorAll('#settingFontGrid button').forEach(btn => {
+        if (btn.getAttribute('data-font-btn') === fontName) {
+          btn.className = 'font-pill-btn p-2.5 rounded-xl border border-sky-500 bg-sky-500/20 text-left text-xs transition-all active:scale-95 shadow-sm';
+        } else {
+          btn.className = 'font-pill-btn p-2.5 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/10 text-left text-xs transition-all active:scale-95';
+        }
+      });
+    }
+
+    function applyMasterGlassTheme() {
+      const opacity = Number(document.getElementById('settingSliderOpacity').value) / 100;
+      const blur = Number(document.getElementById('settingSliderBlur').value);
+      const borderOpacity = Number(document.getElementById('settingSliderBorder').value) / 100;
+      const brightness = Number(document.getElementById('settingSliderBrightness').value) / 100;
+      const hwAccel = document.getElementById('settingHwAccelCheck')?.checked;
+      const crashMonitor = document.getElementById('settingCrashMonitorCheck')?.checked;
+
+      const payload = {
+        opacity,
+        blur,
+        borderOpacity,
+        brightness,
+        fontId: settingSelectedFont,
+        hwAccel,
+        crashMonitor
+      };
+
+      if (window.SlideVaultTheme) {
+        window.SlideVaultTheme.applySettings(payload, true);
+        window.SlideVaultTheme.showErrorAlert(
+          'Đã Áp Dụng Toàn Hệ Thống!',
+          'Giao diện kính mờ & phông chữ "' + settingSelectedFont + '" đã được đồng bộ hóa tức thì cho tất cả các trang web!',
+          5000
+        );
+      }
+    }
+
+    function resetSettingGlassTheme() {
+      if (window.SlideVaultTheme) {
+        localStorage.removeItem('slidevault_glass_theme_v2');
+        initSettingGlassControls();
+        window.SlideVaultTheme.applySettings(null, true);
+        window.SlideVaultTheme.showErrorAlert('Đã Khôi Phục!', 'Đã đưa giao diện về cài đặt mặc định.', 3000);
+      }
+    }
+
+    // =========================================================================
+    // QUẢN LÝ TÀI KHOẢN & ĐĂNG XUẤT (AUTH & SESSION SYSTEM)
+    // =========================================================================
+    function getSettingCurrentUser() {
+      try {
+        const raw = localStorage.getItem('slidevault_current_user');
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    async function initSettingUserAuth() {
+      if (window.SlideVaultAuth && typeof window.SlideVaultAuth.sync === 'function') {
+        await window.SlideVaultAuth.sync();
+      }
+    }
+
+    function saveSettingUserProfile() {
+      const inputName = document.getElementById('settingInputName');
+      const newName = (inputName?.value || '').trim();
+      if (!newName) {
+        if (window.SlideVaultTheme) {
+          window.SlideVaultTheme.showErrorAlert('Lỗi Nhập Liệu', 'Tên hiển thị không được để trống.', 3000);
+        } else {
+          alert('Tên hiển thị không được để trống.');
+        }
+        return;
+      }
+
+      let user = getSettingCurrentUser();
+      if (!user) {
+        user = { name: newName, email: 'user@slidevault.ai', loginAt: new Date().toISOString() };
+      } else {
+        user.name = newName;
+      }
+
+      localStorage.setItem('slidevault_current_user', JSON.stringify(user));
+
+      try {
+        const usersDb = JSON.parse(localStorage.getItem('slidevault_users_db') || '[]');
+        const idx = usersDb.findIndex(u => u.email === user.email);
+        if (idx !== -1) {
+          usersDb[idx].name = newName;
+          localStorage.setItem('slidevault_users_db', JSON.stringify(usersDb));
+        }
+      } catch (e) {}
+
+      // Persist profile changes to Server Database
+      try {
+        fetch('/api/user/profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: newName })
+        }).catch(() => {});
+      } catch (e) {}
+
+      initSettingUserAuth();
+
+      if (window.SlideVaultTheme) {
+        window.SlideVaultTheme.showErrorAlert('Thành Công!', 'Đã cập nhật tên tài khoản thành "' + newName + '"!', 3000);
+      } else {
+        alert('Đã cập nhật tên tài khoản thành công!');
+      }
+    }
+
+    function confirmLogoutSetting() {
+      const modal = document.getElementById('settingLogoutModal');
+      const card = document.getElementById('settingLogoutModalCard');
+      if (modal && card) {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100');
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+        if (window.lucide) window.lucide.createIcons();
+      } else {
+        if (confirm('Bạn có chắc chắn muốn đăng xuất khỏi tài khoản SlideVault không?')) {
+          executeLogoutSetting();
+        }
+      }
+    }
+
+    function closeLogoutModalSetting() {
+      const modal = document.getElementById('settingLogoutModal');
+      const card = document.getElementById('settingLogoutModalCard');
+      if (modal && card) {
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        card.classList.remove('scale-100');
+        card.classList.add('scale-95');
+      }
+    }
+
+    function executeLogoutSetting() {
+      closeLogoutModalSetting();
+      try {
+        const user = getSettingCurrentUser();
+        if (user?.email) {
+          localStorage.setItem('slidevault_last_security_event', JSON.stringify({
+            type: 'user-logout',
+            email: user.email,
+            timestamp: new Date().toISOString()
+          }));
+        }
+      } catch (e) {}
+
+      localStorage.removeItem('slidevault_current_user');
+
+      if (window.SlideVaultShield && typeof window.SlideVaultShield.showPill === 'function') {
+        window.SlideVaultShield.showPill('success', 'Đã đăng xuất thành công! Đang chuyển hướng...', 2500);
+      } else if (window.SlideVaultTheme) {
+        window.SlideVaultTheme.showErrorAlert('Đã Đăng Xuất', 'Tài khoản của bạn đã được đăng xuất an toàn.', 2500);
+      }
+
+      setTimeout(() => {
+        window.location.href = 'dangnhap.html';
+      }, 700);
+    }
+
+    function initSettingPage() {
+      initSettingGlassControls();
+      initSettingUserAuth();
+
+      // Tự động giải phóng mọi vùng chọn văn bản ngẫu nhiên để không kích hoạt thanh công cụ của trình duyệt
+      document.addEventListener('pointerup', () => {
+        const sel = window.getSelection?.();
+        if (sel && sel.toString().length > 0 && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
+          sel.removeAllRanges();
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSettingPage);
+    } else {
+      initSettingPage();
+    }
+  </script>
+
+  <!-- ================= DIALOG XÁC NHẬN ĐĂNG XUẤT (APPLE GLASS) ================= -->
+  <div id="settingLogoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+    <div class="w-full max-w-sm rounded-3xl bg-card/95 border border-border/80 p-6 shadow-2xl space-y-4 text-center transform scale-95 transition-transform duration-300" id="settingLogoutModalCard">
+      <div class="w-14 h-14 rounded-2xl bg-rose-500/15 border border-rose-500/30 text-rose-400 flex items-center justify-center mx-auto shadow-lg shadow-rose-500/10">
+        <i data-lucide="log-out" class="w-7 h-7"></i>
+      </div>
+      <div>
+        <h3 class="font-display font-bold text-lg text-foreground">Xác Nhận Đăng Xuất?</h3>
+        <p class="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+          Bạn có chắc chắn muốn đăng xuất khỏi tài khoản SlideVault trên thiết bị này không? Mọi cấu hình giao diện cục bộ vẫn được giữ an toàn.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-3 pt-2">
+        <button type="button" onclick="closeLogoutModalSetting()" class="py-2.5 px-4 rounded-xl border border-border/80 bg-surface-pill hover:bg-muted text-foreground text-xs font-semibold transition-all cursor-pointer">
+          Hủy Bỏ
+        </button>
+        <button type="button" onclick="executeLogoutSetting()" class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-400 hover:to-red-500 text-white text-xs font-bold shadow-lg shadow-rose-500/25 transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+          <span>Đăng Xuất</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+    
+
+  <!-- Universal Dynamic Instagram/iPhone Style Mobile Nav (Bottom Dock) -->
+  <nav class="mobile-glass-nav visionos-liquid-glass" aria-label="Điều hướng chính di động">
+    <a class="mobile-nav-item" href="trangchudong.html" data-mobile-nav="home" title="Trang chủ">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Trang chủ</span>
+    </a>
+    <a class="mobile-nav-item" href="vault.html" data-mobile-nav="vault" title="Vault">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></svg>
+      <span>Vault</span>
+    </a>
+    <a class="mobile-nav-item" href="thuvienmau.html" data-mobile-nav="templates" title="Mẫu">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+      <span>Mẫu</span>
+    </a>
+    <a class="mobile-nav-item" href="AI.html" data-mobile-nav="ai" title="AI Studio">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+      <span>AI Studio</span>
+    </a>
+    <button type="button" class="mobile-nav-item active" data-sidebar-toggle data-mobile-menu data-mobile-nav="menu" title="Mở danh mục menu" aria-label="Mở danh mục menu">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      <span>Menu</span>
+    </button>
+  </nav>
+  
+</body>
+</html>

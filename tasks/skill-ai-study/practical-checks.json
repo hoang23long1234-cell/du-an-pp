@@ -1,0 +1,61 @@
+[
+  {
+    "command": [
+      "C:\\Users\\admin\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "-B",
+      "skill AI/ui-ux-pro-max-skill-main/.claude/skills/ui-ux-pro-max/scripts/search.py",
+      "--help"
+    ],
+    "exit_code": 0,
+    "stdout": "usage: search.py [-h]\n                 [--domain {style,color,chart,landing,product,ux,typography,icons,gsap,react,web,google-fonts}]\n                 [--stack {react,nextjs,vue,svelte,astro,swiftui,react-native,flutter,nuxtjs,nuxt-ui,html-tailwind,shadcn,jetpack-compose,threejs,angular,laravel,javafx,wpf,winui,avalonia,uno,uwp}]\n                 [--max-results 1-20] [--json] [--full] [--design-system]\n                 [--project-name PROJECT_NAME] [--format {ascii,markdown}]\n                 [--persist] [--page PAGE] [--output-dir OUTPUT_DIR] [--force]\n                 [--variance 1-10] [--motion 1-10] [--density 1-10]\n                 query\n\nUI Pro Max Search\n\npositional arguments:\n  query                 Search query\n\noptions:\n  -h, --help            show this help message and exit\n  --domain, -d {style,color,chart,landing,product,ux,typography,icons,gsap,react,web,google-fonts}\n                        Search domain\n  --stack, -s {react,nextjs,vue,svelte,astro,swiftui,react-native,flutter,nuxtjs,nuxt-ui,html-tailwind,shadcn,jetpack-compose,threejs,angular,laravel,javafx,wpf,winui,avalonia,uno,uwp}\n                        Stack-specific search. Available: react, nextjs, vue,\n                        svelte, astro, swiftui, react-native, flutter, nuxtjs,\n                        nuxt-ui, html-tailwind, shadcn, jetpack-compose,\n                        threejs, angular, laravel, javafx, wpf, winui,\n                        avalonia, uno, uwp\n  --max-results, -n 1-20\n                        Max results (default: 3)\n  --json                Output as JSON\n  --full                Do not truncate long field values in text output\n  --design-system, -ds  Generate complete design system recommendation\n  --project-name, -p PROJECT_NAME\n                        Project name for design system output\n  --format, -f {ascii,markdown}\n                        Output format for design system (ignored if --json)\n  --persist             Save design system to design-system/<project-\n                        slug>/MASTER.md (creates hierarchical structure)\n  --page PAGE           Create page-specific override file in design-\n                        system/<project-slug>/pages/\n  --output-dir, -o OUTPUT_DIR\n                        Output directory for persisted files (default: current\n                        directory -- pass this explicitly, pointed at the\n                        project root)\n  --force               Overwrite an existing MASTER.md when persisting\n                        (default: skip if it already exists)\n  --variance 1-10       DESIGN_VARIANCE dial: 1=centered/minimal,\n                        10=bold/asymmetric (only with --design-system)\n  --motion 1-10         MOTION_INTENSITY dial: 1=subtle, 10=complex; pulls a\n                        matching GSAP snippet from motion.csv (only with\n                        --design-system)\n  --density 1-10        VISUAL_DENSITY dial: 1=spacious, 10=dense/dashboard;\n                        overrides the spacing scale (only with --design-\n                        system)\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\admin\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "-B",
+      "skill AI/ui-ux-pro-max-skill-main/.claude/skills/ui-ux-pro-max/scripts/search.py",
+      "focus not obscured",
+      "--domain",
+      "ux",
+      "-n",
+      "2",
+      "--json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"domain\": \"ux\",\n  \"query\": \"focus not obscured\",\n  \"file\": \"ux-guidelines.csv\",\n  \"count\": 2,\n  \"results\": [\n    {\n      \"Category\": \"Accessibility\",\n      \"Issue\": \"Focus Not Obscured (Enhanced)\",\n      \"Platform\": \"Web\",\n      \"Description\": \"WCAG 2.2 AAA requires keyboard focus to remain fully visible\",\n      \"Do\": \"Keep the entire focused component unobscured by author-created content\",\n      \"Don't\": \"Present this enhanced AAA criterion as an AA requirement or allow persistent UI to hide any part of focus\",\n      \"Code Example Good\": \"close persistent overlay before focus moves behind it\",\n      \"Code Example Bad\": \"sticky footer covers half the focused button\",\n      \"Severity\": \"Medium\"\n    },\n    {\n      \"Category\": \"Accessibility\",\n      \"Issue\": \"Focus Not Obscured (Minimum)\",\n      \"Platform\": \"Web\",\n      \"Description\": \"WCAG 2.2 AA requires keyboard focus to remain at least partially visible\",\n      \"Do\": \"Offset sticky UI with scroll-padding and dismiss or move persistent overlays\",\n      \"Don't\": \"Let headers footers banners or chat widgets fully cover focus\",\n      \"Code Example Good\": \"scroll-padding-top: var(--header-height)\",\n      \"Code Example Bad\": \"fixed overlay covers :focus\",\n      \"Severity\": \"High\"\n    }\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\admin\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "-B",
+      "skill AI/ui-ux-pro-max-skill-main/.claude/skills/ui-ux-pro-max/scripts/search.py",
+      "error summary validation",
+      "--domain",
+      "ux",
+      "-n",
+      "2",
+      "--json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"domain\": \"ux\",\n  \"query\": \"error summary validation\",\n  \"file\": \"ux-guidelines.csv\",\n  \"count\": 2,\n  \"results\": [\n    {\n      \"Category\": \"Forms / Accessibility\",\n      \"Issue\": \"Focusable Error Summary\",\n      \"Platform\": \"Web\",\n      \"Description\": \"An error summary for failed validation complements inline field errors and must be easy to find by keyboard and screen reader users\",\n      \"Do\": \"Place it at the top of the form; move focus to its heading or container after failed submit; link each item to its invalid field; retain inline errors\",\n      \"Don't\": \"Replace inline errors with a visual-only summary or move focus on every blur\",\n      \"Code Example Good\": \"<div role=\\\"alert\\\" tabindex=\\\"-1\\\" aria-labelledby=\\\"error-title\\\"><h2 id=\\\"error-title\\\">There is a problem</h2><a href=\\\"#email\\\">Enter an email address</a></div>\",\n      \"Code Example Bad\": \"Toast only with no field links or focus target\",\n      \"Severity\": \"High\"\n    },\n    {\n      \"Category\": \"Accessibility\",\n      \"Issue\": \"Error Messages\",\n      \"Platform\": \"All\",\n      \"Description\": \"Error messages must be announced\",\n      \"Do\": \"Use aria-live or role=alert for errors\",\n      \"Don't\": \"Visual-only error indication\",\n      \"Code Example Good\": \"role='alert'\",\n      \"Code Example Bad\": \"Red border only\",\n      \"Severity\": \"High\"\n    }\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "C:\\Users\\admin\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "-B",
+      "skill AI/ui-ux-pro-max-skill-main/.claude/skills/ui-ux-pro-max/scripts/search.py",
+      "chip badge overflow nowrap",
+      "--stack",
+      "html-tailwind",
+      "-n",
+      "2",
+      "--json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"domain\": \"stack\",\n  \"stack\": \"html-tailwind\",\n  \"query\": \"chip badge overflow nowrap\",\n  \"file\": \"stacks/html-tailwind.csv\",\n  \"count\": 2,\n  \"results\": [\n    {\n      \"Category\": \"Layout\",\n      \"Guideline\": \"Compact label layout\",\n      \"Description\": \"Handle chip and badge text overflow without breaking compact labels or hiding collection values\",\n      \"Do\": \"Use flex flex-wrap gap-2 for collections; for one label use whitespace-nowrap bounded min-w-0 truncate and shrink-0 controls\",\n      \"Don't\": \"Clip a fixed-height row let labels wrap inside a pill or let dismiss icons shrink\",\n      \"Code Good\": \"flex flex-wrap gap-2; label min-w-0 whitespace-nowrap truncate; icon shrink-0\",\n      \"Code Bad\": \"flex h-8 overflow-hidden\",\n      \"Severity\": \"High\",\n      \"Docs URL\": \"https://tailwindcss.com/docs/flex-wrap\",\n      \"Applies To\": \"html-tailwind 4.3\",\n      \"Status\": \"active\",\n      \"Verified At\": \"2026-08-13\"\n    },\n    {\n      \"Category\": \"Typography\",\n      \"Guideline\": \"Text truncation\",\n      \"Description\": \"Handle long text gracefully\",\n      \"Do\": \"truncate or line-clamp-*\",\n      \"Don't\": \"Overflow breaking layout\",\n      \"Code Good\": \"line-clamp-2\",\n      \"Code Bad\": \"No overflow handling\",\n      \"Severity\": \"Medium\",\n      \"Docs URL\": \"https://tailwindcss.com/docs/text-overflow\",\n      \"Applies To\": \"html-tailwind 4.3\",\n      \"Status\": \"active\",\n      \"Verified At\": \"2026-08-13\"\n    }\n  ]\n}\n",
+    "stderr": ""
+  }
+]

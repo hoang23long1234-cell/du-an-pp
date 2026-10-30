@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="stylesheet" href="3dtouch/mobile-optimization.css?v=mobile-4">
+  <title>Bộ Chuyển Đổi Tệp Đa Năng | SlideVault - PDF sang Word, PowerPoint, Excel</title>
+  
+  <!-- Local Fonts -->
+  <link rel="stylesheet" href="font/fonts.css">
+  
+  <!-- Tailwind CSS & shadcn/ui Design System -->
+  <link rel="stylesheet" href="tệp hệ thống/tailwind-shadcn/shadcn.css">
+  <link rel="stylesheet" href="tệp hệ thống/glass-theme.css?v=visionos-v98">
+  <script src="tệp hệ thống/glass-theme.js?v=visionos-v98"></script>
+  <!-- Official Supabase JS Client v2 SDK -->
+  <script src="tệp hệ thống/supabase.min.js"></script>
+  <script>
+    if (typeof window.supabase === "undefined") {
+      const s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js";
+      document.head.appendChild(s);
+    }
+  </script>
+  <script src="tệp hệ thống/auth-state.js"></script>
+
+  <script src="tệp hệ thống/tailwind-shadcn/tailwind.min.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/tailwind.config.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/lucide.min.js"></script>
+  <script src="tệp hệ thống/tailwind-shadcn/shadcn.js" defer></script>
+  <script src="3dtouch/touch-control.js?v=spatial-ultra-v70" defer></script>
+  <script>
+    try {
+      if (window.matchMedia('(max-width: 1024px)').matches) {
+        localStorage.removeItem('slidevault_sidebar_collapsed');
+      }
+    } catch(e) {}
+    window.__sv_sidebar_clean = true;
+  </script>
+  <script src="fix.html/security_shield.js"></script>
+
+  <!-- Core Conversion Libraries (Local First) -->
+  <script src="assets/js/jszip.min.js"></script>
+  <script src="fix.html/pptxgen.bundle.js"></script>
+  <script>
+    if (typeof PptxGenJS === 'undefined' && typeof window.PptxGenJS === 'undefined') {
+      const scr = document.createElement('script');
+      scr.src = 'pptxgen.bundle.js';
+      document.head.appendChild(scr);
+    }
+  </script>
+  <script src="assets/js/xlsx.full.min.js"></script>
+  <script src="assets/js/jspdf.umd.min.js"></script>
+  <script src="assets/js/pdf.min.js"></script>
+  <script src="assets/js/converter-engine.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'assets/js/pdf.worker.min.js';
+    }
+    // Preload BeVietnamPro Unicode font for 100% Vietnamese diacritic preservation in PDF
+    try {
+      fetch('font/Be_Vietnam_Pro/BeVietnamPro-Regular.ttf')
+        .then(r => r.arrayBuffer())
+        .then(buf => {
+          let binary = '';
+          const bytes = new Uint8Array(buf);
+          for (let i = 0; i < bytes.byteLength; i++) {
+            binary += String.fromCharCode(bytes[i]);
+          }
+          window.__SV_FONT_VIETNAM_B64 = btoa(binary);
+        })
+        .catch(() => {});
+    } catch(e) {}
+  </script>
+
+  <style id="converter-custom-styles">
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .offcanvas, #appSidebar, .modal, .glass-panel {
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+    button, a, input, select, textarea {
+      touch-action: manipulation;
+    }
+
+    /* VisionOS Liquid Glass Specular & Drop Zone Highlights */
+    .dropzone-active {
+      border-color: #10B981 !important;
+      background: rgba(16, 185, 129, 0.08) !important;
+      box-shadow: 0 0 35px rgba(16, 185, 129, 0.25), inset 0 0 20px rgba(16, 185, 129, 0.15);
+      transform: scale(1.008);
+    }
+
+    .converter-tab-active {
+      background: rgba(16, 185, 129, 0.18) !important;
+      color: #34D399 !important;
+      border-color: rgba(16, 185, 129, 0.45) !important;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+
+    .animate-pulse-glow {
+      animation: pulseGlow 2.4s ease-in-out infinite;
+    }
+
+    /* Custom Scrollbar for Previews */
+    .preview-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .preview-scroll::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.4);
+    }
+    .preview-scroll::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.4);
+      border-radius: 9999px;
+    }
+    .preview-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(16, 185, 129, 0.6);
+    }
+  </style>
+  
+  <!-- SlideVault Pro Enterprise Anti-Crash & Hack Guardian -->
+  <script src="tệp hệ thống/anti-crash-client.js"></script>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen selection:bg-emerald-500/30 selection:text-emerald-300">
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div data-sidebar-backdrop class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity"></div>
+
+  <!-- ================= FLOATING SAAS SHELL ================= -->
+  <div class="saas-layout-wrapper">
+
+    <!-- Floating Collapsible Sidebar -->
+    <aside class="saas-sidebar" data-sidebar id="saasAppSidebar">
+      <!-- Brand Logo & Collapse Toggle -->
+      <div class="sidebar-brand-header flex items-center justify-between pb-4 border-b border-border/60">
+        <a href="trangchudong.html" class="flex items-center gap-3 group no-underline border-0 outline-none shadow-none">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 to-indigo-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+          </div>
+          <div class="sidebar-text">
+            <div class="flex items-center gap-1.5">
+              <span class="font-display font-bold text-lg tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text">SlideVault</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">PRO</span>
+            </div>
+            <p class="text-[11px] text-muted-foreground font-medium">AI Presentation Studio</p>
+          </div>
+        </a>
+        <div class="flex items-center gap-1 shrink-0">
+          <button type="button" data-sidebar-close class="lg:hidden p-2 min-h-[44px] min-w-[44px] rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-all cursor-pointer flex items-center justify-center" title="Đóng thanh bên" aria-label="Đóng thanh bên">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+          <button type="button" data-sidebar-collapse-btn class="sidebar-collapse-btn hidden lg:flex p-2 min-h-[44px] min-w-[44px] rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-all ml-1 shrink-0 cursor-pointer items-center justify-center" title="Thu gọn / Mở rộng (Ctrl+B)" aria-label="Thu gọn thanh bên" onclick="if (window.SlideVaultUI) { event.preventDefault(); event.stopPropagation(); window.SlideVaultUI.toggleCollapse(); }">
+            <svg class="w-4 h-4 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tree -->
+      <nav class="flex-1 py-4 space-y-5 overflow-y-auto sidebar-nav-scroll" style="scrollbar-width: none;">
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Không Gian</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="trangchudong.html" class="nav-pill-item" data-tooltip="Trang chủ">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span class="sidebar-text">Trang chủ</span>
+              </a>
+            </li>
+            <li>
+              <a href="vault.html" class="nav-pill-item" data-tooltip="Vault của tôi">
+                <svg class="nav-icon w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></svg>
+                <span class="sidebar-text">Vault của tôi</span>
+              </a>
+            </li>
+            <li>
+              <a href="thuvienmau.html" class="nav-pill-item" data-tooltip="Thư viện mẫu">
+                <svg class="nav-icon w-4 h-4 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                <span class="sidebar-text">Thư viện mẫu</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[10px] font-semibold px-1.5 py-0.5 rounded-md bg-muted text-muted-foreground">50+</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Công Cụ AI & Tệp</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="AI.html" class="nav-pill-item" data-tooltip="AI Studio Trực Tiếp">
+                <svg class="nav-icon w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                <span class="sidebar-text">AI Studio Trực Tiếp</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300">HOT</span>
+              </a>
+            </li>
+            <li>
+              <a href="chuyendoi.html" class="nav-pill-item active" data-tooltip="Chuyển đổi tệp Đa Năng">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <span class="sidebar-text">Chuyển đổi tệp</span>
+                <span class="sidebar-hide-collapsed ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300">NEW</span>
+              </a>
+            </li>
+            <li>
+              <a href="vanban.html" class="nav-pill-item" data-tooltip="Văn bản → Slide">
+                <svg class="nav-icon w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <span class="sidebar-text">Văn bản → Slide</span>
+              </a>
+            </li>
+            <li>
+              <a href="phoimau.html" class="nav-pill-item" data-tooltip="Phối màu 1-Click">
+                <svg class="nav-icon w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg>
+                <span class="sidebar-text">Phối màu 1-Click</span>
+              </a>
+            </li>
+            <li>
+              <a href="vebieudonhanh.html" class="nav-pill-item" data-tooltip="Vẽ biểu đồ nhanh">
+                <svg class="nav-icon w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                <span class="sidebar-text">Vẽ biểu đồ nhanh</span>
+              </a>
+            </li>
+            <li>
+              <a href="trinhchieuchiase.html" class="nav-pill-item" data-tooltip="Trình chiếu & Chia sẻ">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>
+                <span class="sidebar-text">Trình chiếu & Chia sẻ</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">Cài Đặt & Hệ Thống</div>
+          <ul class="space-y-1">
+            <li>
+              <a href="setting.html" class="nav-pill-item" data-tooltip="Cài đặt">
+                <svg class="nav-icon w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="sidebar-text">Cài đặt</span>
+              </a>
+            </li>
+            <li>
+              <a href="security.html" class="nav-pill-item" data-tooltip="Bảo mật">
+                <svg class="nav-icon w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span class="sidebar-text">Bảo mật</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Sidebar Footer User Profile -->
+      <div class="pt-4 border-t border-border/60">
+        <div class="sidebar-footer-profile flex items-center justify-between p-2 rounded-2xl bg-surface-pill/50 border border-border/40">
+          <a href="dangnhap.html" class="flex items-center gap-2.5 min-w-0 flex-1 text-decoration-none group hover:opacity-90 transition-opacity" title="Bấm để đăng nhập hoặc xem tài khoản">
+            <div id="sidebarUserAvatar" class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-indigo-500 flex items-center justify-center text-xs font-bold text-white shadow-sm flex-shrink-0 group-hover:ring-2 group-hover:ring-emerald-400/50 transition-all">
+              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="sidebar-text truncate">
+              <div id="sidebarUserName" class="text-xs font-semibold truncate leading-tight group-hover:text-emerald-400 transition-colors">Khách</div>
+              <div id="sidebarUserEmail" class="text-[10px] text-muted-foreground truncate">Bấm để đăng nhập</div>
+            </div>
+          </a>
+          <div class="flex items-center gap-1 shrink-0">
+            <button type="button" data-theme-toggle class="p-2 min-h-[44px] min-w-[44px] rounded-xl hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer flex items-center justify-center" title="Đổi giao diện Sáng / Tối" aria-label="Đổi giao diện Sáng / Tối">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            </button>
+            <a href="dangnhap.html" id="sidebarAuthActionBtn" class="p-2 min-h-[44px] min-w-[44px] rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors cursor-pointer text-decoration-none flex items-center justify-center" title="Đăng nhập tài khoản" aria-label="Đăng nhập tài khoản">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN VIEWPORT CONTAINER -->
+    <div class="saas-main-stage flex-1 flex flex-col min-w-0">
+      
+      <!-- FLOATING LUXURY APPLE TOPBAR -->
+      <header class="saas-topbar sticky top-2 z-30 flex items-center justify-between gap-2.5 px-3.5 sm:px-4 py-2 rounded-2xl sm:rounded-full bg-card/80 backdrop-blur-2xl border border-border/60 shadow-lg transition-all">
+        <!-- Left: Brand Breadcrumb -->
+        <div class="flex items-center gap-2.5 min-w-0">
+          <button type="button" data-sidebar-toggle class="lg:hidden p-2 min-h-[44px] min-w-[44px] -ml-1 rounded-xl bg-surface-pill border border-border/60 text-foreground hover:bg-muted transition-colors cursor-pointer flex items-center justify-center shrink-0" aria-label="Mở menu danh mục" title="Mở menu">
+            <svg class="w-4 h-4 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          </button>
+          <a href="trangchudong.html" class="flex items-center gap-2 text-decoration-none group shrink-0">
+            <div class="w-7 h-7 rounded-xl bg-gradient-to-br from-emerald-400 to-indigo-600 flex items-center justify-center shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-white"></i>
+            </div>
+            <span class="font-display font-bold text-sm tracking-tight text-foreground inline-flex">SlideVault</span>
+            <span class="text-xs text-muted-foreground/40 hidden md:inline">/</span>
+            <span class="text-xs font-semibold text-emerald-400 hidden md:inline">Chuyển đổi tệp</span>
+          </a>
+        </div>
+
+        <!-- Center: Search Bar -->
+        <div class="relative hidden md:block flex-1 max-w-xs mx-2">
+          <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground/70 pointer-events-none"></i>
+          <input type="text" id="topbarSearchInput" placeholder="Tìm kiếm công cụ chuyển đổi..." class="w-full pl-10 pr-4 py-2 text-xs rounded-full bg-surface-pill border border-border/60 text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-emerald-500/60 transition-all" aria-label="Tìm kiếm công cụ chuyển đổi">
+        </div>
+
+        <!-- Right: Actions, 3D Touch & CTA -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <button type="button" data-sv-touch-toggle role="switch" aria-checked="false" aria-label="Bật/Tắt 3D Touch" title="SlideVault 3D Touch: Chuột Laser, Remote điện thoại, AirShare & Cảm ứng lực" class="flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-full bg-surface-pill border border-emerald-500/30 hover:border-emerald-500 text-xs text-foreground transition-all active:scale-95 group shadow-sm cursor-pointer">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 group-[.active]:animate-ping"></span>
+            <i data-lucide="hand" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span class="font-semibold text-[11px] text-foreground group-hover:text-emerald-400 hidden sm:inline">3D Touch</span>
+          </button>
+
+          <a href="AI.html" class="flex items-center gap-1.5 px-3.5 py-2 min-h-[44px] rounded-full bg-gradient-to-r from-emerald-500 to-indigo-600 text-white text-xs font-semibold shadow-md shadow-emerald-500/20 hover:opacity-95 transition-all text-decoration-none" aria-label="Mở AI Studio">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">AI Studio</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- MAIN SCROLLABLE CONTENT BODY -->
+      <main class="flex-1 px-3 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto w-full space-y-8 pb-32">
+        
+        <!-- HERO BANNER -->
+        <section class="relative overflow-hidden rounded-3xl p-6 sm:p-10 bg-gradient-to-br from-card/80 via-card/50 to-emerald-950/20 backdrop-blur-2xl border border-border/70 shadow-2xl">
+          <div class="absolute -top-24 -right-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 max-w-3xl space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold backdrop-blur-md">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span>SLIDEVAULT V4 ARGON • SIÊU BỘ CHUYỂN ĐỔI TỆP</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight text-foreground leading-tight">
+              Chuyển Đổi PDF Sang <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">Word, PowerPoint & Excel</span>
+            </h1>
+
+            <p class="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              Trích xuất nội dung nguyên bản, bảo toàn bảng biểu số liệu, văn bản và bố cục thuyết trình. Xử lý trực tiếp trên trình duyệt với tiêu chuẩn bảo mật Private-First 100%.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-3 pt-2 text-xs text-muted-foreground">
+              <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-pill border border-border/50">
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+                <span>100% Client-Side Private</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-pill border border-border/50">
+                <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i>
+                <span>Tốc độ chuyển đổi &lt; 1 giây</span>
+              </div>
+              <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-pill border border-border/50">
+                <i data-lucide="check-circle" class="w-4 h-4 text-cyan-400"></i>
+                <span>Tương thích Office 365, Google Docs & WPS</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FORMAT SELECTOR TABS -->
+        <section class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-muted-foreground/80 flex items-center gap-2">
+              <i data-lucide="sliders" class="w-4 h-4 text-emerald-400"></i>
+              <span>Chọn Định Dạng Chuyển Đổi</span>
+            </h2>
+            <span id="currentModeBadge" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+              PDF → Word (.docx)
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2" role="tablist" aria-label="Thanh chọn định dạng chuyển đổi">
+            <button type="button" role="tab" id="tabPdfWord" aria-selected="true" aria-controls="converterWorkspace" data-mode="pdf-word" onclick="switchConverterMode('pdf-word')" class="converter-tab converter-tab-active flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/60 hover:border-emerald-500/50 transition-all text-center group cursor-pointer min-h-[64px]" aria-label="Chuyển đổi PDF sang Word">
+              <i data-lucide="file-text" class="w-5 h-5 mb-1 text-emerald-400 group-hover:scale-110 transition-transform"></i>
+              <span class="text-[11px] font-bold block leading-tight">PDF → Word</span>
+              <span class="text-[9px] text-muted-foreground block mt-0.5">.docx tiêu chuẩn</span>
+            </button>
+
+            <button type="button" role="tab" id="tabPdfPptx" aria-selected="false" aria-controls="converterWorkspace" data-mode="pdf-pptx" onclick="switchConverterMode('pdf-pptx')" class="converter-tab flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/60 hover:border-emerald-500/50 transition-all text-center group cursor-pointer min-h-[64px]" aria-label="Chuyển đổi PDF sang PowerPoint">
+              <i data-lucide="presentation" class="w-5 h-5 mb-1 text-indigo-400 group-hover:scale-110 transition-transform"></i>
+              <span class="text-[11px] font-bold block leading-tight">PDF → PPTX</span>
+              <span class="text-[9px] text-muted-foreground block mt-0.5">.pptx 16:9</span>
+            </button>
+
+            <button type="button" role="tab" id="tabPdfExcel" aria-selected="false" aria-controls="converterWorkspace" data-mode="pdf-excel" onclick="switchConverterMode('pdf-excel')" class="converter-tab flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/60 hover:border-emerald-500/50 transition-all text-center group cursor-pointer min-h-[64px]" aria-label="Chuyển đổi PDF sang Excel">
+              <i data-lucide="sheet" class="w-5 h-5 mb-1 text-teal-400 group-hover:scale-110 transition-transform"></i>
+              <span class="text-[11px] font-bold block leading-tight">PDF → Excel</span>
+              <span class="text-[9px] text-muted-foreground block mt-0.5">.xlsx & .csv</span>
+            </button>
+
+            <button type="button" role="tab" id="tabPdfImg" aria-selected="false" aria-controls="converterWorkspace" data-mode="pdf-img" onclick="switchConverterMode('pdf-img')" class="converter-tab flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/60 hover:border-emerald-500/50 transition-all text-center group cursor-pointer min-h-[64px]" aria-label="Chuyển đổi PDF sang hình ảnh">
+              <i data-lucide="image" class="w-5 h-5 mb-1 text-rose-400 group-hover:scale-110 transition-transform"></i>
+              <span class="text-[11px] font-bold block leading-tight">PDF → Ảnh</span>
+              <span class="text-[9px] text-muted-foreground block mt-0.5">PNG / ZIP</span>
+            </button>
+
+            <button type="button" role="tab" id="tabWordPdf" aria-selected="false" aria-controls="converterWorkspace" data-mode="word-pdf" onclick="switchConverterMode('word-pdf')" class="converter-tab flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/60 hover:border-emerald-500/50 transition-all text-center group cursor-pointer min-h-[64px]" aria-label="Chuyển đổi Word sang PDF">
+              <i data-lucide="file-check" class="w-5 h-5 mb-1 text-cyan-400 group-hover:scale-110 transition-transform"></i>
+              <span class="text-[11px] font-bold block leading-tight">Word → PDF</span>
+              <span class="text-[9px] text-muted-foreground block mt-0.5">.docx sang .pdf</span>
+            </button>
+
+            <button type="button" role="tab" id="tabImgPdf" aria-selected="false" aria-controls="converterWorkspace" data-mode="img-pdf" onclick="switchConverterMode('img-pdf')" class="converter-tab flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/60 hover:border-emerald-500/50 transition-all text-center group cursor-pointer min-h-[64px]" aria-label="Chuyển đổi ảnh sang PDF">
+              <i data-lucide="images" class="w-5 h-5 mb-1 text-pink-400 group-hover:scale-110 transition-transform"></i>
+              <span class="text-[11px] font-bold block leading-tight">Ảnh → PDF</span>
+              <span class="text-[9px] text-muted-foreground block mt-0.5">Ghép ảnh đa trang</span>
+            </button>
+
+            <button type="button" role="tab" id="tabTxtPdf" aria-selected="false" aria-controls="converterWorkspace" data-mode="txt-pdf" onclick="switchConverterMode('txt-pdf')" class="converter-tab flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/60 hover:border-emerald-500/50 transition-all text-center group cursor-pointer min-h-[64px]" aria-label="Chuyển đổi văn bản sang PDF">
+              <i data-lucide="file-type" class="w-5 h-5 mb-1 text-purple-400 group-hover:scale-110 transition-transform"></i>
+              <span class="text-[11px] font-bold block leading-tight">Text → PDF</span>
+              <span class="text-[9px] text-muted-foreground block mt-0.5">.txt & .md</span>
+            </button>
+
+            <button type="button" role="tab" id="tabPdfMd" aria-selected="false" aria-controls="converterWorkspace" data-mode="pdf-md" onclick="switchConverterMode('pdf-md')" class="converter-tab flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/60 hover:border-emerald-500/50 transition-all text-center group cursor-pointer min-h-[64px]" aria-label="Chuyển đổi PDF sang Markdown và Text">
+              <i data-lucide="code-2" class="w-5 h-5 mb-1 text-amber-400 group-hover:scale-110 transition-transform"></i>
+              <span class="text-[11px] font-bold block leading-tight">PDF → MD</span>
+              <span class="text-[9px] text-muted-foreground block mt-0.5">Markdown & Bảng</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- DRAG AND DROP CONVERSION WORKSPACE -->
+        <section id="converterWorkspace" class="space-y-6">
+          
+          <!-- Drop Zone Container -->
+          <div id="dropZone" class="relative group rounded-3xl p-8 sm:p-12 border-2 border-dashed border-border/80 hover:border-emerald-500/60 bg-card/40 backdrop-blur-2xl transition-all duration-300 flex flex-col items-center justify-center text-center cursor-pointer shadow-xl">
+            <!-- Hidden native file input -->
+            <input type="file" id="fileInput" class="hidden" aria-label="Chọn tệp tin để chuyển đổi" onchange="handleFileSelected(this.files)">
+            
+            <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-emerald-500/20 via-card to-indigo-500/20 border border-emerald-500/30 flex items-center justify-center shadow-inner mb-4 group-hover:scale-110 group-hover:border-emerald-400 transition-all duration-300">
+              <i id="dropZoneIcon" data-lucide="upload-cloud" class="w-9 h-9 text-emerald-400 animate-pulse-glow"></i>
+            </div>
+
+            <h3 id="dropZoneHeading" class="text-lg sm:text-xl font-bold text-foreground mb-1">
+              Kéo thả file PDF vào đây hoặc bấm để tải lên
+            </h3>
+            <p id="dropZoneSubtext" class="text-xs sm:text-sm text-muted-foreground max-w-md mb-6">
+              Hỗ trợ kéo thả trực tiếp tệp PDF tài liệu, hợp đồng, báo cáo hoặc slide thuyết trình (Tối đa 200MB)
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <button type="button" onclick="document.getElementById('fileInput').click()" class="px-6 py-3 min-h-[44px] rounded-full bg-gradient-to-r from-emerald-500 to-indigo-600 text-white font-semibold text-xs shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer" aria-label="Duyệt tệp tin từ máy tính">
+                <i data-lucide="folder-open" class="w-4 h-4"></i>
+                <span>Duyệt tệp từ máy tính</span>
+              </button>
+
+              <button type="button" id="btnLoadSample" onclick="loadSampleDocument()" class="px-4 py-3 min-h-[44px] rounded-full bg-surface-pill border border-border/60 hover:bg-muted text-xs font-semibold text-foreground transition-all flex items-center gap-1.5 cursor-pointer" aria-label="Thử nghiệm với tài liệu mẫu">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Thử tài liệu mẫu</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- ACTIVE FILE CARD (Visible after file loaded) -->
+          <div id="fileDetailCard" class="hidden rounded-3xl p-6 bg-card/70 backdrop-blur-2xl border border-emerald-500/30 shadow-xl space-y-5 transition-all">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-border/50">
+              <div class="flex items-center gap-3.5 min-w-0">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                  <i id="fileTypeIcon" data-lucide="file-text" class="w-6 h-6 text-emerald-400"></i>
+                </div>
+                <div class="min-w-0">
+                  <h4 id="fileNameDisplay" class="text-sm sm:text-base font-bold text-foreground truncate max-w-sm sm:max-w-md">
+                    document.pdf
+                  </h4>
+                  <div class="flex items-center gap-2 mt-0.5 text-xs text-muted-foreground">
+                    <span id="fileSizeDisplay">1.8 MB</span>
+                    <span>•</span>
+                    <span id="fileStatusBadge" class="text-emerald-400 font-semibold">Đã nạp sẵn sàng</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 self-end sm:self-center">
+                <button type="button" onclick="resetFileConverter()" class="p-2 min-h-[44px] min-w-[44px] rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-rose-400 transition-colors flex items-center justify-center" title="Hủy bỏ và chọn tệp khác" aria-label="Hủy tệp hiện tại">
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+                <button type="button" id="btnStartConvert" onclick="executeConversion()" class="px-6 py-2.5 min-h-[44px] rounded-full bg-gradient-to-r from-emerald-500 to-indigo-600 text-white font-bold text-xs shadow-lg shadow-emerald-500/25 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer" aria-label="Bắt đầu chuyển đổi ngay">
+                  <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                  <span>Bắt đầu chuyển đổi</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Conversion Options Sub-Bar -->
+            <div id="conversionOptions" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-1">
+              <div class="flex items-center justify-between p-3 rounded-2xl bg-surface-pill/50 border border-border/40">
+                <div class="text-xs">
+                  <div class="font-bold text-foreground">Giữ nguyên cấu trúc bảng</div>
+                  <div class="text-[11px] text-muted-foreground">Tự động nhận diện dòng & cột</div>
+                </div>
+                <input type="checkbox" id="optDetectTables" checked class="w-4 h-4 accent-emerald-500 rounded cursor-pointer" aria-label="Tùy chọn tự động nhận diện bảng biểu">
+              </div>
+
+              <div class="flex items-center justify-between p-3 rounded-2xl bg-surface-pill/50 border border-border/40">
+                <div class="text-xs">
+                  <div class="font-bold text-foreground">Slide PowerPoint có thể sửa</div>
+                  <div class="text-[11px] text-muted-foreground">Tạo text box bản xứ thay vì ảnh chụp</div>
+                </div>
+                <input type="checkbox" id="optEditablePptx" checked class="w-4 h-4 accent-emerald-500 rounded cursor-pointer" aria-label="Tùy chọn tạo PowerPoint có thể chỉnh sửa">
+              </div>
+
+              <div class="flex items-center justify-between p-3 rounded-2xl bg-surface-pill/50 border border-border/40">
+                <div class="text-xs">
+                  <div class="font-bold text-foreground">Chuẩn tiếng Việt Unicode</div>
+                  <div class="text-[11px] text-muted-foreground">Bảo toàn dấu tiếng Việt hoàn hảo</div>
+                </div>
+                <input type="checkbox" id="optUnicodeBom" checked class="w-4 h-4 accent-emerald-500 rounded cursor-pointer" aria-label="Tùy chọn bảo toàn Unicode tiếng Việt">
+              </div>
+            </div>
+          </div>
+
+          <!-- DYNAMIC CONVERSION PROGRESS BAR -->
+          <div id="progressSection" class="hidden rounded-3xl p-6 sm:p-8 bg-card/80 backdrop-blur-2xl border border-emerald-500/40 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between text-xs sm:text-sm">
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></div>
+                <span id="progressMessage" class="font-bold text-foreground">Đang xử lý tài liệu...</span>
+              </div>
+              <span id="progressPercent" class="font-mono font-extrabold text-emerald-400 text-sm sm:text-base">0%</span>
+            </div>
+
+            <!-- Progress Track & Fill -->
+            <div class="w-full h-3 rounded-full bg-surface-pill overflow-hidden border border-border/50 relative shadow-inner">
+              <div id="progressBarFill" class="h-full rounded-full bg-gradient-to-r from-emerald-500 via-teal-400 to-indigo-500 transition-all duration-300 w-0"></div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-muted-foreground pt-1">
+              <span id="elapsedTimeDisplay">Thời gian xử lý: 0.0s</span>
+              <span id="stageDetailDisplay">Khởi tạo bộ nhớ buffer...</span>
+            </div>
+          </div>
+
+          <!-- RESULT & DOWNLOAD SECTION (Shown upon completion) -->
+          <div id="resultSection" class="hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-card/90 via-card/70 to-emerald-950/20 backdrop-blur-2xl border border-emerald-500/50 shadow-2xl space-y-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-border/50">
+              <div class="flex items-center gap-3.5">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-md shadow-emerald-500/20 shrink-0">
+                  <i data-lucide="check-circle-2" class="w-7 h-7"></i>
+                </div>
+                <div>
+                  <h3 class="text-base sm:text-lg font-bold text-foreground">Chuyển Đổi Thành Công!</h3>
+                  <p class="text-xs text-muted-foreground">Tệp đích đã sẵn sàng tải về với định dạng chuẩn xác 100%.</p>
+                </div>
+              </div>
+
+              <!-- Storage Comparison Widget -->
+              <div class="flex items-center gap-3 px-4 py-2 rounded-2xl bg-surface-pill border border-border/60 text-xs">
+                <div>
+                  <span class="text-muted-foreground block text-[10px]">GỐC</span>
+                  <span id="resOriginalSize" class="font-bold text-foreground">1.8 MB</span>
+                </div>
+                <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-400"></i>
+                <div>
+                  <span class="text-muted-foreground block text-[10px]">KẾT QUẢ</span>
+                  <span id="resConvertedSize" class="font-bold text-emerald-400">420 KB</span>
+                </div>
+                <div class="pl-2 border-l border-border/60">
+                  <span id="resRatioBadge" class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">
+                    Tối ưu 76%
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons Grid -->
+            <div class="flex flex-wrap items-center gap-3">
+              <button type="button" id="btnDownloadInstant" onclick="downloadResultFile()" class="px-7 py-3 min-h-[44px] rounded-full bg-gradient-to-r from-emerald-500 to-indigo-600 text-white font-extrabold text-sm shadow-xl shadow-emerald-500/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 cursor-pointer" aria-label="Tải về file kết quả ngay lập tức">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span id="btnDownloadText">Tải về ngay (.docx)</span>
+              </button>
+
+              <button type="button" id="btnOpenPreview" onclick="togglePreviewModal(true)" class="px-5 py-3 min-h-[44px] rounded-full bg-surface-pill border border-border/60 hover:bg-muted text-xs font-semibold text-foreground transition-all flex items-center gap-2 cursor-pointer" aria-label="Xem trước nội dung trích xuất">
+                <i data-lucide="eye" class="w-4 h-4 text-cyan-400"></i>
+                <span>Xem trước nội dung</span>
+              </button>
+
+              <button type="button" onclick="sendToAiStudio()" class="px-5 py-3 min-h-[44px] rounded-full bg-surface-pill border border-emerald-500/30 hover:border-emerald-500/60 text-xs font-semibold text-emerald-300 transition-all flex items-center gap-2 cursor-pointer" aria-label="Mở nội dung trong AI Studio để tạo slide">
+                <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+                <span>Mở trong AI Studio</span>
+              </button>
+
+              <button type="button" onclick="resetFileConverter()" class="px-4 py-3 min-h-[44px] rounded-full bg-surface-pill border border-border/60 hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground transition-all flex items-center gap-1.5 ml-auto cursor-pointer" aria-label="Chuyển đổi tệp khác">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Chuyển đổi tệp khác</span>
+              </button>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- RECENT CONVERSIONS HISTORY SECTION -->
+        <section class="space-y-3 pt-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-muted-foreground/80 flex items-center gap-2">
+              <i data-lucide="history" class="w-4 h-4 text-indigo-400"></i>
+              <span>Lịch Sử Chuyển Đổi Trong Phiên</span>
+            </h3>
+            <button type="button" onclick="clearConversionHistory()" class="text-xs text-muted-foreground hover:text-rose-400 transition-colors p-2 min-h-[44px]" aria-label="Xóa lịch sử chuyển đổi">
+              Xóa lịch sử
+            </button>
+          </div>
+
+          <div id="historyList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div class="p-4 rounded-2xl bg-card/40 backdrop-blur-md border border-border/50 text-xs text-muted-foreground text-center py-6 col-span-full">
+              Chưa có lịch sử chuyển đổi trong phiên làm việc này. Hãy tải lên tệp đầu tiên!
+            </div>
+          </div>
+        </section>
+
+        <!-- FEATURE HIGHLIGHTS & ARCHITECTURE MATRIX -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6">
+          <div class="p-6 rounded-3xl bg-card/60 backdrop-blur-xl border border-border/60 space-y-2.5">
+            <div class="w-10 h-10 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <i data-lucide="shield-check" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-sm text-foreground">Bảo Mật Private-First</h4>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              Mọi thuật toán bóc tách PDF và tạo tài liệu Word, Excel, PowerPoint đều chạy 100% cục bộ trên trình duyệt WebAssembly của bạn. Dữ liệu không bao giờ rời khỏi thiết bị.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-3xl bg-card/60 backdrop-blur-xl border border-border/60 space-y-2.5">
+            <div class="w-10 h-10 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+              <i data-lucide="table" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-sm text-foreground">Bóc Tách Bảng Biểu Siêu Chuẩn</h4>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              Công nghệ gom nhóm hình học quang học giúp trích xuất các bảng số liệu phức tạp trong PDF thành bảng tính Excel (.xlsx) với các ô số học tính toán được.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-3xl bg-card/60 backdrop-blur-xl border border-border/60 space-y-2.5">
+            <div class="w-10 h-10 rounded-2xl bg-teal-500/15 border border-teal-500/30 flex items-center justify-center text-teal-400">
+              <i data-lucide="cpu" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-sm text-foreground">PptxGenJS Slide Layout</h4>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              Tích hợp thư viện PptxGenJS chuyên nghiệp, tạo các slide trình chiếu PowerPoint tỷ lệ vàng 16:9 sắc nét, có thể chỉnh sửa font, màu sắc và đồ thị.
+            </p>
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- INTERACTIVE LIVE PREVIEW MODAL -->
+  <div id="previewModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-md transition-opacity">
+    <div class="relative w-full max-w-4xl max-h-[90vh] flex flex-col rounded-3xl bg-card border border-border/80 shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-border/60 bg-card/80 backdrop-blur-xl">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="eye" class="w-5 h-5 text-emerald-400"></i>
+          <h3 class="text-sm sm:text-base font-bold text-foreground">Xem Trước Nội Dung Đã Trích Xuất</h3>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="copyPreviewText()" class="px-3 py-1.5 min-h-[44px] rounded-xl bg-surface-pill border border-border/60 hover:bg-muted text-xs font-semibold text-foreground transition-all flex items-center gap-1.5" aria-label="Sao chép nội dung">
+            <i data-lucide="copy" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>Sao chép</span>
+          </button>
+          <button type="button" onclick="togglePreviewModal(false)" class="p-2 min-h-[44px] min-w-[44px] rounded-xl hover:bg-surface-pill text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center" aria-label="Đóng cửa sổ xem trước">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 overflow-y-auto preview-scroll flex-1 space-y-4">
+        <div id="previewTableContainer" class="hidden space-y-3">
+          <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Bảng Dữ Liệu Phát Hiện</h4>
+          <div class="overflow-x-auto rounded-xl border border-border/60">
+            <table id="previewTable" class="w-full text-left text-xs border-collapse">
+              <!-- Dynamically populated -->
+            </table>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold text-muted-foreground uppercase tracking-wider">Văn Bản & Định Dạng</h4>
+          <pre id="previewTextContent" class="p-4 rounded-2xl bg-surface-pill/60 border border-border/50 text-xs text-foreground font-mono whitespace-pre-wrap max-h-96 overflow-y-auto leading-relaxed select-text"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Universal Dynamic Instagram/iPhone Style Mobile Nav (Bottom Dock) -->
+  <nav class="mobile-glass-nav visionos-liquid-glass" aria-label="Điều hướng chính di động">
+    <a class="mobile-nav-item" href="trangchudong.html" data-mobile-nav="home" title="Trang chủ">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Trang chủ</span>
+    </a>
+    <a class="mobile-nav-item" href="vault.html" data-mobile-nav="vault" title="Vault">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/></svg>
+      <span>Vault</span>
+    </a>
+    <a class="mobile-nav-item" href="thuvienmau.html" data-mobile-nav="templates" title="Mẫu">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+      <span>Mẫu</span>
+    </a>
+    <a class="mobile-nav-item active" href="chuyendoi.html" data-mobile-nav="convert" title="Chuyển đổi">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span>Đổi file</span>
+    </a>
+    <button type="button" class="mobile-nav-item min-h-[44px] min-w-[44px]" data-sidebar-toggle data-mobile-menu title="Mở danh mục menu" aria-label="Mở danh mục menu">
+      <svg class="w-5 h-5 text-inherit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      <span>Menu</span>
+    </button>
+  </nav>
+
+  <!-- ================= CLIENT APPLICATION LOGIC ================= -->
+  <script>
+    // State management
+    const appState = {
+      currentMode: 'pdf-word',
+      currentFile: null,
+      selectedFiles: [],
+      fileBuffer: null,
+      textData: '',
+      extractedData: null,
+      resultBlob: null,
+      resultFilename: '',
+      history: []
+    };
+
+    // Mode configurations
+    const modeConfigs = {
+      'pdf-word': {
+        title: 'PDF → Word (.docx)',
+        heading: 'Kéo thả file PDF vào đây hoặc bấm để tải lên',
+        subtext: 'Bóc tách văn bản, bảng biểu, giữ nguyên tiêu đề và chuyển thành tài liệu Word (.docx)',
+        accept: '.pdf,application/pdf',
+        icon: 'file-text',
+        outputExt: '.docx',
+        outputMime: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        downloadLabel: 'Tải về file Word (.docx)'
+      },
+      'pdf-pptx': {
+        title: 'PDF → PowerPoint (.pptx)',
+        heading: 'Kéo thả file PDF slide / bài trình chiếu vào đây',
+        subtext: 'Chuyển đổi từng trang slide thành bản thuyết trình PowerPoint (.pptx) có thể chỉnh sửa',
+        accept: '.pdf,application/pdf',
+        icon: 'presentation',
+        outputExt: '.pptx',
+        outputMime: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        downloadLabel: 'Tải về file PowerPoint (.pptx)'
+      },
+      'pdf-excel': {
+        title: 'PDF → Excel (.xlsx / .csv)',
+        heading: 'Kéo thả file PDF bảng báo cáo, hóa đơn, tài chính vào đây',
+        subtext: 'Thuật toán quang học nhận diện các cột & hàng, xuất sang file Excel (.xlsx) tính toán được',
+        accept: '.pdf,application/pdf',
+        icon: 'sheet',
+        outputExt: '.xlsx',
+        outputMime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        downloadLabel: 'Tải về file Excel (.xlsx)'
+      },
+      'pdf-img': {
+        title: 'PDF → Ảnh (PNG / ZIP)',
+        heading: 'Kéo thả file PDF để xuất từng trang thành ảnh',
+        subtext: 'Kết xuất toàn bộ trang PDF thành hình ảnh độ nét cao 2x (tải về ảnh lẻ hoặc file .zip)',
+        accept: '.pdf,application/pdf',
+        icon: 'image',
+        outputExt: '.zip',
+        outputMime: 'application/zip',
+        downloadLabel: 'Tải về hình ảnh (.zip / .png)'
+      },
+      'word-pdf': {
+        title: 'Word (.docx) → PDF',
+        heading: 'Kéo thả file Word (.docx) vào đây',
+        subtext: 'Chuyển đổi file Word sang PDF chuẩn in ấn, bảo toàn font chữ và định dạng tài liệu',
+        accept: '.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        icon: 'file-check',
+        outputExt: '.pdf',
+        outputMime: 'application/pdf',
+        downloadLabel: 'Tải về file PDF (.pdf)'
+      },
+      'img-pdf': {
+        title: 'Ảnh → PDF đa trang',
+        heading: 'Kéo thả một hoặc nhiều hình ảnh vào đây',
+        subtext: 'Ghép nối các hình ảnh hóa đơn, tài liệu scan thành một tập tin PDF đa trang sắc nét',
+        accept: 'image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp',
+        icon: 'images',
+        outputExt: '.pdf',
+        outputMime: 'application/pdf',
+        downloadLabel: 'Tải về file PDF (.pdf)'
+      },
+      'txt-pdf': {
+        title: 'Văn bản → PDF',
+        heading: 'Kéo thả file văn bản (.txt, .md) vào đây',
+        subtext: 'Chuyển đổi ghi chú, dàn ý Markdown hoặc tệp text thành file PDF vector tuyệt đẹp',
+        accept: '.txt,.md,text/plain,text/markdown',
+        icon: 'file-type',
+        outputExt: '.pdf',
+        outputMime: 'application/pdf',
+        downloadLabel: 'Tải về file PDF (.pdf)'
+      },
+      'pdf-md': {
+        title: 'PDF → Markdown & Text',
+        heading: 'Kéo thả file PDF để trích xuất văn bản thô',
+        subtext: 'Trích xuất toàn bộ văn bản và bảng dữ liệu theo cú pháp Markdown (#, ##, bảng dữ liệu)',
+        accept: '.pdf,application/pdf',
+        icon: 'code-2',
+        outputExt: '.md',
+        outputMime: 'text/markdown;charset=utf-8',
+        downloadLabel: 'Tải về file Markdown (.md)'
+      }
+    };
+
+    // Initialize Page
+    document.addEventListener('DOMContentLoaded', () => {
+      setupDropZone();
+      loadHistoryFromStorage();
+      if (window.lucide) lucide.createIcons();
+
+      // Modal backdrop & ESC key listeners
+      const modal = document.getElementById('previewModal');
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) togglePreviewModal(false);
+        });
+      }
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+          togglePreviewModal(false);
+        }
+      });
+    });
+
+    // Switch conversion mode
+    function switchConverterMode(mode) {
+      if (!modeConfigs[mode]) return;
+      appState.currentMode = mode;
+      const cfg = modeConfigs[mode];
+
+      // Update Tab Buttons
+      document.querySelectorAll('.converter-tab').forEach(tab => {
+        const isMatch = tab.getAttribute('data-mode') === mode;
+        tab.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        if (isMatch) {
+          tab.classList.add('converter-tab-active');
+        } else {
+          tab.classList.remove('converter-tab-active');
+        }
+      });
+
+      // Update Badges & Headings
+      document.getElementById('currentModeBadge').textContent = cfg.title;
+      document.getElementById('dropZoneHeading').textContent = cfg.heading;
+      document.getElementById('dropZoneSubtext').textContent = cfg.subtext;
+      document.getElementById('fileInput').accept = cfg.accept;
+      document.getElementById('fileInput').multiple = mode === 'img-pdf';
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // Drag & Drop Handlers
+    function setupDropZone() {
+      const dropZone = document.getElementById('dropZone');
+
+      ['dragenter', 'dragover'].forEach(evtName => {
+        dropZone.addEventListener(evtName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropZone.classList.add('dropzone-active');
+        }, false);
+      });
+
+      ['dragleave', 'drop'].forEach(evtName => {
+        dropZone.addEventListener(evtName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropZone.classList.remove('dropzone-active');
+        }, false);
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files && files.length > 0) {
+          handleFileSelected(files);
+        }
+      });
+    }
+
+    // Handle File Selection
+    async function handleFileSelected(files) {
+      if (!files || files.length === 0) return;
+      appState.selectedFiles = Array.from(files);
+      const file = files[0];
+      const fileNameLower = file.name.toLowerCase();
+
+      // Auto-detect mode based on file extension
+      if (fileNameLower.endsWith('.docx')) {
+        switchConverterMode('word-pdf');
+      } else if (/\.(png|jpe?g|webp)$/.test(fileNameLower)) {
+        switchConverterMode('img-pdf');
+      } else if (fileNameLower.endsWith('.txt') || fileNameLower.endsWith('.md')) {
+        switchConverterMode('txt-pdf');
+      } else if (fileNameLower.endsWith('.pdf')) {
+        if (appState.currentMode === 'word-pdf' || appState.currentMode === 'img-pdf' || appState.currentMode === 'txt-pdf') {
+          switchConverterMode('pdf-word');
+        }
+      }
+
+      appState.currentFile = file;
+
+      if (appState.currentMode === 'txt-pdf') {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          appState.textData = e.target.result;
+          appState.fileBuffer = new TextEncoder().encode(appState.textData).buffer;
+          displayFileCard(file, appState.selectedFiles);
+        };
+        reader.readAsText(file);
+      } else {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          appState.fileBuffer = e.target.result;
+          displayFileCard(file, appState.selectedFiles);
+        };
+        reader.readAsArrayBuffer(file);
+      }
+    }
+
+    // Display File Card
+    function displayFileCard(file, allFiles = []) {
+      const isMulti = allFiles.length > 1;
+      const totalBytes = allFiles.reduce((acc, f) => acc + f.size, 0) || file.size;
+      
+      document.getElementById('fileNameDisplay').textContent = isMulti
+        ? `${allFiles.length} tệp đã chọn (${file.name}, ...)`
+        : file.name;
+      document.getElementById('fileSizeDisplay').textContent = ConverterEngine.formatBytes(totalBytes);
+      document.getElementById('fileDetailCard').classList.remove('hidden');
+      document.getElementById('resultSection').classList.add('hidden');
+      document.getElementById('progressSection').classList.add('hidden');
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // Reset converter
+    function resetFileConverter() {
+      appState.currentFile = null;
+      appState.selectedFiles = [];
+      appState.fileBuffer = null;
+      appState.textData = '';
+      appState.extractedData = null;
+      appState.resultBlob = null;
+      appState.resultFilename = '';
+
+      document.getElementById('fileInput').value = '';
+      document.getElementById('fileDetailCard').classList.add('hidden');
+      document.getElementById('resultSection').classList.add('hidden');
+      document.getElementById('progressSection').classList.add('hidden');
+    }
+
+    // Execute Conversion
+    async function executeConversion() {
+      if (!appState.fileBuffer && !appState.textData) {
+        if (window.SlideVault) {
+          SlideVault.toast({ title: 'Chưa có tệp', message: 'Vui lòng chọn hoặc kéo thả tệp cần chuyển đổi.', type: 'warning' });
+        } else {
+          alert('Vui lòng chọn tệp tin cần chuyển đổi');
+        }
+        return;
+      }
+
+      const cfg = modeConfigs[appState.currentMode];
+      const originalFile = appState.currentFile;
+      const totalFiles = appState.selectedFiles && appState.selectedFiles.length > 0 ? appState.selectedFiles : [originalFile];
+      const originalSize = totalFiles.reduce((acc, f) => acc + (f ? f.size : 0), 0) || originalFile.size;
+
+      // Show progress
+      document.getElementById('progressSection').classList.remove('hidden');
+      document.getElementById('resultSection').classList.add('hidden');
+      document.getElementById('btnStartConvert').disabled = true;
+
+      const startTime = performance.now();
+      const timerInterval = setInterval(() => {
+        const elapsed = ((performance.now() - startTime) / 1000).toFixed(1);
+        document.getElementById('elapsedTimeDisplay').textContent = `Thời gian xử lý: ${elapsed}s`;
+      }, 100);
+
+      const updateProgress = (percent, message) => {
+        document.getElementById('progressPercent').textContent = `${Math.min(100, Math.round(percent))}%`;
+        document.getElementById('progressBarFill').style.width = `${Math.min(100, Math.round(percent))}%`;
+        document.getElementById('progressMessage').textContent = message;
+        document.getElementById('stageDetailDisplay').textContent = message;
+      };
+
+      try {
+        let resultBlob = null;
+        let baseName = originalFile.name.replace(/\.[^/.]+$/, '');
+        let outputFilename = `${baseName}_converted${cfg.outputExt}`;
+
+        if (appState.currentMode === 'pdf-word') {
+          updateProgress(15, 'Đang phân tích cấu trúc PDF...');
+          const extracted = await ConverterEngine.extractPdfData(appState.fileBuffer, {}, updateProgress);
+          appState.extractedData = extracted;
+
+          updateProgress(75, 'Đang tổng hợp cấu trúc tài liệu Word (.docx)...');
+          resultBlob = await ConverterEngine.generateDocx(extracted, { title: baseName });
+          updateProgress(100, 'Chuyển đổi Word hoàn tất!');
+
+        } else if (appState.currentMode === 'pdf-pptx') {
+          updateProgress(15, 'Đang giải mã slide PDF & trích xuất văn bản...');
+          const extracted = await ConverterEngine.extractPdfData(appState.fileBuffer, { renderCanvas: true }, updateProgress);
+          appState.extractedData = extracted;
+
+          updateProgress(75, 'Đang thiết kế bản trình chiếu PowerPoint 16:9...');
+          const isEditable = document.getElementById('optEditablePptx').checked;
+          resultBlob = await ConverterEngine.generatePptx(extracted, {
+            title: baseName,
+            useVisualBackground: !isEditable
+          });
+          updateProgress(100, 'Chuyển đổi PowerPoint hoàn tất!');
+
+        } else if (appState.currentMode === 'pdf-excel') {
+          updateProgress(20, 'Đang quét ma trận dữ liệu và các bảng biểu...');
+          const extracted = await ConverterEngine.extractPdfData(appState.fileBuffer, {}, updateProgress);
+          appState.extractedData = extracted;
+
+          updateProgress(80, 'Đang tạo bảng tính Excel (.xlsx) với các ô tính toán...');
+          const excelData = ConverterEngine.generateExcel(extracted, { sheetName: 'DuLieuTrinhXuat' });
+          resultBlob = excelData.xlsxBlob;
+          updateProgress(100, 'Bóc tách Excel hoàn tất!');
+
+        } else if (appState.currentMode === 'pdf-img') {
+          updateProgress(20, 'Đang giải mã và kết xuất trang PDF sang ảnh...');
+          const res = await ConverterEngine.convertPdfToImages(appState.fileBuffer, { scale: 2.0 }, updateProgress);
+          if (res.zipBlob) {
+            resultBlob = res.zipBlob;
+            outputFilename = `${baseName}_images.zip`;
+          } else if (res.singleBlob) {
+            resultBlob = res.singleBlob;
+            outputFilename = `${baseName}_page1${res.images[0]?.ext || '.png'}`;
+          }
+          updateProgress(100, 'Kết xuất hình ảnh hoàn tất!');
+
+        } else if (appState.currentMode === 'word-pdf') {
+          updateProgress(25, 'Đang phân tích OpenXML từ tài liệu Word...');
+          resultBlob = await ConverterEngine.convertDocxToPdf(appState.fileBuffer, {}, updateProgress);
+          updateProgress(100, 'Chuyển đổi sang PDF hoàn tất!');
+
+        } else if (appState.currentMode === 'img-pdf') {
+          updateProgress(20, 'Đang tải danh sách hình ảnh...');
+          const filesToProcess = appState.selectedFiles && appState.selectedFiles.length > 0 ? appState.selectedFiles : [originalFile];
+          const imgItems = [];
+
+          for (let idx = 0; idx < filesToProcess.length; idx++) {
+            const f = filesToProcess[idx];
+            updateProgress(20 + Math.round((idx / filesToProcess.length) * 60), `Đang nạp ảnh ${idx + 1} / ${filesToProcess.length}...`);
+            const blobUrl = URL.createObjectURL(f);
+            
+            const imgEl = new Image();
+            await new Promise(resolve => {
+              imgEl.onload = resolve;
+              imgEl.onerror = resolve;
+              imgEl.src = blobUrl;
+            });
+
+            imgItems.push({
+              dataUrl: blobUrl,
+              width: imgEl.naturalWidth || 1200,
+              height: imgEl.naturalHeight || 900,
+              type: f.type
+            });
+          }
+
+          updateProgress(85, 'Đang kết xuất tệp PDF vector đa trang...');
+          resultBlob = await ConverterEngine.convertImagesToPdf(imgItems, {}, updateProgress);
+          imgItems.forEach(it => URL.revokeObjectURL(it.dataUrl));
+          updateProgress(100, 'Tạo PDF từ hình ảnh hoàn tất!');
+
+        } else if (appState.currentMode === 'txt-pdf') {
+          updateProgress(30, 'Đang phân tích cú pháp văn bản...');
+          const text = appState.textData || new TextDecoder().decode(appState.fileBuffer);
+          resultBlob = await ConverterEngine.convertTextToPdf(text, {}, updateProgress);
+          updateProgress(100, 'Chuyển đổi văn bản sang PDF hoàn tất!');
+
+        } else if (appState.currentMode === 'pdf-md') {
+          updateProgress(25, 'Đang bóc tách văn bản và dàn ý Markdown...');
+          const extracted = await ConverterEngine.extractPdfData(appState.fileBuffer, {}, updateProgress);
+          appState.extractedData = extracted;
+          resultBlob = new Blob([extracted.markdown], { type: 'text/markdown;charset=utf-8' });
+          updateProgress(100, 'Trích xuất Markdown hoàn tất!');
+        }
+
+        clearInterval(timerInterval);
+        document.getElementById('btnStartConvert').disabled = false;
+
+        appState.resultBlob = resultBlob;
+        appState.resultFilename = outputFilename;
+
+        // Display Result Details
+        const convertedSize = resultBlob.size;
+        document.getElementById('resOriginalSize').textContent = ConverterEngine.formatBytes(originalSize);
+        document.getElementById('resConvertedSize').textContent = ConverterEngine.formatBytes(convertedSize);
+
+        const ratio = Math.round(((originalSize - convertedSize) / originalSize) * 100);
+        const ratioBadge = document.getElementById('resRatioBadge');
+        if (ratio > 0) {
+          ratioBadge.textContent = `Tối ưu ${ratio}%`;
+          ratioBadge.className = 'text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300';
+        } else {
+          ratioBadge.textContent = 'Chuẩn định dạng';
+          ratioBadge.className = 'text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300';
+        }
+
+        document.getElementById('btnDownloadText').textContent = `Tải về (${outputFilename})`;
+        document.getElementById('resultSection').classList.remove('hidden');
+
+        // Add to history
+        saveToHistory({
+          name: outputFilename,
+          mode: appState.currentMode,
+          origSize: ConverterEngine.formatBytes(originalSize),
+          newSize: ConverterEngine.formatBytes(convertedSize),
+          time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
+        });
+
+        if (window.SlideVault) {
+          SlideVault.toast({
+            title: 'Chuyển đổi thành công!',
+            message: `Tệp ${outputFilename} đã sẵn sàng tải về.`,
+            type: 'success'
+          });
+        }
+
+        if (window.lucide) lucide.createIcons();
+
+      } catch (err) {
+        clearInterval(timerInterval);
+        document.getElementById('btnStartConvert').disabled = false;
+        console.error('Lỗi chuyển đổi:', err);
+        updateProgress(0, 'Có lỗi phát sinh: ' + err.message);
+
+        if (window.SlideVault) {
+          SlideVault.toast({
+            title: 'Lỗi chuyển đổi',
+            message: err.message || 'Không thể đọc tệp tin này.',
+            type: 'error'
+          });
+        } else {
+          alert('Lỗi: ' + err.message);
+        }
+      }
+    }
+
+    // Download Result File
+    function downloadResultFile() {
+      if (!appState.resultBlob || !appState.resultFilename) return;
+      ConverterEngine.downloadBlob(appState.resultBlob, appState.resultFilename);
+    }
+
+    // Toggle Preview Modal with Modal-Open Class Suppression
+    function togglePreviewModal(show) {
+      const modal = document.getElementById('previewModal');
+      if (show) {
+        modal.classList.remove('hidden');
+        document.body.classList.add('modal-open');
+        populatePreviewContent();
+      } else {
+        modal.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // Populate Preview Content
+    function populatePreviewContent() {
+      const ext = appState.extractedData;
+      const textEl = document.getElementById('previewTextContent');
+      const tblContainer = document.getElementById('previewTableContainer');
+      const tbl = document.getElementById('previewTable');
+
+      if (ext) {
+        textEl.textContent = ext.markdown || ext.fullText || 'Không có văn bản trích xuất';
+
+        if (ext.tables && ext.tables.length > 0 && ext.tables[0].length > 0) {
+          tblContainer.classList.remove('hidden');
+          let tblHtml = '';
+          const tableData = ext.tables[0];
+          tableData.forEach((row, rIdx) => {
+            const isHeader = rIdx === 0;
+            tblHtml += `<tr class="${isHeader ? 'bg-surface-pill font-bold text-foreground' : 'border-t border-border/40 hover:bg-muted/40'}">`;
+            row.forEach(cell => {
+              tblHtml += `<td class="p-2.5 border-r border-border/30 last:border-r-0">${cell}</td>`;
+            });
+            tblHtml += `</tr>`;
+          });
+          tbl.innerHTML = tblHtml;
+        } else {
+          tblContainer.classList.add('hidden');
+        }
+      } else {
+        textEl.textContent = 'Chưa có dữ liệu trích xuất để hiển thị.';
+        tblContainer.classList.add('hidden');
+      }
+    }
+
+    // Copy Preview Text
+    function copyPreviewText() {
+      const text = document.getElementById('previewTextContent').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        if (window.SlideVault) {
+          SlideVault.toast({ title: 'Đã sao chép!', message: 'Đã sao chép nội dung vào khay nhớ tạm.', type: 'success' });
+        }
+      });
+    }
+
+    // Send to AI Studio
+    function sendToAiStudio() {
+      if (appState.extractedData) {
+        const slides = (appState.extractedData.paragraphs || []).map((p, idx) => ({
+          title: p.isHeading ? p.text : `Slide ${idx + 1}`,
+          content: p.text
+        }));
+        try {
+          localStorage.setItem('slidevault_pending_outline', JSON.stringify(slides.slice(0, 10)));
+        } catch(e) {}
+      }
+      window.location.href = 'AI.html?source=converter';
+    }
+
+    // Load Sample Document for testing
+    function loadSampleDocument() {
+      const sampleText = `# BÁO CÁO CHIẾN LƯỢC KINH DOANH SLIDEVAULT V4
+SlideVault là nền tảng số hóa bài thuyết trình thông minh hàng đầu với công nghệ Apple VisionOS.
+
+## 1. Mục Tiêu Tăng Trưởng
+• Mở rộng quy mô người dùng hoạt động hàng tháng lên 500,000 thành viên.
+• Tối ưu hóa chi phí vận hành máy chủ và băng thông xuống dưới 15%.
+• Triển khai bộ chuyển đổi tệp đa năng PDF sang Word, Excel, PowerPoint.
+
+## 2. Bảng Chỉ Số Tài Chính 2026
+Doanh thu thuần: 120 Tỷ VNĐ (Tăng trưởng 145%)
+Lợi nhuận gộp: 45 Tỷ VNĐ (Tỷ suất 37.5%)
+Chỉ số NPS: 94 điểm hài lòng tuyệt đối.`;
+
+      const blob = new Blob([sampleText], { type: 'text/markdown' });
+      const file = new File([blob], 'BaoCaoChienLuoc_SlideVault.pdf', { type: 'application/pdf' });
+      
+      appState.currentFile = file;
+      appState.selectedFiles = [file];
+      appState.fileBuffer = new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2D, 0x31, 0x2E, 0x37]).buffer;
+      appState.textData = sampleText;
+      appState.extractedData = {
+        title: 'BÁO CÁO CHIẾN LƯỢC KINH DOANH SLIDEVAULT V4',
+        markdown: sampleText,
+        fullText: sampleText,
+        paragraphs: [
+          { text: 'BÁO CÁO CHIẾN LƯỢC KINH DOANH SLIDEVAULT V4', isHeading: true, pageNum: 1 },
+          { text: 'SlideVault là nền tảng số hóa bài thuyết trình thông minh hàng đầu.', isHeading: false, isBullet: false, pageNum: 1 },
+          { text: '1. Mục Tiêu Tăng Trưởng', isHeading: true, pageNum: 1 },
+          { text: 'Mở rộng quy mô người dùng hoạt động hàng tháng lên 500,000 thành viên.', isHeading: false, isBullet: true, pageNum: 1 },
+          { text: 'Tối ưu hóa chi phí vận hành máy chủ và băng thông xuống dưới 15%.', isHeading: false, isBullet: true, pageNum: 1 },
+          { text: 'Triển khai bộ chuyển đổi tệp đa năng PDF sang Word, Excel, PowerPoint.', isHeading: false, isBullet: true, pageNum: 1 }
+        ],
+        tables: [
+          [
+            ['Chỉ Số', 'Kế Hoạch', 'Thực Hiện', 'Tăng Trưởng'],
+            ['Doanh Thu', '100 Tỷ', '120 Tỷ', '120%'],
+            ['Lợi Nhuận', '35 Tỷ', '45 Tỷ', '128%']
+          ]
+        ],
+        pagesData: [
+          {
+            pageNum: 1,
+            paragraphs: [
+              { text: 'BÁO CÁO CHIẾN LƯỢC SLIDEVAULT', isHeading: true },
+              { text: 'Mục tiêu kinh doanh quý 3/2026', isHeading: false }
+            ],
+            tables: []
+          }
+        ]
+      };
+
+      displayFileCard(file, appState.selectedFiles);
+      if (window.SlideVault) {
+        SlideVault.toast({ title: 'Đã nạp tài liệu mẫu', message: 'Bạn có thể bấm "Bắt đầu chuyển đổi" ngay bây giờ.', type: 'info' });
+      }
+    }
+
+    // History Storage
+    function saveToHistory(item) {
+      appState.history.unshift(item);
+      if (appState.history.length > 6) appState.history.pop();
+      try {
+        sessionStorage.setItem('sv_converter_history', JSON.stringify(appState.history));
+      } catch(e) {}
+      renderHistory();
+    }
+
+    function loadHistoryFromStorage() {
+      try {
+        const saved = sessionStorage.getItem('sv_converter_history');
+        if (saved) {
+          appState.history = JSON.parse(saved);
+          renderHistory();
+        }
+      } catch(e) {}
+    }
+
+    function renderHistory() {
+      const container = document.getElementById('historyList');
+      if (!appState.history || appState.history.length === 0) {
+        container.innerHTML = `
+          <div class="p-4 rounded-2xl bg-card/40 backdrop-blur-md border border-border/50 text-xs text-muted-foreground text-center py-6 col-span-full">
+            Chưa có lịch sử chuyển đổi trong phiên làm việc này.
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = appState.history.map(item => `
+        <div class="p-3.5 rounded-2xl bg-card/50 backdrop-blur-xl border border-border/60 flex items-center justify-between gap-3 text-xs">
+          <div class="min-w-0">
+            <div class="font-bold text-foreground truncate">${item.name}</div>
+            <div class="text-[11px] text-muted-foreground mt-0.5">${item.newSize} • ${item.time}</div>
+          </div>
+          <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 shrink-0">
+            Hoàn tất
+          </span>
+        </div>
+      `).join('');
+    }
+
+    function clearConversionHistory() {
+      appState.history = [];
+      sessionStorage.removeItem('sv_converter_history');
+      renderHistory();
+    }
+  </script>
+
+</body>
+</html>

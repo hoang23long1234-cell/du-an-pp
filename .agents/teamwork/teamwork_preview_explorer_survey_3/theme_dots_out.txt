@@ -1,0 +1,22 @@
+=== JS occurrences of more/dot/ellipsis ===
+  rget.closest('[data-sidebar-toggle], [data-mobile-more], [data-mobile-nav="menu"], [data-drawer-toggle]'
+  debar-toggle') && !item.hasAttribute('data-mobile-more')) {
+  const touchDot = island.querySelector('.island-touch-dot');
+  if (touchDot) touchDot.classList.toggle('active', !!active);
+
+=== CSS occurrences of more/dot/ellipsis ===
+  text-overflow: ellipsis !important;
+  [data-sidebar-more],
+  [data-mobile-more],
+  .sidebar-more-btn,
+  .nav-pill-more,
+  .more-dots-btn,
+  button:has([data-lucide^="more-"]),
+  button:has([data-lucide="ellipsis"]),
+  button:has([data-lucide="ellipsis-vertical"]),
+  button:has(svg.lucide-more-horizontal),
+  button:has(svg.lucide-more-vertical),
+  button:has(.fa-ellipsis),
+  button:has(.fa-ellipsis-vertical),
+  button:has(.fa-ellipsis-h),
+  button:has(.fa-ellipsis-v) {

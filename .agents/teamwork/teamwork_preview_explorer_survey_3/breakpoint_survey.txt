@@ -1,0 +1,27 @@
+=== MEDIA QUERIES IN glass-theme.css ===
+  (8x) @media (max-width: 1023.98px)
+  (6x) @media (max-width: 767.98px)
+  (3x) @media (hover: none) and (pointer: coarse), (max-width: 1023.98px)
+  (3x) @media (min-width: 1024px)
+  (2x) @media (max-width: 640px)
+  (2x) @media (min-width: 768px) and (max-width: 1023.98px)
+  (1x) @media (max-width: 768px)
+  (1x) @media (max-width: 1024px)
+  (1x) @media (prefers-reduced-motion: reduce)
+  (1x) @media (min-width: 768px)
+
+=== OVERFLOW RULES IN glass-theme.css (sample) ===
+  Line 543: overflow: visible !important;
+  Line 799: overflow: hidden;
+  Line 882: overflow: hidden;
+  Line 982: overflow: hidden;
+  Line 1364: overflow: hidden;
+  Line 2852: overflow: hidden;
+  Line 3526: overflow-x: hidden !important;
+  Line 3776: overflow: hidden;
+  Line 4182: overflow: visible !important;
+  Line 4493: overflow: hidden !important;
+  Line 4494: text-overflow: ellipsis !important;
+  Line 5194: overflow: hidden !important;
+  Line 5223: overflow-x: auto !important;
+  Line 5266: overflow-x: hidden !important;

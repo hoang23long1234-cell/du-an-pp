@@ -1,0 +1,43 @@
+{
+  "name": "SlideVault - Nền Tảng Thiết Kế Slide AI & Trình Chiếu Đẳng Cấp",
+  "short_name": "SlideVault",
+  "description": "Nền tảng thiết kế slide AI, kho template chuyên nghiệp và trình chiếu cử chỉ 3D VisionOS hiện đại nhất 2026.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": [
+    "productivity",
+    "business",
+    "education",
+    "utilities"
+  ],
+  "shortcuts": [
+    {
+      "name": "Kho Mẫu Slide",
+      "short_name": "Kho Mẫu",
+      "description": "Duyệt hơn 500+ mẫu slide bài giảng, pitch deck chuyên nghiệp",
+      "url": "/thuvienmau.html"
+    },
+    {
+      "name": "Tạo Slide AI",
+      "short_name": "Tạo AI",
+      "description": "Tự động sinh slide thông minh với trí tuệ nhân tạo",
+      "url": "/AI.html"
+    },
+    {
+      "name": "Dự Án Đã Lưu",
+      "short_name": "Vault",
+      "description": "Quản lý và xuất bản các bài thuyết trình của bạn",
+      "url": "/vault.html"
+    }
+  ]
+}
